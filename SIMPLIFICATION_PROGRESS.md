@@ -158,21 +158,29 @@
 ---
 
 ### 🔄 FASE 9: COMPONENTS SIMPLIFICATION
-**File yang perlu dimodifikasi:**
+**Components yang sudah dimodifikasi:**
 
-1. **Admin Transaction Management** - `src/app/[locale]/admin/dashboard/transaction/page.tsx`
-   - [ ] Hanya tampilkan WhatsApp service transactions
-   - [ ] Hapus filter product/addon
+1. **✅ CheckoutStep** - `src/components/Checkout/CheckoutStep.tsx`
+   - [x] Remove regularItems prop
+   - [x] Remove addOns prop
+   - [x] Update CheckoutPhase prop passing
 
-**Status:** 🔄 BELUM SELESAI
+2. **✅ CheckoutPhase** - `src/components/Checkout/CheckoutPhase.tsx`
+   - [x] Remove regularItems prop
+   - [x] Remove addOns prop
+   - [x] Remove packages preparation logic
+   - [x] Remove addons preparation logic
+   - [x] Simplify checkoutData to WhatsApp only
 
----
+**Components yang masih perlu update:**
+3. **OrderSummary** - `src/components/Checkout/OrderSummary.tsx`
+   - [ ] Remove groups, ungroupedItems, regularItems, addOns props
+   - [ ] Simplify to only display WhatsApp items
 
-### 🔄 FASE 9: COMPONENTS
-**Components yang perlu dimodifikasi:**
+4. **PaymentOrderSummary** - `src/components/Checkout/PaymentOrderSummary.tsx`
+   - [ ] Same as OrderSummary
 
-1. **Cart Components**
-   - [ ] Simplifikasi cart context - hapus product/addon logic
+**Status:** 🔄 SEBAGIAN SELESAI (2/4 components done)
    - [ ] Update CartContext.tsx
 
 2. **Checkout Components**
@@ -262,7 +270,7 @@
 | 6. Checkout Page | ✅ Selesai | 100% |
 | 7. Customer Dashboard Pages | ✅ Selesai | 100% |
 | 8. Admin Transaction Pages | ✅ Selesai | 100% |
-| 9. Components | 🔄 Belum | 0% |
+| 9. Components | 🔄 Sebagian | 50% |
 | 10. Services & Utils | 🔄 Belum | 0% |
 | 11. Types & Interfaces | 🔄 Belum | 0% |
 | 12. Translation Files | 🔄 Belum | 0% |
