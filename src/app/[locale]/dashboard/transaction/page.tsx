@@ -50,48 +50,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
 
-interface ProductTransactionDetail {
-  id: string;
-  packageId?: string;
-  quantity?: number;
-  startDate?: string;
-  endDate?: string;
-  referenceLink?: string;
-  package?: {
-    id: string;
-    name_en: string;
-    name_id: string;
-    price_idr: number;
-    price_usd: number;
-    image?: string;
-    category?: {
-      name_en: string;
-    };
-    subcategory?: {
-      name_en: string;
-    };
-  };
-}
-
-interface AddonTransactionDetail {
-  id: string;
-  addonId: string;
-  quantity: number;
-  startDate?: string;
-  endDate?: string;
-  addon: {
-    id: string;
-    name_en: string;
-    name_id: string;
-    price_idr: number;
-    price_usd: number;
-    image?: string;
-    category?: {
-      name_en: string;
-    };
-  };
-}
-
+// Simplified - WhatsApp only transactions
 interface WhatsappTransactionDetail {
   id: string;
   whatsappPackageId: string;
@@ -137,8 +96,6 @@ interface Transaction {
     name: string; 
     email: string;
   };
-  productTransactions?: ProductTransactionDetail[];
-  addonTransactions?: AddonTransactionDetail[];
   whatsappTransaction?: WhatsappTransactionDetail;
   payment?: PaymentDetail;
   voucher?: {
@@ -296,16 +253,6 @@ export default function TransactionDashboardPage() {
             transaction.notes?.toLowerCase().includes(searchLower) ||
             transaction.currency?.toLowerCase().includes(searchLower) ||
             transaction.type?.toLowerCase().includes(searchLower) ||
-            // Search in product transactions
-            transaction.productTransactions?.some(pt => 
-              pt.package?.name_en.toLowerCase().includes(searchLower) ||
-              pt.package?.name_id.toLowerCase().includes(searchLower)
-            ) ||
-            // Search in addon transactions
-            transaction.addonTransactions?.some(at => 
-              at.addon?.name_en.toLowerCase().includes(searchLower) ||
-              at.addon?.name_id.toLowerCase().includes(searchLower)
-            ) ||
             // Search in WhatsApp transactions
             transaction.whatsappTransaction?.whatsappPackage?.name.toLowerCase().includes(searchLower) ||
             // Search in voucher if exists
@@ -457,19 +404,12 @@ export default function TransactionDashboardPage() {
   }
 
   const getTransactionTypeDisplay = (transaction: Transaction) => {
-    const types: string[] = []
-    
-    if (transaction.productTransactions && transaction.productTransactions.length > 0) {
-      types.push('Package')
-    }
-    if (transaction.addonTransactions && transaction.addonTransactions.length > 0) {
-      types.push('Add-ons')
-    }
+    // Simplified - WhatsApp only
     if (transaction.whatsappTransaction) {
-      types.push('WhatsApp')
+      return 'WhatsApp Service'
     }
     
-    return types.length > 0 ? types.join(' + ') : transaction.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+    return transaction.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
   }
 
   const getStatusDisplayFormat = (status: string) => {
@@ -479,15 +419,8 @@ export default function TransactionDashboardPage() {
   }
 
   const getTransactionTypeIcon = (transaction: Transaction) => {
-    const hasProduct = transaction.productTransactions && transaction.productTransactions.length > 0
-    const hasAddon = transaction.addonTransactions && transaction.addonTransactions.length > 0
-    const hasWhatsapp = !!transaction.whatsappTransaction
-    
-    if (hasWhatsapp) return Phone
-    if (hasAddon && hasProduct) return Package
-    if (hasAddon) return Plus
-    if (hasProduct) return Package
-    return Package
+    // Simplified - WhatsApp only (always Phone icon)
+    return Phone
   }
 
   const getPaymentStatusDisplay = (transaction: Transaction) => {
@@ -1008,120 +941,10 @@ export default function TransactionDashboardPage() {
                           </DropdownMenu>
                         </div>
 
-                        {/* Items Section - Show actual items with images and proper details */}
+                        {/* Items Section - WhatsApp Service only */}
                         <div className="mb-3 sm:mb-4">
                           <h4 className="text-xs sm:text-sm font-medium text-muted-foreground mb-2 sm:mb-3">Items Purchased:</h4>
                           <div className="space-y-1.5 sm:space-y-2">
-                            {/* Product Items */}
-                            {transaction.productTransactions?.map((pt, idx) => (
-                              <div key={pt.id} className="flex items-start sm:items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-muted/30 rounded-lg border">
-                                <div className="flex-shrink-0">
-                                  {pt.package?.image ? (
-                                    <Image
-                                      src={pt.package.image}
-                                      alt={pt.package.name_en || 'Product'}
-                                      width={48}
-                                      height={48}
-                                      className="w-8 h-8 sm:w-12 sm:h-12 object-cover rounded-lg border border-border"
-                                    />
-                                  ) : (
-                                    <div className="w-8 h-8 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center border border-border">
-                                      <Package className="h-4 w-4 sm:h-6 sm:w-6 text-primary" />
-                                    </div>
-                                  )}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-start justify-between">
-                                    <div className="min-w-0 flex-1">
-                                      <p className="text-xs sm:text-sm font-medium truncate">
-                                        {pt.package?.name_en || 'Package'}
-                                      </p>
-                                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mt-1">
-                                        <Badge variant="outline" className="text-xs w-fit">
-                                          <Package className="h-2 w-2 sm:h-3 sm:w-3 mr-1" />
-                                          Package
-                                        </Badge>
-                                        <span className="text-xs text-muted-foreground">
-                                          Qty: {pt.quantity || 1}
-                                        </span>
-                                      </div>
-                                    </div>
-                                    <div className="text-right ml-2 sm:ml-3 flex-shrink-0">
-                                      <p className="text-xs sm:text-sm font-semibold">
-                                        {formatCurrency(
-                                          (transaction.currency === 'USD' ? pt.package?.price_usd : pt.package?.price_idr) || 0,
-                                          transaction.currency || 'IDR'
-                                        )}
-                                      </p>
-                                      {(pt.quantity || 1) > 1 && (
-                                        <p className="text-xs text-muted-foreground">
-                                          @ {formatCurrency(
-                                            ((transaction.currency === 'USD' ? pt.package?.price_usd : pt.package?.price_idr) || 0) / (pt.quantity || 1),
-                                            transaction.currency || 'IDR'
-                                          )}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-
-                            {/* Addon Items */}
-                            {transaction.addonTransactions?.map((at, idx) => (
-                              <div key={at.id} className="flex items-start sm:items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-muted/30 rounded-lg border">
-                                <div className="flex-shrink-0">
-                                  {at.addon?.image ? (
-                                    <Image
-                                      src={at.addon.image}
-                                      alt={at.addon.name_en || 'Add-on'}
-                                      width={48}
-                                      height={48}
-                                      className="w-8 h-8 sm:w-12 sm:h-12 object-cover rounded-lg border border-border"
-                                    />
-                                  ) : (
-                                    <div className="w-8 h-8 sm:w-12 sm:h-12 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center border border-border">
-                                      <Plus className="h-4 w-4 sm:h-6 sm:w-6 text-orange-600" />
-                                    </div>
-                                  )}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-start justify-between">
-                                    <div className="min-w-0 flex-1">
-                                      <p className="text-xs sm:text-sm font-medium truncate">
-                                        {at.addon?.name_en || 'Add-on'}
-                                      </p>
-                                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mt-1">
-                                        <Badge variant="outline" className="text-xs w-fit">
-                                          <Plus className="h-2 w-2 sm:h-3 sm:w-3 mr-1" />
-                                          Add-on
-                                        </Badge>
-                                        <span className="text-xs text-muted-foreground">
-                                          Qty: {at.quantity || 1}
-                                        </span>
-                                      </div>
-                                    </div>
-                                    <div className="text-right ml-2 sm:ml-3 flex-shrink-0">
-                                      <p className="text-xs sm:text-sm font-semibold">
-                                        {formatCurrency(
-                                          ((transaction.currency === 'USD' ? at.addon?.price_usd : at.addon?.price_idr) || 0) * (at.quantity || 1),
-                                          transaction.currency || 'IDR'
-                                        )}
-                                      </p>
-                                      {(at.quantity || 1) > 1 && (
-                                        <p className="text-xs text-muted-foreground">
-                                          @ {formatCurrency(
-                                            (transaction.currency === 'USD' ? at.addon?.price_usd : at.addon?.price_idr) || 0,
-                                            transaction.currency || 'IDR'
-                                          )}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-
                             {/* WhatsApp Service */}
                             {transaction.whatsappTransaction && (
                               <div className="flex items-start sm:items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-muted/30 rounded-lg border">
@@ -1393,143 +1216,12 @@ export default function TransactionDashboardPage() {
                   )}
                 </div>
 
-                {/* Items Section */}
+                {/* Items Section - WhatsApp Service only */}
                 <div className="space-y-2 sm:space-y-4">
                   <div className="flex items-center gap-2">
-                    <Package className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
-                    <h3 className="text-sm sm:text-lg font-semibold">Items Purchased</h3>
+                    <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
+                    <h3 className="text-sm sm:text-lg font-semibold">WhatsApp Service</h3>
                   </div>
-                  
-                  {/* Product Transactions */}
-                  {selectedTransaction.productTransactions && selectedTransaction.productTransactions.length > 0 && (
-                    <div className="space-y-2 sm:space-y-3">
-                      {selectedTransaction.productTransactions.map((pt, index) => (
-                        <Card key={pt.id} className="border border-border/50">
-                          <CardContent className="p-2.5 sm:p-4">
-                            {pt.package && (
-                              <div className="flex flex-col sm:flex-row items-start gap-2.5 sm:gap-4">
-                                {/* Product Image */}
-                                <div className="flex-shrink-0 self-start">
-                                  {pt.package.image ? (
-                                    <Image
-                                      src={pt.package.image}
-                                      alt={pt.package.name_en || 'Product image'}
-                                      width={80}
-                                      height={80}
-                                      className="w-12 h-12 sm:w-20 sm:h-20 object-cover rounded-lg border border-border"
-                                    />
-                                  ) : (
-                                    <div className="w-12 h-12 sm:w-20 sm:h-20 bg-muted rounded-lg flex items-center justify-center border border-border">
-                                      <Package className="h-5 w-5 sm:h-8 sm:w-8 text-muted-foreground" />
-                                    </div>
-                                  )}
-                                </div>
-                                
-                                {/* Product Details */}
-                                <div className="flex-1 space-y-1.5 sm:space-y-2 min-w-0">
-                                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                                    <div className="min-w-0 flex-1">
-                                      <h4 className="font-semibold text-sm sm:text-base mb-1 truncate">{pt.package.name_en}</h4>
-                                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
-                                        <Badge variant="outline" className="text-xs">
-                                          <Package className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-1" />
-                                          Package
-                                        </Badge>
-                                        <span className="text-xs text-muted-foreground">
-                                          Qty: {pt.quantity || 1}
-                                        </span>
-                                      </div>
-                                      {pt.package.category && (
-                                        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
-                                          {typeof pt.package.category === 'string' ? pt.package.category : pt.package.category.name_en} 
-                                          {pt.package.subcategory && ` • ${typeof pt.package.subcategory === 'string' ? pt.package.subcategory : pt.package.subcategory.name_en || pt.package.subcategory}`}
-                                        </p>
-                                      )}
-                                    </div>
-                                    <div className="text-left sm:text-right sm:ml-3 flex-shrink-0">
-                                      <p className="font-semibold text-sm sm:text-lg">{formatCurrency((pt.package.price_idr * (pt.quantity || 1)))}</p>
-                                      {(pt.quantity || 1) > 1 && (
-                                        <p className="text-xs sm:text-sm text-muted-foreground">@ {formatCurrency(pt.package.price_idr)}</p>
-                                      )}
-                                    </div>
-                                  </div>
-                                  
-                                  {(pt.startDate && pt.endDate) && (
-                                    <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">
-                                      <Calendar className="h-3 w-3 flex-shrink-0" />
-                                      <span className="text-xs truncate">{formatDate(pt.startDate)} - {formatDate(pt.endDate)}</span>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            )}
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Addon Transactions */}
-                  {selectedTransaction.addonTransactions && selectedTransaction.addonTransactions.length > 0 && (
-                    <div className="space-y-3">
-                      {selectedTransaction.addonTransactions.map((at, index) => (
-                        <Card key={at.id} className="border border-border/50">
-                          <CardContent className="p-3 sm:p-4">
-                            <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
-                              {/* Addon Image */}
-                              <div className="flex-shrink-0">
-                                {at.addon.image ? (
-                                  <Image
-                                    src={at.addon.image}
-                                    alt={at.addon.name_en || 'Addon image'}
-                                    width={80}
-                                    height={80}
-                                    className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg border border-border"
-                                  />
-                                ) : (
-                                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center border border-border">
-                                    <Plus className="h-6 w-6 sm:h-8 sm:w-8 text-orange-600" />
-                                  </div>
-                                )}
-                              </div>
-                              
-                              {/* Addon Details */}
-                              <div className="flex-1 space-y-2 min-w-0">
-                                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                                  <div className="min-w-0 flex-1">
-                                    <h4 className="font-semibold text-sm sm:text-base mb-1 truncate">{at.addon.name_en}</h4>
-                                    <div className="flex flex-wrap items-center gap-2 mb-2">
-                                      <Badge variant="outline" className="text-xs">
-                                        <Plus className="h-3 w-3 mr-1" />
-                                        Add-on
-                                      </Badge>
-                                      <span className="text-xs text-muted-foreground">
-                                        Qty: {at.quantity}
-                                      </span>
-                                      <span className="text-xs text-muted-foreground">
-                                        • Independent
-                                      </span>
-                                    </div>
-                                    {at.addon.category && (
-                                      <p className="text-xs sm:text-sm text-muted-foreground">
-                                        {typeof at.addon.category === 'string' ? at.addon.category : at.addon.category.name_en}
-                                      </p>
-                                    )}
-                                  </div>
-                                  <div className="text-left sm:text-right sm:ml-4">
-                                    <p className="font-semibold text-base sm:text-lg">{formatCurrency(at.addon.price_idr * at.quantity)}</p>
-                                    {at.quantity > 1 && (
-                                      <p className="text-xs sm:text-sm text-muted-foreground">@ {formatCurrency(at.addon.price_idr)}</p>
-                                    )}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  )}
 
                   {/* WhatsApp Service */}
                   {selectedTransaction.whatsappTransaction && (
