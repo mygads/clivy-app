@@ -45,48 +45,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useCurrency } from "@/hooks/useCurrency";
 
-interface ProductTransactionDetail {
-  id: string;
-  packageId?: string;
-  quantity?: number;
-  startDate?: string;
-  endDate?: string;
-  referenceLink?: string;
-  package?: {
-    id: string;
-    name_en: string;
-    name_id: string;
-    price_idr: number;
-    price_usd: number;
-    image?: string;
-    category?: {
-      name_en: string;
-    };
-    subcategory?: {
-      name_en: string;
-    };
-  };
-}
-
-interface AddonTransactionDetail {
-  id: string;
-  addonId: string;
-  quantity: number;
-  startDate?: string;
-  endDate?: string;
-  addon: {
-    id: string;
-    name_en: string;
-    name_id: string;
-    price_idr: number;
-    price_usd: number;
-    image?: string;
-    category?: {
-      name_en: string;
-    };
-  };
-}
-
+// Simplified - WhatsApp only transactions
 interface WhatsappTransactionDetail {
   id: string;
   whatsappPackageId: string;
@@ -140,8 +99,6 @@ interface Transaction {
     email: string;
     phone?: string; // Add phone field
   };
-  productTransactions?: ProductTransactionDetail[];
-  addonTransactions?: AddonTransactionDetail[];
   whatsappTransaction?: WhatsappTransactionDetail;
   payment?: PaymentDetail;
 }
@@ -211,30 +168,15 @@ export default function TransactionPage() {
   const getCurrencySymbol = (currency?: string) => {
     return currency === 'usd' ? '$' : 'Rp';
   };
-  // Helper function to get transaction type badge based on included items
+  
+  // Helper function to get transaction type badge - Simplified for WhatsApp only
   const getTransactionTypeBadge = (transaction: Transaction) => {
-    const hasProducts = transaction.productTransactions && transaction.productTransactions.length > 0;
-    const hasAddons = transaction.addonTransactions && transaction.addonTransactions.length > 0;
-    const hasWhatsApp = transaction.whatsappTransaction;
-
-    if (hasProducts && hasAddons && hasWhatsApp) {
-      return <Badge className="bg-purple-100 text-purple-800 border-purple-200">ALL</Badge>;
-    } else if (hasProducts && hasAddons) {
-      return <Badge className="bg-blue-100 text-blue-800 border-blue-200">Products + Addons</Badge>;
-    } else if (hasProducts && hasWhatsApp) {
-      return <Badge className="bg-green-100 text-green-800 border-green-200">Products + WhatsApp</Badge>;
-    } else if (hasAddons && hasWhatsApp) {
-      return <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">Addons + WhatsApp</Badge>;
-    } else if (hasProducts) {
-      return <Badge className="bg-indigo-100 text-indigo-800 border-indigo-200">Products</Badge>;
-    } else if (hasAddons) {
-      return <Badge className="bg-orange-100 text-orange-800 border-orange-200">Addons</Badge>;
-    } else if (hasWhatsApp) {
-      return <Badge className="bg-emerald-100 text-emerald-800 border-emerald-200">WhatsApp</Badge>;
-    } else {
-      return <Badge className="bg-gray-100 text-gray-800 border-gray-200">Unknown</Badge>;
+    if (transaction.whatsappTransaction) {
+      return <Badge className="bg-emerald-100 text-emerald-800 border-emerald-200">WhatsApp Service</Badge>;
     }
+    return <Badge className="bg-gray-100 text-gray-800 border-gray-200">Unknown</Badge>;
   };
+  
   const fetchTransactions = useCallback(async () => {
     setLoading(true);
     try {
@@ -754,27 +696,7 @@ export default function TransactionPage() {
                       </td>
                       <td className="p-4">
                         <div className="space-y-1">
-                          {/* Products */}
-                          {transaction.productTransactions?.map((product, idx) => (
-                            <div key={idx} className="text-sm">
-                              <span className="font-medium">{product.package?.name_en}</span>
-                              <span className="text-gray-500 ml-2">
-                                x {product.quantity || 1}
-                              </span>
-                            </div>
-                          ))}
-                          
-                          {/* Addons */}
-                          {transaction.addonTransactions?.map((addon, idx) => (
-                            <div key={idx} className="text-sm">
-                              <span className="font-medium text-orange-600">{addon.addon.name_en}</span>
-                              <span className="text-gray-500 ml-2">
-                                x {addon.quantity}
-                              </span>
-                            </div>
-                          ))}
-                          
-                          {/* WhatsApp */}
+                          {/* WhatsApp Service Only */}
                           {transaction.whatsappTransaction && (
                             <div className="text-sm">
                               <span className="font-medium text-green-600">{transaction.whatsappTransaction.whatsappPackage.name}</span>
@@ -975,103 +897,7 @@ export default function TransactionPage() {
                 </div>
               )}
 
-              {/* Product Information */}
-              {selectedTransaction.productTransactions && selectedTransaction.productTransactions.length > 0 && (
-                <div className="space-y-2">
-                  <h3 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 pb-1">
-                    Product Information
-                  </h3>
-                  <div className="space-y-2">
-                    {/* Original Price Display */}
-                    <div className="p-2 bg-gray-50 dark:bg-gray-700 rounded border">
-                      <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                        <div>
-                          <label className="text-[9px] sm:text-[10px] font-medium text-gray-500 uppercase tracking-wider">Original Product Price</label>
-                          <p className="text-[10px] sm:text-xs font-medium text-gray-900 dark:text-gray-100 mt-0.5">
-                            {(() => {
-                              const totalOriginalPrice = selectedTransaction.productTransactions.reduce((total: number, productTx: any) => {
-                                if (!productTx.package) return total;
-                                const price = selectedTransaction.currency === 'usd' ? productTx.package.price_usd : productTx.package.price_idr;
-                                return total + (price * (productTx.quantity || 1));
-                              }, 0);
-                              return formatCurrency(totalOriginalPrice, selectedTransaction.currency);
-                            })()}
-                          </p>
-                        </div>
-                        <div>
-                          <label className="text-[9px] sm:text-[10px] font-medium text-gray-500 uppercase tracking-wider">Product Amount After Discount</label>
-                          <p className="text-[10px] sm:text-xs font-medium text-green-600 mt-0.5">
-                            {(() => {
-                              const totalOriginalPrice = selectedTransaction.productTransactions.reduce((total: number, productTx: any) => {
-                                if (!productTx.package) return total;
-                                const price = selectedTransaction.currency === 'usd' ? productTx.package.price_usd : productTx.package.price_idr;
-                                return total + (price * (productTx.quantity || 1));
-                              }, 0);
-                              
-                              // Calculate proportional discount for products
-                              const allItemsOriginalTotal = totalOriginalPrice + 
-                                (selectedTransaction.whatsappTransaction ? 
-                                  (selectedTransaction.whatsappTransaction.duration === 'year' ? 
-                                    (selectedTransaction.currency === 'idr' ? selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_idr : selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_usd) :
-                                    (selectedTransaction.currency === 'idr' ? selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_idr : selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_usd)) : 0) +
-                                (selectedTransaction.addonTransactions?.reduce((total: number, addonTx: any) => {
-                                  const price = selectedTransaction.currency === 'usd' ? addonTx.addon.price_usd : addonTx.addon.price_idr;
-                                  return total + (price * addonTx.quantity);
-                                }, 0) || 0);
-                              
-                              const finalPaymentAmount = Number(selectedTransaction.payment?.amount || selectedTransaction.amount);
-                              const totalDiscountAmount = Number(selectedTransaction.amount) - finalPaymentAmount;
-                              
-                              // Proportional discount for products
-                              const productDiscountPortion = allItemsOriginalTotal > 0 ? (totalOriginalPrice / allItemsOriginalTotal) * totalDiscountAmount : 0;
-                              const productFinalAmount = totalOriginalPrice - productDiscountPortion;
-                              
-                              return formatCurrency(Math.max(0, productFinalAmount), selectedTransaction.currency);
-                            })()}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Product List */}
-                    {selectedTransaction.productTransactions.map((productTx: any) => (
-                      <div key={productTx.id} className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
-                        {productTx.package && (
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <h4 className="text-[10px] sm:text-xs font-medium text-gray-900 dark:text-gray-100">
-                                {productTx.package.name_en}
-                              </h4>
-                              {productTx.package.name_id && (
-                                <p className="text-[9px] sm:text-[10px] text-gray-500 italic mt-0.5">
-                                  {productTx.package.name_id}
-                                </p>
-                              )}
-                              {productTx.package.description_en && (
-                                <p className="text-[9px] sm:text-[10px] text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
-                                  {productTx.package.description_en}
-                                </p>
-                              )}
-                              <div className="flex items-center gap-2 mt-1 text-[9px] sm:text-[10px] text-gray-600">
-                                <span>Qty: {productTx.quantity || 1}</span>
-                                <span>Unit Price: {formatCurrency(selectedTransaction.currency === 'usd' ? productTx.package.price_usd : productTx.package.price_idr, selectedTransaction.currency)}</span>
-                              </div>
-                            </div>
-                            <div className="ml-2 sm:ml-4 text-right">
-                              <div className="text-[9px] text-gray-500">Original Price</div>
-                              <div className="text-[10px] sm:text-xs font-semibold text-gray-900 dark:text-gray-100">
-                                {formatCurrency((selectedTransaction.currency === 'usd' ? productTx.package.price_usd : productTx.package.price_idr) * (productTx.quantity || 1), selectedTransaction.currency)}
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* WhatsApp Services Information */}
+              {/* WhatsApp Services Information - Simplified without proportional discount calculation */}
               {selectedTransaction.whatsappTransaction && (
                 <div className="space-y-2">
                   <h3 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 pb-1">
@@ -1097,40 +923,12 @@ export default function TransactionPage() {
                           </p>
                         </div>
                         <div>
-                          <label className="text-[9px] sm:text-[10px] font-medium text-gray-500 uppercase tracking-wider">WhatsApp Amount After Discount</label>
+                          <label className="text-[9px] sm:text-[10px] font-medium text-gray-500 uppercase tracking-wider">WhatsApp Final Amount</label>
                           <p className="text-[10px] sm:text-xs font-medium text-green-600 mt-0.5">
-                            {(() => {
-                              const whatsappOriginalPrice = selectedTransaction.whatsappTransaction.duration === 'year' 
-                                ? (selectedTransaction.currency === 'idr' 
-                                  ? selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_idr 
-                                  : selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_usd)
-                                : (selectedTransaction.currency === 'idr' 
-                                  ? selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_idr 
-                                  : selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_usd);
-                              
-                              // Calculate proportional discount for WhatsApp services
-                              const productOriginalTotal = selectedTransaction.productTransactions?.reduce((total: number, productTx: any) => {
-                                if (!productTx.package) return total;
-                                const price = selectedTransaction.currency === 'usd' ? productTx.package.price_usd : productTx.package.price_idr;
-                                return total + (price * (productTx.quantity || 1));
-                              }, 0) || 0;
-                              
-                              const addonOriginalTotal = selectedTransaction.addonTransactions?.reduce((total: number, addonTx: any) => {
-                                const price = selectedTransaction.currency === 'usd' ? addonTx.addon.price_usd : addonTx.addon.price_idr;
-                                return total + (price * addonTx.quantity);
-                              }, 0) || 0;
-                              
-                              const allItemsOriginalTotal = productOriginalTotal + whatsappOriginalPrice + addonOriginalTotal;
-                              
-                              const finalPaymentAmount = Number(selectedTransaction.payment?.amount || selectedTransaction.amount);
-                              const totalDiscountAmount = Number(selectedTransaction.amount) - finalPaymentAmount;
-                              
-                              // Proportional discount for WhatsApp
-                              const whatsappDiscountPortion = allItemsOriginalTotal > 0 ? (whatsappOriginalPrice / allItemsOriginalTotal) * totalDiscountAmount : 0;
-                              const whatsappFinalAmount = whatsappOriginalPrice - whatsappDiscountPortion;
-                              
-                              return formatCurrency(Math.max(0, whatsappFinalAmount), selectedTransaction.currency);
-                            })()}
+                            {formatCurrency(
+                              Number(selectedTransaction.payment?.amount || selectedTransaction.amount),
+                              selectedTransaction.currency
+                            )}
                           </p>
                         </div>
                       </div>
@@ -1176,100 +974,6 @@ export default function TransactionPage() {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Addon Information */}
-              {selectedTransaction.addonTransactions && selectedTransaction.addonTransactions.length > 0 && (
-                <div className="space-y-2">
-                  <h3 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 pb-1">
-                    Addon Information
-                  </h3>
-                  <div className="space-y-2">
-                    {/* Original Price Display */}
-                    <div className="p-2 bg-gray-50 dark:bg-gray-700 rounded border">
-                      <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                        <div>
-                          <label className="text-[9px] sm:text-[10px] font-medium text-gray-500 uppercase tracking-wider">Original Addon Price</label>
-                          <p className="text-[10px] sm:text-xs font-medium text-gray-900 dark:text-gray-100 mt-0.5">
-                            {(() => {
-                              const totalAddonOriginalPrice = selectedTransaction.addonTransactions.reduce((total: number, addonTx: any) => {
-                                const price = selectedTransaction.currency === 'usd' ? addonTx.addon.price_usd : addonTx.addon.price_idr;
-                                return total + (price * addonTx.quantity);
-                              }, 0);
-                              return formatCurrency(totalAddonOriginalPrice, selectedTransaction.currency);
-                            })()}
-                          </p>
-                        </div>
-                        <div>
-                          <label className="text-[9px] sm:text-[10px] font-medium text-gray-500 uppercase tracking-wider">Addon Amount After Discount</label>
-                          <p className="text-[10px] sm:text-xs font-medium text-green-600 mt-0.5">
-                            {(() => {
-                              const totalAddonOriginalPrice = selectedTransaction.addonTransactions.reduce((total: number, addonTx: any) => {
-                                const price = selectedTransaction.currency === 'usd' ? addonTx.addon.price_usd : addonTx.addon.price_idr;
-                                return total + (price * addonTx.quantity);
-                              }, 0);
-                              
-                              // Calculate proportional discount for addons
-                              const productOriginalTotal = selectedTransaction.productTransactions?.reduce((total: number, productTx: any) => {
-                                if (!productTx.package) return total;
-                                const price = selectedTransaction.currency === 'usd' ? productTx.package.price_usd : productTx.package.price_idr;
-                                return total + (price * (productTx.quantity || 1));
-                              }, 0) || 0;
-                              
-                              const whatsappOriginalPrice = selectedTransaction.whatsappTransaction ? 
-                                (selectedTransaction.whatsappTransaction.duration === 'year' ? 
-                                  (selectedTransaction.currency === 'idr' ? selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_idr : selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_usd) :
-                                  (selectedTransaction.currency === 'idr' ? selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_idr : selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_usd)) : 0;
-                              
-                              const allItemsOriginalTotal = productOriginalTotal + whatsappOriginalPrice + totalAddonOriginalPrice;
-                              
-                              const finalPaymentAmount = Number(selectedTransaction.payment?.amount || selectedTransaction.amount);
-                              const totalDiscountAmount = Number(selectedTransaction.amount) - finalPaymentAmount;
-                              
-                              // Proportional discount for addons
-                              const addonDiscountPortion = allItemsOriginalTotal > 0 ? (totalAddonOriginalPrice / allItemsOriginalTotal) * totalDiscountAmount : 0;
-                              const addonFinalAmount = totalAddonOriginalPrice - addonDiscountPortion;
-                              
-                              return formatCurrency(Math.max(0, addonFinalAmount), selectedTransaction.currency);
-                            })()}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {selectedTransaction.addonTransactions.map((addonTx: any) => (
-                      <div key={addonTx.id} className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <h4 className="text-[10px] sm:text-xs font-medium text-gray-900 dark:text-gray-100">
-                              {addonTx.addon.name_en}
-                            </h4>
-                            {addonTx.addon.name_id && (
-                              <p className="text-[9px] sm:text-[10px] text-gray-500 italic mt-0.5">
-                                {addonTx.addon.name_id}
-                              </p>
-                            )}
-                            {addonTx.addon.description_en && (
-                              <p className="text-[9px] sm:text-[10px] text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
-                                {addonTx.addon.description_en}
-                              </p>
-                            )}
-                            <div className="flex items-center gap-2 mt-1 text-[9px] sm:text-[10px] text-gray-600">
-                              <span>Qty: {addonTx.quantity}</span>
-                              <span>Unit Price: {formatCurrency(selectedTransaction.currency === 'usd' ? addonTx.addon.price_usd : addonTx.addon.price_idr, selectedTransaction.currency)}</span>
-                            </div>
-                          </div>
-                          <div className="ml-2 sm:ml-4 text-right">
-                            <div className="text-[9px] text-gray-500">Original Price</div>
-                            <div className="text-[10px] sm:text-xs font-semibold text-gray-900 dark:text-gray-100">
-                              {formatCurrency((selectedTransaction.currency === 'usd' ? addonTx.addon.price_usd : addonTx.addon.price_idr) * addonTx.quantity, selectedTransaction.currency)}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 </div>
               )}
