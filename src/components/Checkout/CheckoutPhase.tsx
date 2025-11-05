@@ -6,8 +6,6 @@ import { useState } from "react"
 import { SessionManager } from "@/lib/storage"
 import type { 
   CheckoutRequest, 
-  CheckoutPackage,
-  CheckoutAddon, 
   CheckoutWhatsApp,
   CheckoutResponse
 } from "@/types/checkout"

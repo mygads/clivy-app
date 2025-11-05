@@ -555,8 +555,6 @@ export default function CheckoutPage() {
               formData={formData}
               selectedItems={selectedItems}
               whatsappItems={whatsappItems}
-              regularItems={[]}
-              addOns={[]}
               voucherApplied={voucherApplied}
               selectedItemsTotal={selectedItemsTotal}
               voucherDiscount={voucherDiscount}
@@ -584,11 +582,7 @@ export default function CheckoutPage() {
           {/* Show PaymentOrderSummary during payment method selection (step 4), regular OrderSummary for other steps */}
           {step === 4 ? (
             <PaymentOrderSummary
-              groups={{}}
               whatsappItems={whatsappItems}
-              ungroupedItems={[]}
-              regularItems={[]}
-              addOns={[]}
               selectedItemsTotal={selectedItemsTotal}
               voucherApplied={voucherApplied}
               voucherDiscount={voucherDiscount}
@@ -596,12 +590,9 @@ export default function CheckoutPage() {
               checkoutResponse={checkoutResponse || undefined}
               selectedPaymentMethod={selectedPaymentMethod}
             />
-          ) : (<OrderSummary
-              groups={{}}
+          ) : (
+            <OrderSummary
               whatsappItems={whatsappItems}
-              ungroupedItems={[]}
-              regularItems={[]}
-              addOns={[]}
               selectedItemsTotal={selectedItemsTotal}
               formData={formData}
               handleInputChange={handleInputChange}

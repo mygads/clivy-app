@@ -64,25 +64,13 @@ export interface CheckoutForm {
     message?: string
   }
 
-  // Checkout Types
-  export interface CheckoutPackage {
-    id: string
-    quantity: number
-  }
-
-  export interface CheckoutAddon {
-    id: string
-    quantity: number
-  }
-
+  // Checkout Types - Simplified for WhatsApp only
   export interface CheckoutWhatsApp {
     packageId: string
     duration: "month" | "year"
   }
 
   export interface CheckoutRequest {
-    packages?: CheckoutPackage[]
-    addons?: CheckoutAddon[]
     whatsapp?: CheckoutWhatsApp[]
     currency: "idr" | "usd"
     voucherCode?: string
@@ -91,21 +79,13 @@ export interface CheckoutForm {
 
   export interface CheckoutItem {
     id: string
-    type: "package" | "addon" | "whatsapp"
+    type: "whatsapp" // Simplified - only WhatsApp
     name: string
     description?: string
     price: number
     quantity: number
     total: number
     currency: string
-    category?: {
-      id: string
-      name: string
-    }
-    subcategory?: {
-      id: string
-      name: string
-    }
     features?: Array<{
       name: string
       included: boolean
@@ -384,52 +364,7 @@ export interface CheckoutForm {
     message: string
   }
 
-// Customer Products and Payments List Types
-export interface ProductItem {
-  id: string
-  name_en: string
-  name_id: string
-  description_en: string
-  description_id: string
-  price_idr: number
-  price_usd: number
-  image: string
-  popular: boolean
-  features: Array<{
-    id: string
-    name_en: string
-    name_id: string
-    included: boolean
-  }>
-  category: {
-    id: string
-    name_en: string
-    name_id: string
-  }
-  subcategory: {
-    id: string
-    name_en: string
-    name_id: string
-  }
-}
-
-export interface AddonItem {
-  id: string
-  name_en: string
-  name_id: string
-  description_en: string
-  description_id: string
-  price_idr: number
-  price_usd: number
-  image: string
-  popular?: boolean
-  category: {
-    id: string
-    name_en: string
-    name_id: string
-  }
-}
-
+// Customer Products - Simplified for WhatsApp only
 export interface WhatsAppProductItem {
   id: string
   name: string
@@ -447,8 +382,6 @@ export interface WhatsAppProductItem {
 export interface CustomerProductsResponse {
   success: boolean
   data: {
-    packages: ProductItem[]
-    addons: AddonItem[]
     whatsapp: WhatsAppProductItem[]
   }
   message: string
@@ -504,25 +437,7 @@ export interface CustomerPaymentsResponse {
   message: string
 }
 
-// Delivery Status Types
-export interface ProductDelivery {
-  id: string
-  packageId: string
-  status: "pending" | "awaiting_delivery" | "in_progress" | "delivered"
-  domainName?: string
-  websiteUrl?: string
-  deliveredAt?: string
-}
-
-export interface AddonDelivery {
-  id: string
-  status: "pending" | "awaiting_delivery" | "in_progress" | "delivered"
-  addonDetails?: string
-  driveUrl?: string
-  deliveredAt?: string
-}
-
-// Transaction Types
+// Transaction Types - Simplified for WhatsApp only
 export interface TransactionItem {
   id: string
   userId: string
@@ -541,76 +456,6 @@ export interface TransactionItem {
   serviceFeeAmount: string | null
   totalAfterDiscount: string
   expiresAt: string | null
-  // Delivery status arrays
-  productDeliveries?: ProductDelivery[]
-  addonDeliveries?: AddonDelivery[]
-  // Support both old and new structure
-  productTransaction?: {
-    id: string
-    transactionId: string
-    packageId: string | null
-    addonId: string | null
-    startDate: string | null
-    endDate: string | null
-    referenceLink: string | null
-    package: {
-      id: string
-      name_en: string
-      name_id: string
-      price_idr: string
-      price_usd: string
-      image: string
-    } | null
-    addon: {
-      id: string
-      name_en: string
-      name_id: string
-      price_idr: string
-      price_usd: string
-      image: string
-    } | null
-  } | null
-  // New structure for multiple products/addons
-  productTransactions?: Array<{
-    id: string
-    transactionId: string
-    packageId: string
-    quantity: number
-    status: string
-    startDate: string | null
-    endDate: string | null
-    referenceLink: string | null
-    package: {
-      id: string
-      name_en: string
-      name_id: string
-      description_en: string
-      description_id: string
-      price_idr: string
-      price_usd: string
-      image: string
-      features: any[]
-    }
-  }>
-  addonTransactions?: Array<{
-    id: string
-    transactionId: string
-    addonId: string
-    quantity: number
-    status: string
-    startDate: string | null
-    endDate: string | null
-    addon: {
-      id: string
-      name_en: string
-      name_id: string
-      description_en: string
-      description_id: string
-      price_idr: string
-      price_usd: string
-      image: string
-    }
-  }>
   whatsappTransaction: {
     id: string
     transactionId: string

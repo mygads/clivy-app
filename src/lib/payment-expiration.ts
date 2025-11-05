@@ -637,6 +637,7 @@ export class PaymentExpirationService {
     }
   }  /**
    * Auto-activate services when payment is paid and transaction is in-progress
+   * Simplified for WhatsApp-only service
    */  
   static async autoActivateServices(transaction: any) {
     // Check if activation is already in progress for this transaction
@@ -649,36 +650,22 @@ export class PaymentExpirationService {
     this.lockActivation(transaction.id);
 
     try {
-      const hasProducts = transaction.productTransactions && transaction.productTransactions.length > 0;
-      const hasAddons = transaction.addonTransactions && transaction.addonTransactions.length > 0;
       const hasWhatsapp = transaction.whatsappTransaction?.whatsappPackage;
 
       let whatsappActivated = false;
-      let productCreated = false;
-      let addonsCreated = false;
 
       // Auto-activate WhatsApp service if present (full automation)
       if (hasWhatsapp) {
         const result = await this.activateWhatsAppServiceForTransaction(transaction);
         whatsappActivated = result.success;
-      }
-
-      // Create PackageCustomer records for products but keep manual delivery
-      if (hasProducts) {
-        const result = await this.createProductPackageRecords(transaction);
-        productCreated = result.success;
-      }
-
-      // Create AddonsCustomer record for add-ons but keep manual delivery
-      if (hasAddons) {
-        const result = await this.createAddonDeliveryRecord(transaction);
-        addonsCreated = result.success;
+      } else {
+        console.log(`[AUTO_ACTIVATION] Transaction ${transaction.id} has no WhatsApp service to activate`);
       }
 
       // Check if transaction should be completed
       await this.checkTransactionCompletion(transaction.id);
 
-      console.log(`[AUTO_ACTIVATION] Transaction ${transaction.id} completed - WhatsApp: ${whatsappActivated ? 'Activated' : 'Failed'}, Products: ${productCreated ? 'Records Created (Manual Delivery)' : 'Failed'}, Add-ons: ${addonsCreated ? 'Record Created (Manual Delivery)' : 'Failed'}`);
+      console.log(`[AUTO_ACTIVATION] Transaction ${transaction.id} completed - WhatsApp: ${whatsappActivated ? 'Activated' : 'Failed or Not Present'}`);
     } catch (error) {
       console.error(`[AUTO_ACTIVATION] Error processing transaction ${transaction.id}:`, error);
       // Don't throw - let transaction stay in in_progress for manual handling
