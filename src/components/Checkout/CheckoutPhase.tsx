@@ -22,8 +22,7 @@ interface CheckoutPhaseProps {
   }
   selectedItems: any[]
   whatsappItems: any[]
-  regularItems: any[]
-  addOns: any[]
+  // Removed: regularItems and addOns (WhatsApp only)
   voucherApplied: boolean
   selectedItemsTotal: number
   voucherDiscount: number
@@ -35,8 +34,7 @@ export function CheckoutPhase({
   formData,
   selectedItems,
   whatsappItems,
-  regularItems,
-  addOns,
+  // Removed: regularItems and addOns
   voucherApplied,
   selectedItemsTotal,
   voucherDiscount,
@@ -50,17 +48,7 @@ export function CheckoutPhase({
     onError("") // Clear any previous errors
 
     try {
-      // Prepare checkout data according to new API structure
-      const packages: CheckoutPackage[] = regularItems.map(item => ({
-        id: item.id,
-        quantity: item.qty || item.quantity || 1
-      }))
-
-      const addons: CheckoutAddon[] = addOns.map(item => ({
-        id: item.id,
-        quantity: item.qty || item.quantity || 1
-      }))
-
+      // Prepare checkout data - WhatsApp only
       const whatsapp: CheckoutWhatsApp[] = whatsappItems.map(item => {
         // Extract package ID and duration from composite ID
         // WhatsApp items have IDs like "packageId_monthly" or "packageId_yearly"
@@ -80,8 +68,7 @@ export function CheckoutPhase({
       const checkoutData: CheckoutRequest = {
         currency: "idr",
         notes: formData.notes || undefined,
-        ...(packages.length > 0 && { packages }),
-        ...(addons.length > 0 && { addons }),
+        // WhatsApp only - no packages or addons
         ...(whatsapp.length > 0 && { whatsapp }),
         ...(voucherApplied && formData.voucher && { voucherCode: formData.voucher })
       }
