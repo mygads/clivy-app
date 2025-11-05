@@ -14,31 +14,13 @@ export class TransactionStatusManager {
             data: { status: 'in_progress' }
             });
 
-            // Update all child transactions to 'in_progress'
-            await Promise.all([
-            // Update product transactions
-            prisma.transactionProduct.updateMany({
+            // Update WhatsApp transaction to 'in_progress'
+            await prisma.transactionWhatsappService.updateMany({
                 where: { transactionId },
                 data: { status: 'in_progress' }
-            }),
-            
-            // Update addon transactions
-            prisma.transactionAddons.updateMany({
-                where: { transactionId },
-                data: { status: 'in_progress' }
-            }),
-            
-            // Update whatsapp transaction
-            prisma.transactionWhatsappService.updateMany({
-                where: { transactionId },
-                data: { status: 'in_progress' }
-            })
-            ]);
+            });
 
-            // Create delivery records when transactions become in_progress
-            await this.createDeliveryRecords(transactionId);
-            
-            // Activate WhatsApp service if transaction has WhatsApp component
+            // Activate WhatsApp service immediately
             const transaction = await prisma.transaction.findUnique({
                 where: { id: transactionId },
                 include: {
@@ -50,12 +32,11 @@ export class TransactionStatusManager {
                 },
             });
             
-            // Check if transaction has WhatsApp component (regardless of type)
             if (transaction && transaction.whatsappTransaction) {
                 console.log(`[TRANSACTION_STATUS_MANAGER] Transaction ${transactionId} has WhatsApp component, activating service`);
                 await this.activateWhatsAppService(transaction);
             } else {
-                console.log(`[TRANSACTION_STATUS_MANAGER] Transaction ${transactionId} has no WhatsApp component, skipping WhatsApp activation`);
+                console.log(`[TRANSACTION_STATUS_MANAGER] Transaction ${transactionId} has no WhatsApp component`);
             }
         }
         } catch (error) {
@@ -66,86 +47,13 @@ export class TransactionStatusManager {
 
     /**
      * Create delivery records when transactions become in_progress
+     * Simplified - WhatsApp only
      */
     static async createDeliveryRecords(transactionId: string) {
         try {
-        const transaction = await prisma.transaction.findUnique({
-            where: { id: transactionId },
-            include: {
-            productTransactions: {
-                include: { package: true }
-            },
-            addonTransactions: {
-                include: { addon: true }
-            },
-            whatsappTransaction: true
-            }
-        });
-
-        if (!transaction) return;
-
-        const promises = [];
-
-        // Create product delivery records
-        if (transaction.productTransactions.length > 0) {
-            for (const productTx of transaction.productTransactions) {
-            const existingDelivery = await prisma.servicesProductCustomers.findFirst({
-                where: { 
-                transactionId: transaction.id,
-                customerId: transaction.userId 
-                }
-            });
-
-            if (!existingDelivery) {
-                promises.push(
-                prisma.servicesProductCustomers.create({
-                    data: {
-                    transactionId: transaction.id,
-                    customerId: transaction.userId,
-                    packageId: productTx.packageId,
-                    quantity: productTx.quantity,
-                    status: 'pending' // Changed from 'awaiting_delivery' to 'pending'
-                    }
-                })
-                );
-            }
-            }
-        }
-
-        // Create addon delivery records
-        if (transaction.addonTransactions.length > 0) {
-            const existingAddonDelivery = await prisma.servicesAddonsCustomers.findFirst({
-            where: { 
-                transactionId: transaction.id,
-                customerId: transaction.userId 
-            }
-            });
-
-            if (!existingAddonDelivery) {
-            const addonDetails = transaction.addonTransactions.map(addonTx => ({
-                addonId: addonTx.addonId,
-                quantity: addonTx.quantity,
-                name: addonTx.addon.name_en,
-                price: addonTx.addon.price_idr
-            }));
-
-            promises.push(
-                prisma.servicesAddonsCustomers.create({
-                data: {
-                    transactionId: transaction.id,
-                    customerId: transaction.userId,
-                    addonDetails: JSON.stringify(addonDetails),
-                    status: 'pending' // Changed from 'awaiting_delivery' to 'pending'
-                }
-                })
-            );
-            }
-        }
-
-        // For WhatsApp, the existing flow is correct, don't change it
-        // WhatsApp delivery is handled separately in whatsapp-activation.ts
-
-        await Promise.all(promises);
+        console.log(`[DELIVERY_RECORDS] WhatsApp service activation handled separately, no additional delivery records needed for transaction ${transactionId}`);
+        // WhatsApp delivery is handled directly in activateWhatsAppService
+        // No additional records needed
         } catch (error) {
         console.error('Error creating delivery records:', error);
         throw error;
@@ -154,45 +62,21 @@ export class TransactionStatusManager {
 
     /**
      * Update child transaction status when delivery is completed
-     * Then check if all child transactions are 'success' to update main transaction
+     * Simplified - WhatsApp only
      */
     static async updateChildTransactionStatus(
         transactionId: string,
-        childType: 'product' | 'addon' | 'whatsapp',
+        childType: 'whatsapp',
         childId?: string
     ) {
         try {
         console.log(`[CHILD_STATUS_UPDATE] Updating ${childType} transaction status to success for transaction ${transactionId}`);
 
-        // Update specific child transaction to 'success'
-        switch (childType) {
-            case 'product':
-            await prisma.transactionProduct.updateMany({
-                where: { 
-                transactionId,
-                ...(childId ? { id: childId } : {})
-                },
-                data: { status: 'success' }
-            });
-            break;
-            
-            case 'addon':
-            await prisma.transactionAddons.updateMany({
-                where: { 
-                transactionId,
-                ...(childId ? { id: childId } : {})
-                },
-                data: { status: 'success' }
-            });
-            break;
-            
-            case 'whatsapp':
-            await prisma.transactionWhatsappService.updateMany({
-                where: { transactionId },
-                data: { status: 'success' }
-            });
-            break;
-        }
+        // Update WhatsApp transaction to 'success'
+        await prisma.transactionWhatsappService.updateMany({
+            where: { transactionId },
+            data: { status: 'success' }
+        });
 
         console.log(`[CHILD_STATUS_UPDATE] ✅ Successfully updated ${childType} transaction status to success`);
         
@@ -212,46 +96,31 @@ export class TransactionStatusManager {
         const transaction = await prisma.transaction.findUnique({
             where: { id: transactionId },
             include: {
-            productTransactions: true,
-            addonTransactions: true,
             whatsappTransaction: true
             }
         });
 
         if (!transaction) return;
 
-        // Check if all child transactions are 'success'
-        const allProductsSuccess = transaction.productTransactions.length === 0 || 
-            transaction.productTransactions.every(pt => pt.status === 'success');
-            
-        const allAddonsSuccess = transaction.addonTransactions.length === 0 || 
-            transaction.addonTransactions.every(at => at.status === 'success');
-            
-        // For WhatsApp: Check if transaction exists and status is 'success'
-        // If there's no WhatsApp transaction, consider it as success (product/addon only transaction)
-        const whatsappSuccess = !transaction.whatsappTransaction || 
-            transaction.whatsappTransaction.status === 'success';
+        // Check if WhatsApp transaction is 'success'
+        const whatsappSuccess = transaction.whatsappTransaction?.status === 'success';
 
         console.log(`[TRANSACTION_COMPLETION] Checking transaction ${transactionId} completion status:`, {
-            hasProducts: transaction.productTransactions.length > 0,
-            hasAddons: transaction.addonTransactions.length > 0,
             hasWhatsapp: !!transaction.whatsappTransaction,
-            allProductsSuccess,
-            allAddonsSuccess,
             whatsappSuccess,
             whatsappStatus: transaction.whatsappTransaction?.status
         });
 
-        // If all child transactions are success, update main transaction
-        if (allProductsSuccess && allAddonsSuccess && whatsappSuccess) {
+        // If WhatsApp transaction is success, update main transaction
+        if (whatsappSuccess) {
             await prisma.transaction.update({
             where: { id: transactionId },
             data: { status: 'success' }
             });
             
-            console.log(`[TRANSACTION_COMPLETION] ✅ Transaction ${transactionId} marked as success - Products: ${allProductsSuccess}, Addons: ${allAddonsSuccess}, WhatsApp: ${whatsappSuccess}`);
+            console.log(`[TRANSACTION_COMPLETION] ✅ Transaction ${transactionId} marked as success - WhatsApp: ${whatsappSuccess}`);
         } else {
-            console.log(`[TRANSACTION_COMPLETION] ⏳ Transaction ${transactionId} not yet complete - Products: ${allProductsSuccess}, Addons: ${allAddonsSuccess}, WhatsApp: ${whatsappSuccess}`);
+            console.log(`[TRANSACTION_COMPLETION] ⏳ Transaction ${transactionId} not yet complete - WhatsApp: ${whatsappSuccess}`);
         }
         } catch (error) {
         console.error('Error checking main transaction status:', error);
@@ -260,7 +129,7 @@ export class TransactionStatusManager {
     }
 
     /**
-     * Update transaction status to 'pending' when payment is created
+     * Update transaction status to 'pending' when payment is created - Simplified
      */
     static async updateTransactionOnPaymentCreation(transactionId: string) {
         try {
@@ -270,23 +139,11 @@ export class TransactionStatusManager {
             data: { status: 'pending' }
         });
 
-        // Update all child transactions to 'pending'
-        await Promise.all([
-            prisma.transactionProduct.updateMany({
+        // Update WhatsApp transaction to 'pending'
+        await prisma.transactionWhatsappService.updateMany({
             where: { transactionId },
             data: { status: 'pending' }
-            }),
-            
-            prisma.transactionAddons.updateMany({
-            where: { transactionId },
-            data: { status: 'pending' }
-            }),
-            
-            prisma.transactionWhatsappService.updateMany({
-            where: { transactionId },
-            data: { status: 'pending' }
-            })
-        ]);
+        });
         } catch (error) {
         console.error('Error updating transaction on payment creation:', error);
         throw error;
@@ -439,7 +296,7 @@ export class TransactionStatusManager {
     }
 
     /**
-     * Cancel transaction and all child transactions
+     * Cancel transaction and WhatsApp transaction - Simplified
      */
     static async cancelTransaction(transactionId: string) {
         console.log(`[TRANSACTION_CANCELLATION] Starting cancellation for transaction ${transactionId}`);
@@ -448,8 +305,6 @@ export class TransactionStatusManager {
         const transaction = await prisma.transaction.findUnique({
             where: { id: transactionId },
             include: {
-            productTransactions: true,
-            addonTransactions: true,
             whatsappTransaction: true,
             payment: true
             }
@@ -468,26 +323,6 @@ export class TransactionStatusManager {
             data: { status: 'cancelled' }
             })
         );
-
-        // Cancel product transactions
-        if (transaction.productTransactions.length > 0) {
-            promises.push(
-            prisma.transactionProduct.updateMany({
-                where: { transactionId },
-                data: { status: 'cancelled' }
-            })
-            );
-        }
-
-        // Cancel addon transactions
-        if (transaction.addonTransactions.length > 0) {
-            promises.push(
-            prisma.transactionAddons.updateMany({
-                where: { transactionId },
-                data: { status: 'cancelled' }
-            })
-            );
-        }
 
         // Cancel WhatsApp transaction
         if (transaction.whatsappTransaction) {
@@ -508,9 +343,6 @@ export class TransactionStatusManager {
             })
             );
         }
-
-        // Note: We don't cancel delivery records as they are only created after payment is paid
-        // If transaction is cancelled before payment, delivery records don't exist yet
 
         await Promise.all(promises);
 

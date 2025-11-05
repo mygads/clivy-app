@@ -68,45 +68,8 @@ export default function CheckoutPage() {
     router.push(`/payment/status/${paymentId}`)
   }
 
-  // Group selected items by type - similar to cart logic
-  const groupedItems = () => {
-    const groups: Record<string, {
-      packages: typeof selectedItems,
-      addons: typeof selectedItems
-    }> = {}
-    
-    const whatsappItems: typeof selectedItems = []
-    const ungroupedItems: typeof selectedItems = []
-    
-    selectedItems.forEach(item => {
-      if (item.type === 'whatsapp') {
-        whatsappItems.push(item)
-      } else if (item.category && item.type) {
-        const groupKey = item.category
-        if (!groups[groupKey]) {
-          groups[groupKey] = { packages: [], addons: [] }
-        }
-        
-        if (item.type === 'addon') {
-          groups[groupKey].addons.push(item)
-        } else {
-          groups[groupKey].packages.push(item)
-        }
-      } else {
-        // Items without proper categorization (legacy items)
-        ungroupedItems.push(item)
-      }
-    })
-    
-    return { groups, whatsappItems, ungroupedItems }
-  }
-  const { groups, whatsappItems, ungroupedItems } = groupedItems()
-    // Create flattened arrays for backward compatibility with existing OrderSummary props
-  const regularItems = [
-    ...Object.values(groups).flatMap(group => group.packages),
-    ...ungroupedItems
-  ]
-  const addOns = Object.values(groups).flatMap(group => group.addons)
+  // Simplified - WhatsApp items only
+  const whatsappItems = selectedItems.filter(item => item.type === 'whatsapp')
     // Use checkout state hook
   const {
     step,
@@ -420,25 +383,10 @@ export default function CheckoutPage() {
     updateVoucherState({ voucherError: "" })
 
     try {
-      // Prepare items for voucher check according to new API structure
+      // Prepare items for voucher check - WhatsApp only
       const voucherItems: VoucherCheckItem[] = []
       
-      // Add regular packages as "product" type
-      regularItems.forEach(item => {
-        voucherItems.push({
-          type: "product",
-          id: item.id
-        })
-      })
-      
-      // Add addons as "addons" type
-      addOns.forEach(item => {
-        voucherItems.push({
-          type: "addons", 
-          id: item.id
-        })
-      })
-        // Add whatsapp items as "whatsapp" type
+      // Add whatsapp items as "whatsapp" type
       whatsappItems.forEach(item => {
         // Extract package ID and duration from composite ID
         // WhatsApp items have IDs like "packageId_monthly" or "packageId_yearly"
@@ -607,8 +555,8 @@ export default function CheckoutPage() {
               formData={formData}
               selectedItems={selectedItems}
               whatsappItems={whatsappItems}
-              regularItems={regularItems}
-              addOns={addOns}
+              regularItems={[]}
+              addOns={[]}
               voucherApplied={voucherApplied}
               selectedItemsTotal={selectedItemsTotal}
               voucherDiscount={voucherDiscount}
@@ -636,11 +584,11 @@ export default function CheckoutPage() {
           {/* Show PaymentOrderSummary during payment method selection (step 4), regular OrderSummary for other steps */}
           {step === 4 ? (
             <PaymentOrderSummary
-              groups={groups}
+              groups={{}}
               whatsappItems={whatsappItems}
-              ungroupedItems={ungroupedItems}
-              regularItems={regularItems}
-              addOns={addOns}
+              ungroupedItems={[]}
+              regularItems={[]}
+              addOns={[]}
               selectedItemsTotal={selectedItemsTotal}
               voucherApplied={voucherApplied}
               voucherDiscount={voucherDiscount}
@@ -649,11 +597,11 @@ export default function CheckoutPage() {
               selectedPaymentMethod={selectedPaymentMethod}
             />
           ) : (<OrderSummary
-              groups={groups}
+              groups={{}}
               whatsappItems={whatsappItems}
-              ungroupedItems={ungroupedItems}
-              regularItems={regularItems}
-              addOns={addOns}
+              ungroupedItems={[]}
+              regularItems={[]}
+              addOns={[]}
               selectedItemsTotal={selectedItemsTotal}
               formData={formData}
               handleInputChange={handleInputChange}

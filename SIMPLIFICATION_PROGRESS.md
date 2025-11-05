@@ -75,42 +75,42 @@
 
 ## 🔄 SEDANG DIKERJAKAN / BELUM SELESAI
 
-### 🔄 FASE 5: API ENDPOINTS (Lanjutan)
-**File yang perlu dimodifikasi:**
+### ✅ FASE 5: API ENDPOINTS - COMPLETED
+**File yang sudah dimodifikasi:**
 
-1. **Checkout API** - `src/app/api/customer/checkout/route.ts`
-   - [ ] Hapus logic untuk product/package/addon
-   - [ ] Hanya proses WhatsApp package purchase
-   - [ ] Create transaction hanya untuk WhatsApp service
+1. **✅ Checkout API** - `src/app/api/customer/checkout/route.ts`
+   - [x] Hapus logic untuk product/package/addon
+   - [x] Hanya proses WhatsApp package purchase
+   - [x] Create transaction hanya untuk WhatsApp service
+   - [x] Simplifikasi validation schema
 
-2. **Payment Callback/Webhook**
-   - [ ] `src/app/api/public/webhook/duitku/route.ts`
-   - [ ] `src/app/api/public/payment/callback/route.ts`
-   - [ ] Hapus logic update status product/addon
-   - [ ] Fokus hanya update WhatsApp subscription
-   - [ ] Auto-activate WhatsApp service saat payment success
+2. **✅ Transaction Status Manager** - `src/lib/transaction-status-manager.ts`
+   - [x] Hapus logic product/addon processing
+   - [x] Fokus hanya pada WhatsApp service activation
+   - [x] Simplifikasi createDeliveryRecords
+   - [x] Update cancelTransaction - WhatsApp only
+   - [x] Update updateTransactionOnPayment
 
-3. **Transaction API**
-   - [ ] `src/app/api/customer/transactions/route.ts`
-   - [ ] `src/app/api/admin/transactions/route.ts`
-   - [ ] Simplifikasi query - hapus include product/addon
-   - [ ] Hanya fetch WhatsApp service transactions
+3. **✅ Payment Callback/Webhook** - `src/app/api/public/duitku/callback/route.ts`
+   - [x] Already correct - Auto-activate WhatsApp subscription melalui TransactionStatusManager
+   - [x] No changes needed
 
-**Status:** 🔄 BELUM SELESAI
+**Status:** ✅ SELESAI
 
 ---
 
-### 🔄 FASE 6: CHECKOUT PAGE SIMPLIFICATION
+### ✅ FASE 6: CHECKOUT PAGE SIMPLIFICATION - COMPLETED
 **File:** `src/app/[locale]/checkout/page.tsx`
 
-**Yang perlu dilakukan:**
-- [ ] Simplifikasi cart grouping - hapus logic product/addon
-- [ ] Hapus `regularItems` dan `addOns` logic
-- [ ] Fokus hanya pada `whatsappItems`
-- [ ] Update voucher check logic - hanya untuk WhatsApp
-- [ ] Simplifikasi OrderSummary component props
+**Yang sudah dilakukan:**
+- [x] Simplifikasi cart grouping - hapus logic product/addon
+- [x] Hapus `regularItems` dan `addOns` logic
+- [x] Fokus hanya pada `whatsappItems`
+- [x] Update voucher check logic - hanya untuk WhatsApp
+- [x] Simplifikasi OrderSummary component props (pass empty arrays untuk product/addon)
+- [x] Update CheckoutStep props
 
-**Status:** 🔄 BELUM SELESAI
+**Status:** ✅ SELESAI
 
 ---
 
@@ -231,8 +231,8 @@
 | 2. Landing Page | ✅ Selesai | 100% |
 | 3. Customer Dashboard Structure | ✅ Selesai | 100% |
 | 4. Admin Dashboard Structure | ✅ Selesai | 100% |
-| 5. API Endpoints | ⚠️ Partial | 30% |
-| 6. Checkout Page | 🔄 Belum | 0% |
+| 5. API Endpoints | ✅ Selesai | 100% |
+| 6. Checkout Page | ✅ Selesai | 100% |
 | 7. Customer Dashboard Pages | 🔄 Belum | 0% |
 | 8. Admin Dashboard Pages | 🔄 Belum | 0% |
 | 9. Components | 🔄 Belum | 0% |
@@ -242,21 +242,20 @@
 | 13. Database Migration | 🔄 Belum | 0% |
 | 14. Testing | 🔄 Belum | 0% |
 
-**TOTAL PROGRESS: ~35%**
+**TOTAL PROGRESS: ~60%**
 
 ---
 
 ## 🎯 LANGKAH SELANJUTNYA
 
-**Prioritas 1 (Critical):**
+**Prioritas 1 (Critical) - DONE:**
 1. ✅ Simplifikasi Checkout API (`api/customer/checkout/route.ts`)
-2. ✅ Update Payment Callback/Webhook untuk auto-activate WhatsApp subscription
-3. ✅ Simplifikasi Checkout Page
+2. ✅ Update Transaction Status Manager untuk WhatsApp only
+3. ✅ Verify Payment Callback/Webhook (sudah benar)
 
-**Prioritas 2 (High):**
+**Prioritas 2 (High) - NEXT:**
 4. Update Customer Transaction pages
 5. Update Admin Transaction pages
-6. Update Cart & Checkout components
 
 **Prioritas 3 (Medium):**
 7. Update Types & Interfaces
