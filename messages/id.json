@@ -1,0 +1,979 @@
+{
+  "Metadata": {
+    "title": "Hello world!",
+    "description": "This is a simple example of a metadata page."
+  },
+  "Header": {
+    "explore": "Jelajahi",
+    "services": "Layanan",
+    "pricing": "Harga",
+    "portfolio": "Portofolio",
+    "howToOrder": "Cara Pesan",
+    "contact": "Hubungi Kami",    "signUp": "Daftar",
+    "signIn": "Masuk",
+    "cart": "Keranjang",
+    "aboutGenfity": "Tentang Genfity",
+    "faq": "FAQ",
+    "blog": "Blog (Segera Hadir)",
+    "career": "Karir (Segera Hadir)",
+    "mainServices": "Layanan Utama",
+    "whatsappSolutions": "Solusi WhatsApp",
+    "others": "Layanan Lainnya",
+    "customWebsite": "Pengembangan Website Kustom",
+    "customWebsiteDesc": "Solusi website yang dirancang khusus sesuai kebutuhan bisnis dan identitas brand Anda.",
+    "webApp": "Pengembangan Aplikasi Web",
+    "webAppDesc": "Aplikasi web modern dan skalabel yang dibangun dengan teknologi terdepan untuk transformasi digital.",
+    "mobileDevelopment": "Pengembangan Mobile",
+    "mobileDevelopmentDesc": "Aplikasi mobile native dan cross-platform untuk iOS dan Android dengan pengalaman pengguna yang luar biasa.",
+    "corporateSystem": "Pengembangan Sistem Korporat",
+    "corporateSystemDesc": "Sistem manajemen tingkat enterprise dan solusi otomatisasi proses bisnis yang handal.",
+    "uiUxDesign": "Layanan Desain UI/UX",
+    "uiUxDesignDesc": "Solusi desain yang berfokus pada pengguna dengan menggabungkan estetika dan fungsionalitas untuk pengalaman optimal.",
+    "whatsappAPI": "WhatsApp API",
+    "whatsappAPIDesc": "Integrasi WhatsApp API yang komprehensif untuk meningkatkan komunikasi dan engagement pelanggan.",
+    "whatsappBroadcast": "WhatsApp Broadcast",
+    "whatsappBroadcastDesc": "Solusi pesan massal yang efisien untuk menjangkau pelanggan dengan kampanye promosi yang tertarget.",
+    "whatsappChatbot": "WhatsApp Chatbot AI",
+    "whatsappChatbotDesc": "Chatbot bertenaga AI yang cerdas untuk layanan pelanggan otomatis dan dukungan 24/7.",
+    "whatsappTeamInbox": "WhatsApp Team Inbox",
+    "whatsappTeamInboxDesc": "Platform manajemen tim kolaboratif untuk menangani percakapan pelanggan dengan efisien.",
+    "seoSpecialist": "Spesialis SEO",
+    "seoSpecialistDesc": "Layanan optimisasi mesin pencari profesional untuk meningkatkan visibilitas dan peringkat website Anda.",
+    "corporateBranding": "Branding Korporat & Produk",
+    "corporateBrandingDesc": "Pengembangan identitas merek yang komprehensif dan positioning strategis untuk dampak pasar yang berkelanjutan.",
+    "techSupport": "Dukungan Teknis",
+    "techSupportDesc": "Bantuan teknis dan layanan pemeliharaan yang andal untuk memastikan operasional bisnis yang lancar.",
+    "itConsulting": "Konsultasi IT",
+    "itConsultingDesc": "Konsultasi teknologi strategis dan panduan transformasi digital untuk pertumbuhan bisnis."
+  },
+  "terms": {
+    "meta": {
+      "title": "Syarat dan Ketentuan - Genfity",
+      "description": "Syarat dan Ketentuan penggunaan layanan digital dan platform Genfity"
+    },
+    "title": "Syarat dan Ketentuan",
+    "lastUpdated": "Terakhir diperbarui 17 September 2025",
+    "agreement": {
+      "title": "Persetujuan Terhadap Ketentuan Hukum Kami"
+    },
+    "tableOfContents": "Daftar Isi",
+    "sections": {
+      "services": {
+        "title": "Layanan Kami"
+      },
+      "intellectualProperty": {
+        "title": "Hak Kekayaan Intelektual"
+      },
+      "userRepresentations": {
+        "title": "Pernyataan Pengguna"
+      },
+      "purchasesPayment": {
+        "title": "Pembelian dan Pembayaran"
+      },
+      "subscriptions": {
+        "title": "Berlangganan"
+      },
+      "prohibitedActivities": {
+        "title": "Aktivitas yang Dilarang"
+      },
+      "privacyPolicy": {
+        "title": "Kebijakan Privasi"
+      },
+      "governingLaw": {
+        "title": "Hukum yang Berlaku"
+      },
+      "contactUs": {
+        "title": "Hubungi Kami"
+      }
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Kebijakan Privasi - Genfity",
+      "description": "Kebijakan Privasi untuk layanan digital Genfity dan praktik perlindungan data"
+    },
+    "title": "Kebijakan Privasi",
+    "lastUpdated": "Terakhir diperbarui 17 September 2025",
+    "introduction": {
+      "title": "Pendahuluan"
+    },
+    "informationCollection": {
+      "title": "Informasi yang Kami Kumpulkan"
+    },
+    "informationUse": {
+      "title": "Cara Kami Menggunakan Informasi Anda"
+    },
+    "informationSharing": {
+      "title": "Berbagi Informasi"
+    },
+    "dataSecurity": {
+      "title": "Keamanan Data"
+    },
+    "userRights": {
+      "title": "Hak Anda"
+    },
+    "cookies": {
+      "title": "Cookie dan Pelacakan"
+    },
+    "contact": {
+      "title": "Hubungi Kami"
+    }
+  },
+  "refund": {
+    "meta": {
+      "title": "Kebijakan Pengembalian Dana - Genfity",
+      "description": "Kebijakan pengembalian dana dan ketentuan untuk layanan digital Genfity"
+    },
+    "title": "Kebijakan Pengembalian Dana",
+    "lastUpdated": "Terakhir diperbarui 17 September 2025",
+    "introduction": {
+      "title": "Pendahuluan"
+    },
+    "serviceCategories": {
+      "title": "Kategori Layanan"
+    },
+    "refundConditions": {
+      "title": "Kondisi Pengembalian Dana"
+    },
+    "refundProcess": {
+      "title": "Proses Pengembalian Dana"
+    },
+    "paymentMethods": {
+      "title": "Metode Pembayaran & Waktu Pemrosesan"
+    },
+    "exceptions": {
+      "title": "Pengecualian"
+    },
+    "contact": {
+      "title": "Informasi Kontak"
+    }
+  },
+  "HowToOrder": {
+    "title": "Cara Pesan",
+    "subtitle": "Panduan lengkap untuk melakukan pemesanan",
+    "description": "Ikuti proses pemesanan komprehensif kami untuk memulai proyek Anda dengan Genfity.",
+    "orderingProcess": {
+      "title": "Proses Pemesanan",
+      "subtitle": "8 langkah mudah untuk menyelesaikan pesanan Anda",
+      "steps": {
+        "addToCart": {
+          "title": "Tambah ke Keranjang",
+          "description": "Jelajahi layanan kami dan tambahkan produk yang diinginkan ke keranjang. Anda dapat memilih beberapa layanan jika diperlukan."
+        },
+        "fillForm": {
+          "title": "Isi Formulir",
+          "description": "Lengkapi formulir pemesanan dengan detail proyek, kebutuhan, dan informasi kontak Anda."
+        },
+        "voucher": {
+          "title": "Gunakan Voucher",
+          "description": "Masukkan kode voucher jika Anda memilikinya untuk mendapatkan diskon pada pesanan Anda."
+        },
+        "verifyOrder": {
+          "title": "Verifikasi Pesanan",
+          "description": "Tinjau detail pesanan, layanan yang dipilih, dan total biaya sebelum melanjutkan."
+        },
+        "checkout": {
+          "title": "Checkout",
+          "description": "Konfirmasi pesanan Anda dan lanjutkan ke gateway pembayaran."
+        },
+        "payment": {
+          "title": "Gateway Pembayaran",
+          "description": "Pilih metode pembayaran yang diinginkan dan masukkan detail pembayaran dengan aman."
+        },
+        "pay": {
+          "title": "Selesaikan Pembayaran",
+          "description": "Finalisasi pembayaran Anda untuk memulai proses pesanan."
+        },
+        "checkStatus": {
+          "title": "Cek Status Pesanan",
+          "description": "Pantau progress pesanan Anda melalui sistem tracking kami."
+        }
+      }
+    },
+    "mainWorkflow": {
+      "title": "Alur Kerja Produk Utama",
+      "subtitle": "Bagaimana kami memproses pesanan produk utama Anda",
+      "steps": {
+        "orderReceived": {
+          "title": "Pesanan Diterima",
+          "description": "Pesanan Anda dikonfirmasi dan ditambahkan ke antrian pemrosesan kami."
+        },
+        "whatsappContact": {
+          "title": "Kontak WhatsApp",
+          "description": "Tim kami akan menghubungi Anda melalui WhatsApp untuk diskusi dan klarifikasi proyek."
+        },
+        "workExecution": {
+          "title": "Eksekusi Pekerjaan",
+          "description": "Tim ahli kami mulai mengerjakan proyek Anda sesuai dengan spesifikasi."
+        },
+        "delivery": {
+          "title": "Pengiriman Proyek",
+          "description": "Proyek lengkap dikirim dengan dokumentasi dan dukungan."
+        }
+      }
+    },
+    "revisionProcess": {
+      "title": "Proses Revisi",
+      "subtitle": "Bagaimana kami menangani revisi proyek",
+      "steps": {
+        "meetings": {
+          "title": "Pertemuan Klien",
+          "description": "Jadwalkan pertemuan untuk membahas kebutuhan revisi dan feedback."
+        },
+        "revisionRequests": {
+          "title": "Permintaan Revisi",
+          "description": "Kirimkan permintaan revisi detail melalui platform kami."
+        },
+        "processing": {
+          "title": "Pemrosesan Revisi",
+          "description": "Tim kami mengimplementasikan perubahan yang diminta dan menyampaikan hasil yang diperbarui."
+        }
+      }
+    },
+    "whatsappApiWorkflow": {
+      "title": "Alur Kerja Layanan WhatsApp API",
+      "subtitle": "Proses aktivasi layanan otomatis",
+      "steps": {
+        "automaticActivation": {
+          "title": "Aktivasi Otomatis",
+          "description": "Layanan WhatsApp API Anda secara otomatis diaktifkan setelah pembayaran berhasil."
+        },
+        "dashboardAccess": {
+          "title": "Akses Dashboard",
+          "description": "Dapatkan akses instan ke dashboard WhatsApp API Anda untuk mulai mengelola komunikasi bisnis."
+        }
+      }
+    },      
+    "needHelp": {
+      "title": "Butuh Bantuan?",
+      "description": "Jika Anda memiliki pertanyaan tentang proses pemesanan, jangan ragu untuk menghubungi tim dukungan kami.",
+      "contactButton": "Hubungi Dukungan"
+    }
+  },
+  "Auth": {
+    "signIn": {
+      "title": "Masuk",
+      "subtitle": "Masuk ke akun Anda",
+      "description": "Masuk untuk mengakses dashboard dan mengelola akun Anda",
+      "sessionExpired": "Sesi Berakhir",
+      "sessionExpiredMessage": "Sesi Anda telah berakhir. Silakan masuk lagi untuk melanjutkan.",
+      "accessPageMessage": "Silakan masuk untuk mengakses halaman ini.",
+      "loginModes": {
+        "password": "Kata Sandi",
+        "sso": "Masuk Cepat"
+      },
+      "form": {
+        "emailOrPhone": "Email atau Nomor Telepon",
+        "emailOrPhonePlaceholder": "Masukkan email atau nomor telepon Anda",
+        "password": "Kata Sandi",
+        "passwordPlaceholder": "Masukkan Kata Sandi Anda",
+        "ssoIdentifier": "Email atau Nomor WhatsApp",
+        "ssoIdentifierPlaceholder": "08** / anda@email.com",
+        "forgotPassword": "Lupa Kata Sandi?",
+        "signInButton": "Masuk",
+        "sendCodeButton": "Kirim Kode",
+        "rememberMe": "Ingat saya"
+      },
+      "otp": {
+        "title": "Masukkan Kode Verifikasi",
+        "description": "Kami telah mengirim kode verifikasi ke",
+        "enterCode": "Masukkan kode 6 digit",
+        "resendCode": "Kirim Ulang Kode",
+        "resendIn": "Kirim ulang dalam",
+        "seconds": "detik",
+        "back": "Kembali",
+        "verify": "Verifikasi"
+      },
+      "google": {
+        "signInWith": "Masuk dengan Google"
+      },
+      "errors": {
+        "invalidCredentials": "Kredensial tidak valid. Silakan coba lagi.",
+        "unknownError": "Terjadi kesalahan yang tidak diketahui saat masuk.",
+        "unexpectedError": "Terjadi kesalahan yang tidak terduga. Silakan coba lagi.",
+        "ssoFailed": "Gagal mengirim kode verifikasi. Silakan coba lagi.",
+        "ssoRateLimited": "Terlalu banyak permintaan. Silakan tunggu {seconds} detik sebelum meminta kode lagi.",
+        "ssoUnknownError": "Terjadi kesalahan yang tidak diketahui saat mengirim kode verifikasi.",
+        "verifyFailed": "Kode verifikasi tidak valid. Silakan coba lagi.",
+        "verifyUnknownError": "Terjadi kesalahan yang tidak diketahui saat verifikasi."
+      },
+      "links": {
+        "noAccount": "Belum punya akun?",
+        "signUp": "Daftar"
+      }
+    },
+    "signUp": {
+      "title": "Daftar",
+      "subtitle": "Buat akun Anda",
+      "description": "Bergabunglah dengan kami dan mulai perjalanan Anda bersama Genfity",
+      "form": {
+        "name": "Nama Lengkap",
+        "namePlaceholder": "Masukkan nama lengkap Anda",
+        "email": "Alamat Email",
+        "emailPlaceholder": "user@email.com",
+        "phone": "Nomor WhatsApp",
+        "phonePlaceholder": "+6281234567890, 081234567890",
+        "phoneHelper": "Mendukung nomor WhatsApp internasional: +62 (Indonesia), +1 (USA), +44 (UK), +61 (Australia), dll.",
+        "phoneValid": "✓ Format nomor WhatsApp valid",
+        "password": "Kata Sandi",
+        "passwordPlaceholder": "Masukkan kata sandi Anda",
+        "signUpButton": "Daftar",
+        "creating": "Membuat akun..."
+      },
+      "verification": {
+        "title": "Verifikasi Nomor Telepon Anda",
+        "description": "Kami telah mengirim kode verifikasi ke",
+        "continueDescription": "Lanjutkan pendaftaran Anda dengan memverifikasi kode yang dikirim ke",
+        "enterCode": "Masukkan kode 4 digit",
+        "resendCode": "Kirim Ulang Kode",
+        "resendIn": "Kirim ulang dalam",
+        "seconds": "detik",
+        "back": "Kembali ke Daftar",
+        "backToForm": "Ubah Informasi",
+        "verify": "Verifikasi & Selesaikan Pendaftaran"
+      },
+      "errors": {
+        "signupFailed": "Gagal mendaftar. Silakan coba lagi.",
+        "unexpectedError": "Terjadi kesalahan yang tidak terduga. Silakan coba lagi.",
+        "invalidOtp": "OTP tidak valid. Silakan coba lagi.",
+        "resendFailed": "Gagal mengirim ulang kode. Silakan coba lagi.",
+        "invalidPhone": "Harap masukkan nomor WhatsApp yang valid dengan kode negara (misal: +6281234567890, 081234567890)",
+        "emailExists": "Akun dengan email ini sudah ada. Silakan gunakan email lain atau masuk.",
+        "phoneExists": "Akun dengan nomor WhatsApp ini sudah ada. Silakan gunakan nomor lain atau masuk.",
+        "userExists": "Akun dengan informasi ini sudah ada. Silakan masuk.",
+        "otpExpired": "Kode verifikasi telah kedaluwarsa. Silakan minta yang baru.",
+        "verificationExpired": "Batas waktu verifikasi telah habis. Silakan daftar ulang.",
+        "generalError": "Pendaftaran gagal. Silakan periksa informasi Anda dan coba lagi.",
+        "registrationInProgress": "Pendaftaran sedang berlangsung. Silakan verifikasi OTP Anda atau tunggu hingga kedaluwarsa."
+      },
+      "links": {
+        "hasAccount": "Sudah punya akun?",
+        "signIn": "Masuk"
+      }
+    },
+    "forgotPassword": {
+      "title": "Lupa Kata Sandi",
+      "subtitle": "Reset kata sandi Anda",
+      "description": "Masukkan email atau nomor telepon Anda untuk menerima kode reset",
+      "steps": {
+        "request": {
+          "title": "Reset Kata Sandi",
+          "description": "Masukkan email atau nomor telepon Anda dan kami akan mengirimkan kode reset",
+          "form": {
+            "identifier": "Email atau Nomor Telepon",
+            "identifierPlaceholder": "Masukkan email atau nomor telepon Anda",
+            "sendCode": "Kirim Kode Reset"
+          }
+        },
+        "verify": {
+          "title": "Masukkan Kode Reset",
+          "description": "Kami telah mengirim kode reset ke",
+          "form": {
+            "enterCode": "Masukkan kode 4 digit",
+            "newPassword": "Kata Sandi Baru",
+            "newPasswordPlaceholder": "Masukkan kata sandi baru Anda",
+            "confirmPassword": "Konfirmasi Kata Sandi",
+            "confirmPasswordPlaceholder": "Konfirmasi kata sandi baru Anda",
+            "resetPassword": "Reset Kata Sandi"
+          },
+          "resendCode": "Kirim Ulang Kode",
+          "resendIn": "Kirim ulang dalam",
+          "seconds": "detik"
+        },
+        "success": {
+          "title": "Kata Sandi Berhasil Direset",
+          "description": "Kata sandi Anda telah berhasil direset. Anda sekarang dapat masuk dengan kata sandi baru Anda.",
+          "signIn": "Masuk Sekarang"
+        }
+      },
+      "errors": {
+        "sendFailed": "Gagal mengirim kode reset. Silakan coba lagi.",
+        "unexpectedError": "Terjadi kesalahan yang tidak terduga. Silakan coba lagi.",
+        "passwordMismatch": "Kata sandi tidak cocok",
+        "resetFailed": "Gagal mereset kata sandi. Silakan coba lagi.",
+        "resendFailed": "Gagal mengirim ulang kode. Silakan coba lagi."
+      },      "links": {
+        "backToSignIn": "Kembali ke Masuk",
+        "rememberPassword": "Ingat kata sandi Anda?",
+        "signIn": "Masuk"
+      }
+    },
+    "common": {
+      "back": "Kembali",
+      "loading": "Memuat...",
+      "or": "atau",
+      "showPassword": "Tampilkan kata sandi",
+      "hidePassword": "Sembunyikan kata sandi"
+    }
+  },
+  "dashboard": {
+    "whatsapp": {
+      "subscriptionGuard": {
+        "loading": "Memuat data langganan...",
+        "error": "Error memuat data langganan",
+        "refresh": "Segarkan",
+        "noSubscription": {
+          "title": "Tidak Ada Langganan WhatsApp Aktif",
+          "description": "Anda memerlukan langganan WhatsApp aktif untuk mengakses fitur ini.",
+          "features": {
+            "title": "Dengan langganan WhatsApp Anda dapat:",
+            "sendMessages": "Kirim pesan via API",
+            "manageContacts": "Kelola daftar kontak",
+            "bulkCampaigns": "Buat kampanye massal",
+            "apiAccess": "Akses API penuh"
+          },
+          "buySubscription": "Beli Langganan",
+          "note": "Langganan Anda mungkin sedang diproses. Coba refresh jika baru saja membeli."
+        }
+      },
+      "subscription": {
+        "title": "Langganan WhatsApp",
+        "description": "Kelola langganan WhatsApp API Anda dan lihat riwayat penggunaan",
+        "activePlans": "Paket Aktif",
+        "maxSessions": "Maksimal Sesi",
+        "expiredDate": "Tanggal Kadaluarsa",
+        "lastSubscription": "Langganan Terakhir",
+        "viewAllSubscriptions": "Lihat Semua Langganan",
+        "subscribeAgain": "Berlangganan Lagi",
+        "noActiveSubscriptions": "Tidak ada langganan aktif",
+        "browsePackages": "Jelajahi Paket",
+        "transactionHistory": "Riwayat Transaksi",
+        "package": "Paket",
+        "duration": "Durasi",
+        "amount": "Jumlah",
+        "paymentMethod": "Metode Pembayaran",
+        "status": "Status",
+        "startDate": "Tanggal Mulai",
+        "endDate": "Tanggal Berakhir",
+        "noTransactionHistory": "Tidak ada riwayat transaksi",
+        "noActiveTitle": "Tidak Ada Langganan Aktif",
+        "noActiveDescription": "Anda memerlukan langganan WhatsApp aktif untuk menggunakan fitur ini.",
+        "checkStatus": "Periksa Status",
+        "checking": "Memeriksa Status...",
+        "refresh": "Segarkan",
+        "refreshing": "Memeriksa...",
+        "previousSubscriptions": "Langganan Sebelumnya",
+        "whatYouGet": "Apa yang Anda Dapatkan",
+        "multipleSessionsTitle": "Multiple Sesi",
+        "multipleSessionsDesc": "Kelola beberapa akun WhatsApp",
+        "apiAccessTitle": "Akses API",
+        "apiAccessDesc": "Integrasi penuh WhatsApp API",
+        "campaignToolsTitle": "Tools Campaign",
+        "campaignToolsDesc": "Jadwalkan dan kelola campaign",
+        "loadingSubscription": "Memuat data langganan...",
+        "errorLoading": "Error memuat data langganan"
+      },
+      "testing": {
+        "title": "Testing WhatsApp",
+        "description": "Uji coba pengiriman pesan menggunakan sesi WhatsApp Anda",
+        "needSubscription": "Diperlukan langganan WhatsApp aktif untuk mengakses fitur testing.",
+        "subscribeNow": "Berlangganan sekarang",
+        "selectSession": "Pilih Sesi WhatsApp",
+        "availableSessions": "Sesi Tersedia",
+        "noSessions": "Tidak ada sesi WhatsApp ditemukan. Buat sesi terlebih dahulu.",
+        "sendTestMessages": "Kirim Pesan Uji Coba",
+        "textMessage": "Pesan Teks",
+        "imageMessage": "Pesan Gambar",
+        "phoneNumber": "Nomor Telepon",
+        "phoneNumberPlaceholder": "contoh: 6281234567890 (dengan kode negara)",
+        "phoneNumberHint": "Sertakan kode negara (contoh: 62 untuk Indonesia, 1 untuk AS)",
+        "messageBody": "Isi Pesan",
+        "messageBodyPlaceholder": "Masukkan pesan uji coba Anda di sini...",
+        "sendTextMessage": "Kirim Pesan Teks",
+        "sendImageMessage": "Kirim Pesan Gambar",
+        "imageSource": "Sumber Gambar",
+        "imageUrl": "URL Gambar",
+        "uploadFile": "Unggah File",
+        "imageCaption": "Caption Gambar",
+        "imageCaptionPlaceholder": "Caption opsional untuk gambar",
+        "sending": "Mengirim...",
+        "response": "Respons",
+        "loggedIn": "Masuk",
+        "qrRequired": "QR Diperlukan",
+        "disconnected": "Terputus",
+        "selectSessionFirst": "Silakan pilih sesi WhatsApp",
+        "phoneRequired": "Nomor telepon diperlukan",
+        "messageRequired": "Isi pesan diperlukan",
+        "imageUrlRequired": "URL gambar diperlukan",
+        "imageFileRequired": "Silakan pilih file gambar",
+        "sessionNotFound": "Sesi yang dipilih tidak ditemukan",
+        "sendingFailed": "Gagal mengirim pesan"
+      },
+      "bulk": {
+        "title": "Kampanye Pesan Massal",
+        "subtitle": "Kirim pesan promosi ke banyak kontak sekaligus",
+        "contactSources": {
+          "title": "Sumber Kontak",
+          "database": "Database",
+          "excel": "Import Excel",
+          "manual": "Input Manual",
+          "whatsappContacts": "Kontak WhatsApp",
+          "syncContacts": "Sinkronisasi Kontak",
+          "syncContactsTooltip": "Mengambil data kontak dari server WhatsApp eksternal",
+          "syncing": "Menyinkronkan...",
+          "searchPlaceholder": "Cari kontak...",
+          "selectAll": "Pilih Semua",
+          "noContacts": "Tidak ada kontak ditemukan",
+          "loadingContacts": "Memuat kontak...",
+          "manualNumbers": "Nomor Manual",
+          "addNumber": "Tambah Nomor",
+          "phonePlaceholder": "contoh: 6281234567890",
+          "importTitle": "Import dari Excel/CSV",
+          "importDescription": "Upload file CSV atau Excel dengan nomor telepon",
+          "formatNote": "Format: Kolom pertama = Nomor Telepon, Kolom kedua = Nama (opsional)",
+          "processingFile": "Memproses file...",
+          "importedContacts": "Kontak Terimport",
+          "selectAllImported": "Pilih Semua",
+          "unselectAll": "Batal Pilih Semua",
+          "deleteSelected": "Hapus Terpilih",
+          "deleting": "Menghapus...",
+          "deleteConfirmTitle": "Hapus Kontak Terpilih",
+          "deleteConfirmDescription": "Apakah Anda yakin ingin menghapus {count} kontak terpilih? Tindakan ini tidak dapat dibatalkan.",
+          "cancel": "Batal",
+          "delete": "Hapus"
+        },
+        "messageConfig": {
+          "title": "Konfigurasi Pesan",
+          "messageType": "Jenis Pesan",
+          "textMessage": "Pesan Teks",
+          "imageMessage": "Pesan Gambar",
+          "messageContent": "Isi Pesan",
+          "messagePlaceholder": "Masukkan pesan promosi Anda di sini...",
+          "characters": "karakter",
+          "imageSource": "Sumber Gambar",
+          "imageUrl": "URL Gambar",
+          "uploadFile": "Upload File",
+          "imageUrlPlaceholder": "https://example.com/image.jpg",
+          "uploadImage": "Upload Gambar",
+          "imageCaption": "Caption Gambar",
+          "captionPlaceholder": "Caption gambar (opsional)",
+          "selectedFile": "Dipilih:"
+        },
+        "schedule": {
+          "title": "Konfigurasi Jadwal",
+          "sendSchedule": "Jadwal Kirim",
+          "sendNow": "Kirim Sekarang",
+          "scheduleLater": "Jadwalkan Nanti",
+          "date": "Tanggal",
+          "time": "Waktu"
+        },
+        "summary": {
+          "title": "Ringkasan",
+          "recipients": "Penerima",
+          "database": "Database",
+          "manual": "Manual",
+          "excel": "Excel",
+          "type": "Jenis",
+          "schedule": "Jadwal",
+          "sendImmediately": "Kirim segera"
+        },
+        "actions": {
+          "sendNow": "Kirim Sekarang",
+          "scheduleMessage": "Jadwalkan Pesan",
+          "sending": "Mengirim..."
+        },
+        "messages": {
+          "syncSuccess": "Kontak berhasil disinkronkan!",
+          "importSuccess": "Berhasil mengimpor {count} kontak dari CSV",
+          "sendSuccess": "Kampanye pesan massal {type} berhasil ke {count} kontak!",
+          "sent": "terkirim",
+          "scheduled": "dijadwalkan",
+          "noContacts": "Silakan pilih minimal satu kontak",
+          "noMessage": "Silakan masukkan pesan",
+          "noImageUrl": "Silakan masukkan URL gambar",
+          "noImageFile": "Silakan pilih file gambar",
+          "invalidFile": "Silakan pilih file gambar yang valid",
+          "invalidExcelFile": "Silakan pilih file Excel (.xlsx, .xls) atau CSV yang valid",
+          "excelNotSupported": "File Excel (.xlsx, .xls) belum didukung. Silakan gunakan format CSV untuk saat ini.",
+          "parseError": "Gagal mem-parsing file. Silakan periksa format dan coba lagi."
+        },
+        "errors": {
+          "noToken": "Token autentikasi tidak ditemukan",
+          "syncFailed": "Gagal menyinkronkan kontak",
+          "fetchFailed": "Gagal mengambil kontak",
+          "sendFailed": "Gagal mengirim kampanye pesan massal",
+          "unknownError": "Kesalahan tidak diketahui"
+        }
+      },
+      "history": {
+        "title": "Riwayat Kampanye Pesan Massal",
+        "compose": "Buat Pesan",
+        "history": "Riwayat Pesan",
+        "refresh": "Refresh",
+        "loading": "Memuat riwayat...",
+        "noMessages": "Tidak ada kampanye pesan massal ditemukan",
+        "recipients": "Penerima",
+        "contacts": "kontak",
+        "sent": "Terkirim",
+        "failed": "Gagal",
+        "message": "Pesan",
+        "imageMessage": "Pesan gambar",
+        "scheduledFor": "Dijadwalkan untuk",
+        "status": {
+          "completed": "Selesai",
+          "pending": "Menunggu",
+          "scheduled": "Dijadwalkan",
+          "processing": "Diproses",
+          "failed": "Gagal"
+        }
+      }
+    }
+  },
+  "appointment": {
+    "meta": {
+      "title": "Buat Janji Temu - Genfity",
+      "description": "Jadwalkan konsultasi dengan para ahli kami untuk membahas kebutuhan digital Anda dan mendapatkan solusi yang dipersonalisasi."
+    },
+    "title": "Buat Janji Temu",
+    "subtitle": "Jadwalkan konsultasi dengan para ahli kami untuk membahas kebutuhan proyek Anda dan mendapatkan solusi yang dipersonalisasi untuk bisnis Anda.",
+    "benefits": {
+      "flexible": {
+        "title": "Jadwal Fleksibel",
+        "description": "Pilih tanggal dan waktu yang sesuai dengan jadwal Anda."
+      },
+      "expert": {
+        "title": "Konsultasi Ahli",
+        "description": "Dapatkan wawasan dari tim berpengalaman kami yang ahli dalam solusi digital."
+      },
+      "solution": {
+        "title": "Solusi Terpersonalisasi",
+        "description": "Terima rekomendasi yang disesuaikan berdasarkan kebutuhan bisnis spesifik Anda."
+      }
+    },
+    "services": {
+      "website": "Pengembangan Website",
+      "mobile": "Pengembangan Aplikasi Mobile",
+      "whatsapp": "Integrasi API WhatsApp",
+      "design": "Desain UI/UX",
+      "marketing": "Digital Marketing",
+      "consulting": "Konsultasi IT",
+      "other": "Layanan Lainnya"
+    },
+    "form": {
+      "title": "Jadwalkan Konsultasi Anda",
+      "subtitle": "Isi formulir di bawah ini dan kami akan menghubungi Anda dalam 24 jam untuk mengonfirmasi janji temu Anda.",
+      "personal": {
+        "title": "Informasi Pribadi",
+        "name": "Nama Lengkap",
+        "namePlaceholder": "Masukkan nama lengkap Anda",
+        "email": "Alamat Email",
+        "emailPlaceholder": "Masukkan alamat email Anda",
+        "phone": "Nomor Telepon",
+        "phonePlaceholder": "+62 812 3456 7890",
+        "company": "Nama Perusahaan",
+        "companyPlaceholder": "Masukkan nama perusahaan Anda (opsional)"
+      },
+      "service": {
+        "title": "Informasi Layanan",
+        "interest": "Layanan yang Diminati",
+        "select": "Pilih layanan"
+      },
+      "schedule": {
+        "title": "Jadwal Pilihan",
+        "date": "Tanggal Pilihan",
+        "time": "Waktu Pilihan",
+        "selectTime": "Pilih waktu"
+      },
+      "message": {
+        "label": "Ceritakan tentang proyek Anda",
+        "placeholder": "Silakan jelaskan kebutuhan proyek Anda, tujuan, dan pertanyaan spesifik yang ingin Anda diskusikan selama konsultasi..."
+      },
+      "submit": "Buat Janji Temu",
+      "submitting": "Membuat Janji Temu...",
+      "note": "* Kami akan menghubungi Anda dalam 24 jam untuk mengonfirmasi detail janji temu.",
+      "success": {
+        "title": "Janji Temu Berhasil Dibuat!",
+        "message": "Terima kasih telah membuat janji temu dengan kami. Kami telah menerima permintaan Anda dan akan segera menghubungi Anda untuk mengonfirmasi detailnya.",
+        "next": "Apa yang terjadi selanjutnya:",
+        "step1": "Kami akan meninjau permintaan Anda dalam 24 jam",
+        "step2": "Tim kami akan menghubungi Anda untuk mengonfirmasi janji temu",
+        "step3": "Anda akan menerima undangan kalender dengan detail pertemuan"
+      },
+      "error": {
+        "title": "Pembuatan Janji Temu Gagal"
+      }
+    },
+    "info": {
+      "title": "Yang Dapat Anda Harapkan",
+      "duration": {
+        "title": "Durasi Konsultasi",
+        "description": "Konsultasi biasanya berlangsung 30-60 menit, tergantung kompleksitas proyek."
+      },
+      "preparation": {
+        "title": "Cara Mempersiapkan",
+        "description": "Siapkan dokumen yang relevan, ide, atau pertanyaan tentang proyek Anda."
+      },
+      "location": {
+        "title": "Format Pertemuan",
+        "description": "Konsultasi dapat dilakukan online melalui panggilan video atau tatap muka di kantor kami."
+      },
+      "followup": {
+        "title": "Tindak Lanjut",
+        "description": "Setelah konsultasi, Anda akan menerima proposal terperinci dan timeline proyek."
+      }
+    }
+  },
+  "sustainability": {
+    "meta": {
+      "title": "Keberlanjutan - Genfity",
+      "description": "Pelajari komitmen Genfity terhadap keberlanjutan lingkungan dan inisiatif teknologi hijau kami untuk masa depan digital yang lebih baik."
+    },
+    "title": "Komitmen Kami terhadap Keberlanjutan",
+    "subtitle": "Di Genfity, kami percaya dalam menciptakan solusi digital yang tidak hanya mendorong kesuksesan bisnis tetapi juga berkontribusi pada masa depan yang berkelanjutan bagi planet kita.",
+    "hero": {
+      "title": "Membangun Masa Depan Digital yang Lebih Hijau",
+      "description": "Kami berkomitmen untuk mengurangi dampak lingkungan melalui praktik berkelanjutan, teknologi hijau, dan operasi bisnis yang bertanggung jawab."
+    },
+    "initiatives": {
+      "title": "Inisiatif Keberlanjutan Kami",
+      "subtitle": "Temukan bagaimana kami memberikan dampak positif pada lingkungan melalui berbagai program dan praktik kami.",
+      "green_tech": {
+        "title": "Solusi Teknologi Hijau",
+        "description": "Kami mengembangkan perangkat lunak dan aplikasi yang hemat energi untuk meminimalkan sumber daya komputasi dan mengurangi jejak karbon.",
+        "features": [
+          "Kode yang dioptimalkan untuk mengurangi konsumsi energi server",
+          "Solusi berbasis cloud untuk meminimalkan kebutuhan perangkat keras",
+          "Algoritma efisien yang mengurangi kebutuhan daya pemrosesan",
+          "Hosting berkelanjutan dengan penyedia energi terbarukan"
+        ]
+      },
+      "carbon_neutral": {
+        "title": "Operasi Netral Karbon",
+        "description": "Kami bekerja menuju operasi netral karbon melalui berbagai inisiatif lingkungan dan program offset.",
+        "features": [
+          "Budaya kerja remote-first mengurangi emisi perjalanan",
+          "Proses digital-first untuk meminimalkan penggunaan kertas",
+          "Bermitra dengan program offset karbon",
+          "Menggunakan sumber energi terbarukan untuk operasi kantor"
+        ]
+      },
+      "responsible_dev": {
+        "title": "Pengembangan Bertanggung Jawab",
+        "description": "Praktik pengembangan kami memprioritaskan daya tahan, efisiensi, dan dampak lingkungan yang minimal.",
+        "features": [
+          "Solusi perangkat lunak jangka panjang mengurangi pembaruan yang sering",
+          "Desain mobile-first mengurangi konsumsi data",
+          "Query database dan strategi caching yang efisien",
+          "Penggunaan sumber daya minimal dalam desain aplikasi"
+        ]
+      },
+      "community": {
+        "title": "Komunitas & Edukasi",
+        "description": "Kami secara aktif mendidik klien dan komunitas kami tentang praktik digital berkelanjutan.",
+        "features": [
+          "Workshop tentang pengembangan web berkelanjutan",
+          "Panduan praktik terbaik untuk website ramah lingkungan",
+          "Inisiatif komunitas untuk keberlanjutan digital",
+          "Kemitraan dengan organisasi lingkungan"
+        ]
+      }
+    },
+    "goals": {
+      "title": "Target Keberlanjutan 2025-2030 Kami",
+      "subtitle": "Kami telah menetapkan target ambisius untuk memastikan bisnis kami berkontribusi positif pada keberlanjutan lingkungan.",
+      "goal_1": {
+        "title": "100% Netral Karbon",
+        "description": "Mencapai netralitas karbon lengkap di seluruh operasi bisnis pada tahun 2027.",
+        "target": "2027"
+      },
+      "goal_2": {
+        "title": "Fokus Teknologi Hijau",
+        "description": "80% proyek pengembangan kami akan menggabungkan pertimbangan keberlanjutan pada tahun 2026.",
+        "target": "2026"
+      },
+      "goal_3": {
+        "title": "Dampak Komunitas",
+        "description": "Melatih 1000+ developer dalam praktik coding berkelanjutan melalui program edukasi kami.",
+        "target": "2030"
+      },
+      "goal_4": {
+        "title": "Energi Terbarukan",
+        "description": "Menggerakkan 100% operasi kami dengan sumber energi terbarukan.",
+        "target": "2025"
+      }
+    },
+    "impact": {
+      "title": "Dampak Lingkungan Kami",
+      "subtitle": "Pantau kemajuan kami dan lihat perubahan positif yang kami buat untuk lingkungan.",
+      "stats": {
+        "carbon_reduced": {
+          "value": "45%",
+          "label": "Pengurangan Jejak Karbon",
+          "description": "Dibandingkan baseline 2023"
+        },
+        "renewable_energy": {
+          "value": "80%",
+          "label": "Penggunaan Energi Terbarukan",
+          "description": "Dari total konsumsi energi"
+        },
+        "digital_first": {
+          "value": "95%",
+          "label": "Proses Digital-First",
+          "description": "Eliminasi penggunaan kertas"
+        },
+        "green_projects": {
+          "value": "60%",
+          "label": "Proyek Teknologi Hijau",
+          "description": "Dari total proyek yang diselesaikan"
+        }
+      }
+    },
+    "partnership": {
+      "title": "Bermitra dengan Kami untuk Keberlanjutan",
+      "description": "Bergabunglah dengan kami dalam menciptakan masa depan digital yang lebih berkelanjutan. Baik Anda klien, mitra, atau sesama developer, kami mengundang Anda untuk menjadi bagian dari perjalanan keberlanjutan kami.",
+      "cta": "Pelajari Lebih Lanjut Tentang Solusi Hijau Kami",
+      "contact": "Hubungi kami untuk membahas bagaimana kami dapat membuat proyek Anda berikutnya lebih ramah lingkungan."
+    }
+  },
+  "customerService": {
+    "meta": {
+      "title": "Layanan Pelanggan - Genfity",
+      "description": "Dapatkan dukungan komprehensif untuk solusi digital Anda. Tim layanan pelanggan kami siap membantu Anda dengan masalah teknis, pertanyaan tagihan, dan inquiry proyek."
+    },
+    "title": "Layanan Pelanggan",
+    "subtitle": "Kami di sini untuk membantu Anda sukses. Dapatkan dukungan yang Anda butuhkan untuk perjalanan transformasi digital Anda dengan tim layanan pelanggan kami yang berdedikasi.",
+    "hero": {
+      "title": "Bagaimana Kami Bisa Membantu Anda Hari Ini?",
+      "description": "Tim layanan pelanggan kami siap membantu Anda dengan pertanyaan atau masalah apa pun tentang layanan kami, proyek yang sedang berjalan, atau kebutuhan dukungan teknis."
+    },
+    "contact": {
+      "title": "Hubungi Kami",
+      "subtitle": "Pilih cara terbaik untuk menghubungi tim dukungan kami berdasarkan kebutuhan dan urgensi Anda.",
+      "methods": {
+        "whatsapp": {
+          "title": "Dukungan WhatsApp",
+          "description": "Dapatkan dukungan instan melalui WhatsApp untuk pertanyaan cepat dan masalah mendesak.",
+          "number": "+62 851 7431 4023",
+          "hours": "Sen-Jum: 9AM-6PM WIB",
+          "response": "Biasanya merespons dalam 15 menit"
+        },
+        "email": {
+          "title": "Dukungan Email",
+          "description": "Kirim pertanyaan detail dan dapatkan respons komprehensif melalui email.",
+          "address": "genfity@gmail.com",
+          "hours": "Dukungan 24/7",
+          "response": "Respons dalam 24 jam"
+        },
+        "appointment": {
+          "title": "Jadwalkan Konsultasi",
+          "description": "Pesan sesi konsultasi khusus untuk masalah kompleks atau diskusi proyek.",
+          "action": "Buat Janji Temu",
+          "hours": "Sen-Jum: 9AM-5PM WIB",
+          "response": "Dijadwalkan dalam 48 jam"
+        }
+      }
+    },
+    "support": {
+      "title": "Kategori Dukungan",
+      "subtitle": "Temukan jenis dukungan yang tepat untuk kebutuhan spesifik Anda.",
+      "categories": {
+        "technical": {
+          "title": "Dukungan Teknis",
+          "description": "Dapatkan bantuan untuk masalah teknis, troubleshooting, dan konfigurasi sistem.",
+          "topics": [
+            "Troubleshooting website dan aplikasi",
+            "Masalah integrasi WhatsApp API",
+            "Masalah server dan hosting",
+            "Optimasi performa",
+            "Keamanan dan maintenance"
+          ]
+        },
+        "billing": {
+          "title": "Tagihan & Pembayaran",
+          "description": "Pertanyaan tentang faktur, pembayaran, refund, dan manajemen langganan.",
+          "topics": [
+            "Pertanyaan faktur dan pembayaran",
+            "Manajemen langganan",
+            "Permintaan refund dan pembatalan",
+            "Update metode pembayaran",
+            "Riwayat tagihan dan receipt"
+          ]
+        },
+        "project": {
+          "title": "Manajemen Proyek",
+          "description": "Dukungan untuk proyek yang sedang berjalan, update timeline, dan permintaan perubahan.",
+          "topics": [
+            "Update status dan timeline proyek",
+            "Permintaan perubahan dan modifikasi",
+            "Tracking delivery dan milestone",
+            "Quality assurance dan testing",
+            "Dukungan pasca-launch dan maintenance"
+          ]
+        },
+        "general": {
+          "title": "Pertanyaan Umum",
+          "description": "Pertanyaan umum tentang layanan kami, harga, dan kemitraan bisnis.",
+          "topics": [
+            "Informasi layanan dan harga",
+            "Peluang kemitraan dan kolaborasi",
+            "Informasi perusahaan dan kredensial",
+            "Peluang karir",
+            "Feedback dan saran"
+          ]
+        }
+      }
+    },
+    "faq": {
+      "title": "Pertanyaan yang Sering Diajukan",
+      "subtitle": "Jawaban cepat untuk pertanyaan umum tentang layanan dan proses dukungan kami.",
+      "items": [
+        {
+          "question": "Apa jam layanan pelanggan Anda?",
+          "answer": "Dukungan WhatsApp kami tersedia Senin sampai Jumat, 9AM-6PM WIB. Dukungan email tersedia 24/7 dengan respons dalam 24 jam. Janji konsultasi dapat dijadwalkan Senin sampai Jumat, 9AM-5PM WIB."
+        },
+        {
+          "question": "Seberapa cepat Anda merespons permintaan dukungan?",
+          "answer": "Pesan WhatsApp biasanya dijawab dalam 15 menit selama jam kerja. Pertanyaan email mendapat respons dalam 24 jam. Untuk masalah mendesak, kami rekomendasikan menggunakan WhatsApp untuk respons tercepat."
+        },
+        {
+          "question": "Apakah Anda menyediakan dukungan teknis setelah proyek selesai?",
+          "answer": "Ya, kami menyediakan dukungan pasca-launch komprehensif termasuk perbaikan bug, update minor, dan bantuan teknis. Paket dukungan extended tersedia untuk maintenance berkelanjutan dan peningkatan fitur."
+        },
+        {
+          "question": "Bisakah saya meminta perubahan pada proyek yang sedang berjalan?",
+          "answer": "Ya, permintaan perubahan dapat diakomodasi tergantung fase dan ruang lingkup proyek. Silakan hubungi tim manajemen proyek kami untuk membahas modifikasi, dampak timeline, dan biaya tambahan."
+        },
+        {
+          "question": "Informasi apa yang harus saya sertakan dalam permintaan dukungan?",
+          "answer": "Harap sertakan detail proyek Anda, deskripsi jelas masalah, langkah-langkah untuk mereproduksi masalah (jika teknis), screenshot atau pesan error, dan informasi kontak Anda untuk follow-up."
+        },
+        {
+          "question": "Apakah Anda menyediakan dukungan darurat untuk masalah kritis?",
+          "answer": "Ya, kami menyediakan dukungan darurat untuk masalah kritis yang mempengaruhi operasi bisnis. Hubungi kami segera melalui WhatsApp untuk masalah teknis mendesak atau system outage."
+        }
+      ]
+    },
+    "resources": {
+      "title": "Sumber Daya Mandiri",
+      "subtitle": "Jelajahi knowledge base dan sumber daya kami untuk solusi cepat masalah umum.",
+      "items": {
+        "documentation": {
+          "title": "Dokumentasi Teknis",
+          "description": "Panduan dan dokumentasi komprehensif untuk layanan dan API kami.",
+          "link": "/docs"
+        },
+        "tutorials": {
+          "title": "Tutorial Video",
+          "description": "Panduan video langkah demi langkah untuk tugas dan konfigurasi umum.",
+          "link": "/tutorials"
+        },
+        "status": {
+          "title": "Status Layanan",
+          "description": "Periksa status terkini layanan kami dan maintenance yang sedang berjalan.",
+          "link": "/status"
+        },
+        "community": {
+          "title": "Forum Komunitas",
+          "description": "Terhubung dengan pengguna lain dan dapatkan dukungan komunitas serta tips.",
+          "link": "/community"
+        }
+      }
+    },
+    "feedback": {
+      "title": "Feedback Anda Penting",
+      "description": "Bantu kami meningkatkan layanan dengan membagikan pengalaman dan saran Anda. Feedback Anda membantu kami melayani Anda lebih baik.",
+      "cta": "Kirim Feedback",
+      "contact": "Kami menghargai masukan Anda dan menggunakannya untuk terus meningkatkan pengalaman layanan pelanggan kami."
+    }
+  }
+}

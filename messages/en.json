@@ -1,0 +1,918 @@
+{
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  },
+  "Metadata": {
+    "title": "Hello world!",
+    "description": "This is a simple example of a metadata page."
+  },
+  "Header": {
+    "explore": "Explore",
+    "services": "Services",
+    "pricing": "Pricing",
+    "portfolio": "Portfolio",
+    "howToOrder": "How to Order",
+    "contact": "Contact Us",    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "cart": "Cart",
+    "aboutGenfity": "About Genfity",
+    "faq": "FAQ",
+    "blog": "Blog (Coming Soon)",
+    "career": "Career (Coming Soon)",
+    "mainServices": "Main Services",
+    "whatsappSolutions": "WhatsApp Solutions",
+    "others": "Other Services",
+    "customWebsite": "Custom Website Development",
+    "customWebsiteDesc": "Tailored website solutions designed specifically for your business requirements and brand identity.",
+    "webApp": "Web Application Development", 
+    "webAppDesc": "Modern, scalable web applications built with cutting-edge technologies for digital transformation.",
+    "mobileDevelopment": "Mobile Development",
+    "mobileDevelopmentDesc": "Native and cross-platform mobile applications for iOS and Android with exceptional user experience.",
+    "corporateSystem": "Corporate System Development",
+    "corporateSystemDesc": "Enterprise-grade management systems and business process automation solutions.",
+    "uiUxDesign": "UI/UX Design Service",
+    "uiUxDesignDesc": "User-centered design solutions that combine aesthetics with functionality for optimal user experience.",
+    "whatsappAPI": "WhatsApp API",
+    "whatsappAPIDesc": "Comprehensive WhatsApp API integration for enhanced customer communication and engagement.",
+    "whatsappBroadcast": "WhatsApp Broadcast",
+    "whatsappBroadcastDesc": "Efficient mass messaging solutions to reach your customers with targeted promotional campaigns.",
+    "whatsappChatbot": "WhatsApp Chatbot AI",
+    "whatsappChatbotDesc": "Intelligent AI-powered chatbots for automated customer service and 24/7 support capabilities.",
+    "whatsappTeamInbox": "WhatsApp Team Inbox",
+    "whatsappTeamInboxDesc": "Collaborative team management platform for handling customer conversations efficiently.",
+    "seoSpecialist": "SEO Specialist",
+    "seoSpecialistDesc": "Professional search engine optimization services to improve your website's visibility and rankings.",
+    "corporateBranding": "Corporate & Product Branding",
+    "corporateBrandingDesc": "Comprehensive brand identity development and strategic positioning for lasting market impact.",
+    "techSupport": "Technical Support",
+    "techSupportDesc": "Reliable technical assistance and maintenance services to ensure seamless business operations.",
+    "itConsulting": "IT Consulting",
+    "itConsultingDesc": "Strategic technology consulting and digital transformation guidance for business growth."
+  },
+  "terms": {
+    "meta": {
+      "title": "Terms and Conditions - Genfity",
+      "description": "Terms and Conditions for using Genfity's digital services and platform"
+    },
+    "title": "Terms and Conditions",
+    "lastUpdated": "Last updated September 17, 2025",
+    "agreement": {
+      "title": "Agreement to Our Legal Terms"
+    },
+    "tableOfContents": "Table of Contents",
+    "sections": {
+      "services": {
+        "title": "Our Services"
+      },
+      "intellectualProperty": {
+        "title": "Intellectual Property Rights"
+      },
+      "userRepresentations": {
+        "title": "User Representations"
+      },
+      "purchasesPayment": {
+        "title": "Purchases and Payment"
+      },
+      "subscriptions": {
+        "title": "Subscriptions"
+      },
+      "prohibitedActivities": {
+        "title": "Prohibited Activities"
+      },
+      "privacyPolicy": {
+        "title": "Privacy Policy"
+      },
+      "governingLaw": {
+        "title": "Governing Law"
+      },
+      "contactUs": {
+        "title": "Contact Us"
+      }
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacy Policy - Genfity",
+      "description": "Privacy Policy for Genfity's digital services and data protection practices"
+    },
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated September 17, 2025",
+    "introduction": {
+      "title": "Introduction"
+    },
+    "informationCollection": {
+      "title": "Information We Collect"
+    },
+    "informationUse": {
+      "title": "How We Use Your Information"
+    },
+    "informationSharing": {
+      "title": "Information Sharing"
+    },
+    "dataSecurity": {
+      "title": "Data Security"
+    },
+    "userRights": {
+      "title": "Your Rights"
+    },
+    "cookies": {
+      "title": "Cookies and Tracking"
+    },
+    "contact": {
+      "title": "Contact Us"
+    }
+  },
+  "refund": {
+    "meta": {
+      "title": "Refund Policy - Genfity",
+      "description": "Refund policy and terms for Genfity's digital services"
+    },
+    "title": "Refund Policy",
+    "lastUpdated": "Last updated September 17, 2025",
+    "introduction": {
+      "title": "Introduction"
+    },
+    "serviceCategories": {
+      "title": "Service Categories"
+    },
+    "refundConditions": {
+      "title": "Refund Conditions"
+    },
+    "refundProcess": {
+      "title": "Refund Process"
+    },
+    "paymentMethods": {
+      "title": "Payment Methods & Processing Time"
+    },
+    "exceptions": {
+      "title": "Exceptions"
+    },
+    "contact": {
+      "title": "Contact Information"
+    }
+  },
+  "HowToOrder": {
+    "title": "How to Order",
+    "subtitle": "Complete guide to placing your order",
+    "description": "Follow our comprehensive ordering process to get your project started with Genfity.",
+    "orderingProcess": {
+      "title": "Ordering Process",
+      "subtitle": "8 simple steps to complete your order",
+      "steps": {
+        "addToCart": {
+          "title": "Add to Cart",
+          "description": "Browse our services and add your desired products to the cart. You can select multiple services if needed."
+        },
+        "fillForm": {
+          "title": "Fill Form",
+          "description": "Complete the order form with your project details, requirements, and contact information."
+        },
+        "voucher": {
+          "title": "Apply Voucher",
+          "description": "Enter your voucher code if you have one to get discounts on your order."
+        },
+        "verifyOrder": {
+          "title": "Verify Order",
+          "description": "Review your order details, services selected, and total amount before proceeding."
+        },
+        "checkout": {
+          "title": "Checkout",
+          "description": "Confirm your order and proceed to the payment gateway."
+        },
+        "payment": {
+          "title": "Payment Gateway",
+          "description": "Choose your preferred payment method and enter payment details securely."
+        },
+        "pay": {
+          "title": "Complete Payment",
+          "description": "Finalize your payment to start the order processing."
+        },
+        "checkStatus": {
+          "title": "Check Order Status",
+          "description": "Monitor your order progress through our tracking system."
+        }
+      }
+    },
+    "mainWorkflow": {
+      "title": "Main Product Workflow",
+      "subtitle": "How we process your main product orders",
+      "steps": {
+        "orderReceived": {
+          "title": "Order Received",
+          "description": "Your order is confirmed and added to our processing queue."
+        },
+        "whatsappContact": {
+          "title": "WhatsApp Contact",
+          "description": "Our team will contact you via WhatsApp for project discussion and clarification."
+        },
+        "workExecution": {
+          "title": "Work Execution",
+          "description": "Our expert team starts working on your project according to the specifications."
+        },
+        "delivery": {
+          "title": "Project Delivery",
+          "description": "Complete project delivered with documentation and support."
+        }
+      }
+    },
+    "revisionProcess": {
+      "title": "Revision Process",
+      "subtitle": "How we handle project revisions",
+      "steps": {
+        "meetings": {
+          "title": "Client Meetings",
+          "description": "Schedule meetings to discuss revision requirements and feedback."
+        },
+        "revisionRequests": {
+          "title": "Revision Requests",
+          "description": "Submit detailed revision requests through our platform."
+        },
+        "processing": {
+          "title": "Revision Processing",
+          "description": "Our team implements the requested changes and delivers updated results."
+        }
+      }
+    },
+    "whatsappApiWorkflow": {
+      "title": "WhatsApp API Service Workflow",
+      "subtitle": "Automated service activation process",
+      "steps": {
+        "automaticActivation": {
+          "title": "Automatic Activation",
+          "description": "Your WhatsApp API service is automatically activated after successful payment."
+        },
+        "dashboardAccess": {
+          "title": "Dashboard Access",
+          "description": "Get instant access to your WhatsApp API dashboard to start managing your business communications."
+        }
+      }
+    },
+    "needHelp": {
+      "title": "Need Help?",
+      "description": "If you have any questions about the ordering process, feel free to contact our support team.",
+      "contactButton": "Contact Support"
+    }
+  },
+  "Auth": {
+    "signIn": {
+      "title": "Sign In",
+      "subtitle": "Sign in to your account",
+      "description": "Login to access your dashboard and manage your account",
+      "sessionExpired": "Session Expired",
+      "sessionExpiredMessage": "Your session has expired. Please sign in again to continue.",
+      "accessPageMessage": "Please sign in to access this page.",
+      "loginModes": {
+        "password": "Password",
+        "sso": "Quick Login"
+      },
+      "form": {
+        "emailOrPhone": "Email or Phone Number",
+        "emailOrPhonePlaceholder": "Enter your email or phone number",
+        "password": "Password",
+        "passwordPlaceholder": "Enter your Password",
+        "ssoIdentifier": "Email or WhatsApp Number",
+        "ssoIdentifierPlaceholder": "08** / you@email.com",
+        "forgotPassword": "Forgot Password?",
+        "signInButton": "Sign in",
+        "sendCodeButton": "Send Code",
+        "rememberMe": "Remember me"
+      },
+      "otp": {
+        "title": "Enter Verification Code",
+        "description": "We've sent a verification code to",
+        "enterCode": "Enter the 6-digit code",
+        "resendCode": "Resend Code",
+        "resendIn": "Resend in",
+        "seconds": "seconds",
+        "back": "Back",
+        "verify": "Verify"
+      },
+      "google": {
+        "signInWith": "Sign in with Google"
+      },
+      "errors": {
+        "invalidCredentials": "Invalid credentials. Please try again.",
+        "unknownError": "Unknown error",
+        "unexpectedError": "An unexpected error occurred. Please try again.",
+        "ssoFailed": "Failed to send verification code. Please try again.",
+        "ssoRateLimited": "Too many requests. Please wait {seconds} seconds before requesting another code.",
+        "ssoUnknownError": "An unknown error occurred while sending verification code.",
+        "verifyFailed": "Invalid verification code. Please try again.",
+        "verifyUnknownError": "An unknown error occurred during verification."
+      },
+      "links": {
+        "noAccount": "Don't have an account?",
+        "signUp": "Sign Up"
+      }
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "subtitle": "Create your account",
+      "description": "Join us and start your journey with Genfity",
+      "form": {
+        "name": "Full Name",
+        "namePlaceholder": "Enter your full name",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter your email address",
+        "phone": "WhatsApp Number",
+        "phonePlaceholder": "+62812345678, 081234567890",
+        "phoneHelper": "Supports international WhatsApp numbers: +62 (Indonesia), +1 (USA), +44 (UK), +61 (Australia), etc.",
+        "phoneValid": "✓ Valid WhatsApp number format",
+        "password": "Password",
+        "passwordPlaceholder": "Enter your password",
+        "signUpButton": "Sign Up",
+        "creating": "Creating account..."
+      },
+      "verification": {
+        "title": "Verify Your Phone Number",
+        "description": "We've sent a verification code to",
+        "continueDescription": "Continue your registration by verifying the code sent to",
+        "enterCode": "Enter the 4-digit code",
+        "resendCode": "Resend Code",
+        "resendIn": "Resend in",
+        "seconds": "seconds",
+        "back": "Back to Sign Up",
+        "backToForm": "Change Information",
+        "verify": "Verify & Complete Registration"
+      },
+      "errors": {
+        "signupFailed": "Failed to sign up. Please try again.",
+        "unexpectedError": "An unexpected error occurred. Please try again.",
+        "invalidOtp": "Invalid OTP. Please try again.",
+        "resendFailed": "Failed to resend code. Please try again.",
+        "invalidPhone": "Please enter a valid WhatsApp number with country code (e.g., +62812345678, 081234567890)",
+        "emailExists": "An account with this email already exists. Please use a different email or sign in.",
+        "phoneExists": "An account with this WhatsApp number already exists. Please use a different number or sign in.",
+        "userExists": "An account with this information already exists. Please sign in instead.",
+        "otpExpired": "The verification code has expired. Please request a new one.",
+        "verificationExpired": "The verification deadline has passed. Please register again.",
+        "generalError": "Registration failed. Please check your information and try again.",
+        "registrationInProgress": "Registration already in progress. Please verify your OTP or wait for it to expire."
+      },
+      "links": {
+        "hasAccount": "Already have an account?",
+        "signIn": "Sign In"
+      }
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "subtitle": "Reset your password",
+      "description": "Enter your email or phone number to receive a reset code",
+      "steps": {
+        "request": {
+          "title": "Reset Password",
+          "description": "Enter your email or phone number and we'll send you a reset code",
+          "form": {
+            "identifier": "Email or Phone Number",
+            "identifierPlaceholder": "Enter your email or phone number",
+            "sendCode": "Send Reset Code"
+          }
+        },
+        "verify": {
+          "title": "Enter Reset Code",
+          "description": "We've sent a reset code to",
+          "form": {
+            "enterCode": "Enter the 4-digit code",
+            "newPassword": "New Password",
+            "newPasswordPlaceholder": "Enter your new password",
+            "confirmPassword": "Confirm Password",
+            "confirmPasswordPlaceholder": "Confirm your new password",
+            "resetPassword": "Reset Password"
+          },
+          "resendCode": "Resend Code",
+          "resendIn": "Resend in",
+          "seconds": "seconds"
+        },
+        "success": {
+          "title": "Password Reset Successfully",
+          "description": "Your password has been reset successfully. You can now sign in with your new password.",
+          "signIn": "Sign In Now"
+        }
+      },
+      "errors": {
+        "sendFailed": "Failed to send reset code. Please try again.",
+        "unexpectedError": "An unexpected error occurred. Please try again.",
+        "passwordMismatch": "Passwords do not match",
+        "resetFailed": "Failed to reset password. Please try again.",
+        "resendFailed": "Failed to resend code. Please try again."
+      },      
+      "links": {
+        "backToSignIn": "Back to Sign In",
+        "rememberPassword": "Remember your password?",
+        "signIn": "Sign In"
+      }
+    },
+    "common": {
+      "back": "Back",
+      "loading": "Loading...",
+      "or": "or",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    },
+    "dashboard": {
+      "whatsapp": {
+        "bulk": {
+          "title": "Campaign",
+          "subtitle": "Send promotional messages to multiple contacts",
+          "contactSources": {
+            "title": "Contact Sources",
+            "database": "Database",
+            "excel": "Excel Import",
+            "manual": "Manual Input",
+            "whatsappContacts": "WhatsApp Contacts",
+            "syncContacts": "Sync Contacts",
+            "syncContactsTooltip": "Fetch contact data from external WhatsApp server",
+            "syncing": "Syncing...",
+            "searchPlaceholder": "Search contacts...",
+            "selectAll": "Select All",
+            "noContacts": "No contacts found",
+            "loadingContacts": "Loading contacts...",
+            "manualNumbers": "Manual Phone Numbers",
+            "addNumber": "Add Number",
+            "phonePlaceholder": "e.g., 6281234567890",
+            "importTitle": "Import from Excel/CSV",
+            "importDescription": "Upload a CSV or Excel file with phone numbers",
+            "formatNote": "Format: First column = Phone Number, Second column = Name (optional)",
+            "processingFile": "Processing file...",
+            "importedContacts": "Imported Contacts",
+            "selectAllImported": "Select All",
+            "unselectAll": "Unselect All",
+            "deleteSelected": "Delete Selected",
+            "deleting": "Deleting...",
+            "deleteConfirmTitle": "Delete Selected Contacts",
+            "deleteConfirmDescription": "Are you sure you want to delete {count} selected contact{plural}? This action cannot be undone.",
+            "cancel": "Cancel",
+            "delete": "Delete"
+          },
+          "messageConfig": {
+            "title": "Message Configuration",
+            "messageType": "Message Type",
+            "textMessage": "Text Message",
+            "imageMessage": "Image Message",
+            "messageContent": "Message Content",
+            "messagePlaceholder": "Enter your promotional message here...",
+            "characters": "characters",
+            "imageSource": "Image Source",
+            "imageUrl": "Image URL",
+            "uploadFile": "Upload File",
+            "imageUrlPlaceholder": "https://example.com/image.jpg",
+            "uploadImage": "Upload Image",
+            "imageCaption": "Image Caption",
+            "captionPlaceholder": "Image caption (optional)",
+            "selectedFile": "Selected:"
+          },
+          "schedule": {
+            "title": "Schedule Configuration",
+            "sendSchedule": "Send Schedule",
+            "sendNow": "Send Now",
+            "scheduleLater": "Schedule for Later",
+            "date": "Date",
+            "time": "Time"
+          },
+          "summary": {
+            "title": "Summary",
+            "recipients": "Recipients",
+            "database": "Database",
+            "manual": "Manual",
+            "excel": "Excel",
+            "type": "Type",
+            "schedule": "Schedule",
+            "sendImmediately": "Send immediately"
+          },
+          "actions": {
+            "sendNow": "Send Now",
+            "scheduleMessage": "Schedule Message",
+            "sending": "Sending..."
+          },
+          "messages": {
+            "syncSuccess": "Contacts synced successfully!",
+            "importSuccess": "Successfully imported {count} contacts from CSV",
+            "sendSuccess": "Campaign {type} successfully to {count} contacts!",
+            "sent": "sent",
+            "scheduled": "scheduled",
+            "noContacts": "Please select at least one contact",
+            "noMessage": "Please enter a message",
+            "noImageUrl": "Please enter an image URL",
+            "noImageFile": "Please select an image file",
+            "invalidFile": "Please select a valid image file",
+            "invalidExcelFile": "Please select a valid Excel file (.xlsx, .xls) or CSV file",
+            "excelNotSupported": "Excel files (.xlsx, .xls) are not yet supported. Please use CSV format for now.",
+            "parseError": "Failed to parse the file. Please check the format and try again."
+          },
+          "errors": {
+            "noToken": "No authentication token found",
+            "syncFailed": "Failed to sync contacts",
+            "fetchFailed": "Failed to fetch contacts",
+            "sendFailed": "Failed to send campaign",
+            "unknownError": "Unknown error"
+          }
+        },
+        "history": {
+          "title": "Broadcast History",
+          "compose": "Compose Message",
+          "history": "Message History",
+          "refresh": "Refresh",
+          "loading": "Loading history...",
+          "noMessages": "No campaign messages found",
+          "recipients": "Recipients",
+          "contacts": "contacts",
+          "sent": "Sent",
+          "failed": "Failed",
+          "message": "Message",
+          "imageMessage": "Image message",
+          "scheduledFor": "Scheduled for",
+          "status": {
+            "completed": "Completed",
+            "pending": "Pending",
+            "scheduled": "Scheduled",
+            "processing": "Processing",
+            "failed": "Failed"
+          }
+        },
+        "subscription": {
+          "noActiveTitle": "No Active Subscription",
+          "noActiveDescription": "You need an active WhatsApp subscription to use this feature.",
+          "browsePackages": "Browse Packages",
+          "checkStatus": "Check Status",
+          "checking": "Checking Status...",
+          "refresh": "Refresh",
+          "refreshing": "Checking...",
+          "previousSubscriptions": "Previous Subscriptions",
+          "whatYouGet": "What You'll Get",
+          "multipleSessionsTitle": "Multiple Sessions",
+          "multipleSessionsDesc": "Manage multiple WhatsApp accounts",
+          "apiAccessTitle": "API Access", 
+          "apiAccessDesc": "Full WhatsApp API integration",
+          "campaignToolsTitle": "Campaign Tools",
+          "campaignToolsDesc": "Schedule and manage campaigns",
+          "loadingSubscription": "Loading subscription data...",
+          "errorLoading": "Error loading subscription data"
+        },
+        "testing": {
+          "title": "WhatsApp Testing",
+          "description": "Test WhatsApp API functionality with your sessions",
+          "needSubscription": "Active WhatsApp subscription required to access testing features.",
+          "subscribeNow": "Subscribe now"
+        }
+      }
+    }
+  },
+  "appointment": {
+    "meta": {
+      "title": "Book Appointment - Genfity",
+      "description": "Schedule a consultation with our experts to discuss your digital needs and get personalized solutions."
+    },
+    "title": "Book Appointment",
+    "subtitle": "Schedule a consultation with our experts to discuss your project needs and get personalized solutions tailored for your business.",
+    "benefits": {
+      "flexible": {
+        "title": "Flexible Scheduling",
+        "description": "Choose your preferred date and time that works best for your schedule."
+      },
+      "expert": {
+        "title": "Expert Consultation",
+        "description": "Get insights from our experienced team of digital solution specialists."
+      },
+      "solution": {
+        "title": "Tailored Solutions",
+        "description": "Receive customized recommendations based on your specific business needs."
+      }
+    },
+    "services": {
+      "website": "Website Development",
+      "mobile": "Mobile App Development",
+      "whatsapp": "WhatsApp API Integration",
+      "design": "UI/UX Design",
+      "marketing": "Digital Marketing",
+      "consulting": "IT Consulting",
+      "other": "Other Services"
+    },
+    "form": {
+      "title": "Schedule Your Consultation",
+      "subtitle": "Fill out the form below and we'll get back to you within 24 hours to confirm your appointment.",
+      "personal": {
+        "title": "Personal Information",
+        "name": "Full Name",
+        "namePlaceholder": "Enter your full name",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter your email address",
+        "phone": "Phone Number",
+        "phonePlaceholder": "+62 812 3456 7890",
+        "company": "Company Name",
+        "companyPlaceholder": "Enter your company name (optional)"
+      },
+      "service": {
+        "title": "Service Information",
+        "interest": "Service of Interest",
+        "select": "Select a service"
+      },
+      "schedule": {
+        "title": "Preferred Schedule",
+        "date": "Preferred Date",
+        "time": "Preferred Time",
+        "selectTime": "Select time"
+      },
+      "message": {
+        "label": "Tell us about your project",
+        "placeholder": "Please describe your project requirements, goals, and any specific questions you'd like to discuss during the consultation..."
+      },
+      "submit": "Book Appointment",
+      "submitting": "Booking Appointment...",
+      "note": "* We'll contact you within 24 hours to confirm your appointment details.",
+      "success": {
+        "title": "Appointment Booked Successfully!",
+        "message": "Thank you for booking an appointment with us. We've received your request and will contact you soon to confirm the details.",
+        "next": "What happens next:",
+        "step1": "We'll review your request within 24 hours",
+        "step2": "Our team will contact you to confirm the appointment",
+        "step3": "You'll receive a calendar invite with meeting details"
+      },
+      "error": {
+        "title": "Booking Failed"
+      }
+    },
+    "info": {
+      "title": "What to Expect",
+      "duration": {
+        "title": "Consultation Duration",
+        "description": "Typical consultations last 30-60 minutes, depending on project complexity."
+      },
+      "preparation": {
+        "title": "How to Prepare",
+        "description": "Prepare any relevant documents, ideas, or questions about your project."
+      },
+      "location": {
+        "title": "Meeting Format",
+        "description": "Consultations can be conducted online via video call or in-person at our office."
+      },
+      "followup": {
+        "title": "Follow-up",
+        "description": "After the consultation, you'll receive a detailed proposal and project timeline."
+      }
+    }
+  },
+  "sustainability": {
+    "meta": {
+      "title": "Sustainability - Genfity",
+      "description": "Learn about Genfity's commitment to environmental sustainability and our green technology initiatives for a better digital future."
+    },
+    "title": "Our Commitment to Sustainability",
+    "subtitle": "At Genfity, we believe in creating digital solutions that not only drive business success but also contribute to a sustainable future for our planet.",
+    "hero": {
+      "title": "Building a Greener Digital Future",
+      "description": "We're committed to reducing our environmental impact through sustainable practices, green technologies, and responsible business operations."
+    },
+    "initiatives": {
+      "title": "Our Sustainability Initiatives",
+      "subtitle": "Discover how we're making a positive impact on the environment through our various programs and practices.",
+      "green_tech": {
+        "title": "Green Technology Solutions",
+        "description": "We develop energy-efficient software and applications that minimize computational resources and reduce carbon footprint.",
+        "features": [
+          "Optimized code for reduced server energy consumption",
+          "Cloud-based solutions to minimize hardware requirements",
+          "Efficient algorithms that reduce processing power needs",
+          "Sustainable hosting with renewable energy providers"
+        ]
+      },
+      "carbon_neutral": {
+        "title": "Carbon Neutral Operations",
+        "description": "We're working towards carbon-neutral operations through various environmental initiatives and offset programs.",
+        "features": [
+          "Remote-first work culture reducing commute emissions",
+          "Digital-first processes to minimize paper usage",
+          "Partner with carbon offset programs",
+          "Use renewable energy sources for office operations"
+        ]
+      },
+      "responsible_dev": {
+        "title": "Responsible Development",
+        "description": "Our development practices prioritize longevity, efficiency, and minimal environmental impact.",
+        "features": [
+          "Long-term software solutions reducing frequent updates",
+          "Mobile-first design reducing data consumption",
+          "Efficient database queries and caching strategies",
+          "Minimal resource usage in application design"
+        ]
+      },
+      "community": {
+        "title": "Community & Education",
+        "description": "We actively educate our clients and community about sustainable digital practices.",
+        "features": [
+          "Workshops on sustainable web development",
+          "Best practices guides for eco-friendly websites",
+          "Community initiatives for digital sustainability",
+          "Partnerships with environmental organizations"
+        ]
+      }
+    },
+    "goals": {
+      "title": "Our 2025-2030 Sustainability Goals",
+      "subtitle": "We've set ambitious targets to ensure our business contributes positively to environmental sustainability.",
+      "goal_1": {
+        "title": "100% Carbon Neutral",
+        "description": "Achieve complete carbon neutrality across all business operations by 2027.",
+        "target": "2027"
+      },
+      "goal_2": {
+        "title": "Green Technology Focus",
+        "description": "80% of our development projects will incorporate sustainability considerations by 2026.",
+        "target": "2026"
+      },
+      "goal_3": {
+        "title": "Community Impact",
+        "description": "Train 1000+ developers in sustainable coding practices through our educational programs.",
+        "target": "2030"
+      },
+      "goal_4": {
+        "title": "Renewable Energy",
+        "description": "Power 100% of our operations with renewable energy sources.",
+        "target": "2025"
+      }
+    },
+    "impact": {
+      "title": "Our Environmental Impact",
+      "subtitle": "Track our progress and see the positive changes we're making for the environment.",
+      "stats": {
+        "carbon_reduced": {
+          "value": "45%",
+          "label": "Carbon Footprint Reduction",
+          "description": "Compared to 2023 baseline"
+        },
+        "renewable_energy": {
+          "value": "80%",
+          "label": "Renewable Energy Usage",
+          "description": "Of total energy consumption"
+        },
+        "digital_first": {
+          "value": "95%",
+          "label": "Digital-First Processes",
+          "description": "Elimination of paper usage"
+        },
+        "green_projects": {
+          "value": "60%",
+          "label": "Green Technology Projects",
+          "description": "Of total projects delivered"
+        }
+      }
+    },
+    "partnership": {
+      "title": "Partner with Us for Sustainability",
+      "description": "Join us in creating a more sustainable digital future. Whether you're a client, partner, or fellow developer, we invite you to be part of our sustainability journey.",
+      "cta": "Learn More About Our Green Solutions",
+      "contact": "Contact us to discuss how we can make your next project more environmentally friendly."
+    }
+  },
+  "customerService": {
+    "meta": {
+      "title": "Customer Service - Genfity",
+      "description": "Get comprehensive support for your digital solutions. Our customer service team is ready to help you with technical issues, billing questions, and project inquiries."
+    },
+    "title": "Customer Service",
+    "subtitle": "We're here to help you succeed. Get the support you need for your digital transformation journey with our dedicated customer service team.",
+    "hero": {
+      "title": "How Can We Help You Today?",
+      "description": "Our customer service team is available to assist you with any questions or concerns about our services, ongoing projects, or technical support needs."
+    },
+    "contact": {
+      "title": "Get in Touch",
+      "subtitle": "Choose the best way to reach our support team based on your needs and urgency.",
+      "methods": {
+        "whatsapp": {
+          "title": "WhatsApp Support",
+          "description": "Get instant support through WhatsApp for quick questions and urgent issues.",
+          "number": "+62 851 7431 4023",
+          "hours": "Mon-Fri: 9AM-6PM WIB",
+          "response": "Usually responds within 15 minutes"
+        },
+        "email": {
+          "title": "Email Support",
+          "description": "Send detailed inquiries and get comprehensive responses via email.",
+          "address": "genfity@gmail.com",
+          "hours": "24/7 Support",
+          "response": "Response within 24 hours"
+        },
+        "appointment": {
+          "title": "Schedule Consultation",
+          "description": "Book a dedicated consultation session for complex issues or project discussions.",
+          "action": "Book Appointment",
+          "hours": "Mon-Fri: 9AM-5PM WIB",
+          "response": "Scheduled within 48 hours"
+        }
+      }
+    },
+    "support": {
+      "title": "Support Categories",
+      "subtitle": "Find the right type of support for your specific needs.",
+      "categories": {
+        "technical": {
+          "title": "Technical Support",
+          "description": "Get help with technical issues, troubleshooting, and system configurations.",
+          "topics": [
+            "Website and application troubleshooting",
+            "WhatsApp API integration issues",
+            "Server and hosting problems",
+            "Performance optimization",
+            "Security and maintenance"
+          ]
+        },
+        "billing": {
+          "title": "Billing & Payments",
+          "description": "Questions about invoices, payments, refunds, and subscription management.",
+          "topics": [
+            "Invoice and payment inquiries",
+            "Subscription management",
+            "Refund and cancellation requests",
+            "Payment method updates",
+            "Billing history and receipts"
+          ]
+        },
+        "project": {
+          "title": "Project Management",
+          "description": "Support for ongoing projects, timeline updates, and change requests.",
+          "topics": [
+            "Project status and timeline updates",
+            "Change requests and modifications",
+            "Delivery and milestone tracking",
+            "Quality assurance and testing",
+            "Post-launch support and maintenance"
+          ]
+        },
+        "general": {
+          "title": "General Inquiries",
+          "description": "General questions about our services, pricing, and business partnerships.",
+          "topics": [
+            "Service information and pricing",
+            "Partnership and collaboration opportunities",
+            "Company information and credentials",
+            "Career opportunities",
+            "Feedback and suggestions"
+          ]
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Quick answers to common questions about our services and support process.",
+      "items": [
+        {
+          "question": "What are your customer service hours?",
+          "answer": "Our WhatsApp support is available Monday to Friday, 9AM-6PM WIB. Email support is available 24/7 with responses within 24 hours. Consultation appointments can be scheduled Monday to Friday, 9AM-5PM WIB."
+        },
+        {
+          "question": "How quickly do you respond to support requests?",
+          "answer": "WhatsApp messages are typically answered within 15 minutes during business hours. Email inquiries receive responses within 24 hours. For urgent issues, we recommend using WhatsApp for the fastest response."
+        },
+        {
+          "question": "Do you provide technical support after project completion?",
+          "answer": "Yes, we provide comprehensive post-launch support including bug fixes, minor updates, and technical assistance. Extended support packages are available for ongoing maintenance and feature enhancements."
+        },
+        {
+          "question": "Can I request changes to my ongoing project?",
+          "answer": "Yes, change requests can be accommodated depending on the project phase and scope. Please contact our project management team to discuss modifications, timeline impacts, and any additional costs."
+        },
+        {
+          "question": "What information should I include in my support request?",
+          "answer": "Please include your project details, a clear description of the issue, steps to reproduce the problem (if technical), screenshots or error messages, and your contact information for follow-up."
+        },
+        {
+          "question": "Do you offer emergency support for critical issues?",
+          "answer": "Yes, we provide emergency support for critical issues that affect business operations. Contact us immediately via WhatsApp for urgent technical problems or system outages."
+        }
+      ]
+    },
+    "resources": {
+      "title": "Self-Service Resources",
+      "subtitle": "Explore our knowledge base and resources for quick solutions to common issues.",
+      "items": {
+        "documentation": {
+          "title": "Technical Documentation",
+          "description": "Comprehensive guides and documentation for our services and APIs.",
+          "link": "/docs"
+        },
+        "tutorials": {
+          "title": "Video Tutorials",
+          "description": "Step-by-step video guides for common tasks and configurations.",
+          "link": "/tutorials"
+        },
+        "status": {
+          "title": "Service Status",
+          "description": "Check the current status of our services and any ongoing maintenance.",
+          "link": "/status"
+        },
+        "community": {
+          "title": "Community Forum",
+          "description": "Connect with other users and get community support and tips.",
+          "link": "/community"
+        }
+      }
+    },
+    "feedback": {
+      "title": "Your Feedback Matters",
+      "description": "Help us improve our services by sharing your experience and suggestions. Your feedback helps us serve you better.",
+      "cta": "Submit Feedback",
+      "contact": "We value your input and use it to continuously improve our customer service experience."
+    }
+  }
+}

@@ -1,0 +1,283 @@
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import bcrypt from 'bcryptjs';
+import { randomBytes } from 'crypto';
+import { whatsappGoService } from '@/services/whatsapp-go';
+import { sendVerificationEmail } from '@/services/mailer';
+import { normalizePhoneNumber } from '@/lib/auth';
+import { generateApiKey } from '@/lib/api-key';
+import { withCORS, corsOptionsResponse } from "@/lib/cors";
+import { generateUserSession } from '@/lib/jwt-session-manager';
+
+// Fungsi untuk menghasilkan OTP 6 digit
+function generateOTP() {
+  return Math.floor(1000 + Math.random() * 9000).toString();
+}
+
+export async function OPTIONS() {
+  return corsOptionsResponse();
+}
+
+export async function POST(request: Request) {
+  try {
+    const { email, phone, password, name } = await request.json();
+
+    // Validasi nama diperlukan
+    if (!name) {
+      return withCORS(NextResponse.json({ 
+        success: false,
+        message: 'Name is required',
+        error: 'NAME_REQUIRED'
+      }, { status: 400 }));
+    }
+
+    // WhatsApp (phone number) is now mandatory
+    if (!phone) {
+      return withCORS(NextResponse.json({ 
+        success: false,
+        message: 'WhatsApp number is required for registration',
+        error: 'PHONE_REQUIRED'
+      }, { status: 400 }));
+    }
+
+    // Validasi format nomor WhatsApp (mandatory) - International format with country code
+    const phoneRegex = /^(\+\d{1,3})?[0-9\s\-\(\)]{7,15}$/;
+    if (!phoneRegex.test(phone)) {
+      return withCORS(NextResponse.json({ 
+        success: false,
+        message: 'Invalid WhatsApp number format. Use international format with country code: +62812345678, +1234567890, +61412345678, etc.',
+        error: 'INVALID_PHONE_FORMAT'
+      }, { status: 400 }));
+    }
+
+    // Validasi format email (optional)
+    if (email && (!email.includes('@') || !email.includes('.'))) {
+      return withCORS(NextResponse.json({ 
+        success: false,
+        message: 'Invalid email format.',
+        error: 'INVALID_EMAIL_FORMAT'
+      }, { status: 400 }));
+    }
+
+    // Normalize phone number (now mandatory)
+    const normalizedPhone = normalizePhoneNumber(phone);
+
+    // Cek existing user - prioritas cek phone (mandatory) first
+    const orConditions: Array<{ phone?: string; email?: string }> = [{ phone: normalizedPhone }];
+    if (email) {
+      orConditions.push({ email });
+    }
+
+    const existingUser = await prisma.user.findFirst({
+      where: { OR: orConditions },
+    });
+
+    if (existingUser) {
+      // Check if phone number matches (primary concern)
+      if (existingUser.phone === normalizedPhone) {
+        // If user already verified, return error
+        if (existingUser.phoneVerified) {
+          return withCORS(NextResponse.json({ 
+            success: false,
+            message: 'WhatsApp number already registered and verified',
+            error: 'DUPLICATE_PHONE_VERIFIED'
+          }, { status: 409 }));
+        }
+        
+        // Check if unverified user should be cleaned up
+        const now = new Date();
+        const otpExpired = existingUser.otpExpires ? new Date(existingUser.otpExpires) < now : true;
+        const deadlinePassed = existingUser.otpVerificationDeadline ? new Date(existingUser.otpVerificationDeadline) < now : true;
+        
+        if (otpExpired || deadlinePassed) {
+          // Delete expired unverified user and continue with new signup
+          const cleanupReason = otpExpired ? 'OTP_EXPIRED' : 'DEADLINE_PASSED';
+          console.log(`[IMMEDIATE-CLEANUP] Deleting expired unverified user: ${normalizedPhone}, reason: ${cleanupReason}, otpExpired: ${otpExpired}, deadlinePassed: ${deadlinePassed}`);
+          await prisma.user.delete({ where: { id: existingUser.id } });
+        } else {
+          // OTP still valid - user should use existing registration
+          return withCORS(NextResponse.json({ 
+            success: false,
+            message: 'Registration already in progress. Please verify your OTP or wait for it to expire.',
+            error: 'REGISTRATION_IN_PROGRESS'
+          }, { status: 409 }));
+        }
+      } else if (email && existingUser.email === email) {
+        // Email duplicate (when phone is different)
+        return withCORS(NextResponse.json({ 
+          success: false,
+          message: 'Email already registered',
+          error: 'DUPLICATE_EMAIL'
+        }, { status: 409 }));
+      }
+    }
+    let hashedPassword: string | null = null;
+    const otp: string = generateOTP();
+    const otpExpires: Date = new Date(Date.now() + 10 * 60 * 1000); // OTP berlaku 10 menit
+    const otpVerificationDeadline: Date = new Date(Date.now() + 1 * 60 * 60 * 1000); // Batas verifikasi 1 jam
+    let emailVerificationToken: string | null = null;
+    let emailVerificationTokenExpires: Date | null = null;
+
+    // Hash password only if provided (password is now optional for signup)
+    if (password) {
+      hashedPassword = await bcrypt.hash(password, 10);
+    }
+    // If password is not provided, a temporary password will be auto-generated after OTP verification
+
+    // Setup email verification if email is provided (optional)
+    if (email) {
+      emailVerificationToken = randomBytes(32).toString('hex');
+      emailVerificationTokenExpires = new Date(Date.now() + 3600 * 1000); // Token email berlaku 1 jam
+    }
+
+    // Generate API key for the new user
+    const apiKey = generateApiKey();    
+    const newUser = await prisma.user.create({
+      data: {
+        name,
+        email: email || null, // Email is optional
+        phone: normalizedPhone, // Phone is mandatory
+        password: hashedPassword, // Can be null if not provided during signup
+        apiKey, // Auto-generated API key
+        otp,
+        otpExpires,
+        otpVerificationDeadline,
+        emailVerificationToken,
+        emailVerificationTokenExpires,
+        role: 'customer', // Set default role
+      },
+    });
+
+    let responseMessage = 'User created successfully.';
+    let nextStep = '';    // Always send OTP via WhatsApp since phone is mandatory
+    const message = `Your OTP *${otp}* 
+
+Please do not share this code with anyone.`;
+    
+    // console.log(`[SIGNUP API] Sending WhatsApp OTP to ${normalizedPhone} using WhatsApp Go server`);
+    
+    try {
+      // Use system message with auto-recovery for critical signup OTP
+      const otpResult = await whatsappGoService.sendSystemMessage(normalizedPhone, message);
+      if (!otpResult.success) {
+        // Hapus user yang sudah dibuat jika OTP gagal dikirim
+        try {
+          await prisma.user.delete({ where: { id: newUser.id } });
+        } catch (deleteError) {
+          console.error('SIGNUP API: Failed to delete user after OTP failure:', deleteError);
+        }
+        console.warn(`SIGNUP API: WhatsApp Go OTP sending failed for ${normalizedPhone}. User creation rolled back. Error:`, otpResult.error);
+        
+        return withCORS(NextResponse.json({
+          success: false,
+          message: 'Failed to send verification OTP to WhatsApp. The system will automatically retry. Please try again.',
+          error: 'WHATSAPP_OTP_FAILED',
+          details: otpResult.error || 'WhatsApp delivery failed, auto-recovery attempted'
+        }, { status: 503 }));
+      }      
+      console.log(`SIGNUP API: WhatsApp Go OTP sent successfully to ${normalizedPhone}`);
+      responseMessage = 'User created successfully. An OTP has been sent to your WhatsApp number.' + 
+        (!password ? ' Your password will be sent after verification.' : '');
+      nextStep = 'VERIFY_OTP';
+    } catch (otpError) {
+      // Hapus user yang sudah dibuat jika terjadi error saat kirim OTP
+      try {
+        await prisma.user.delete({ where: { id: newUser.id } });
+      } catch (deleteError) {
+        console.error('SIGNUP API: Failed to delete user after WhatsApp Go error:', deleteError);
+      }
+      console.error('SIGNUP API: WhatsApp Go OTP sending error:', otpError);
+      
+      return withCORS(NextResponse.json({
+        success: false,
+        message: 'WhatsApp service temporarily unavailable. Please try again.',
+        error: 'WHATSAPP_SERVICE_ERROR',
+        details: 'Registration failed because OTP could not be sent - system auto-recovery available'
+      }, { status: 503 })); // Service Unavailable
+    }    // Create response first for faster user experience
+    // Create JWT session for the new user
+    const userAgent = request.headers.get('user-agent') || 'Unknown';
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || 
+               request.headers.get('x-real-ip') || 
+               'unknown';
+    
+    const sessionResult = await generateUserSession(newUser.id, {
+      userAgent,
+      ipAddress: ip
+    });
+    
+    const response = withCORS(
+        NextResponse.json(
+            { 
+                success: true,
+                message: responseMessage,
+                userId: newUser.id,
+                token: sessionResult.token,
+                nextStep: nextStep,
+                phoneVerificationRequired: true, // Always true since phone is mandatory
+                emailVerificationRequired: email ? true : false, // Only if email was provided
+                passwordAutoGenerated: !password // Indicates if password will be auto-generated
+            },
+            { status: 201 }
+        )
+    );
+
+    // Send verification email asynchronously (non-blocking)
+    if (email) {
+      setImmediate(async () => {
+        try {
+          const emailResult = await sendVerificationEmail(email, emailVerificationToken!);
+          if (emailResult.success) {
+            console.log(`SIGNUP API: Email verification sent successfully to ${email}`);
+          } else {
+            console.error('SIGNUP API: Email verification failed:', emailResult.error);
+          }
+        } catch (emailError) {
+          console.error('SIGNUP API: Email verification sending error:', emailError);
+        }
+      });
+    }    return response;
+  } catch (error) {
+    console.error('SIGNUP API: Error in POST handler:', error);
+    
+    // Tangani Prisma unique constraint errors lebih spesifik jika perlu
+    if (error instanceof Error && 'code' in error && (error as any).code === 'P2002') {
+        // error.meta.target berisi field yang menyebabkan unique constraint violation
+        const target = (error as any).meta?.target as string[] | undefined;
+        if (target?.includes('email')) {
+            return withCORS(NextResponse.json({ 
+                success: false,
+                message: 'Email registered.',
+                error: 'DUPLICATE_EMAIL'
+            }, { status: 409 }));
+        }
+        if (target?.includes('phone')) {
+            return withCORS(NextResponse.json({ 
+                success: false,
+                message: 'Phone number registered.',
+                error: 'DUPLICATE_PHONE'
+            }, { status: 409 }));
+        }
+        return withCORS(NextResponse.json({ 
+            success: false,
+            message: 'Data already registered.',
+            error: 'DUPLICATE_DATA'
+        }, { status: 409 }));
+    }
+      // Tangani database connection errors
+    if (error instanceof Error && 'code' in error && (error as any).code === 'P1001') {
+        return withCORS(NextResponse.json({ 
+            success: false,
+            message: 'Database connection error.',
+            error: 'DATABASE_CONNECTION_ERROR'
+        }, { status: 503 }));
+    }
+    
+    // Generic error handling
+    return withCORS(NextResponse.json({ 
+        success: false,
+        message: 'Internal server error.',
+        error: 'INTERNAL_SERVER_ERROR'
+    }, { status: 500 }));
+  }
+}

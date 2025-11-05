@@ -1,0 +1,18 @@
+@keyframes scrollInfinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 12));
+  }
+}
+
+.scrollContainer {
+  animation: scrollInfinite 20s linear infinite;
+  width: max-content;
+  will-change: transform;
+}
+
+.scrollContainer:hover {
+  animation-play-state: paused;
+}

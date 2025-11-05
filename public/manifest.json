@@ -1,0 +1,60 @@
+{
+  "name": "GENFITY Digital Solutions",
+  "short_name": "GENFITY",
+  "description": "Software house dan digital agency terpercaya untuk solusi digital bisnis Anda",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4F46E5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/web-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": [
+    "business",
+    "productivity",
+    "utilities"
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "WhatsApp API",
+      "short_name": "WhatsApp",
+      "description": "Layanan WhatsApp Business API",
+      "url": "/id/products/whatsapp-api",
+      "icons": [
+        {
+          "src": "/web-icon.svg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Hubungi kami",
+      "url": "/id/contact",
+      "icons": [
+        {
+          "src": "/web-icon.svg",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "scope": "/",
+  "lang": "id-ID",
+  "dir": "ltr"
+}

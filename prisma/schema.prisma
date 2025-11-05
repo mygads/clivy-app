@@ -1,0 +1,503 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
+  binaryTargets = ["native", "windows", "rhel-openssl-3.0.x", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                            String                      @id @default(cuid())
+  name                          String?
+  email                         String?                     @unique
+  phone                         String?                     @unique
+  password                      String?
+  otp                           String?
+  otpExpires                    DateTime?
+  otpVerificationDeadline       DateTime?
+  emailVerified                 DateTime?
+  phoneVerified                 DateTime?
+  image                         String?
+  emailVerificationToken        String?                     @unique
+  emailVerificationTokenExpires DateTime?
+  role                          String                      @default("customer")
+  apiKey                        String?                     @unique
+  updatedAt                     DateTime?                   @default(now()) @updatedAt @db.Timestamptz(6)
+  emailOtp                      String?
+  emailOtpExpires               DateTime?
+  resetPasswordOtp              String?
+  resetPasswordOtpExpires       DateTime?
+  resetPasswordLastRequestAt    DateTime?
+  ssoOtp                        String?
+  ssoOtpExpires                 DateTime?
+  ssoLastRequestAt              DateTime?
+  isActive                      Boolean                     @default(true)
+  createdAt                     DateTime?                   @default(now()) @db.Timestamptz(6)
+  whatsappCustomers             ServicesWhatsappCustomers[] @relation("WhatsappCustomerUser")
+  transactions                  Transaction[]
+  userSessions                  UserSession[]
+  voucherUsage                  VoucherUsage[]
+  WhatsAppBulkCampaigns         WhatsAppBulkCampaign[]
+  WhatsAppCampaigns             WhatsAppCampaign[]
+  WhatsAppContact               WhatsAppContact[]
+  whatsAppSessions              WhatsAppSession[]
+  whatsAppMessageStats          WhatsAppMessageStats[] @relation("UserMessageStats")
+}
+
+model WhatsAppSession {
+  id              String   @id @default(cuid())
+  sessionId       String   @unique
+  userId          String?
+  status          String   @default("disconnected")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  message         String?
+  sessionName     String
+  connected       Boolean  @default(false)
+  events          String?
+  expiration      Int      @default(0)
+  isSystemSession Boolean  @default(false)
+  jid             String?
+  loggedIn        Boolean  @default(false)
+  proxyEnabled    Boolean  @default(false)
+  proxyUrl        String?
+  qrcode          String?
+  s3AccessKey     String?
+  s3Bucket        String?
+  s3Enabled       Boolean  @default(false)
+  s3Endpoint      String?
+  s3MediaDelivery String?  @default("base64")
+  s3PathStyle     Boolean  @default(false)
+  s3PublicUrl     String?
+  s3Region        String?
+  s3RetentionDays Int      @default(30)
+  s3SecretKey     String?
+  token           String   @unique
+  webhook         String?
+  user            User?    @relation(fields: [userId], references: [id], map: "WhatsAppSession_user_fkey")
+  whatsAppMessageStats WhatsAppMessageStats[] @relation("SessionMessageStats")
+
+  @@index([userId])
+  @@index([token])
+  @@index([connected])
+  @@index([isSystemSession])
+}
+
+model Transaction {
+  id                  String                      @id @default(cuid())
+  userId              String
+  transactionDate     DateTime                    @default(now())
+  status              String                      @default("created")
+  amount              Decimal                     @db.Decimal(10, 2)
+  createdAt           DateTime                    @default(now())
+  type                String
+  updatedAt           DateTime                    @updatedAt
+  discountAmount      Decimal?                    @db.Decimal(10, 2)
+  originalAmount      Decimal?                    @db.Decimal(10, 2)
+  voucherId           String?
+  notes               String?
+  currency            String                      @default("idr")
+  finalAmount         Decimal?                    @db.Decimal(10, 2)
+  serviceFeeAmount    Decimal?                    @db.Decimal(10, 2)
+  totalAfterDiscount  Decimal?                    @db.Decimal(10, 2)
+  expiresAt           DateTime?
+  payment             Payment?                    @relation("TransactionPayment")
+  user                User                        @relation(fields: [userId], references: [id], map: "Transaction_user_fkey")
+  voucher             Voucher?                    @relation(fields: [voucherId], references: [id], map: "Transaction_voucher_fkey")
+  whatsappTransaction TransactionWhatsappService?
+  voucherUsage        VoucherUsage[]
+
+  @@index([userId])
+  @@index([voucherId], map: "Transaction_voucherId_fkey")
+  @@index([status])
+  @@index([expiresAt])
+}
+
+model TransactionWhatsappService {
+  id                String             @id @default(cuid())
+  transactionId     String             @unique
+  whatsappPackageId String
+  duration          String
+  status            String             @default("pending")
+  startDate         DateTime?
+  endDate           DateTime?
+  transaction       Transaction        @relation(fields: [transactionId], references: [id], onDelete: Cascade, map: "TransactionWhatsappService_transaction_fkey")
+  whatsappPackage   WhatsappApiPackage @relation(fields: [whatsappPackageId], references: [id], map: "TransactionWhatsappService_whatsappPackage_fkey")
+
+  @@index([whatsappPackageId])
+  @@index([status])
+}
+
+model Payment {
+  id              String       @id @default(cuid())
+  transactionId   String?      @unique
+  amount          Decimal      @db.Decimal(10, 2)
+  method          String
+  status          String       @default("pending")
+  paymentDate     DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  expiresAt       DateTime?
+  externalId      String?
+  paymentUrl      String?
+  serviceFee      Decimal?     @db.Decimal(10, 2)
+  adminNotes      String?
+  adminAction     String?
+  adminUserId     String?
+  actionDate      DateTime?
+  gatewayProvider String?
+  gatewayResponse Json?
+  transaction     Transaction? @relation("TransactionPayment", fields: [transactionId], references: [id])
+
+  @@index([status])
+  @@index([expiresAt])
+  @@index([externalId])
+  @@index([gatewayProvider])
+  @@index([method])
+}
+
+model WhatsappApiPackage {
+  id                   String                       @id @default(cuid())
+  name                 String
+  description          String?
+  priceMonth_idr       Int
+  priceMonth_usd       Int
+  priceYear_idr        Int
+  priceYear_usd        Int
+  maxSession           Int
+  createdAt            DateTime                     @default(now())
+  updatedAt            DateTime                     @updatedAt
+  whatsappCustomers    ServicesWhatsappCustomers[]
+  whatsappTransactions TransactionWhatsappService[]
+}
+
+model ServicesWhatsappCustomers {
+  id                 String             @id @default(cuid())
+  customerId         String
+  packageId          String
+  status             String             @default("active")
+  expiredAt          DateTime
+  activatedAt        DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  lastSubscriptionAt DateTime           @default(now())
+  customer           User               @relation("WhatsappCustomerUser", fields: [customerId], references: [id])
+  package            WhatsappApiPackage @relation(fields: [packageId], references: [id])
+
+  @@unique([customerId, packageId])
+  @@index([customerId])
+  @@index([packageId])
+  @@index([status])
+  @@index([expiredAt])
+}
+
+model UserSession {
+  userId     String
+  token      String   @unique @db.VarChar(512)
+  deviceInfo String?
+  ipAddress  String?
+  userAgent  String?
+  isActive   Boolean  @default(true)
+  lastUsed   DateTime @default(now())
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+  @@index([isActive])
+}
+
+model Voucher {
+  id                      String         @id @default(cuid())
+  code                    String         @unique
+  name                    String
+  description             String?
+  type                    String
+  discountType            String
+  value                   Decimal        @db.Decimal(10, 2)
+  minAmount               Decimal?       @db.Decimal(10, 2)
+  maxDiscount             Decimal?       @db.Decimal(10, 2)
+  maxUses                 Int?
+  usedCount               Int            @default(0)
+  allowMultipleUsePerUser Boolean        @default(false)
+  currency                String         @default("idr") // "idr" or "usd"
+  isActive                Boolean        @default(true)
+  startDate               DateTime       @default(now())
+  endDate                 DateTime?
+  createdAt               DateTime       @default(now())
+  updatedAt               DateTime       @updatedAt
+  transactions            Transaction[]
+  voucherUsage            VoucherUsage[]
+
+  @@index([code])
+  @@index([isActive])
+  @@index([currency])
+  @@index([type])
+  @@index([discountType])
+  @@index([startDate])
+  @@index([endDate])
+}
+
+model VoucherUsage {
+  id             String       @id @default(cuid())
+  voucherId      String
+  userId         String
+  transactionId  String?
+  usedAt         DateTime     @default(now())
+  discountAmount Decimal      @db.Decimal(10, 2)
+  transaction    Transaction? @relation(fields: [transactionId], references: [id])
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  voucher        Voucher      @relation(fields: [voucherId], references: [id], onDelete: Cascade)
+
+  @@index([voucherId])
+  @@index([userId])
+  @@index([transactionId])
+  @@index([usedAt])
+}
+
+model PaymentMethod {
+  id                     String      @id @default(cuid())
+  code                   String      @unique
+  name                   String
+  description            String?
+  type                   String
+  currency               String?
+  isActive               Boolean     @default(true)
+  isSystem               Boolean     @default(false)
+  gatewayProvider        String?
+  gatewayCode            String?
+  gatewayImageUrl        String?
+  isGatewayMethod        Boolean     @default(false)
+  bankDetailId           String?
+  feeType                String?
+  feeValue               Decimal?    @db.Decimal(10, 4)
+  minFee                 Decimal?    @db.Decimal(10, 2)
+  maxFee                 Decimal?    @db.Decimal(10, 2)
+  requiresManualApproval Boolean     @default(false)
+  paymentInstructions    String?
+  instructionType        String?     @default("text")
+  instructionImageUrl    String?
+  createdAt              DateTime    @default(now())
+  updatedAt              DateTime    @updatedAt
+  bankDetail             BankDetail? @relation(fields: [bankDetailId], references: [id], onDelete: Cascade)
+
+  @@index([code])
+  @@index([type])
+  @@index([currency])
+  @@index([isActive])
+  @@index([bankDetailId])
+  @@index([gatewayProvider])
+  @@index([feeType])
+  @@index([isGatewayMethod])
+}
+
+model BankDetail {
+  id             String          @id @default(cuid())
+  bankName       String
+  accountNumber  String
+  accountName    String
+  swiftCode      String?
+  currency       String
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  paymentMethods PaymentMethod[]
+
+  @@index([currency])
+  @@index([isActive])
+}
+
+model Server {
+  id                String   @id @default(cuid())
+  dropletId         String   @unique
+  name              String
+  memory            Int
+  vcpus             Int
+  disk              Int
+  status            String
+  region            String
+  regionSlug        String
+  sizeSlug          String
+  publicIp          String?
+  privateIp         String?
+  priceMonthly      Decimal  @db.Decimal(10, 2)
+  priceHourly       Decimal  @db.Decimal(15, 14)
+  tags              Json?
+  features          Json?
+  imageDistribution String?
+  imageName         String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([dropletId])
+  @@index([status])
+  @@index([region])
+}
+
+model WhatsAppCampaign {
+  id                    BigInt                 @id @default(autoincrement())
+  user_id               String
+  name                  String
+  type                  String
+  status                String?                @default("active")
+  message_body          String?
+  image_url             String?
+  image_base64          String?
+  caption               String?
+  created_at            DateTime?              @db.Timestamptz(6)
+  updated_at            DateTime?              @db.Timestamptz(6)
+  deleted_at            DateTime?              @db.Timestamptz(6)
+  WhatsAppBulkCampaigns WhatsAppBulkCampaign[]
+  User                  User                   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_WhatsAppCampaigns_user")
+
+  @@index([deleted_at], map: "idx_WhatsAppCampaigns_deleted_at")
+  @@index([user_id], map: "idx_WhatsAppCampaigns_user_id")
+  @@map("WhatsAppCampaigns")
+}
+
+model WhatsAppBulkCampaign {
+  id                        BigInt                     @id @default(autoincrement())
+  user_id                   String
+  campaign_id               BigInt?
+  name                      String
+  type                      String
+  message_body              String?
+  image_url                 String?
+  image_base64              String?
+  caption                   String?
+  status                    String?                    @default("pending")
+  total_count               BigInt?                    @default(0)
+  sent_count                BigInt?                    @default(0)
+  failed_count              BigInt?                    @default(0)
+  scheduled_at              DateTime?                  @db.Timestamptz(6)
+  timezone                  String?
+  processed_at              DateTime?                  @db.Timestamptz(6)
+  completed_at              DateTime?                  @db.Timestamptz(6)
+  error_message             String?
+  created_at                DateTime?                  @db.Timestamptz(6)
+  updated_at                DateTime?                  @db.Timestamptz(6)
+  deleted_at                DateTime?                  @db.Timestamptz(6)
+  WhatsAppBulkCampaignItems WhatsAppBulkCampaignItem[]
+  User                      User                       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_WhatsAppBulkCampaigns_user")
+  WhatsAppCampaigns         WhatsAppCampaign?          @relation(fields: [campaign_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_WhatsAppCampaigns_bulk_campaigns")
+
+  @@index([campaign_id], map: "idx_WhatsAppBulkCampaigns_campaign_id")
+  @@index([deleted_at], map: "idx_WhatsAppBulkCampaigns_deleted_at")
+  @@index([user_id], map: "idx_WhatsAppBulkCampaigns_user_id")
+  @@map("WhatsAppBulkCampaigns")
+}
+
+model WhatsAppBulkCampaignItem {
+  id                    BigInt               @id @default(autoincrement())
+  bulk_campaign_id      BigInt
+  phone                 String
+  status                String?              @default("pending")
+  message_id            String?
+  error_message         String?
+  sent_at               DateTime?            @db.Timestamptz(6)
+  created_at            DateTime?            @db.Timestamptz(6)
+  updated_at            DateTime?            @db.Timestamptz(6)
+  deleted_at            DateTime?            @db.Timestamptz(6)
+  WhatsAppBulkCampaigns WhatsAppBulkCampaign @relation(fields: [bulk_campaign_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_WhatsAppBulkCampaigns_items")
+
+  @@index([bulk_campaign_id], map: "idx_WhatsAppBulkCampaignItems_bulk_campaign_id")
+  @@index([deleted_at], map: "idx_WhatsAppBulkCampaignItems_deleted_at")
+  @@map("WhatsAppBulkCampaignItems")
+}
+
+model WhatsAppContact {
+  id         BigInt    @id @default(autoincrement())
+  user_id    String
+  phone      String
+  name       String?
+  full_name  String?
+  push_name  String?
+  short      String?
+  notify     String?
+  business   Boolean?  @default(false)
+  verified   Boolean?  @default(false)
+  source     String?   @default("sync")
+  created_at DateTime? @db.Timestamptz(6)
+  updated_at DateTime? @db.Timestamptz(6)
+  deleted_at DateTime? @db.Timestamptz(6)
+  User       User      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([deleted_at], map: "idx_WhatsAppContact_deleted_at")
+  @@index([phone], map: "idx_WhatsAppContact_phone")
+  @@index([user_id], map: "idx_WhatsAppContact_user_id")
+  @@map("WhatsAppContact")
+}
+
+model WhatsAppMessageStats {
+  id                        String           @id @default(cuid())
+  userId                    String
+  sessionId                 String
+  totalMessagesSent         Int              @default(0)
+  totalMessagesFailed       Int              @default(0)
+  textMessagesSent          Int              @default(0)
+  textMessagesFailed        Int              @default(0)
+  imageMessagesSent         Int              @default(0)
+  imageMessagesFailed       Int              @default(0)
+  documentMessagesSent      Int              @default(0)
+  documentMessagesFailed    Int              @default(0)
+  audioMessagesSent         Int              @default(0)
+  audioMessagesFailed       Int              @default(0)
+  stickerMessagesSent       Int              @default(0)
+  stickerMessagesFailed     Int              @default(0)
+  videoMessagesSent         Int              @default(0)
+  videoMessagesFailed       Int              @default(0)
+  locationMessagesSent      Int              @default(0)
+  locationMessagesFailed    Int              @default(0)
+  contactMessagesSent       Int              @default(0)
+  contactMessagesFailed     Int              @default(0)
+  templateMessagesSent      Int              @default(0)
+  templateMessagesFailed    Int              @default(0)
+  lastMessageSentAt         DateTime?
+  lastMessageFailedAt       DateTime?
+  createdAt                 DateTime         @default(now())
+  updatedAt                 DateTime         @updatedAt
+  
+  // Relations
+  user                      User             @relation("UserMessageStats", fields: [userId], references: [id], onDelete: Cascade)
+  session                   WhatsAppSession  @relation("SessionMessageStats", fields: [sessionId], references: [sessionId], onDelete: Cascade)
+
+  @@unique([userId, sessionId])
+  @@index([userId])
+  @@index([sessionId])
+  @@index([lastMessageSentAt])
+}
+
+model Portfolio {
+  id          String   @id @default(cuid())
+  title       String
+  image       String
+  gallery     String[] // Array of gallery image URLs
+  tech        String[] // Array of tech stack strings
+  category    String?
+  description String?
+  link        String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isActive])
+  @@index([category])
+}
+
+model ClientLogo {
+  id        String   @id @default(cuid())
+  logoUrl   String
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive])
+  @@index([sortOrder])
+}
