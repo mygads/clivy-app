@@ -234,12 +234,6 @@ export async function POST(request: NextRequest) {
           where: { id: updatedPayment.transactionId },
           include: {
             user: true,
-            productTransactions: {
-              include: { package: true }
-            },
-            addonTransactions: {
-              include: { addon: true }
-            },
             whatsappTransaction: {
               include: { whatsappPackage: true }
             },
@@ -248,7 +242,7 @@ export async function POST(request: NextRequest) {
         })
 
         if (transactionWithDetails && transactionWithDetails.user) {
-          // Build items array for notification
+          // Build items array for notification (WhatsApp only)
           const items: Array<{
             name: string;
             quantity: number;
@@ -257,35 +251,12 @@ export async function POST(request: NextRequest) {
             duration?: 'month' | 'year';
           }> = []
 
-          // Add packages (products)
-          transactionWithDetails.productTransactions.forEach((tp: any) => {
-            items.push({
-              name: tp.package?.name || 'Package',
-              quantity: tp.quantity,
-              price: Number(tp.package?.price || 0),
-              type: 'package'
-            })
-          })
-
-          // Add addons
-          transactionWithDetails.addonTransactions.forEach((ta: any) => {
-            items.push({
-              name: ta.addon?.name || 'Addon',
-              quantity: ta.quantity,
-              price: Number(ta.addon?.price || 0),
-              type: 'addon'
-            })
-          })
-
           // Add WhatsApp service
           if (transactionWithDetails.whatsappTransaction) {
             const tws = transactionWithDetails.whatsappTransaction
             
-            // Detect currency for pricing
-            const currency = transactionWithDetails.currency || 'idr';
-            const priceMonth = currency === 'idr' ? tws.whatsappPackage?.priceMonth_idr : tws.whatsappPackage?.priceMonth_usd;
-            const priceYear = currency === 'idr' ? tws.whatsappPackage?.priceYear_idr : tws.whatsappPackage?.priceYear_usd;
-            const whatsappPrice = tws.duration === 'year' ? priceYear : priceMonth;
+            // Always use IDR pricing
+            const whatsappPrice = tws.duration === 'year' ? tws.whatsappPackage?.priceYear : tws.whatsappPackage?.priceMonth;
             
             items.push({
               name: tws.whatsappPackage?.name || 'WhatsApp Service',

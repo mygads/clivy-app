@@ -112,18 +112,15 @@ export class PaymentGatewayManager {
   }
 
   /**
-   * Get available payment methods filtered by currency and active fee configuration
+   * Get available payment methods with active fee configuration
+   * Currency parameter removed - now only uses IDR
    */
-  async getAvailablePaymentMethodsForCheckout(currency: 'idr' | 'usd'): Promise<PaymentMethodConfig[]> {
+  async getAvailablePaymentMethodsForCheckout(): Promise<PaymentMethodConfig[]> {
     try {
-      // Get active payment methods that have fee configuration for the specified currency
+      // Get active payment methods that have fee configuration
       const paymentMethods = await prisma.paymentMethod.findMany({
         where: {
           isActive: true,
-          OR: [
-            { currency: currency },
-            { currency: 'any' } // Support multi-currency payment methods like credit cards
-          ],
           feeType: { not: null },
           feeValue: { not: null }
         },
@@ -139,7 +136,6 @@ export class PaymentGatewayManager {
             code: method.code,
             name: method.name,
             type: method.type,
-            currency: method.currency || undefined,
             gatewayCode: method.gatewayCode || undefined,
             isActive: method.isActive
           })

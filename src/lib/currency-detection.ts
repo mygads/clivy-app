@@ -163,19 +163,9 @@ async function getLocationFromIP(ip: string): Promise<LocationInfo> {
   console.log('[CURRENCY_DETECTION] Using IP range fallback detection');
   const isIndonesian = isIndonesianIPFallback(ip);
   
-  if (isIndonesian) {
-    console.log(`[CURRENCY_DETECTION] IP ${ip} detected as Indonesian (fallback)`);
-    return defaultLocation;
-  } else {
-    console.log(`[CURRENCY_DETECTION] IP ${ip} detected as Foreign (fallback)`);
-    return {
-      country_code: 'US', // Default foreign to US
-      currency_code: 'USD',
-      is_indonesia: false,
-      city: 'Unknown',
-      timezone: 'UTC'
-    };
-  }
+  // Always return IDR now - removed USD support
+  console.log(`[CURRENCY_DETECTION] IP ${ip} detected - Currency: IDR (multi-currency removed)`);
+  return defaultLocation;
 }
 
 /**
@@ -225,16 +215,16 @@ async function tryIpLocationAPI(ip: string, apiKey: string, keyType: 'PRIMARY' |
       return null;
     }
 
-    // Success! Build location info
+    // Success! Build location info - always use IDR now
     const locationInfo: LocationInfo = {
       country_code: data.country_code.toUpperCase(),
-      currency_code: data.currency_code?.toUpperCase() || (data.country_code.toUpperCase() === 'ID' ? 'IDR' : 'USD'),
+      currency_code: 'IDR', // Always IDR now
       is_indonesia: data.country_code.toUpperCase() === 'ID',
       city: data.city || 'Unknown',
       timezone: data.time_zone || 'UTC'
     };
 
-    console.log(`[CURRENCY_DETECTION] ${keyType} API SUCCESS: ${ip} -> ${locationInfo.country_code} (${locationInfo.currency_code})`);
+    console.log(`[CURRENCY_DETECTION] ${keyType} API SUCCESS: ${ip} -> ${locationInfo.country_code} (IDR only)`);
     return locationInfo;
 
   } catch (error: any) {
@@ -276,64 +266,21 @@ function isIndonesianIPFallback(ip: string): boolean {
 }
 
 /**
- * Detect user's currency based on IP location using iplocate.io API
- * Rules:
- * - Indonesian IP (from API or fallback) → IDR
- * - Foreign IP → USD  
- * - Default fallback (API error) → IDR
+ * Detect user's currency based on IP location - now always returns 'idr'
+ * Simplified to remove multi-currency support
  */
-export async function detectCurrency(request: NextRequest): Promise<'idr' | 'usd'> {
-  try {
-    const clientIP = getClientIP(request);
-    // console.log(`[CURRENCY_DETECTION] Client IP: ${clientIP}`);
-    
-    // Try to get location from API first
-    const locationInfo = await getLocationFromIP(clientIP);
-    
-    // Determine currency based on location
-    let currency: 'idr' | 'usd';
-    
-    if (locationInfo.is_indonesia || locationInfo.country_code === 'ID') {
-      currency = 'idr';
-    } else if (locationInfo.currency_code === 'IDR') {
-      // Some regions might use IDR
-      currency = 'idr';
-    } else {
-      // Default to USD for all other countries
-      currency = 'usd';
-    }
-    
-    // console.log(`[CURRENCY_DETECTION] IP: ${clientIP}, Country: ${locationInfo.country_code}, Currency: ${currency.toUpperCase()}`);
-    
-    return currency;
-  } catch (error) {
-    console.error('[CURRENCY_DETECTION] Error detecting currency:', error);
-    // Default to IDR on error
-    return 'idr';
-  }
+export async function detectCurrency(request: NextRequest): Promise<'idr'> {
+  // Always return IDR - multi-currency support removed
+  return 'idr';
 }
 
 /**
- * Synchronous currency detection using fallback IP ranges (for middleware)
- * This version doesn't use the API and is faster for middleware use
+ * Synchronous currency detection - now always returns 'idr'
+ * Simplified to remove multi-currency support
  */
-export function detectCurrencySync(request: NextRequest): 'idr' | 'usd' {
-  try {
-    const clientIP = getClientIP(request);
-    console.log(`[CURRENCY_DETECTION_SYNC] Client IP: ${clientIP}`);
-    
-    // Use fallback IP range checking
-    const isIndonesian = isIndonesianIPFallback(clientIP);
-    const currency = isIndonesian ? 'idr' : 'usd';
-    
-    console.log(`[CURRENCY_DETECTION_SYNC] IP: ${clientIP}, Indonesian: ${isIndonesian}, Currency: ${currency.toUpperCase()}`);
-    
-    return currency;
-  } catch (error) {
-    console.error('[CURRENCY_DETECTION_SYNC] Error detecting currency:', error);
-    // Default to IDR on error
-    return 'idr';
-  }
+export function detectCurrencySync(request: NextRequest): 'idr' {
+  // Always return IDR - multi-currency support removed
+  return 'idr';
 }
 
 /**
@@ -423,36 +370,27 @@ export function detectLocaleSync(request: NextRequest): 'id' | 'en' {
 }
 
 /**
- * Format currency based on type
+ * Format currency - now always uses IDR formatting
  */
-export function formatCurrency(amount: number, currency: 'idr' | 'usd'): string {
-  if (currency === 'idr') {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount);
-  } else {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(amount);
-  }
+export function formatCurrency(amount: number, currency?: 'idr'): string {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
 }
 
 /**
- * Get currency symbol
+ * Get currency symbol - always returns IDR symbol
  */
-export function getCurrencySymbol(currency: 'idr' | 'usd'): string {
-  return currency === 'idr' ? 'Rp' : '$';
+export function getCurrencySymbol(currency?: 'idr'): string {
+  return 'Rp';
 }
 
 /**
- * Get currency code in uppercase
+ * Get currency code - always returns IDR
  */
-export function getCurrencyCode(currency: 'idr' | 'usd'): string {
-  return currency.toUpperCase();
+export function getCurrencyCode(currency?: 'idr'): string {
+  return 'IDR';
 }

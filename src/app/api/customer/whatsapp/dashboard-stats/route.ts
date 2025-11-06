@@ -46,8 +46,8 @@ export async function GET(request: NextRequest) {
     // Find subscription with highest monthly price (most expensive package)
     const subscription = allSubscriptions.length > 0 
       ? allSubscriptions.reduce((highest, current) => {
-          const currentPrice = current.package.priceMonth_idr
-          const highestPrice = highest.package.priceMonth_idr
+          const currentPrice = current.package.priceMonth
+          const highestPrice = highest.package.priceMonth
           return currentPrice > highestPrice ? current : highest
         })
       : null
@@ -333,16 +333,14 @@ export async function GET(request: NextRequest) {
           maxSessions: subscription.package.maxSession,
           expiredAt: subscription.expiredAt.toISOString(),
           activatedAt: subscription.activatedAt.toISOString(),
-          priceMonth_idr: subscription.package.priceMonth_idr,
-          priceMonth_usd: subscription.package.priceMonth_usd,
-          priceYear_idr: subscription.package.priceYear_idr,
-          priceYear_usd: subscription.package.priceYear_usd
+          priceMonth: subscription.package.priceMonth,
+          priceYear: subscription.package.priceYear
         } : null,
         transactions: whatsappTransactions.map(wt => {
           // Get original WhatsApp service price based on duration
           const originalWhatsappPrice = wt.duration === 'year' 
-            ? wt.whatsappPackage.priceYear_idr 
-            : wt.whatsappPackage.priceMonth_idr;
+            ? wt.whatsappPackage.priceYear 
+            : wt.whatsappPackage.priceMonth;
 
           // Calculate final WhatsApp service price considering voucher discount
           let finalWhatsappPrice = originalWhatsappPrice;

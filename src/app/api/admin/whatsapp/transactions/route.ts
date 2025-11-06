@@ -38,9 +38,7 @@ export async function GET(req: Request) {
               discountType: true,
               value: true
             }
-          },
-          productTransactions: true,
-          addonTransactions: true
+          }
         },
         orderBy: { createdAt: 'desc' },
       });
@@ -55,14 +53,13 @@ export async function GET(req: Request) {
         if (transaction.whatsappTransaction?.whatsappPackage) {
           const whatsappPackage = transaction.whatsappTransaction.whatsappPackage;
           const duration = transaction.whatsappTransaction.duration;
-          const currency = transaction.currency || 'idr';
           
-          // Get base package price
+          // Get base package price (IDR only)
           let packagePrice = 0;
           if (duration === 'year') {
-            packagePrice = currency === 'idr' ? Number(whatsappPackage.priceYear_idr || 0) : Number(whatsappPackage.priceYear_usd || 0);
+            packagePrice = Number(whatsappPackage.priceYear || 0);
           } else if (duration === 'month') {
-            packagePrice = currency === 'idr' ? Number(whatsappPackage.priceMonth_idr || 0) : Number(whatsappPackage.priceMonth_usd || 0);
+            packagePrice = Number(whatsappPackage.priceMonth || 0);
           }
           
           // Apply voucher discount if exists
@@ -113,8 +110,8 @@ export async function GET(req: Request) {
           amount: calculatedAmount, // Use calculated amount with voucher discount applied
           originalPackagePrice: transaction.whatsappTransaction?.whatsappPackage ? (
             transaction.whatsappTransaction.duration === 'year' 
-              ? (transaction.currency === 'idr' ? transaction.whatsappTransaction.whatsappPackage.priceYear_idr : transaction.whatsappTransaction.whatsappPackage.priceYear_usd)
-              : (transaction.currency === 'idr' ? transaction.whatsappTransaction.whatsappPackage.priceMonth_idr : transaction.whatsappTransaction.whatsappPackage.priceMonth_usd)
+              ? transaction.whatsappTransaction.whatsappPackage.priceYear
+              : transaction.whatsappTransaction.whatsappPackage.priceMonth
           ) : null,
           status: status,
           createdAt: transaction.createdAt.toISOString(),
@@ -178,7 +175,7 @@ export async function POST(req: Request) {
       }
 
       // Default to IDR for admin-created transactions
-      const amount = duration === 'year' ? pkg.priceYear_idr : pkg.priceMonth_idr;
+      const amount = duration === 'year' ? pkg.priceYear : pkg.priceMonth;
 
       // Create transaction with modular structure
       const result = await prisma.$transaction(async (tx) => {

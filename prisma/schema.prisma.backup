@@ -163,8 +163,10 @@ model WhatsappApiPackage {
   id                   String                       @id @default(cuid())
   name                 String
   description          String?
-  priceMonth           Int
-  priceYear            Int
+  priceMonth_idr       Int
+  priceMonth_usd       Int
+  priceYear_idr        Int
+  priceYear_usd        Int
   maxSession           Int
   createdAt            DateTime                     @default(now())
   updatedAt            DateTime                     @updatedAt
@@ -224,6 +226,7 @@ model Voucher {
   maxUses                 Int?
   usedCount               Int            @default(0)
   allowMultipleUsePerUser Boolean        @default(false)
+  currency                String         @default("idr") // "idr" or "usd"
   isActive                Boolean        @default(true)
   startDate               DateTime       @default(now())
   endDate                 DateTime?
@@ -234,6 +237,7 @@ model Voucher {
 
   @@index([code])
   @@index([isActive])
+  @@index([currency])
   @@index([type])
   @@index([discountType])
   @@index([startDate])
@@ -263,6 +267,7 @@ model PaymentMethod {
   name                   String
   description            String?
   type                   String
+  currency               String?
   isActive               Boolean     @default(true)
   isSystem               Boolean     @default(false)
   gatewayProvider        String?
@@ -284,6 +289,7 @@ model PaymentMethod {
 
   @@index([code])
   @@index([type])
+  @@index([currency])
   @@index([isActive])
   @@index([bankDetailId])
   @@index([gatewayProvider])
@@ -297,11 +303,13 @@ model BankDetail {
   accountNumber  String
   accountName    String
   swiftCode      String?
+  currency       String
   isActive       Boolean         @default(true)
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   paymentMethods PaymentMethod[]
 
+  @@index([currency])
   @@index([isActive])
 }
 

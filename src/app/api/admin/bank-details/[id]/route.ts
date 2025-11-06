@@ -10,7 +10,6 @@ const bankDetailUpdateSchema = z.object({
   accountNumber: z.string().min(1, "Account number is required").optional(),
   accountName: z.string().min(1, "Account name is required").optional(),
   swiftCode: z.string().optional(),
-  currency: z.enum(['idr', 'usd']).optional(),
   isActive: z.boolean().optional(),
 });
 
@@ -97,12 +96,10 @@ export async function PUT(
       ));
     }
 
-    // Check if trying to activate and there's already an active one for this currency
+    // Check if trying to activate and there's already an active one
     if (data.isActive === true) {
-      const currency = data.currency || currentBankDetail.currency;
       const existingActive = await prisma.bankDetail.findFirst({
         where: {
-          currency: currency,
           isActive: true,
           id: { not: id } // Exclude current record
         }
@@ -112,7 +109,7 @@ export async function PUT(
         return withCORS(NextResponse.json(
           { 
             success: false, 
-            error: `There is already an active bank detail for ${currency.toUpperCase()} currency. Please deactivate it first.` 
+            error: `There is already an active bank detail. Please deactivate it first.` 
           },
           { status: 400 }
         ));
@@ -127,14 +124,13 @@ export async function PUT(
         data
       });
 
-      // Update related payment methods
+      // Update related payment methods (always IDR)
       if (currentBankDetail.paymentMethods.length > 0) {
         const bankName = data.bankName || currentBankDetail.bankName;
-        const currency = data.currency || currentBankDetail.currency;
         const isActive = data.isActive !== undefined ? data.isActive : currentBankDetail.isActive;
 
         // Update payment method name and status
-        const newPaymentMethodName = `${bankName} Bank Transfer (${currency.toUpperCase()})`;
+        const newPaymentMethodName = `${bankName} Bank Transfer (IDR)`;
         
         await tx.paymentMethod.updateMany({
           where: { bankDetailId: id },

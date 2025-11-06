@@ -93,7 +93,7 @@ export async function GET(request: NextRequest) {
         system: 'legacy',
         subscriptionId: oldSystemSub.id,
         packageId: oldSystemSub.package?.id,
-        price: oldSystemSub.package?.priceMonth_idr || null
+        price: null // Legacy system, no pricing info
       };
     } else if (newSystemSub) {
       subscriptionData = {
@@ -108,7 +108,7 @@ export async function GET(request: NextRequest) {
         system: 'new',
         subscriptionId: newSystemSub.id,
         packageId: newSystemSub.whatsappPackageId,
-        price: newSystemSub.whatsappPackage.priceMonth_idr,
+        price: newSystemSub.whatsappPackage.priceMonth,
         transactionId: newSystemSub.transactionId
       };
     } else {

@@ -18,99 +18,7 @@ export interface PaginatedResponse<T = any> extends ApiResponse<T> {
   pagination: PaginationInfo;
 }
 
-// Product Catalog Types
-export interface CustomerPackage {
-  id: string;
-  name_en: string;
-  name_id: string;
-  description_en: string;
-  description_id: string;
-  price_idr: number;
-  price_usd: number;
-  image: string;
-  popular?: boolean;
-  bgColor?: string;
-  category: {
-    id: string;
-    name_en: string;
-    name_id: string;
-    icon: string;
-  };
-  subcategory: {
-    id: string;
-    name_en: string;
-    name_id: string;
-  };
-  features: CustomerFeature[];
-}
-
-export interface CustomerAddon {
-  id: string;
-  name_en: string;
-  name_id: string;
-  description_en?: string;
-  description_id?: string;
-  price_idr: number;
-  price_usd: number;
-  image?: string;
-  category: {
-    id: string;
-    name_en: string;
-    name_id: string;
-    icon: string;
-  };
-}
-
-export interface CustomerCategory {
-  id: string;
-  name_en: string;
-  name_id: string;
-  icon: string;
-  subcategories: {
-    id: string;
-    name_en: string;
-    name_id: string;
-  }[];
-  _count: {
-    packages: number;
-    addons: number;
-  };
-}
-
-export interface CustomerFeature {
-  id: string;
-  name_en: string;
-  name_id: string;
-  included: boolean;
-}
-
-// Transaction Types
-export interface CustomerTransaction {
-  id: string;
-  transactionDate: string;
-  startDate: string;
-  endDate: string;
-  status: 'pending' | 'paid' | 'expired' | 'cancelled';
-  referenceLink?: string;
-  package?: {
-    id: string;
-    name_en: string;
-    name_id: string;
-    price_idr: number;
-    price_usd: number;
-    image: string;
-  };
-  addon?: {
-    id: string;
-    name_en: string;
-    name_id: string;
-    price_idr: number;
-    price_usd: number;
-    image?: string;
-  };
-  payment?: CustomerPayment;
-}
-
+// Payment Types
 export interface CustomerPayment {
   id: string;
   amount: number;
@@ -118,15 +26,6 @@ export interface CustomerPayment {
   status: 'pending' | 'paid' | 'failed';
   paymentDate?: string;
 }
-
-export interface CreateTransactionRequest {
-  packageId?: string;
-  addonId?: string;
-  startDate: string;
-  endDate: string;
-  referenceLink?: string;
-}
-
 
 export interface PaymentResponse {
   transaction_id: string;
@@ -153,18 +52,6 @@ export interface PaymentStatusResponse extends CustomerPayment {
     id: string;
     status: string;
     transactionDate: string;
-    startDate: string;
-    endDate: string;
-    package?: {
-      id: string;
-      name_en: string;
-      name_id: string;
-    };
-    addon?: {
-      id: string;
-      name_en: string;
-      name_id: string;
-    };
   };
   gateway_info: {
     gateway_status?: string;
@@ -177,15 +64,13 @@ export interface PaymentStatusResponse extends CustomerPayment {
   };
 }
 
-// WhatsApp Service Types
+// WhatsApp Service Types (IDR only)
 export interface CustomerWhatsAppPackage {
   id: string;
   name: string;
   description?: string;
-  priceMonth_idr: number;
-  priceMonth_usd: number;
-  priceYear_idr: number;
-  priceYear_usd: number;
+  priceMonth: number;  // IDR only
+  priceYear: number;   // IDR only
   maxSession: number;
   createdAt: string;
   yearlyDiscount: number;
@@ -254,22 +139,6 @@ export interface UpdateProfileRequest {
 }
 
 // API Query Parameters
-export interface PackageQueryParams {
-  categoryId?: string;
-  subcategoryId?: string;
-  popular?: string;
-}
-
-export interface AddonQueryParams {
-  categoryId?: string;
-}
-
-export interface TransactionQueryParams {
-  status?: string;
-  limit?: string;
-  offset?: string;
-}
-
 export interface WhatsAppServiceQueryParams {
   status?: 'active' | 'expired' | 'all';
 }
@@ -278,9 +147,4 @@ export interface WhatsAppTransactionQueryParams {
   status?: string;
   limit?: string;
   offset?: string;
-}
-
-export interface ItemDetailsQueryParams {
-  packageId?: string;
-  addonId?: string;
 }

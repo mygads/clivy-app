@@ -46,12 +46,10 @@ export function PaymentOrderSummary({
     return item.name
   }
 
-  // Helper function to get localized price based on detected currency
+  // Helper function to get localized price (IDR only now)
   const getLocalizedPrice = (item: CartItem) => {
-    if (item.price_usd && item.price_idr) {
-      return currency === "usd" ? item.price_usd : item.price_idr
-    }
-    return item.price
+    // Always use IDR price
+    return item.price_idr || item.price
   }
 
   // Calculate totals with localized prices - WhatsApp only

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { withCORS } from '@/lib/cors'
 import { prisma } from '@/lib/prisma'
-import { detectCurrencySync } from "@/lib/currency-detection"
 
 export async function GET(
   request: NextRequest,
@@ -10,48 +9,19 @@ export async function GET(
   try {
     const { paymentId } = await params;
 
-    // Detect currency from IP
-    const currency = detectCurrencySync(request as any);
-
     // Get payment with basic details (no user authentication required)
     const payment = await prisma.payment.findUnique({
       where: { id: paymentId },
       include: {
         transaction: {
           include: {
-            productTransactions: {
-              include: {
-                package: {
-                  select: {
-                    name_en: true,
-                    name_id: true,
-                    price_idr: true,
-                    price_usd: true
-                  }
-                }
-              }
-            },
-            addonTransactions: {
-              include: {
-                addon: {
-                  select: {
-                    name_en: true,
-                    name_id: true,
-                    price_idr: true,
-                    price_usd: true
-                  }
-                }
-              }
-            },
             whatsappTransaction: {
               include: {
                 whatsappPackage: {
                   select: {
                     name: true,
-                    priceMonth_idr: true,
-                    priceMonth_usd: true,
-                    priceYear_idr: true,
-                    priceYear_usd: true
+                    priceMonth: true,
+                    priceYear: true
                   }
                 }
               }
@@ -76,34 +46,14 @@ export async function GET(
       }, { status: 400 }))
     }
 
-    // Calculate price helper
-    const calculatePrice = (priceIdr: any, priceUsd: any, currency: string) => {
-      if (currency === 'usd') {
-        return Number(priceUsd || 0);
-      }
-      return Number(priceIdr || 0);
-    };
-
-    // Calculate totals
-    const productTotal = payment.transaction?.productTransactions.reduce((sum, item) => 
-      sum + (calculatePrice(item.package?.price_idr, item.package?.price_usd, payment.transaction!.currency || 'idr') * item.quantity), 0
-    ) || 0
-    
-    const addonTotal = payment.transaction?.addonTransactions.reduce((sum, item) => 
-      sum + (calculatePrice(item.addon?.price_idr, item.addon?.price_usd, payment.transaction!.currency || 'idr') * item.quantity), 0
-    ) || 0
-    
+    // Calculate WhatsApp service total (IDR only)
     const whatsappTotal = payment.transaction?.whatsappTransaction ? 
       (payment.transaction.whatsappTransaction.duration === 'year' 
-        ? Number(currency === 'idr' 
-          ? payment.transaction.whatsappTransaction.whatsappPackage?.priceYear_idr 
-          : payment.transaction.whatsappTransaction.whatsappPackage?.priceYear_usd || 0)
-        : Number(currency === 'idr' 
-          ? payment.transaction.whatsappTransaction.whatsappPackage?.priceMonth_idr 
-          : payment.transaction.whatsappTransaction.whatsappPackage?.priceMonth_usd || 0)
+        ? Number(payment.transaction.whatsappTransaction.whatsappPackage?.priceYear || 0)
+        : Number(payment.transaction.whatsappTransaction.whatsappPackage?.priceMonth || 0)
       ) : 0
 
-    const subtotal = productTotal + addonTotal + whatsappTotal
+    const subtotal = whatsappTotal
     const serviceFeeAmount = Number(payment.serviceFee) || 0
     const total = subtotal + serviceFeeAmount
 
@@ -123,26 +73,8 @@ export async function GET(
         reference: payment.externalId || payment.id
       },
       
-      // Items (without internal IDs)
+      // Items - WhatsApp service only
       items: [
-        ...(payment.transaction?.productTransactions.map(item => ({
-          type: 'Product',
-          name: item.package?.name_en || item.package?.name_id || 'Unknown Product',
-          description: item.package?.name_id || 'Product package',
-          quantity: item.quantity,
-          unitPrice: calculatePrice(item.package?.price_idr, item.package?.price_usd, payment.transaction!.currency || 'idr'),
-          total: calculatePrice(item.package?.price_idr, item.package?.price_usd, payment.transaction!.currency || 'idr') * item.quantity,
-          currency: payment.transaction?.currency || 'idr'
-        })) || []),
-        ...(payment.transaction?.addonTransactions.map(item => ({
-          type: 'Add-on',
-          name: item.addon?.name_en || item.addon?.name_id || 'Unknown Addon',
-          description: item.addon?.name_id || 'Product addon',
-          quantity: item.quantity,
-          unitPrice: calculatePrice(item.addon?.price_idr, item.addon?.price_usd, payment.transaction!.currency || 'idr'),
-          total: calculatePrice(item.addon?.price_idr, item.addon?.price_usd, payment.transaction!.currency || 'idr') * item.quantity,
-          currency: payment.transaction?.currency || 'idr'
-        })) || []),
         ...(payment.transaction?.whatsappTransaction ? [{
           type: 'WhatsApp Service',
           name: payment.transaction.whatsappTransaction.whatsappPackage?.name || 'WhatsApp Service',
@@ -150,7 +82,7 @@ export async function GET(
           quantity: 1,
           unitPrice: whatsappTotal,
           total: whatsappTotal,
-          currency: payment.transaction?.currency || 'idr'
+          currency: 'idr'
         }] : [])
       ],
       
@@ -159,7 +91,7 @@ export async function GET(
         subtotal,
         serviceFee: serviceFeeAmount,
         total,
-        currency: payment.transaction?.currency || 'idr'
+        currency: 'idr'
       }
     }
 

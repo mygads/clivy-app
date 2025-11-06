@@ -109,7 +109,6 @@ interface PaymentStats {
 interface PaymentFilters {
   status: string
   method: string
-  currency: string
   search: string
   dateFrom: string
   dateTo: string
@@ -134,7 +133,6 @@ export default function PaymentsPage() {
   const [filters, setFilters] = useState<PaymentFilters>({
     status: 'all',
     method: '',
-    currency: 'all',
     search: '',
     dateFrom: '',
     dateTo: '',
@@ -151,7 +149,6 @@ export default function PaymentsPage() {
         limit: '10',
         ...(filters.status !== 'all' && { status: filters.status }),
         ...(filters.method && { method: filters.method }),
-        ...(filters.currency !== 'all' && { currency: filters.currency }),
         ...(filters.search && { search: filters.search }),
         ...(filters.dateFrom && { dateFrom: filters.dateFrom }),
         ...(filters.dateTo && { dateTo: filters.dateTo }),
@@ -354,13 +351,11 @@ export default function PaymentsPage() {
     )
   }
 
-  // Currency formatter
-  const formatCurrency = (amount: number, currency: string = 'IDR') => {
-    const currencyUpper = currency.toUpperCase()
-    const locale = currencyUpper === 'USD' ? 'en-US' : 'id-ID'
-    return new Intl.NumberFormat(locale, {
+  // Currency formatter - always use IDR
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('id-ID', {
       style: 'currency',
-      currency: currencyUpper
+      currency: 'IDR'
     }).format(amount)
   }
   useEffect(() => {
@@ -457,7 +452,7 @@ export default function PaymentsPage() {
           <CardTitle className="text-lg">Filters</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-6">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
             <div className="space-y-2">
               <label className="text-sm font-medium">Search</label>
               <div className="relative">
@@ -482,20 +477,6 @@ export default function PaymentsPage() {
                   <SelectItem value="pending">Pending</SelectItem>
                   <SelectItem value="paid">Paid</SelectItem>
                   <SelectItem value="failed">Failed</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Currency</label>
-              <Select value={filters.currency} onValueChange={(value) => setFilters({ ...filters, currency: value })}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Currencies</SelectItem>
-                  <SelectItem value="idr">IDR</SelectItem>
-                  <SelectItem value="usd">USD</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -587,11 +568,11 @@ export default function PaymentsPage() {
                       <TableCell>
                         <div>
                           <div className="font-medium">
-                            {formatCurrency(payment.amount, payment.transaction?.currency || 'idr')}
+                            {formatCurrency(payment.amount)}
                           </div>
                           {payment.serviceFee > 0 && (
                             <div className="text-sm text-muted-foreground">
-                              +{formatCurrency(payment.serviceFee, payment.transaction?.currency || 'idr')} fee
+                              +{formatCurrency(payment.serviceFee)} fee
                             </div>
                           )}
                         </div>
@@ -728,7 +709,7 @@ export default function PaymentsPage() {
               <div className="grid grid-cols-2 gap-4 text-sm">                
                 <div>
                   <div className="font-medium">Amount</div>
-                  <div>{formatCurrency(selectedPayment.amount, selectedPayment.transaction?.currency || 'idr')}</div>
+                  <div>{formatCurrency(selectedPayment.amount)}</div>
                 </div>
                 <div>
                   <div className="font-medium">Method</div>
@@ -894,7 +875,7 @@ export default function PaymentsPage() {
                     <div className="flex justify-between items-center font-semibold text-lg">
                       <span>Total Payment:</span>
                       <span className="text-green-600">
-                        {formatCurrency(selectedPayment.amount, selectedPayment.transaction?.currency || 'idr')}
+                        {formatCurrency(selectedPayment.amount)}
                       </span>
                     </div>
                   </div>
@@ -941,7 +922,7 @@ export default function PaymentsPage() {
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <div className="font-medium">Amount</div>
-                  <div>{formatCurrency(selectedPayment.amount, selectedPayment.transaction?.currency || 'idr')}</div>
+                  <div>{formatCurrency(selectedPayment.amount)}</div>
                 </div>
                 <div>
                   <div className="font-medium">Method</div>

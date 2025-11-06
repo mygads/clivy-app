@@ -26,48 +26,6 @@ export async function GET(
                 phone: true
               }
             },
-            productTransactions: {
-              include: {
-                package: {
-                  select: {
-                    id: true,
-                    name_en: true,
-                    name_id: true,
-                    description_en: true,
-                    description_id: true,
-                    price_idr: true,
-                    price_usd: true,
-                    image: true,
-                    category: true,
-                    subcategory: true,
-                    features: {
-                      select: {
-                        id: true,
-                        name_en: true,
-                        name_id: true,
-                        included: true,
-                      },
-                    },
-                  },
-                },
-              },
-            },
-            addonTransactions: {
-              include: {
-                addon: {
-                  select: {
-                    id: true,
-                    name_en: true,
-                    name_id: true,
-                    description_en: true,
-                    description_id: true,
-                    price_idr: true,
-                    price_usd: true,
-                    category: true,
-                  },
-                },
-              },
-            },
             whatsappTransaction: {
               include: {
                 whatsappPackage: {
@@ -75,10 +33,8 @@ export async function GET(
                     id: true,
                     name: true,
                     description: true,
-                    priceMonth_idr: true,
-                    priceMonth_usd: true,
-                    priceYear_idr: true,
-                    priceYear_usd: true,
+                    priceMonth: true,
+                    priceYear: true,
                   },
                 },
               },
@@ -132,50 +88,16 @@ export async function GET(
                   'Contact support if needed'
     };
 
-    // Build transaction items
+    // Build transaction items - WhatsApp service only
     const items = [];
     
-    // Add package items
-    for (const productTransaction of transaction.productTransactions || []) {
-      if (productTransaction.package) {
-        items.push({
-          type: 'package',
-          name: productTransaction.package.name_en,
-          category: 'Digital Product',
-          subcategory: 'Package',
-          price: Number(productTransaction.package.price_idr),
-          originalPriceIdr: Number(productTransaction.package.price_idr),
-          originalPriceUsd: Number(productTransaction.package.price_usd),
-          quantity: productTransaction.quantity
-        });
-      }
-    }
-
-    // Add addon items
-    for (const addonTransaction of transaction.addonTransactions || []) {
-      if (addonTransaction.addon) {
-        items.push({
-          type: 'addon',
-          name: addonTransaction.addon.name_en,
-          category: 'Add-on Service',
-          subcategory: 'Additional Service',
-          price: Number(addonTransaction.addon.price_idr),
-          originalPriceIdr: Number(addonTransaction.addon.price_idr),
-          originalPriceUsd: Number(addonTransaction.addon.price_usd),
-          quantity: addonTransaction.quantity
-        });
-      }
-    }
-
     // Add WhatsApp service
     if (transaction.whatsappTransaction?.whatsappPackage) {
       const whatsappPkg = transaction.whatsappTransaction.whatsappPackage;
       const duration = transaction.whatsappTransaction.duration;
       
-      // Use transaction currency for pricing (no need for IP detection)
-      const priceMonth = transaction.currency === 'idr' ? whatsappPkg.priceMonth_idr : whatsappPkg.priceMonth_usd;
-      const priceYear = transaction.currency === 'idr' ? whatsappPkg.priceYear_idr : whatsappPkg.priceYear_usd;
-      const price = duration === 'month' ? priceMonth : priceYear;
+      // Always use IDR pricing
+      const price = duration === 'month' ? whatsappPkg.priceMonth : whatsappPkg.priceYear;
       
       items.push({
         type: 'whatsapp_service',
@@ -184,11 +106,9 @@ export async function GET(
         subcategory: 'API Access',
         duration: duration,
         price: price,
-        priceMonth_idr: whatsappPkg.priceMonth_idr,
-        priceMonth_usd: whatsappPkg.priceMonth_usd,
-        priceYear_idr: whatsappPkg.priceYear_idr,
-        priceYear_usd: whatsappPkg.priceYear_usd,
-        currency: transaction.currency,
+        priceMonth: whatsappPkg.priceMonth,
+        priceYear: whatsappPkg.priceYear,
+        currency: 'idr',
         quantity: 1
       });
     }

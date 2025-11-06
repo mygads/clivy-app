@@ -15,15 +15,13 @@ export async function GET(request: NextRequest) {
     }
 
     const packages = await prisma.whatsappApiPackage.findMany({
-      orderBy: { priceMonth_idr: 'asc' },
+      orderBy: { priceMonth: 'asc' },
       select: {
         id: true,
         name: true,
         description: true,
-        priceMonth_idr: true,
-        priceMonth_usd: true,
-        priceYear_idr: true,
-        priceYear_usd: true,
+        priceMonth: true,
+        priceYear: true,
         maxSession: true,
         createdAt: true,
         updatedAt: true,
@@ -52,12 +50,12 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, description, priceMonth_idr, priceMonth_usd, priceYear_idr, priceYear_usd, maxSession } = body;
+    const { name, description, priceMonth, priceYear, maxSession } = body;
     
-    if (!name || !priceMonth_idr || !priceMonth_usd || !priceYear_idr || !priceYear_usd || !maxSession) {
+    if (!name || !priceMonth || !priceYear || !maxSession) {
       return NextResponse.json({ 
         success: false, 
-        error: 'Name, priceMonth_idr, priceMonth_usd, priceYear_idr, priceYear_usd, and maxSession are required' 
+        error: 'Name, priceMonth, priceYear, and maxSession are required' 
       }, { status: 400 });
     }
 
@@ -65,10 +63,8 @@ export async function POST(request: NextRequest) {
       data: {
         name,
         description: description || null,
-        priceMonth_idr: Number(priceMonth_idr),
-        priceMonth_usd: Number(priceMonth_usd),
-        priceYear_idr: Number(priceYear_idr),
-        priceYear_usd: Number(priceYear_usd),
+        priceMonth: Number(priceMonth),
+        priceYear: Number(priceYear),
         maxSession: Number(maxSession),
       },
     });

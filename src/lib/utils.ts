@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// Format currency with proper locale and currency symbol
+// Format currency with proper locale and currency symbol - now always uses IDR
 export function formatCurrency(amount: number, currency: string = 'IDR'): string {
   const numericAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
   
@@ -13,39 +13,13 @@ export function formatCurrency(amount: number, currency: string = 'IDR'): string
     return '0';
   }
 
-  const currencyUpper = currency.toUpperCase();
-  
-  try {
-    if (currencyUpper === 'IDR') {
-      return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      }).format(numericAmount);
-    } else if (currencyUpper === 'USD') {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(numericAmount);
-    } else {
-      // Fallback for other currencies
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currencyUpper,
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(numericAmount);
-    }
-  } catch (error) {
-    // Fallback if currency is not supported
-    return `${currencyUpper} ${new Intl.NumberFormat('en-US', {
-      minimumFractionDigits: currencyUpper === 'IDR' ? 0 : 2,
-      maximumFractionDigits: currencyUpper === 'IDR' ? 0 : 2,
-    }).format(numericAmount)}`;
-  }
+  // Always format as IDR
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(numericAmount);
 }
 
 // Format date to readable format

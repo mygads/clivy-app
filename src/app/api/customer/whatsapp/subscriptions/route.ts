@@ -180,8 +180,8 @@ export async function GET(request: NextRequest) {
           
           // Calculate the number of months purchased
           const packagePrice = transaction.duration === 'month' 
-            ? transaction.whatsappPackage.priceMonth_idr 
-            : transaction.whatsappPackage.priceYear_idr;
+            ? transaction.whatsappPackage.priceMonth 
+            : transaction.whatsappPackage.priceYear;
           
           const transactionAmount = Number(transaction.transaction.amount);
           let monthsPurchased = 1;
@@ -220,12 +220,12 @@ export async function GET(request: NextRequest) {
           // Calculate the base service amount from package price (before service fees)
           let baseServiceAmount: number;
           if (transaction.duration === 'month') {
-            baseServiceAmount = transaction.whatsappPackage.priceMonth_idr;
+            baseServiceAmount = transaction.whatsappPackage.priceMonth;
           } else if (transaction.duration === 'year') {
-            baseServiceAmount = transaction.whatsappPackage.priceYear_idr;
+            baseServiceAmount = transaction.whatsappPackage.priceYear;
           } else {
             // Default to monthly price if duration is not clear
-            baseServiceAmount = transaction.whatsappPackage.priceMonth_idr;
+            baseServiceAmount = transaction.whatsappPackage.priceMonth;
           }
 
           // Calculate the actual service amount (what user paid for service, excluding service fees)

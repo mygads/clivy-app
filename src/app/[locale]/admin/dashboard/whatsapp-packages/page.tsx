@@ -16,10 +16,8 @@ interface WhatsAppPackage {
   id: string;
   name: string;
   description: string;
-  priceMonth_idr: number;
-  priceMonth_usd: number;
-  priceYear_idr: number;
-  priceYear_usd: number;
+  priceMonth: number;  // IDR only
+  priceYear: number;   // IDR only
   maxSession: number;
   createdAt: string;
   updatedAt: string;
@@ -28,10 +26,8 @@ interface WhatsAppPackage {
 interface FormData {
   name: string;
   description: string;
-  priceMonth_idr: string;
-  priceMonth_usd: string;
-  priceYear_idr: string;
-  priceYear_usd: string;
+  priceMonth: string;  // IDR only
+  priceYear: string;   // IDR only
   maxSession: string;
 }
 
@@ -49,10 +45,8 @@ export default function WhatsAppPackagesPage() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     description: "",
-    priceMonth_idr: "",
-    priceMonth_usd: "",
-    priceYear_idr: "",
-    priceYear_usd: "",
+    priceMonth: "",  // IDR only
+    priceYear: "",   // IDR only
     maxSession: "",
   });
   const { toast } = useToast();
@@ -104,10 +98,8 @@ export default function WhatsAppPackagesPage() {
         body: JSON.stringify({
           name: formData.name,
           description: formData.description,
-          priceMonth_idr: parseInt(formData.priceMonth_idr),
-          priceMonth_usd: parseInt(formData.priceMonth_usd),
-          priceYear_idr: parseInt(formData.priceYear_idr),
-          priceYear_usd: parseInt(formData.priceYear_usd),
+          priceMonth: parseInt(formData.priceMonth),  // IDR only
+          priceYear: parseInt(formData.priceYear),    // IDR only
           maxSession: parseInt(formData.maxSession),
         }),
       });
@@ -152,10 +144,8 @@ export default function WhatsAppPackagesPage() {
         body: JSON.stringify({
           name: formData.name,
           description: formData.description,
-          priceMonth_idr: parseInt(formData.priceMonth_idr),
-          priceMonth_usd: parseInt(formData.priceMonth_usd),
-          priceYear_idr: parseInt(formData.priceYear_idr),
-          priceYear_usd: parseInt(formData.priceYear_usd),
+          priceMonth: parseInt(formData.priceMonth),  // IDR only
+          priceYear: parseInt(formData.priceYear),    // IDR only
           maxSession: parseInt(formData.maxSession),
         }),
       });
@@ -242,10 +232,8 @@ export default function WhatsAppPackagesPage() {
     setFormData({
       name: "",
       description: "",
-      priceMonth_idr: "",
-      priceMonth_usd: "",
-      priceYear_idr: "",
-      priceYear_usd: "",
+      priceMonth: "",  // IDR only
+      priceYear: "",   // IDR only
       maxSession: "",
     });
   };
@@ -254,10 +242,8 @@ export default function WhatsAppPackagesPage() {
     setFormData({
       name: pkg.name,
       description: pkg.description,
-      priceMonth_idr: pkg.priceMonth_idr.toString(),
-      priceMonth_usd: pkg.priceMonth_usd.toString(),
-      priceYear_idr: pkg.priceYear_idr.toString(),
-      priceYear_usd: pkg.priceYear_usd.toString(),
+      priceMonth: pkg.priceMonth.toString(),  // IDR only
+      priceYear: pkg.priceYear.toString(),    // IDR only
       maxSession: pkg.maxSession.toString(),
     });
     setEditingId(pkg.id);
@@ -281,8 +267,7 @@ export default function WhatsAppPackagesPage() {
   };
 
   const handleSubmit = () => {
-    if (!formData.name || !formData.priceMonth_idr || !formData.priceMonth_usd || 
-        !formData.priceYear_idr || !formData.priceYear_usd || !formData.maxSession) {
+    if (!formData.name || !formData.priceMonth || !formData.priceYear || !formData.maxSession) {
       toast({
         title: "Error",
         description: "Please fill in all required fields",
@@ -347,55 +332,31 @@ export default function WhatsAppPackagesPage() {
                 />
               </div>
               
-              {/* Monthly Pricing */}
+              {/* Monthly Pricing - IDR only */}
               <div>
-                <Label htmlFor="priceMonth_idr">Monthly Price (IDR)</Label>
+                <Label htmlFor="priceMonth">Monthly Price (IDR)</Label>
                 <Input
-                  id="priceMonth_idr"
+                  id="priceMonth"
                   type="number"
-                  value={formData.priceMonth_idr}
+                  value={formData.priceMonth}
                   onChange={(e) =>
-                    setFormData({ ...formData, priceMonth_idr: e.target.value })
+                    setFormData({ ...formData, priceMonth: e.target.value })
                   }
                   placeholder="Monthly price in IDR"
                 />
               </div>
-              <div>
-                <Label htmlFor="priceMonth_usd">Monthly Price (USD)</Label>
-                <Input
-                  id="priceMonth_usd"
-                  type="number"
-                  value={formData.priceMonth_usd}
-                  onChange={(e) =>
-                    setFormData({ ...formData, priceMonth_usd: e.target.value })
-                  }
-                  placeholder="Monthly price in USD"
-                />
-              </div>
               
-              {/* Yearly Pricing */}
+              {/* Yearly Pricing - IDR only */}
               <div>
-                <Label htmlFor="priceYear_idr">Yearly Price (IDR)</Label>
+                <Label htmlFor="priceYear">Yearly Price (IDR)</Label>
                 <Input
-                  id="priceYear_idr"
+                  id="priceYear"
                   type="number"
-                  value={formData.priceYear_idr}
+                  value={formData.priceYear}
                   onChange={(e) =>
-                    setFormData({ ...formData, priceYear_idr: e.target.value })
+                    setFormData({ ...formData, priceYear: e.target.value })
                   }
                   placeholder="Yearly price in IDR"
-                />
-              </div>
-              <div>
-                <Label htmlFor="priceYear_usd">Yearly Price (USD)</Label>
-                <Input
-                  id="priceYear_usd"
-                  type="number"
-                  value={formData.priceYear_usd}
-                  onChange={(e) =>
-                    setFormData({ ...formData, priceYear_usd: e.target.value })
-                  }
-                  placeholder="Yearly price in USD"
                 />
               </div>
               
@@ -494,25 +455,23 @@ export default function WhatsAppPackagesPage() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Monthly Pricing */}
+                  {/* Monthly Pricing - IDR only */}
                   <div className="space-y-2">
                     <p className="text-sm font-medium text-muted-foreground">
-                      Monthly Price
+                      Monthly Price (IDR)
                     </p>
                     <div className="space-y-1">
-                      <p className="text-lg font-semibold">Rp {pkg.priceMonth_idr?.toLocaleString() || '0'}</p>
-                      <p className="text-sm text-muted-foreground">${pkg.priceMonth_usd?.toLocaleString() || '0'}</p>
+                      <p className="text-lg font-semibold">Rp {pkg.priceMonth?.toLocaleString() || '0'}</p>
                     </div>
                   </div>
                   
-                  {/* Yearly Pricing */}
+                  {/* Yearly Pricing - IDR only */}
                   <div className="space-y-2">
                     <p className="text-sm font-medium text-muted-foreground">
-                      Yearly Price
+                      Yearly Price (IDR)
                     </p>
                     <div className="space-y-1">
-                      <p className="text-lg font-semibold">Rp {pkg.priceYear_idr?.toLocaleString() || '0'}</p>
-                      <p className="text-sm text-muted-foreground">${pkg.priceYear_usd?.toLocaleString() || '0'}</p>
+                      <p className="text-lg font-semibold">Rp {pkg.priceYear?.toLocaleString() || '0'}</p>
                     </div>
                   </div>
                   

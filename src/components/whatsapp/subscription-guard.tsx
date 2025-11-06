@@ -25,10 +25,8 @@ interface WhatsappPackage {
   id: string;
   name: string;
   description: string;
-  priceMonth_idr: number;
-  priceMonth_usd: number;
-  priceYear_idr: number;
-  priceYear_usd: number;
+  priceMonth: number;  // IDR only
+  priceYear: number;   // IDR only
   maxSession: number;
 }
 
@@ -274,8 +272,8 @@ export default function SubscriptionGuard({
                               <p className="font-medium text-sm">{subscription.package.name}</p>
                               <p className="text-xs text-muted-foreground">
                                 {subscription.package.maxSession} sessions • {formatCurrency(
-                                  currency === 'idr' ? subscription.package.priceMonth_idr : subscription.package.priceMonth_usd, 
-                                  currency.toUpperCase()
+                                  subscription.package.priceMonth, 
+                                  'IDR'
                                 )}/month
                               </p>
                             </div>

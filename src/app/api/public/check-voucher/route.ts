@@ -21,12 +21,8 @@ import { withCORS, corsOptionsResponse } from '@/lib/cors';
 // Validation schema for voucher check
 const checkVoucherSchema = z.object({
   code: z.string().min(1, 'Code is required'),
-  currency: z.enum(['idr', 'usd']).default('idr'),
   items: z.array(z.object({
-    type: z.enum(['product', 'addon', 'addons', 'whatsapp']).transform((val) => {
-      // Normalize 'addons' to 'addon' for consistency
-      return val === 'addons' ? 'addon' : val;
-    }),
+    type: z.enum(['whatsapp']),
     id: z.string(),
     quantity: z.number().positive().int().default(1),
     duration: z.enum(['month', 'year']).optional(), // Only for whatsapp items
@@ -52,60 +48,26 @@ export async function POST(request: NextRequest) {
     const userId = userAuth?.id || null; // Allow null for public access
 
     const body = await request.json();
-    const { code, currency, items } = checkVoucherSchema.parse(body);
+    const { code, items } = checkVoucherSchema.parse(body);
     
     // For public access without userId, we skip user-specific validations    // Calculate total amount from items
     let originalAmount = 0;
     const itemDetails: Array<{
       id: string;
-      type: 'product' | 'addon' | 'whatsapp';
+      type: 'whatsapp';
       name: string;
       price: number;
       quantity: number;
       total: number;
     }> = [];
 
-    // Fetch and calculate prices for each item
+    // Fetch and calculate prices for each item (WhatsApp only)
     for (const item of items) {
       let itemPrice = 0;
       let itemName = '';
 
       try {
-        if (item.type === 'product') {
-          const product = await prisma.package.findUnique({
-            where: { id: item.id },
-            select: {
-              name_en: true,
-              name_id: true,
-              price_idr: true,
-              price_usd: true,
-            },
-          });
-
-          if (!product) {
-            throw new Error(`Product with ID ${item.id} not found`);
-          }
-
-          itemName = currency === 'idr' ? product.name_id : product.name_en;
-          itemPrice = currency === 'idr' ? Number(product.price_idr) : Number(product.price_usd);
-        } else if (item.type === 'addon') {
-          const addon = await prisma.addon.findUnique({
-            where: { id: item.id },
-            select: {
-              name_en: true,
-              name_id: true,
-              price_idr: true,
-              price_usd: true,
-            },
-          });
-
-          if (!addon) {
-            throw new Error(`Addon with ID ${item.id} not found`);
-          }
-
-          itemName = currency === 'idr' ? addon.name_id : addon.name_en;
-          itemPrice = currency === 'idr' ? Number(addon.price_idr) : Number(addon.price_usd);
-        } else if (item.type === 'whatsapp') {
+        if (item.type === 'whatsapp') {
           if (!item.duration) {
             throw new Error('Duration is required for WhatsApp packages');
           }
@@ -114,10 +76,8 @@ export async function POST(request: NextRequest) {
             where: { id: item.id },
             select: {
               name: true,
-              priceMonth_idr: true,
-              priceMonth_usd: true,
-              priceYear_idr: true,
-              priceYear_usd: true,
+              priceMonth: true,
+              priceYear: true,
             },
           });
 
@@ -127,15 +87,11 @@ export async function POST(request: NextRequest) {
 
           itemName = whatsappPackage.name;
           
-          // Use appropriate currency field based on duration and currency
+          // Always use IDR pricing
           if (item.duration === 'month') {
-            itemPrice = currency === 'usd' ? 
-              (whatsappPackage.priceMonth_usd || 0) : 
-              (whatsappPackage.priceMonth_idr || 0);
+            itemPrice = whatsappPackage.priceMonth;
           } else {
-            itemPrice = currency === 'usd' ? 
-              (whatsappPackage.priceYear_usd || 0) : 
-              (whatsappPackage.priceYear_idr || 0);
+            itemPrice = whatsappPackage.priceYear;
           }
         }
 
@@ -257,20 +213,10 @@ export async function POST(request: NextRequest) {
 
     // Calculate discount based on voucher type and discount type
     let discountAmount = 0;
-    let applicableAmount = originalAmount;    // Filter items based on discount type
+    let applicableAmount = originalAmount;    // Filter items based on discount type - now only whatsapp
     if (voucher.discountType !== 'total') {
       const applicableItems = itemDetails.filter(item => {
-        switch (voucher.discountType) {
-          case 'products':
-            return item.type === 'product';
-          case 'addons':
-          case 'addon':
-            return item.type === 'addon';
-          case 'whatsapp':
-            return item.type === 'whatsapp';
-          default:
-            return true;
-        }
+        return voucher.discountType === 'whatsapp' ? item.type === 'whatsapp' : true;
       });
       
       applicableAmount = applicableItems.reduce((sum, item) => sum + item.total, 0);
@@ -323,7 +269,7 @@ export async function POST(request: NextRequest) {
           discountAmount,
           finalAmount,
           savings: discountAmount,
-          currency: currency,
+          currency: 'idr',
           items: itemDetails,
         },
       },

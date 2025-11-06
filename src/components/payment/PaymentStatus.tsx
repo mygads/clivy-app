@@ -243,13 +243,12 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({
   }
 
   const formatCurrency = (amount: number, currency: string = 'IDR') => {
-    const currencyUpper = currency.toUpperCase()
-    const locale = currencyUpper === 'USD' ? 'en-US' : 'id-ID'
-    return new Intl.NumberFormat(locale, {
+    // Always use IDR formatting
+    return new Intl.NumberFormat('id-ID', {
       style: 'currency',
-      currency: currencyUpper,
-      minimumFractionDigits: currencyUpper === 'USD' ? 2 : 0,
-      maximumFractionDigits: currencyUpper === 'USD' ? 2 : 0
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
     }).format(amount)
   }
 

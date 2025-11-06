@@ -364,15 +364,13 @@ export interface CheckoutForm {
     message: string
   }
 
-// Customer Products - Simplified for WhatsApp only
+// Customer Products - Simplified for WhatsApp only (IDR only)
 export interface WhatsAppProductItem {
   id: string
   name: string
   description: string | null
-  priceMonth_idr: number
-  priceMonth_usd: number
-  priceYear_idr: number
-  priceYear_usd: number
+  priceMonth: number  // IDR only
+  priceYear: number   // IDR only
   maxSession: number
   yearlyDiscount: number
   recommended: boolean
@@ -468,10 +466,8 @@ export interface TransactionItem {
       id: string
       name: string
       description: string
-      priceMonth_idr: number
-      priceMonth_usd: number
-      priceYear_idr: number
-      priceYear_usd: number
+      priceMonth: number  // IDR only
+      priceYear: number   // IDR only
     }
   } | null
   payment: {

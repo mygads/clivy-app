@@ -110,9 +110,10 @@ const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
   }
 
   const formatCurrency = (amount: number, currency: string) => {
+    // Always use IDR formatting
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
-      currency: currency === 'IDR' ? 'IDR' : 'USD',
+      currency: 'IDR',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     }).format(amount)

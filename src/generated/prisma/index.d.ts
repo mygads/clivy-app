@@ -9707,18 +9707,14 @@ export namespace Prisma {
   }
 
   export type WhatsappApiPackageAvgAggregateOutputType = {
-    priceMonth_idr: number | null
-    priceMonth_usd: number | null
-    priceYear_idr: number | null
-    priceYear_usd: number | null
+    priceMonth: number | null
+    priceYear: number | null
     maxSession: number | null
   }
 
   export type WhatsappApiPackageSumAggregateOutputType = {
-    priceMonth_idr: number | null
-    priceMonth_usd: number | null
-    priceYear_idr: number | null
-    priceYear_usd: number | null
+    priceMonth: number | null
+    priceYear: number | null
     maxSession: number | null
   }
 
@@ -9726,10 +9722,8 @@ export namespace Prisma {
     id: string | null
     name: string | null
     description: string | null
-    priceMonth_idr: number | null
-    priceMonth_usd: number | null
-    priceYear_idr: number | null
-    priceYear_usd: number | null
+    priceMonth: number | null
+    priceYear: number | null
     maxSession: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -9739,10 +9733,8 @@ export namespace Prisma {
     id: string | null
     name: string | null
     description: string | null
-    priceMonth_idr: number | null
-    priceMonth_usd: number | null
-    priceYear_idr: number | null
-    priceYear_usd: number | null
+    priceMonth: number | null
+    priceYear: number | null
     maxSession: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -9752,10 +9744,8 @@ export namespace Prisma {
     id: number
     name: number
     description: number
-    priceMonth_idr: number
-    priceMonth_usd: number
-    priceYear_idr: number
-    priceYear_usd: number
+    priceMonth: number
+    priceYear: number
     maxSession: number
     createdAt: number
     updatedAt: number
@@ -9764,18 +9754,14 @@ export namespace Prisma {
 
 
   export type WhatsappApiPackageAvgAggregateInputType = {
-    priceMonth_idr?: true
-    priceMonth_usd?: true
-    priceYear_idr?: true
-    priceYear_usd?: true
+    priceMonth?: true
+    priceYear?: true
     maxSession?: true
   }
 
   export type WhatsappApiPackageSumAggregateInputType = {
-    priceMonth_idr?: true
-    priceMonth_usd?: true
-    priceYear_idr?: true
-    priceYear_usd?: true
+    priceMonth?: true
+    priceYear?: true
     maxSession?: true
   }
 
@@ -9783,10 +9769,8 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
-    priceMonth_idr?: true
-    priceMonth_usd?: true
-    priceYear_idr?: true
-    priceYear_usd?: true
+    priceMonth?: true
+    priceYear?: true
     maxSession?: true
     createdAt?: true
     updatedAt?: true
@@ -9796,10 +9780,8 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
-    priceMonth_idr?: true
-    priceMonth_usd?: true
-    priceYear_idr?: true
-    priceYear_usd?: true
+    priceMonth?: true
+    priceYear?: true
     maxSession?: true
     createdAt?: true
     updatedAt?: true
@@ -9809,10 +9791,8 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
-    priceMonth_idr?: true
-    priceMonth_usd?: true
-    priceYear_idr?: true
-    priceYear_usd?: true
+    priceMonth?: true
+    priceYear?: true
     maxSession?: true
     createdAt?: true
     updatedAt?: true
@@ -9909,10 +9889,8 @@ export namespace Prisma {
     id: string
     name: string
     description: string | null
-    priceMonth_idr: number
-    priceMonth_usd: number
-    priceYear_idr: number
-    priceYear_usd: number
+    priceMonth: number
+    priceYear: number
     maxSession: number
     createdAt: Date
     updatedAt: Date
@@ -9941,10 +9919,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    priceMonth_idr?: boolean
-    priceMonth_usd?: boolean
-    priceYear_idr?: boolean
-    priceYear_usd?: boolean
+    priceMonth?: boolean
+    priceYear?: boolean
     maxSession?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -9957,10 +9933,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    priceMonth_idr?: boolean
-    priceMonth_usd?: boolean
-    priceYear_idr?: boolean
-    priceYear_usd?: boolean
+    priceMonth?: boolean
+    priceYear?: boolean
     maxSession?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -9970,10 +9944,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    priceMonth_idr?: boolean
-    priceMonth_usd?: boolean
-    priceYear_idr?: boolean
-    priceYear_usd?: boolean
+    priceMonth?: boolean
+    priceYear?: boolean
     maxSession?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -9983,16 +9955,14 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    priceMonth_idr?: boolean
-    priceMonth_usd?: boolean
-    priceYear_idr?: boolean
-    priceYear_usd?: boolean
+    priceMonth?: boolean
+    priceYear?: boolean
     maxSession?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type WhatsappApiPackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "priceMonth_idr" | "priceMonth_usd" | "priceYear_idr" | "priceYear_usd" | "maxSession" | "createdAt" | "updatedAt", ExtArgs["result"]["whatsappApiPackage"]>
+  export type WhatsappApiPackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "priceMonth" | "priceYear" | "maxSession" | "createdAt" | "updatedAt", ExtArgs["result"]["whatsappApiPackage"]>
   export type WhatsappApiPackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     whatsappCustomers?: boolean | WhatsappApiPackage$whatsappCustomersArgs<ExtArgs>
     whatsappTransactions?: boolean | WhatsappApiPackage$whatsappTransactionsArgs<ExtArgs>
@@ -10011,10 +9981,8 @@ export namespace Prisma {
       id: string
       name: string
       description: string | null
-      priceMonth_idr: number
-      priceMonth_usd: number
-      priceYear_idr: number
-      priceYear_usd: number
+      priceMonth: number
+      priceYear: number
       maxSession: number
       createdAt: Date
       updatedAt: Date
@@ -10446,10 +10414,8 @@ export namespace Prisma {
     readonly id: FieldRef<"WhatsappApiPackage", 'String'>
     readonly name: FieldRef<"WhatsappApiPackage", 'String'>
     readonly description: FieldRef<"WhatsappApiPackage", 'String'>
-    readonly priceMonth_idr: FieldRef<"WhatsappApiPackage", 'Int'>
-    readonly priceMonth_usd: FieldRef<"WhatsappApiPackage", 'Int'>
-    readonly priceYear_idr: FieldRef<"WhatsappApiPackage", 'Int'>
-    readonly priceYear_usd: FieldRef<"WhatsappApiPackage", 'Int'>
+    readonly priceMonth: FieldRef<"WhatsappApiPackage", 'Int'>
+    readonly priceYear: FieldRef<"WhatsappApiPackage", 'Int'>
     readonly maxSession: FieldRef<"WhatsappApiPackage", 'Int'>
     readonly createdAt: FieldRef<"WhatsappApiPackage", 'DateTime'>
     readonly updatedAt: FieldRef<"WhatsappApiPackage", 'DateTime'>
@@ -13189,7 +13155,6 @@ export namespace Prisma {
     maxUses: number | null
     usedCount: number | null
     allowMultipleUsePerUser: boolean | null
-    currency: string | null
     isActive: boolean | null
     startDate: Date | null
     endDate: Date | null
@@ -13210,7 +13175,6 @@ export namespace Prisma {
     maxUses: number | null
     usedCount: number | null
     allowMultipleUsePerUser: boolean | null
-    currency: string | null
     isActive: boolean | null
     startDate: Date | null
     endDate: Date | null
@@ -13231,7 +13195,6 @@ export namespace Prisma {
     maxUses: number
     usedCount: number
     allowMultipleUsePerUser: number
-    currency: number
     isActive: number
     startDate: number
     endDate: number
@@ -13270,7 +13233,6 @@ export namespace Prisma {
     maxUses?: true
     usedCount?: true
     allowMultipleUsePerUser?: true
-    currency?: true
     isActive?: true
     startDate?: true
     endDate?: true
@@ -13291,7 +13253,6 @@ export namespace Prisma {
     maxUses?: true
     usedCount?: true
     allowMultipleUsePerUser?: true
-    currency?: true
     isActive?: true
     startDate?: true
     endDate?: true
@@ -13312,7 +13273,6 @@ export namespace Prisma {
     maxUses?: true
     usedCount?: true
     allowMultipleUsePerUser?: true
-    currency?: true
     isActive?: true
     startDate?: true
     endDate?: true
@@ -13420,7 +13380,6 @@ export namespace Prisma {
     maxUses: number | null
     usedCount: number
     allowMultipleUsePerUser: boolean
-    currency: string
     isActive: boolean
     startDate: Date
     endDate: Date | null
@@ -13460,7 +13419,6 @@ export namespace Prisma {
     maxUses?: boolean
     usedCount?: boolean
     allowMultipleUsePerUser?: boolean
-    currency?: boolean
     isActive?: boolean
     startDate?: boolean
     endDate?: boolean
@@ -13484,7 +13442,6 @@ export namespace Prisma {
     maxUses?: boolean
     usedCount?: boolean
     allowMultipleUsePerUser?: boolean
-    currency?: boolean
     isActive?: boolean
     startDate?: boolean
     endDate?: boolean
@@ -13505,7 +13462,6 @@ export namespace Prisma {
     maxUses?: boolean
     usedCount?: boolean
     allowMultipleUsePerUser?: boolean
-    currency?: boolean
     isActive?: boolean
     startDate?: boolean
     endDate?: boolean
@@ -13526,7 +13482,6 @@ export namespace Prisma {
     maxUses?: boolean
     usedCount?: boolean
     allowMultipleUsePerUser?: boolean
-    currency?: boolean
     isActive?: boolean
     startDate?: boolean
     endDate?: boolean
@@ -13534,7 +13489,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type VoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "type" | "discountType" | "value" | "minAmount" | "maxDiscount" | "maxUses" | "usedCount" | "allowMultipleUsePerUser" | "currency" | "isActive" | "startDate" | "endDate" | "createdAt" | "updatedAt", ExtArgs["result"]["voucher"]>
+  export type VoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "type" | "discountType" | "value" | "minAmount" | "maxDiscount" | "maxUses" | "usedCount" | "allowMultipleUsePerUser" | "isActive" | "startDate" | "endDate" | "createdAt" | "updatedAt", ExtArgs["result"]["voucher"]>
   export type VoucherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     transactions?: boolean | Voucher$transactionsArgs<ExtArgs>
     voucherUsage?: boolean | Voucher$voucherUsageArgs<ExtArgs>
@@ -13562,7 +13517,6 @@ export namespace Prisma {
       maxUses: number | null
       usedCount: number
       allowMultipleUsePerUser: boolean
-      currency: string
       isActive: boolean
       startDate: Date
       endDate: Date | null
@@ -14005,7 +13959,6 @@ export namespace Prisma {
     readonly maxUses: FieldRef<"Voucher", 'Int'>
     readonly usedCount: FieldRef<"Voucher", 'Int'>
     readonly allowMultipleUsePerUser: FieldRef<"Voucher", 'Boolean'>
-    readonly currency: FieldRef<"Voucher", 'String'>
     readonly isActive: FieldRef<"Voucher", 'Boolean'>
     readonly startDate: FieldRef<"Voucher", 'DateTime'>
     readonly endDate: FieldRef<"Voucher", 'DateTime'>
@@ -15635,7 +15588,6 @@ export namespace Prisma {
     name: string | null
     description: string | null
     type: string | null
-    currency: string | null
     isActive: boolean | null
     isSystem: boolean | null
     gatewayProvider: string | null
@@ -15661,7 +15613,6 @@ export namespace Prisma {
     name: string | null
     description: string | null
     type: string | null
-    currency: string | null
     isActive: boolean | null
     isSystem: boolean | null
     gatewayProvider: string | null
@@ -15687,7 +15638,6 @@ export namespace Prisma {
     name: number
     description: number
     type: number
-    currency: number
     isActive: number
     isSystem: number
     gatewayProvider: number
@@ -15727,7 +15677,6 @@ export namespace Prisma {
     name?: true
     description?: true
     type?: true
-    currency?: true
     isActive?: true
     isSystem?: true
     gatewayProvider?: true
@@ -15753,7 +15702,6 @@ export namespace Prisma {
     name?: true
     description?: true
     type?: true
-    currency?: true
     isActive?: true
     isSystem?: true
     gatewayProvider?: true
@@ -15779,7 +15727,6 @@ export namespace Prisma {
     name?: true
     description?: true
     type?: true
-    currency?: true
     isActive?: true
     isSystem?: true
     gatewayProvider?: true
@@ -15892,7 +15839,6 @@ export namespace Prisma {
     name: string
     description: string | null
     type: string
-    currency: string | null
     isActive: boolean
     isSystem: boolean
     gatewayProvider: string | null
@@ -15937,7 +15883,6 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     type?: boolean
-    currency?: boolean
     isActive?: boolean
     isSystem?: boolean
     gatewayProvider?: boolean
@@ -15964,7 +15909,6 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     type?: boolean
-    currency?: boolean
     isActive?: boolean
     isSystem?: boolean
     gatewayProvider?: boolean
@@ -15991,7 +15935,6 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     type?: boolean
-    currency?: boolean
     isActive?: boolean
     isSystem?: boolean
     gatewayProvider?: boolean
@@ -16018,7 +15961,6 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     type?: boolean
-    currency?: boolean
     isActive?: boolean
     isSystem?: boolean
     gatewayProvider?: boolean
@@ -16038,7 +15980,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PaymentMethodOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "type" | "currency" | "isActive" | "isSystem" | "gatewayProvider" | "gatewayCode" | "gatewayImageUrl" | "isGatewayMethod" | "bankDetailId" | "feeType" | "feeValue" | "minFee" | "maxFee" | "requiresManualApproval" | "paymentInstructions" | "instructionType" | "instructionImageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["paymentMethod"]>
+  export type PaymentMethodOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "type" | "isActive" | "isSystem" | "gatewayProvider" | "gatewayCode" | "gatewayImageUrl" | "isGatewayMethod" | "bankDetailId" | "feeType" | "feeValue" | "minFee" | "maxFee" | "requiresManualApproval" | "paymentInstructions" | "instructionType" | "instructionImageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["paymentMethod"]>
   export type PaymentMethodInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bankDetail?: boolean | PaymentMethod$bankDetailArgs<ExtArgs>
   }
@@ -16060,7 +16002,6 @@ export namespace Prisma {
       name: string
       description: string | null
       type: string
-      currency: string | null
       isActive: boolean
       isSystem: boolean
       gatewayProvider: string | null
@@ -16507,7 +16448,6 @@ export namespace Prisma {
     readonly name: FieldRef<"PaymentMethod", 'String'>
     readonly description: FieldRef<"PaymentMethod", 'String'>
     readonly type: FieldRef<"PaymentMethod", 'String'>
-    readonly currency: FieldRef<"PaymentMethod", 'String'>
     readonly isActive: FieldRef<"PaymentMethod", 'Boolean'>
     readonly isSystem: FieldRef<"PaymentMethod", 'Boolean'>
     readonly gatewayProvider: FieldRef<"PaymentMethod", 'String'>
@@ -16974,7 +16914,6 @@ export namespace Prisma {
     accountNumber: string | null
     accountName: string | null
     swiftCode: string | null
-    currency: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -16986,7 +16925,6 @@ export namespace Prisma {
     accountNumber: string | null
     accountName: string | null
     swiftCode: string | null
-    currency: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -16998,7 +16936,6 @@ export namespace Prisma {
     accountNumber: number
     accountName: number
     swiftCode: number
-    currency: number
     isActive: number
     createdAt: number
     updatedAt: number
@@ -17012,7 +16949,6 @@ export namespace Prisma {
     accountNumber?: true
     accountName?: true
     swiftCode?: true
-    currency?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -17024,7 +16960,6 @@ export namespace Prisma {
     accountNumber?: true
     accountName?: true
     swiftCode?: true
-    currency?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -17036,7 +16971,6 @@ export namespace Prisma {
     accountNumber?: true
     accountName?: true
     swiftCode?: true
-    currency?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -17121,7 +17055,6 @@ export namespace Prisma {
     accountNumber: string
     accountName: string
     swiftCode: string | null
-    currency: string
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -17150,7 +17083,6 @@ export namespace Prisma {
     accountNumber?: boolean
     accountName?: boolean
     swiftCode?: boolean
-    currency?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -17164,7 +17096,6 @@ export namespace Prisma {
     accountNumber?: boolean
     accountName?: boolean
     swiftCode?: boolean
-    currency?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -17176,7 +17107,6 @@ export namespace Prisma {
     accountNumber?: boolean
     accountName?: boolean
     swiftCode?: boolean
-    currency?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -17188,13 +17118,12 @@ export namespace Prisma {
     accountNumber?: boolean
     accountName?: boolean
     swiftCode?: boolean
-    currency?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type BankDetailOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bankName" | "accountNumber" | "accountName" | "swiftCode" | "currency" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["bankDetail"]>
+  export type BankDetailOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bankName" | "accountNumber" | "accountName" | "swiftCode" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["bankDetail"]>
   export type BankDetailInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     paymentMethods?: boolean | BankDetail$paymentMethodsArgs<ExtArgs>
     _count?: boolean | BankDetailCountOutputTypeDefaultArgs<ExtArgs>
@@ -17213,7 +17142,6 @@ export namespace Prisma {
       accountNumber: string
       accountName: string
       swiftCode: string | null
-      currency: string
       isActive: boolean
       createdAt: Date
       updatedAt: Date
@@ -17646,7 +17574,6 @@ export namespace Prisma {
     readonly accountNumber: FieldRef<"BankDetail", 'String'>
     readonly accountName: FieldRef<"BankDetail", 'String'>
     readonly swiftCode: FieldRef<"BankDetail", 'String'>
-    readonly currency: FieldRef<"BankDetail", 'String'>
     readonly isActive: FieldRef<"BankDetail", 'Boolean'>
     readonly createdAt: FieldRef<"BankDetail", 'DateTime'>
     readonly updatedAt: FieldRef<"BankDetail", 'DateTime'>
@@ -27982,10 +27909,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     description: 'description',
-    priceMonth_idr: 'priceMonth_idr',
-    priceMonth_usd: 'priceMonth_usd',
-    priceYear_idr: 'priceYear_idr',
-    priceYear_usd: 'priceYear_usd',
+    priceMonth: 'priceMonth',
+    priceYear: 'priceYear',
     maxSession: 'maxSession',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -28038,7 +27963,6 @@ export namespace Prisma {
     maxUses: 'maxUses',
     usedCount: 'usedCount',
     allowMultipleUsePerUser: 'allowMultipleUsePerUser',
-    currency: 'currency',
     isActive: 'isActive',
     startDate: 'startDate',
     endDate: 'endDate',
@@ -28067,7 +27991,6 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     type: 'type',
-    currency: 'currency',
     isActive: 'isActive',
     isSystem: 'isSystem',
     gatewayProvider: 'gatewayProvider',
@@ -28096,7 +28019,6 @@ export namespace Prisma {
     accountNumber: 'accountNumber',
     accountName: 'accountName',
     swiftCode: 'swiftCode',
-    currency: 'currency',
     isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -29118,10 +29040,8 @@ export namespace Prisma {
     id?: StringFilter<"WhatsappApiPackage"> | string
     name?: StringFilter<"WhatsappApiPackage"> | string
     description?: StringNullableFilter<"WhatsappApiPackage"> | string | null
-    priceMonth_idr?: IntFilter<"WhatsappApiPackage"> | number
-    priceMonth_usd?: IntFilter<"WhatsappApiPackage"> | number
-    priceYear_idr?: IntFilter<"WhatsappApiPackage"> | number
-    priceYear_usd?: IntFilter<"WhatsappApiPackage"> | number
+    priceMonth?: IntFilter<"WhatsappApiPackage"> | number
+    priceYear?: IntFilter<"WhatsappApiPackage"> | number
     maxSession?: IntFilter<"WhatsappApiPackage"> | number
     createdAt?: DateTimeFilter<"WhatsappApiPackage"> | Date | string
     updatedAt?: DateTimeFilter<"WhatsappApiPackage"> | Date | string
@@ -29133,10 +29053,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
-    priceMonth_idr?: SortOrder
-    priceMonth_usd?: SortOrder
-    priceYear_idr?: SortOrder
-    priceYear_usd?: SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
     maxSession?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -29151,10 +29069,8 @@ export namespace Prisma {
     NOT?: WhatsappApiPackageWhereInput | WhatsappApiPackageWhereInput[]
     name?: StringFilter<"WhatsappApiPackage"> | string
     description?: StringNullableFilter<"WhatsappApiPackage"> | string | null
-    priceMonth_idr?: IntFilter<"WhatsappApiPackage"> | number
-    priceMonth_usd?: IntFilter<"WhatsappApiPackage"> | number
-    priceYear_idr?: IntFilter<"WhatsappApiPackage"> | number
-    priceYear_usd?: IntFilter<"WhatsappApiPackage"> | number
+    priceMonth?: IntFilter<"WhatsappApiPackage"> | number
+    priceYear?: IntFilter<"WhatsappApiPackage"> | number
     maxSession?: IntFilter<"WhatsappApiPackage"> | number
     createdAt?: DateTimeFilter<"WhatsappApiPackage"> | Date | string
     updatedAt?: DateTimeFilter<"WhatsappApiPackage"> | Date | string
@@ -29166,10 +29082,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
-    priceMonth_idr?: SortOrder
-    priceMonth_usd?: SortOrder
-    priceYear_idr?: SortOrder
-    priceYear_usd?: SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
     maxSession?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -29187,10 +29101,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"WhatsappApiPackage"> | string
     name?: StringWithAggregatesFilter<"WhatsappApiPackage"> | string
     description?: StringNullableWithAggregatesFilter<"WhatsappApiPackage"> | string | null
-    priceMonth_idr?: IntWithAggregatesFilter<"WhatsappApiPackage"> | number
-    priceMonth_usd?: IntWithAggregatesFilter<"WhatsappApiPackage"> | number
-    priceYear_idr?: IntWithAggregatesFilter<"WhatsappApiPackage"> | number
-    priceYear_usd?: IntWithAggregatesFilter<"WhatsappApiPackage"> | number
+    priceMonth?: IntWithAggregatesFilter<"WhatsappApiPackage"> | number
+    priceYear?: IntWithAggregatesFilter<"WhatsappApiPackage"> | number
     maxSession?: IntWithAggregatesFilter<"WhatsappApiPackage"> | number
     createdAt?: DateTimeWithAggregatesFilter<"WhatsappApiPackage"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"WhatsappApiPackage"> | Date | string
@@ -29371,7 +29283,6 @@ export namespace Prisma {
     maxUses?: IntNullableFilter<"Voucher"> | number | null
     usedCount?: IntFilter<"Voucher"> | number
     allowMultipleUsePerUser?: BoolFilter<"Voucher"> | boolean
-    currency?: StringFilter<"Voucher"> | string
     isActive?: BoolFilter<"Voucher"> | boolean
     startDate?: DateTimeFilter<"Voucher"> | Date | string
     endDate?: DateTimeNullableFilter<"Voucher"> | Date | string | null
@@ -29394,7 +29305,6 @@ export namespace Prisma {
     maxUses?: SortOrderInput | SortOrder
     usedCount?: SortOrder
     allowMultipleUsePerUser?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrderInput | SortOrder
@@ -29420,7 +29330,6 @@ export namespace Prisma {
     maxUses?: IntNullableFilter<"Voucher"> | number | null
     usedCount?: IntFilter<"Voucher"> | number
     allowMultipleUsePerUser?: BoolFilter<"Voucher"> | boolean
-    currency?: StringFilter<"Voucher"> | string
     isActive?: BoolFilter<"Voucher"> | boolean
     startDate?: DateTimeFilter<"Voucher"> | Date | string
     endDate?: DateTimeNullableFilter<"Voucher"> | Date | string | null
@@ -29443,7 +29352,6 @@ export namespace Prisma {
     maxUses?: SortOrderInput | SortOrder
     usedCount?: SortOrder
     allowMultipleUsePerUser?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrderInput | SortOrder
@@ -29472,7 +29380,6 @@ export namespace Prisma {
     maxUses?: IntNullableWithAggregatesFilter<"Voucher"> | number | null
     usedCount?: IntWithAggregatesFilter<"Voucher"> | number
     allowMultipleUsePerUser?: BoolWithAggregatesFilter<"Voucher"> | boolean
-    currency?: StringWithAggregatesFilter<"Voucher"> | string
     isActive?: BoolWithAggregatesFilter<"Voucher"> | boolean
     startDate?: DateTimeWithAggregatesFilter<"Voucher"> | Date | string
     endDate?: DateTimeNullableWithAggregatesFilter<"Voucher"> | Date | string | null
@@ -29557,7 +29464,6 @@ export namespace Prisma {
     name?: StringFilter<"PaymentMethod"> | string
     description?: StringNullableFilter<"PaymentMethod"> | string | null
     type?: StringFilter<"PaymentMethod"> | string
-    currency?: StringNullableFilter<"PaymentMethod"> | string | null
     isActive?: BoolFilter<"PaymentMethod"> | boolean
     isSystem?: BoolFilter<"PaymentMethod"> | boolean
     gatewayProvider?: StringNullableFilter<"PaymentMethod"> | string | null
@@ -29584,7 +29490,6 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     type?: SortOrder
-    currency?: SortOrderInput | SortOrder
     isActive?: SortOrder
     isSystem?: SortOrder
     gatewayProvider?: SortOrderInput | SortOrder
@@ -29614,7 +29519,6 @@ export namespace Prisma {
     name?: StringFilter<"PaymentMethod"> | string
     description?: StringNullableFilter<"PaymentMethod"> | string | null
     type?: StringFilter<"PaymentMethod"> | string
-    currency?: StringNullableFilter<"PaymentMethod"> | string | null
     isActive?: BoolFilter<"PaymentMethod"> | boolean
     isSystem?: BoolFilter<"PaymentMethod"> | boolean
     gatewayProvider?: StringNullableFilter<"PaymentMethod"> | string | null
@@ -29641,7 +29545,6 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     type?: SortOrder
-    currency?: SortOrderInput | SortOrder
     isActive?: SortOrder
     isSystem?: SortOrder
     gatewayProvider?: SortOrderInput | SortOrder
@@ -29675,7 +29578,6 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"PaymentMethod"> | string
     description?: StringNullableWithAggregatesFilter<"PaymentMethod"> | string | null
     type?: StringWithAggregatesFilter<"PaymentMethod"> | string
-    currency?: StringNullableWithAggregatesFilter<"PaymentMethod"> | string | null
     isActive?: BoolWithAggregatesFilter<"PaymentMethod"> | boolean
     isSystem?: BoolWithAggregatesFilter<"PaymentMethod"> | boolean
     gatewayProvider?: StringNullableWithAggregatesFilter<"PaymentMethod"> | string | null
@@ -29704,7 +29606,6 @@ export namespace Prisma {
     accountNumber?: StringFilter<"BankDetail"> | string
     accountName?: StringFilter<"BankDetail"> | string
     swiftCode?: StringNullableFilter<"BankDetail"> | string | null
-    currency?: StringFilter<"BankDetail"> | string
     isActive?: BoolFilter<"BankDetail"> | boolean
     createdAt?: DateTimeFilter<"BankDetail"> | Date | string
     updatedAt?: DateTimeFilter<"BankDetail"> | Date | string
@@ -29717,7 +29618,6 @@ export namespace Prisma {
     accountNumber?: SortOrder
     accountName?: SortOrder
     swiftCode?: SortOrderInput | SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -29733,7 +29633,6 @@ export namespace Prisma {
     accountNumber?: StringFilter<"BankDetail"> | string
     accountName?: StringFilter<"BankDetail"> | string
     swiftCode?: StringNullableFilter<"BankDetail"> | string | null
-    currency?: StringFilter<"BankDetail"> | string
     isActive?: BoolFilter<"BankDetail"> | boolean
     createdAt?: DateTimeFilter<"BankDetail"> | Date | string
     updatedAt?: DateTimeFilter<"BankDetail"> | Date | string
@@ -29746,7 +29645,6 @@ export namespace Prisma {
     accountNumber?: SortOrder
     accountName?: SortOrder
     swiftCode?: SortOrderInput | SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -29764,7 +29662,6 @@ export namespace Prisma {
     accountNumber?: StringWithAggregatesFilter<"BankDetail"> | string
     accountName?: StringWithAggregatesFilter<"BankDetail"> | string
     swiftCode?: StringNullableWithAggregatesFilter<"BankDetail"> | string | null
-    currency?: StringWithAggregatesFilter<"BankDetail"> | string
     isActive?: BoolWithAggregatesFilter<"BankDetail"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"BankDetail"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BankDetail"> | Date | string
@@ -31467,10 +31364,8 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    priceMonth_idr: number
-    priceMonth_usd: number
-    priceYear_idr: number
-    priceYear_usd: number
+    priceMonth: number
+    priceYear: number
     maxSession: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31482,10 +31377,8 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    priceMonth_idr: number
-    priceMonth_usd: number
-    priceYear_idr: number
-    priceYear_usd: number
+    priceMonth: number
+    priceYear: number
     maxSession: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31497,10 +31390,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    priceMonth_idr?: IntFieldUpdateOperationsInput | number
-    priceMonth_usd?: IntFieldUpdateOperationsInput | number
-    priceYear_idr?: IntFieldUpdateOperationsInput | number
-    priceYear_usd?: IntFieldUpdateOperationsInput | number
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
     maxSession?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31512,10 +31403,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    priceMonth_idr?: IntFieldUpdateOperationsInput | number
-    priceMonth_usd?: IntFieldUpdateOperationsInput | number
-    priceYear_idr?: IntFieldUpdateOperationsInput | number
-    priceYear_usd?: IntFieldUpdateOperationsInput | number
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
     maxSession?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31527,10 +31416,8 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    priceMonth_idr: number
-    priceMonth_usd: number
-    priceYear_idr: number
-    priceYear_usd: number
+    priceMonth: number
+    priceYear: number
     maxSession: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31540,10 +31427,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    priceMonth_idr?: IntFieldUpdateOperationsInput | number
-    priceMonth_usd?: IntFieldUpdateOperationsInput | number
-    priceYear_idr?: IntFieldUpdateOperationsInput | number
-    priceYear_usd?: IntFieldUpdateOperationsInput | number
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
     maxSession?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31553,10 +31438,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    priceMonth_idr?: IntFieldUpdateOperationsInput | number
-    priceMonth_usd?: IntFieldUpdateOperationsInput | number
-    priceYear_idr?: IntFieldUpdateOperationsInput | number
-    priceYear_usd?: IntFieldUpdateOperationsInput | number
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
     maxSession?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31747,7 +31630,6 @@ export namespace Prisma {
     maxUses?: number | null
     usedCount?: number
     allowMultipleUsePerUser?: boolean
-    currency?: string
     isActive?: boolean
     startDate?: Date | string
     endDate?: Date | string | null
@@ -31770,7 +31652,6 @@ export namespace Prisma {
     maxUses?: number | null
     usedCount?: number
     allowMultipleUsePerUser?: boolean
-    currency?: string
     isActive?: boolean
     startDate?: Date | string
     endDate?: Date | string | null
@@ -31793,7 +31674,6 @@ export namespace Prisma {
     maxUses?: NullableIntFieldUpdateOperationsInput | number | null
     usedCount?: IntFieldUpdateOperationsInput | number
     allowMultipleUsePerUser?: BoolFieldUpdateOperationsInput | boolean
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -31816,7 +31696,6 @@ export namespace Prisma {
     maxUses?: NullableIntFieldUpdateOperationsInput | number | null
     usedCount?: IntFieldUpdateOperationsInput | number
     allowMultipleUsePerUser?: BoolFieldUpdateOperationsInput | boolean
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -31839,7 +31718,6 @@ export namespace Prisma {
     maxUses?: number | null
     usedCount?: number
     allowMultipleUsePerUser?: boolean
-    currency?: string
     isActive?: boolean
     startDate?: Date | string
     endDate?: Date | string | null
@@ -31860,7 +31738,6 @@ export namespace Prisma {
     maxUses?: NullableIntFieldUpdateOperationsInput | number | null
     usedCount?: IntFieldUpdateOperationsInput | number
     allowMultipleUsePerUser?: BoolFieldUpdateOperationsInput | boolean
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -31881,7 +31758,6 @@ export namespace Prisma {
     maxUses?: NullableIntFieldUpdateOperationsInput | number | null
     usedCount?: IntFieldUpdateOperationsInput | number
     allowMultipleUsePerUser?: BoolFieldUpdateOperationsInput | boolean
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -31955,7 +31831,6 @@ export namespace Prisma {
     name: string
     description?: string | null
     type: string
-    currency?: string | null
     isActive?: boolean
     isSystem?: boolean
     gatewayProvider?: string | null
@@ -31981,7 +31856,6 @@ export namespace Prisma {
     name: string
     description?: string | null
     type: string
-    currency?: string | null
     isActive?: boolean
     isSystem?: boolean
     gatewayProvider?: string | null
@@ -32007,7 +31881,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: StringFieldUpdateOperationsInput | string
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isSystem?: BoolFieldUpdateOperationsInput | boolean
     gatewayProvider?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32033,7 +31906,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: StringFieldUpdateOperationsInput | string
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isSystem?: BoolFieldUpdateOperationsInput | boolean
     gatewayProvider?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32059,7 +31931,6 @@ export namespace Prisma {
     name: string
     description?: string | null
     type: string
-    currency?: string | null
     isActive?: boolean
     isSystem?: boolean
     gatewayProvider?: string | null
@@ -32085,7 +31956,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: StringFieldUpdateOperationsInput | string
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isSystem?: BoolFieldUpdateOperationsInput | boolean
     gatewayProvider?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32110,7 +31980,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: StringFieldUpdateOperationsInput | string
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isSystem?: BoolFieldUpdateOperationsInput | boolean
     gatewayProvider?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32136,7 +32005,6 @@ export namespace Prisma {
     accountNumber: string
     accountName: string
     swiftCode?: string | null
-    currency: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32149,7 +32017,6 @@ export namespace Prisma {
     accountNumber: string
     accountName: string
     swiftCode?: string | null
-    currency: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32162,7 +32029,6 @@ export namespace Prisma {
     accountNumber?: StringFieldUpdateOperationsInput | string
     accountName?: StringFieldUpdateOperationsInput | string
     swiftCode?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32175,7 +32041,6 @@ export namespace Prisma {
     accountNumber?: StringFieldUpdateOperationsInput | string
     accountName?: StringFieldUpdateOperationsInput | string
     swiftCode?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32188,7 +32053,6 @@ export namespace Prisma {
     accountNumber: string
     accountName: string
     swiftCode?: string | null
-    currency: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32200,7 +32064,6 @@ export namespace Prisma {
     accountNumber?: StringFieldUpdateOperationsInput | string
     accountName?: StringFieldUpdateOperationsInput | string
     swiftCode?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32212,7 +32075,6 @@ export namespace Prisma {
     accountNumber?: StringFieldUpdateOperationsInput | string
     accountName?: StringFieldUpdateOperationsInput | string
     swiftCode?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34014,20 +33876,16 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    priceMonth_idr?: SortOrder
-    priceMonth_usd?: SortOrder
-    priceYear_idr?: SortOrder
-    priceYear_usd?: SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
     maxSession?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type WhatsappApiPackageAvgOrderByAggregateInput = {
-    priceMonth_idr?: SortOrder
-    priceMonth_usd?: SortOrder
-    priceYear_idr?: SortOrder
-    priceYear_usd?: SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
     maxSession?: SortOrder
   }
 
@@ -34035,10 +33893,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    priceMonth_idr?: SortOrder
-    priceMonth_usd?: SortOrder
-    priceYear_idr?: SortOrder
-    priceYear_usd?: SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
     maxSession?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -34048,20 +33904,16 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    priceMonth_idr?: SortOrder
-    priceMonth_usd?: SortOrder
-    priceYear_idr?: SortOrder
-    priceYear_usd?: SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
     maxSession?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type WhatsappApiPackageSumOrderByAggregateInput = {
-    priceMonth_idr?: SortOrder
-    priceMonth_usd?: SortOrder
-    priceYear_idr?: SortOrder
-    priceYear_usd?: SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
     maxSession?: SortOrder
   }
 
@@ -34169,7 +34021,6 @@ export namespace Prisma {
     maxUses?: SortOrder
     usedCount?: SortOrder
     allowMultipleUsePerUser?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
@@ -34198,7 +34049,6 @@ export namespace Prisma {
     maxUses?: SortOrder
     usedCount?: SortOrder
     allowMultipleUsePerUser?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
@@ -34219,7 +34069,6 @@ export namespace Prisma {
     maxUses?: SortOrder
     usedCount?: SortOrder
     allowMultipleUsePerUser?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
@@ -34302,7 +34151,6 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     type?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     isSystem?: SortOrder
     gatewayProvider?: SortOrder
@@ -34334,7 +34182,6 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     type?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     isSystem?: SortOrder
     gatewayProvider?: SortOrder
@@ -34360,7 +34207,6 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     type?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     isSystem?: SortOrder
     gatewayProvider?: SortOrder
@@ -34402,7 +34248,6 @@ export namespace Prisma {
     accountNumber?: SortOrder
     accountName?: SortOrder
     swiftCode?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -34414,7 +34259,6 @@ export namespace Prisma {
     accountNumber?: SortOrder
     accountName?: SortOrder
     swiftCode?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -34426,7 +34270,6 @@ export namespace Prisma {
     accountNumber?: SortOrder
     accountName?: SortOrder
     swiftCode?: SortOrder
-    currency?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -37779,7 +37622,6 @@ export namespace Prisma {
     maxUses?: number | null
     usedCount?: number
     allowMultipleUsePerUser?: boolean
-    currency?: string
     isActive?: boolean
     startDate?: Date | string
     endDate?: Date | string | null
@@ -37801,7 +37643,6 @@ export namespace Prisma {
     maxUses?: number | null
     usedCount?: number
     allowMultipleUsePerUser?: boolean
-    currency?: string
     isActive?: boolean
     startDate?: Date | string
     endDate?: Date | string | null
@@ -38024,7 +37865,6 @@ export namespace Prisma {
     maxUses?: NullableIntFieldUpdateOperationsInput | number | null
     usedCount?: IntFieldUpdateOperationsInput | number
     allowMultipleUsePerUser?: BoolFieldUpdateOperationsInput | boolean
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38046,7 +37886,6 @@ export namespace Prisma {
     maxUses?: NullableIntFieldUpdateOperationsInput | number | null
     usedCount?: IntFieldUpdateOperationsInput | number
     allowMultipleUsePerUser?: BoolFieldUpdateOperationsInput | boolean
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38153,10 +37992,8 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    priceMonth_idr: number
-    priceMonth_usd: number
-    priceYear_idr: number
-    priceYear_usd: number
+    priceMonth: number
+    priceYear: number
     maxSession: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -38167,10 +38004,8 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    priceMonth_idr: number
-    priceMonth_usd: number
-    priceYear_idr: number
-    priceYear_usd: number
+    priceMonth: number
+    priceYear: number
     maxSession: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -38252,10 +38087,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    priceMonth_idr?: IntFieldUpdateOperationsInput | number
-    priceMonth_usd?: IntFieldUpdateOperationsInput | number
-    priceYear_idr?: IntFieldUpdateOperationsInput | number
-    priceYear_usd?: IntFieldUpdateOperationsInput | number
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
     maxSession?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38266,10 +38099,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    priceMonth_idr?: IntFieldUpdateOperationsInput | number
-    priceMonth_usd?: IntFieldUpdateOperationsInput | number
-    priceYear_idr?: IntFieldUpdateOperationsInput | number
-    priceYear_usd?: IntFieldUpdateOperationsInput | number
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
     maxSession?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38566,10 +38397,8 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    priceMonth_idr: number
-    priceMonth_usd: number
-    priceYear_idr: number
-    priceYear_usd: number
+    priceMonth: number
+    priceYear: number
     maxSession: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -38580,10 +38409,8 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    priceMonth_idr: number
-    priceMonth_usd: number
-    priceYear_idr: number
-    priceYear_usd: number
+    priceMonth: number
+    priceYear: number
     maxSession: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -38695,10 +38522,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    priceMonth_idr?: IntFieldUpdateOperationsInput | number
-    priceMonth_usd?: IntFieldUpdateOperationsInput | number
-    priceYear_idr?: IntFieldUpdateOperationsInput | number
-    priceYear_usd?: IntFieldUpdateOperationsInput | number
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
     maxSession?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38709,10 +38534,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    priceMonth_idr?: IntFieldUpdateOperationsInput | number
-    priceMonth_usd?: IntFieldUpdateOperationsInput | number
-    priceYear_idr?: IntFieldUpdateOperationsInput | number
-    priceYear_usd?: IntFieldUpdateOperationsInput | number
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
     maxSession?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39136,7 +38959,6 @@ export namespace Prisma {
     maxUses?: number | null
     usedCount?: number
     allowMultipleUsePerUser?: boolean
-    currency?: string
     isActive?: boolean
     startDate?: Date | string
     endDate?: Date | string | null
@@ -39158,7 +38980,6 @@ export namespace Prisma {
     maxUses?: number | null
     usedCount?: number
     allowMultipleUsePerUser?: boolean
-    currency?: string
     isActive?: boolean
     startDate?: Date | string
     endDate?: Date | string | null
@@ -39336,7 +39157,6 @@ export namespace Prisma {
     maxUses?: NullableIntFieldUpdateOperationsInput | number | null
     usedCount?: IntFieldUpdateOperationsInput | number
     allowMultipleUsePerUser?: BoolFieldUpdateOperationsInput | boolean
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -39358,7 +39178,6 @@ export namespace Prisma {
     maxUses?: NullableIntFieldUpdateOperationsInput | number | null
     usedCount?: IntFieldUpdateOperationsInput | number
     allowMultipleUsePerUser?: BoolFieldUpdateOperationsInput | boolean
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -39373,7 +39192,6 @@ export namespace Prisma {
     accountNumber: string
     accountName: string
     swiftCode?: string | null
-    currency: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39385,7 +39203,6 @@ export namespace Prisma {
     accountNumber: string
     accountName: string
     swiftCode?: string | null
-    currency: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39413,7 +39230,6 @@ export namespace Prisma {
     accountNumber?: StringFieldUpdateOperationsInput | string
     accountName?: StringFieldUpdateOperationsInput | string
     swiftCode?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39425,7 +39241,6 @@ export namespace Prisma {
     accountNumber?: StringFieldUpdateOperationsInput | string
     accountName?: StringFieldUpdateOperationsInput | string
     swiftCode?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39437,7 +39252,6 @@ export namespace Prisma {
     name: string
     description?: string | null
     type: string
-    currency?: string | null
     isActive?: boolean
     isSystem?: boolean
     gatewayProvider?: string | null
@@ -39462,7 +39276,6 @@ export namespace Prisma {
     name: string
     description?: string | null
     type: string
-    currency?: string | null
     isActive?: boolean
     isSystem?: boolean
     gatewayProvider?: string | null
@@ -39516,7 +39329,6 @@ export namespace Prisma {
     name?: StringFilter<"PaymentMethod"> | string
     description?: StringNullableFilter<"PaymentMethod"> | string | null
     type?: StringFilter<"PaymentMethod"> | string
-    currency?: StringNullableFilter<"PaymentMethod"> | string | null
     isActive?: BoolFilter<"PaymentMethod"> | boolean
     isSystem?: BoolFilter<"PaymentMethod"> | boolean
     gatewayProvider?: StringNullableFilter<"PaymentMethod"> | string | null
@@ -41672,7 +41484,6 @@ export namespace Prisma {
     name: string
     description?: string | null
     type: string
-    currency?: string | null
     isActive?: boolean
     isSystem?: boolean
     gatewayProvider?: string | null
@@ -41697,7 +41508,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: StringFieldUpdateOperationsInput | string
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isSystem?: BoolFieldUpdateOperationsInput | boolean
     gatewayProvider?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41722,7 +41532,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: StringFieldUpdateOperationsInput | string
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isSystem?: BoolFieldUpdateOperationsInput | boolean
     gatewayProvider?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41747,7 +41556,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: StringFieldUpdateOperationsInput | string
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isSystem?: BoolFieldUpdateOperationsInput | boolean
     gatewayProvider?: NullableStringFieldUpdateOperationsInput | string | null

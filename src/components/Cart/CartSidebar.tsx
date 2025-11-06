@@ -38,12 +38,10 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ open, onClose }) => {
     return item.name
   }
 
-  // Helper function to get localized price
+  // Helper function to get localized price (IDR only now)
   const getLocalizedPrice = (item: CartItem) => {
-    if (item.price_usd && item.price_idr) {
-      return currency === "usd" ? item.price_usd : item.price_idr
-    }
-    return item.price
+    // Always use IDR price
+    return item.price_idr || item.price
   }
 
   // Handle click outside to close cart

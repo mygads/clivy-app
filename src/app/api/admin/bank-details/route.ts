@@ -10,7 +10,6 @@ const bankDetailSchema = z.object({
   accountNumber: z.string().min(1, "Account number is required"),
   accountName: z.string().min(1, "Account name is required"),
   swiftCode: z.string().optional(),
-  currency: z.enum(['idr', 'usd'], { required_error: "Currency must be 'idr' or 'usd'" }),
   isActive: z.boolean().default(true),
 });
 
@@ -26,18 +25,15 @@ export async function GET(request: NextRequest) {
     }
 
     const url = new URL(request.url);
-    const currency = url.searchParams.get('currency');
     const isActive = url.searchParams.get('isActive');
 
     const where: any = {};
-    if (currency) where.currency = currency;
     if (isActive !== null) where.isActive = isActive === 'true';
 
     const bankDetails = await prisma.bankDetail.findMany({
       where,
       orderBy: [
         { isActive: 'desc' },
-        { currency: 'asc' },
         { createdAt: 'desc' }
       ]
     });
@@ -87,9 +83,9 @@ export async function POST(request: NextRequest) {
         data
       });
 
-      // Auto-create payment method for this bank detail
-      const paymentMethodCode = `manual_transfer_bank_${data.bankName.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '')}_${data.currency}`;
-      const paymentMethodName = `${data.bankName} Bank Transfer (${data.currency.toUpperCase()})`;
+      // Auto-create payment method for this bank detail (IDR only)
+      const paymentMethodCode = `manual_transfer_bank_${data.bankName.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '')}_idr`;
+      const paymentMethodName = `${data.bankName} Bank Transfer (IDR)`;
       
       const paymentMethod = await tx.paymentMethod.create({
         data: {
@@ -97,7 +93,6 @@ export async function POST(request: NextRequest) {
           name: paymentMethodName,
           description: `Manual bank transfer to ${data.bankName} account`,
           type: 'manual_transfer', // Changed from 'bank_transfer' to 'manual_transfer'
-          currency: data.currency,
           isActive: data.isActive,
           isSystem: true, // This is system-generated
           bankDetailId: bankDetail.id
@@ -124,7 +119,7 @@ export async function POST(request: NextRequest) {
         'meta' in error && error.meta && typeof error.meta === 'object' && 'target' in error.meta && 
         Array.isArray(error.meta.target) && error.meta.target.includes('code')) {
       return withCORS(NextResponse.json(
-        { success: false, error: 'A payment method with similar bank name and currency already exists. Please use a different bank name.' },
+        { success: false, error: 'A payment method with similar bank name already exists. Please use a different bank name.' },
         { status: 400 }
       ));
     }

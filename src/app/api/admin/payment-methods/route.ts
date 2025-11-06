@@ -8,7 +8,7 @@ export async function OPTIONS() {
   return corsOptionsResponse();
 }
 
-// Validation schema for payment method
+// Validation schema for payment method (IDR only, no currency field)
 const paymentMethodSchema = z.object({
   code: z.string().min(1, "Payment method code is required"),
   name: z.string().min(1, "Display name is required"),
@@ -17,7 +17,6 @@ const paymentMethodSchema = z.object({
     required_error: "Type is required",
     invalid_type_error: "Type must be one of: manual_transfer, bank_transfer, digital_wallet, credit_card, crypto, other"
   }),
-  currency: z.enum(['idr', 'usd', 'any']).optional().nullable().transform(val => val === null ? undefined : val),
   isActive: z.boolean().default(true),
   isGatewayMethod: z.boolean().default(false),
   feeType: z.enum(['fixed', 'percentage']).optional(),
@@ -44,13 +43,11 @@ export async function GET(request: NextRequest) {
 
     const url = new URL(request.url);
     const type = url.searchParams.get('type');
-    const currency = url.searchParams.get('currency');
     const isActive = url.searchParams.get('isActive');
     const includeSystemGenerated = url.searchParams.get('includeSystemGenerated') === 'true';
 
     const where: any = {};
     if (type) where.type = type;
-    if (currency) where.currency = currency;
     if (isActive !== null) where.isActive = isActive === 'true';
     // Show all payment methods by default (both system and manual)
 
@@ -101,7 +98,7 @@ export async function POST(request: NextRequest) {
       ));
     }
 
-    const { code, name, description, type, currency, isActive, isGatewayMethod, feeType, feeValue, minFee, maxFee, bankDetailId, paymentInstructions, instructionType, instructionImageUrl, requiresManualApproval } = validation.data;
+    const { code, name, description, type, isActive, isGatewayMethod, feeType, feeValue, minFee, maxFee, bankDetailId, paymentInstructions, instructionType, instructionImageUrl, requiresManualApproval } = validation.data;
 
     // Check if code already exists
     const existingMethod = await prisma.paymentMethod.findUnique({
@@ -121,7 +118,6 @@ export async function POST(request: NextRequest) {
         name,
         description,
         type,
-        currency,
         isActive,
         isSystem: false, // Manual payment methods created by admin
         isGatewayMethod,

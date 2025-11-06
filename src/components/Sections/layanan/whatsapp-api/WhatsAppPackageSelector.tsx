@@ -5,17 +5,15 @@ import { motion } from "framer-motion"
 import { CheckCircle, ShoppingCart, Loader2, AlertCircle } from "lucide-react"
 import Link from "next/link"
 import { useCart } from "@/components/Cart/CartContext"
-import { useCurrency, getCurrencySymbol } from "@/hooks/useCurrency"
+import { formatCurrency } from "@/lib/utils"
 import { useLocale } from "next-intl"
 
 interface WhatsAppPackage {
   id: string
   name: string
   description: string | null
-  priceMonth_idr: number
-  priceMonth_usd: number
-  priceYear_idr: number
-  priceYear_usd: number
+  priceMonth: number  // IDR only
+  priceYear: number   // IDR only
   maxSession: number
   yearlyDiscount: number
   recommended: boolean
@@ -28,7 +26,6 @@ export default function WhatsAppPackageSelector() {
   const [selectedDuration, setSelectedDuration] = useState<{ [key: string]: 'month' | 'year' }>({})
   
   const { addToCart, items } = useCart()
-  const { currency } = useCurrency()
   const locale = useLocale()
 
   // Fetch packages from API
@@ -61,12 +58,6 @@ export default function WhatsAppPackageSelector() {
     fetchPackages()
   }, [])
 
-  // Format price based on currency
-  const formatPrice = (priceIDR: number, priceUSD: number) => {
-    const price = currency === 'usd' ? priceUSD : priceIDR
-    return `${getCurrencySymbol(currency)}${price.toLocaleString()}`
-  }
-
   // Get localized name (you can extend this with translation files)
   const getLocalizedName = (pkg: WhatsAppPackage) => {
     // For now, return package name as is
@@ -84,9 +75,7 @@ export default function WhatsAppPackageSelector() {
   // Handle add to cart
   const handleAddToCart = (pkg: WhatsAppPackage) => {
     const duration = selectedDuration[pkg.id] || 'month'
-    const price = duration === 'month' 
-      ? (currency === 'usd' ? pkg.priceMonth_usd : pkg.priceMonth_idr)
-      : (currency === 'usd' ? pkg.priceYear_usd : pkg.priceYear_idr)
+    const price = duration === 'month' ? pkg.priceMonth : pkg.priceYear
 
     addToCart({
       id: pkg.id,
@@ -94,8 +83,8 @@ export default function WhatsAppPackageSelector() {
       name_en: `${pkg.name} - ${duration === 'month' ? 'Monthly' : 'Yearly'}`,
       name_id: `${pkg.name} - ${duration === 'month' ? 'Bulanan' : 'Tahunan'}`,
       price: price,
-      price_idr: duration === 'month' ? pkg.priceMonth_idr : pkg.priceYear_idr,
-      price_usd: duration === 'month' ? pkg.priceMonth_usd : pkg.priceYear_usd,
+      price_idr: price,  // IDR only now
+      price_usd: 0,      // USD removed
       image: '/images/whatsapp-icon.png',
       qty: 1,
       duration: duration,
@@ -158,9 +147,7 @@ export default function WhatsAppPackageSelector() {
           {packages.map((pkg, index) => {
             const duration = selectedDuration[pkg.id] || 'month'
             const inCart = isInCart(pkg.id, duration)
-            const currentPrice = duration === 'month' 
-              ? (currency === 'usd' ? pkg.priceMonth_usd : pkg.priceMonth_idr)
-              : (currency === 'usd' ? pkg.priceYear_usd : pkg.priceYear_idr)
+            const currentPrice = duration === 'month' ? pkg.priceMonth : pkg.priceYear
 
             return (
               <motion.div
@@ -229,10 +216,7 @@ export default function WhatsAppPackageSelector() {
                 <div className="mb-6">
                   <div className="flex items-baseline justify-center">
                     <span className="text-4xl font-bold text-gray-900 dark:text-white">
-                      {formatPrice(
-                        duration === 'month' ? pkg.priceMonth_idr : pkg.priceYear_idr,
-                        duration === 'month' ? pkg.priceMonth_usd : pkg.priceYear_usd
-                      )}
+                      {formatCurrency(currentPrice, 'IDR')}
                     </span>
                     <span className="ml-2 text-gray-600 dark:text-gray-300">
                       /{duration === 'month' ? 'month' : 'year'}
@@ -240,10 +224,7 @@ export default function WhatsAppPackageSelector() {
                   </div>
                   {duration === 'year' && pkg.yearlyDiscount > 0 && (
                     <p className="text-center text-sm text-green-600 dark:text-green-400 mt-2">
-                      Save {formatPrice(
-                        (pkg.priceMonth_idr * 12) - pkg.priceYear_idr,
-                        (pkg.priceMonth_usd * 12) - pkg.priceYear_usd
-                      )} per year
+                      Save {formatCurrency((pkg.priceMonth * 12) - pkg.priceYear, 'IDR')} per year
                     </p>
                   )}
                 </div>

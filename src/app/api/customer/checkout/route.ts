@@ -31,18 +31,12 @@ const checkoutSchema = z.object({
     duration: z.enum(['month', 'year']),
   }),
   
-  currency: z.enum(['idr', 'usd']).optional(), // Make optional since we'll auto-detect
   voucherCode: z.string().optional(),
   notes: z.string().max(1000).optional(),
 });
 
-// Function to calculate pricing based on currency
-function calculatePrice(priceIdr: number, priceUsd: number, currency: 'idr' | 'usd'): number {
-  return currency === 'idr' ? priceIdr : priceUsd;
-}
-
-// Function to calculate service fee preview
-function calculateServiceFeePreview(amount: number, paymentMethods: any[], currency: 'idr' | 'usd' = 'idr'): any[] {
+// Function to calculate service fee preview - now always uses IDR
+function calculateServiceFeePreview(amount: number, paymentMethods: any[]): any[] {
   return paymentMethods
     .map(method => {
       let feeAmount = 0;
@@ -72,12 +66,12 @@ function calculateServiceFeePreview(amount: number, paymentMethods: any[], curre
 
       const totalWithFee = Math.round((amount + feeAmount) * 100) / 100;
 
-      // Check if payment amount is valid for this method
+      // Check if payment amount is valid for this method - always use IDR
       const isValid = isPaymentAmountValid(
         method.code, 
         method.isGatewayMethod, 
         totalWithFee, 
-        currency
+        'idr'
       );
 
       return {
@@ -119,12 +113,12 @@ export async function POST(request: NextRequest) {
       ));
     }
 
-    const { whatsapp, currency: requestedCurrency, voucherCode, notes } = validation.data;
+    const { whatsapp, voucherCode, notes } = validation.data;
     
-    // Auto-detect currency based on IP if not provided
-    const currency = requestedCurrency || await detectCurrency(request);
+    // Always use IDR currency
+    const currency = 'idr';
     
-    console.log(`[CHECKOUT] Auto-detected currency: ${currency.toUpperCase()} for user ${userAuth.id}`);
+    console.log(`[CHECKOUT] Using IDR currency for user ${userAuth.id}`);
     console.log(`[CHECKOUT] User ${userAuth.id} creating WhatsApp service transaction`);
 
 
@@ -144,8 +138,8 @@ export async function POST(request: NextRequest) {
       }
 
       const price = whatsapp.duration === 'month' 
-        ? (currency === 'idr' ? whatsappPackage.priceMonth_idr : whatsappPackage.priceMonth_usd)
-        : (currency === 'idr' ? whatsappPackage.priceYear_idr : whatsappPackage.priceYear_usd);
+        ? whatsappPackage.priceMonth
+        : whatsappPackage.priceYear;
       subtotal = subtotal.add(price);
 
       orderItems.push({
@@ -174,10 +168,7 @@ export async function POST(request: NextRequest) {
           throw new Error("Invalid or inactive voucher code");
         }
 
-        // Check voucher currency matches detected currency
-        if (voucher.currency !== currency) {
-          throw new Error(`Voucher is only valid for ${voucher.currency.toUpperCase()} currency`);
-        }
+        // Voucher currency check removed - now all vouchers are IDR
 
         // Check voucher validity
         const now = new Date();
@@ -227,14 +218,10 @@ export async function POST(request: NextRequest) {
       // Ensure total never goes below zero (additional safety check)
       const finalTotal = totalAfterDiscount.lt(0) ? new Decimal(0) : totalAfterDiscount;      
       
-      // 3. Get all active payment methods for the specified currency
+      // 3. Get all active payment methods
       const paymentMethods = await tx.paymentMethod.findMany({
         where: { 
-          isActive: true,
-          OR: [
-            { currency: currency },
-            { currency: 'any' } // Support multi-currency payment methods like credit cards
-          ]
+          isActive: true
         },
         include: {
           bankDetail: true
@@ -249,7 +236,7 @@ export async function POST(request: NextRequest) {
         feeValue: method.feeValue || 0
       }));
 
-      const serviceFeePreviews = calculateServiceFeePreview(finalTotal.toNumber(), validPaymentMethods, currency);
+      const serviceFeePreviews = calculateServiceFeePreview(finalTotal.toNumber(), validPaymentMethods);
       
       // 🆕 ZERO-PRICE CHECKOUT LOGIC
       const isZeroPrice = finalTotal.eq(0);
@@ -358,12 +345,12 @@ export async function POST(request: NextRequest) {
               return !method.isGatewayMethod || method.requiresManualApproval;
             }
             
-            // For non-zero prices, check if this method has valid limits for the amount
+            // For non-zero prices, check if this method has valid limits for the amount - always use IDR
             return isPaymentAmountValid(
               method.code, 
               method.isGatewayMethod, 
               Number(result.totalAfterDiscount), 
-              currency
+              'idr'
             );
           })
           .map((method: any) => {
@@ -371,7 +358,6 @@ export async function POST(request: NextRequest) {
               code: method.code,
               name: method.name,
               type: method.type,
-              currency: method.currency,
               isActive: method.isActive,
               isGatewayMethod: method.isGatewayMethod,
               gatewayProvider: method.gatewayProvider,
@@ -379,11 +365,10 @@ export async function POST(request: NextRequest) {
               serviceFee: {
                 type: method.feeType || 'fixed',
                 value: Number(method.feeValue) || 0,
-                currency: method.currency,
                 description: (method.feeType && method.feeValue) 
                   ? (method.feeType === 'percentage' 
                     ? `${Number(method.feeValue)}% fee` 
-                    : `Fixed fee ${(method.currency || 'IDR').toUpperCase()} ${Number(method.feeValue).toLocaleString()}`)
+                    : `Fixed fee IDR ${Number(method.feeValue).toLocaleString()}`)
                   : 'No service fee',
                 minFee: method.minFee ? Number(method.minFee) : null,
                 maxFee: method.maxFee ? Number(method.maxFee) : null,
