@@ -11,7 +11,7 @@ import ContactSection from "@/components/Sections/ContactSection"
 import FaqSection from "@/components/Sections/FaqSection";
 import { generateProductMetadata } from "@/lib/metadata";
 
-// Generate static params for SSG with ISR
+// Generate static params for SSG (Static Site Generation)
 export async function generateStaticParams() {
   return [
     { locale: 'en' },
@@ -40,9 +40,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     images: [`/api/og?title=${encodeURIComponent(title)}&subtitle=${encodeURIComponent(isIndonesian ? 'Solusi Messaging Bisnis Terpercaya' : 'Trusted Business Messaging Solution')}&locale=${locale}`],
   });
 }
-
-// ISR Configuration - Revalidate every 10 minutes
-export const revalidate = 6000;
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

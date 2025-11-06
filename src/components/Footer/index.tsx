@@ -9,43 +9,17 @@ const defaultMenus = [
   {
     title: "Company",
     items: [
-      { label: "About Genfity", href: "/tentang" },
-      // { label: "Careers", href: "/karir" },
       { label: "Sustainability", href: "/sustainability" },
       { label: "Appointment", href: "/appointment" },
     ],
   },
   {
-    title: "Main Services",
-    items: [
-      { label: "Custom Web Development", href: "/layanan/custom-website" },
-      { label: "Web Application Development", href: "/layanan/web-application" },
-      { label: "Mobile Development", href: "/layanan/mobile-application" },
-      { label: "Corporate System Development", href: "/layanan/corporate-system" },
-      { label: "UI/UX Design Service", href: "/layanan/ui-ux-design" },
-      { label: "SEO Specialist", href: "/layanan/seo-specialist" },
-      { label: "Corporate Branding", href: "/layanan/corporate-branding" },
-      { label: "IT Consulting", href: "/layanan/it-consulting" },
-    ],
-  },
-  {
-    title: "Whatsapp Solutions",
-    items: [
-      { label: "Whatsapp API", href: "/layanan/whatsapp-api" },
-      { label: "Whatsapp Broadcast", href: "/layanan/whatsapp-broadcast" },
-      { label: "Whatsapp Chatbot AI", href: "/layanan/whatsapp-chatbot" },
-      { label: "Whatsapp Team Inbox", href: "/layanan/whatsapp-team-inbox" },
-    ],
-  },
-  {
     title: "Help",
     items: [
-      // { label: "Blog", href: "/blog" },
       { label: "FAQ", href: "/faq" },
       { label: "How to Order", href: "/how-to-order" },
       { label: "Contact Us", href: "/contact" },
       { label: "Customer Service", href: "/customer-service" },
-
     ],
   },
 ]
@@ -92,140 +66,11 @@ const Footer = ({
 // Berkedudukan di BANDUNG`
   return (
     <>
-      <section className="relative z-20 py-8 md:py-12 lg:py-14 px-4 dark:bg-dark">
-        <div className="container mx-auto">
-          <div
-            className="relative overflow-hidden rounded-2xl md:rounded-3xl shadow-xl border-2 md:border-4 border-indigo-900 dark:border-indigo-800 mb-[-120px] md:mb-[-140px] lg:mb-[-160px]"
-            style={{
-              background: `linear-gradient(160deg, 
-                white 0%, 
-                white 60%, 
-                #8b5cf6 70%, 
-                #a855f7 85%, 
-                #c084fc 100%)`,
-            }}
-          >
-            {/* Dark mode overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-black via-dark to-blue-900 opacity-0 dark:opacity-90 transition-opacity duration-300"></div>
-            
-            <div className="px-6 py-8 md:px-8 md:py-10 lg:px-16 lg:py-0 relative z-10">
-              {/* Desktop Layout (lg) */}
-              <div className="hidden lg:grid lg:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h2 className="text-4xl font-bold text-indigo-900 dark:text-indigo-200 mb-4 text-balance">
-                    Schedule a Project Discussion Now!
-                  </h2>
-                  <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-8 text-pretty">
-                    Schedule a call with our team and discover how digitization can be your strongest asset.
-                  </p>
-                  <Link
-                    href="https://wa.me/6285174314023"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-primary hover:bg-violet-700 dark:bg-primary-dark dark:hover:bg-primary text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-600 dark:focus-visible:outline-indigo-400 focus-visible:outline-offset-2 text-base"
-                    aria-label="Start consultation with our team via WhatsApp"
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                    </svg>
-                    {cta.label}
-                  </Link>
-                </div>
-                <div className="flex justify-end relative">
-                  <div className="h-[350px] w-full"></div>
-                  <Image
-                    src="/footer-team.png"
-                    alt="Genfity Teams"
-                    width={500}
-                    height={350}
-                    className="absolute bottom-0 right-0 rounded-t-lg max-w-[450px] h-[300px] object-cover object-bottom"
-                    priority={false}
-                    style={{ bottom: '0' }}
-                  />
-                </div>
-              </div>
-
-              {/* Tablet Layout (md) */}
-              <div className="hidden md:grid lg:hidden md:grid-cols-2 gap-6 items-center">
-                <div>
-                  <h2 className="text-3xl font-bold text-indigo-900 dark:text-indigo-200 mb-4 text-balance">
-                    Schedule a Project Discussion Now!
-                  </h2>
-                  <p className="text-gray-700 dark:text-gray-300 text-md leading-relaxed mb-8 text-pretty">
-                    Schedule a call with our team and discover how digitization can be your strongest asset.
-                  </p>
-                  <Link
-                    href="https://wa.me/6285174314023"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-primary hover:bg-violet-700 dark:bg-primary-dark dark:hover:bg-primary text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-600 dark:focus-visible:outline-indigo-400 focus-visible:outline-offset-2 text-base"
-                    aria-label="Start consultation with our team via WhatsApp"
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                    </svg>
-                    {cta.label}
-                  </Link>
-                </div>
-                <div className="flex justify-end relative">
-                  <div className="h-[250px] w-full"></div>
-                  <Image
-                    src="/footer-team.png"
-                    alt="Genfity Teams"
-                    width={350}
-                    height={250}
-                    className="absolute bottom-0 right-0 rounded-t-lg max-w-[350px] h-[250px] object-cover object-bottom"
-                    priority={false}
-                    style={{ bottom: '-40px' }}
-                  />
-                </div>
-              </div>
-
-              {/* Mobile Layout */}
-              <div className="md:hidden">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-indigo-900 dark:text-indigo-200 mb-4 text-balance">
-                    Schedule a Project Discussion Now!
-                  </h2>
-                  <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6 text-pretty">
-                    Schedule a call with our team and discover how digitization can be your strongest asset.
-                  </p>
-                  <Link
-                    href="https://wa.me/6285174314023"
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-primary hover:bg-violet-700 dark:bg-primary-dark dark:hover:bg-primary text-white font-semibold px-6 py-2.5 rounded-full transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-600 dark:focus-visible:outline-indigo-400 focus-visible:outline-offset-2 text-sm"
-                    aria-label="Start consultation with our team via WhatsApp"
-                  >
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                    </svg>
-                    {cta.label}
-                  </Link>
-                </div>
-                {/* Mobile Image - Centered dan menempel bawah */}
-                <div className="relative flex justify-center">
-                  <div className="h-[200px] w-full"></div>
-                  <Image
-                    src="/footer-team.png"
-                    alt="Genfity Teams"
-                    width={300}
-                    height={200}
-                    className="absolute bottom-0 left-1/2 transform -translate-x-1/2 rounded-t-lg max-w-[300px] h-[200px] object-cover object-bottom"
-                    priority={false}
-                    style={{ bottom: '-35px' }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <footer className="text-white pt-32 md:pt-36 lg:pt-40 pb-6 md:pb-8 relative z-10 bg-blue-900">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-indigo-900 to-black dark:from-slate-800 dark:via-gray-900 dark:to-indigo-900"></div>
         <div className="container mx-auto relative z-10 px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8 mb-8 md:mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
             <div className="lg:col-span-1">
               <div className="mb-4 md:mb-6">
                 <div className="flex items-center gap-2 mb-3 md:mb-4">

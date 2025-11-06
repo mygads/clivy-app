@@ -6,15 +6,8 @@ const menuData: Menu[] = [
     title: "explore",
     newTab: false,
     submenu: [
-      { id: 11, title: "aboutGenfity", path: "/about", newTab: false },
       { id: 12, title: "faq", path: "/faq", newTab: false },
     ],
-  },
-  {
-    id: 2,
-    title: "whatsappAPI",
-    path: "/layanan/whatsapp-api",
-    newTab: false,
   },
   {
     id: 3,

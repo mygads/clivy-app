@@ -28,7 +28,6 @@ import {
   Home,
   Server,
   Building2,
-  Briefcase,
   Image as ImageIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -112,12 +111,6 @@ export default function AdminSidebar({ open, setOpen, collapsed = false, setColl
       href: "/admin/dashboard/users",
       icon: Users,
       description: "User management"
-    },
-    {
-      title: "Portfolio",
-      href: "/admin/dashboard/portfolio",
-      icon: Briefcase,
-      description: "Manage portfolio items"
     },
     {
       title: "Client Logos",

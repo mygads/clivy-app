@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { Play, Users, Award, Target, Zap } from "lucide-react"
+import { Users, Award, Target, Zap } from "lucide-react"
 
 export default function AboutHero() {
   return (
@@ -82,11 +82,6 @@ export default function AboutHero() {
               <button className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-sm sm:text-base">
                 <span className="relative z-10">Mulai Konsultasi Gratis</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-blue-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </button>
-              
-              <button className="group flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:border-primary hover:text-primary transition-all duration-300 text-sm sm:text-base">
-                <Play className="w-5 h-5 group-hover:text-primary transition-colors" />
-                Lihat Portfolio
               </button>
             </motion.div>
 

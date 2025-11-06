@@ -465,23 +465,6 @@ model WhatsAppMessageStats {
   @@index([lastMessageSentAt])
 }
 
-model Portfolio {
-  id          String   @id @default(cuid())
-  title       String
-  image       String
-  gallery     String[] // Array of gallery image URLs
-  tech        String[] // Array of tech stack strings
-  category    String?
-  description String?
-  link        String?
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([isActive])
-  @@index([category])
-}
-
 model ClientLogo {
   id        String   @id @default(cuid())
   logoUrl   String

@@ -13,12 +13,8 @@ import AboutSectionOne from "@/components/About/AboutSectionOne"
 import AboutSectionTwo from "@/components/About/AboutSectionTwo"
 import HeroAbout from "@/components/Hero/HeroAbout"
 import OurValues from "@/components/About/OurValues"
-import Portfolio from "@/components/About/Portofolio"
 import { prisma } from "@/lib/prisma"
 import { generatePageMetadata, getKeywords } from "@/lib/metadata"
-
-// ISR Configuration - Revalidate every 10 minutes (600 seconds)
-export const revalidate = 6000;
 
 // Generate metadata for About page
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -35,68 +31,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       isIndonesian ? 'profil perusahaan' : 'company profile',
       isIndonesian ? 'tim genfity' : 'genfity team',
       isIndonesian ? 'visi misi' : 'vision mission',
-      isIndonesian ? 'portofolio' : 'portfolio',
     ]),
     locale,
     ogImage: `/api/og?title=${encodeURIComponent(isIndonesian ? 'Tentang Kami' : 'About Us')}&subtitle=${encodeURIComponent(isIndonesian ? 'Software House & Digital Agency Terpercaya' : 'Trusted Software House & Digital Agency')}&locale=${locale}`,
   });
 }
 
-// Portfolio data interface
-interface PortfolioItem {
-  id: string;
-  title: string;
-  image: string;
-  gallery: string[];
-  tech: string[];
-  category?: string;
-  description?: string;
-  link?: string;
-}
-
 // Client logo interface
 interface ClientLogoData {
   name: string;
   logo: string;
-}
-
-// Server-side data fetching function with caching tags
-async function getPortfolioData(): Promise<PortfolioItem[]> {
-  try {
-    const portfolios = await prisma.portfolio.findMany({
-      where: {
-        isActive: true
-      },
-      select: {
-        id: true,
-        title: true,
-        image: true,
-        gallery: true,
-        tech: true,
-        category: true,
-        description: true,
-        link: true
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    });
-
-    // Convert Prisma result to match component interface
-    return portfolios.map(portfolio => ({
-      id: portfolio.id,
-      title: portfolio.title,
-      image: portfolio.image,
-      gallery: portfolio.gallery,
-      tech: portfolio.tech,
-      category: portfolio.category || undefined,
-      description: portfolio.description || undefined,
-      link: portfolio.link || undefined
-    }));
-  } catch (error) {
-    console.error('Error fetching portfolio data:', error);
-    return [];
-  }
 }
 
 // Server-side data fetching function for client logos
@@ -143,10 +87,7 @@ export async function generateStaticParams() {
 }
 
 export default async function AboutPage() {
-  // Fetch portfolio data server-side for ISR
-  const portfolioData = await getPortfolioData();
-  
-  // Fetch client logos data server-side for ISR
+  // Fetch client logos data server-side
   const clientLogosData = await getClientLogosData();
 
   return (
@@ -172,9 +113,6 @@ export default async function AboutPage() {
       
       {/* Kenapa Harus Kita */}
       <WhyChooseUs />
-
-      {/* Our Portfolio Section */}
-      <Portfolio data={portfolioData} desc={true} />
       
       {/* Slider Logo Client */}
       <ClientLogos data={clientLogosData} desc={true} />

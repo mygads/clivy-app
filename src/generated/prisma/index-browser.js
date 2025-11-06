@@ -456,20 +456,6 @@ exports.Prisma.WhatsAppMessageStatsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PortfolioScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  image: 'image',
-  gallery: 'gallery',
-  tech: 'tech',
-  category: 'category',
-  description: 'description',
-  link: 'link',
-  isActive: 'isActive',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.ClientLogoScalarFieldEnum = {
   id: 'id',
   logoUrl: 'logoUrl',
@@ -525,7 +511,6 @@ exports.Prisma.ModelName = {
   WhatsAppBulkCampaignItem: 'WhatsAppBulkCampaignItem',
   WhatsAppContact: 'WhatsAppContact',
   WhatsAppMessageStats: 'WhatsAppMessageStats',
-  Portfolio: 'Portfolio',
   ClientLogo: 'ClientLogo'
 };
 
