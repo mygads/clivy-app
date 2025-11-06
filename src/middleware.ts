@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import requestIp from 'request-ip';
-import { detectLocaleSync } from '@/lib/currency-detection';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret';
 
@@ -78,7 +76,6 @@ function getStoredLocalePreference(request: NextRequest): string | null {
     try {
         const localePref = request.cookies.get('locale-preference')?.value;
         if (localePref && ['id', 'en'].includes(localePref)) {
-            // console.log(`[MIDDLEWARE_LOCALE] Using stored preference: ${localePref}`);
             return localePref;
         }
     } catch (error) {
@@ -87,33 +84,30 @@ function getStoredLocalePreference(request: NextRequest): string | null {
     return null;
 }
 
-// IP Geolocation function for Indonesia detection with API fallback
-function detectLocaleFromIP(request: NextRequest): string {
+// Detect locale from browser language preference
+function detectLocaleFromBrowser(request: NextRequest): string {
     try {
-        // First check if user already has stored preference - avoid unnecessary IP calls
+        // First check if user already has stored preference
         const storedLocale = getStoredLocalePreference(request);
         if (storedLocale) {
+            console.log(`[MIDDLEWARE_LOCALE] Using stored preference: ${storedLocale}`);
             return storedLocale;
         }
         
-        console.log('[MIDDLEWARE_LOCALE] No stored preference found, detecting from IP...');
+        console.log('[MIDDLEWARE_LOCALE] No stored preference, detecting from browser language...');
         
-        // Use the enhanced currency-detection library with API support
-        // This will fallback to IP ranges if API fails
-        const detectedLocale = detectLocaleSync(request);
-        
-        console.log(`[MIDDLEWARE_LOCALE] Detected locale: ${detectedLocale}`);
-        return detectedLocale;
-        
-    } catch (error) {
-        console.error('Error in locale detection:', error);
-        
-        // Final fallback to browser language detection
+        // Detect from Accept-Language header
         const acceptLanguage = request.headers.get('accept-language');
         const hasIndoLangPref = hasIndonesianLanguagePreference(acceptLanguage);
         
-        console.log(`[MIDDLEWARE_LOCALE] Fallback to browser language: ${hasIndoLangPref ? 'id' : 'en'}`);
-        return hasIndoLangPref ? 'id' : 'en';
+        const detectedLocale = hasIndoLangPref ? 'id' : 'en';
+        console.log(`[MIDDLEWARE_LOCALE] Detected locale from browser: ${detectedLocale}`);
+        return detectedLocale;
+        
+    } catch (error) {
+        console.error('[MIDDLEWARE_LOCALE] Error in locale detection:', error);
+        // Default fallback to Indonesian
+        return 'id';
     }
 }
 
@@ -132,10 +126,9 @@ export async function middleware(req: NextRequest) {
         });
     }
 
-    // ROOT REDIRECT LOGIC - Priority: stored preference > IP detection
+    // ROOT REDIRECT LOGIC - Priority: stored preference > browser language
     if (pathname === '/') {
-        // detectLocaleFromIP now handles stored preferences internally
-        const detectedLocale = detectLocaleFromIP(req);
+        const detectedLocale = detectLocaleFromBrowser(req);
         console.log(`[MIDDLEWARE] Root redirect to locale: ${detectedLocale}`);
         
         // Set cookie to remember this choice and redirect
@@ -148,10 +141,9 @@ export async function middleware(req: NextRequest) {
         return response;
     }
 
-    // ADMIN REDIRECT LOGIC - Priority: stored preference > IP detection  
+    // ADMIN REDIRECT LOGIC - Priority: stored preference > browser language
     if (pathname === '/admin') {
-        // detectLocaleFromIP now handles stored preferences internally
-        const detectedLocale = detectLocaleFromIP(req);
+        const detectedLocale = detectLocaleFromBrowser(req);
         const response = NextResponse.redirect(new URL(`/${detectedLocale}/admin`, req.url));
         response.cookies.set('locale-preference', detectedLocale, {
             maxAge: 60 * 60 * 24 * 365, // 1 year
@@ -187,7 +179,7 @@ export async function middleware(req: NextRequest) {
         }
 
         // Check if user already has locale preference stored
-        const detectedLocale = detectLocaleFromIP(req);
+        const detectedLocale = detectLocaleFromBrowser(req);
         const url = req.nextUrl.clone();
         url.pathname = `/${detectedLocale}${pathname === '/' ? '' : pathname}`;
         

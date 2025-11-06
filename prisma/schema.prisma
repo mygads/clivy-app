@@ -305,33 +305,6 @@ model BankDetail {
   @@index([isActive])
 }
 
-model Server {
-  id                String   @id @default(cuid())
-  dropletId         String   @unique
-  name              String
-  memory            Int
-  vcpus             Int
-  disk              Int
-  status            String
-  region            String
-  regionSlug        String
-  sizeSlug          String
-  publicIp          String?
-  privateIp         String?
-  priceMonthly      Decimal  @db.Decimal(10, 2)
-  priceHourly       Decimal  @db.Decimal(15, 14)
-  tags              Json?
-  features          Json?
-  imageDistribution String?
-  imageName         String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-
-  @@index([dropletId])
-  @@index([status])
-  @@index([region])
-}
-
 model WhatsAppCampaign {
   id                    BigInt                 @id @default(autoincrement())
   user_id               String
@@ -463,16 +436,4 @@ model WhatsAppMessageStats {
   @@index([userId])
   @@index([sessionId])
   @@index([lastMessageSentAt])
-}
-
-model ClientLogo {
-  id        String   @id @default(cuid())
-  logoUrl   String
-  isActive  Boolean  @default(true)
-  sortOrder Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([isActive])
-  @@index([sortOrder])
 }

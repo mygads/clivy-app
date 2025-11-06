@@ -26,9 +26,7 @@ import {
   BarChart3,
   Tag,
   Home,
-  Server,
   Building2,
-  Image as ImageIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -101,22 +99,10 @@ export default function AdminSidebar({ open, setOpen, collapsed = false, setColl
       description: "View transaction history"
     },
     {
-      title: "Servers",
-      href: "/admin/dashboard/servers",
-      icon: Server,
-      description: "Monitor server resources"
-    },
-    {
       title: "Users",
       href: "/admin/dashboard/users",
       icon: Users,
       description: "User management"
-    },
-    {
-      title: "Client Logos",
-      href: "/admin/dashboard/client-logos",
-      icon: ImageIcon,
-      description: "Manage client logo carousel"
     },
   ]
 

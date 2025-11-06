@@ -334,29 +334,6 @@ exports.Prisma.BankDetailScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ServerScalarFieldEnum = {
-  id: 'id',
-  dropletId: 'dropletId',
-  name: 'name',
-  memory: 'memory',
-  vcpus: 'vcpus',
-  disk: 'disk',
-  status: 'status',
-  region: 'region',
-  regionSlug: 'regionSlug',
-  sizeSlug: 'sizeSlug',
-  publicIp: 'publicIp',
-  privateIp: 'privateIp',
-  priceMonthly: 'priceMonthly',
-  priceHourly: 'priceHourly',
-  tags: 'tags',
-  features: 'features',
-  imageDistribution: 'imageDistribution',
-  imageName: 'imageName',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.WhatsAppCampaignScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -456,15 +433,6 @@ exports.Prisma.WhatsAppMessageStatsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ClientLogoScalarFieldEnum = {
-  id: 'id',
-  logoUrl: 'logoUrl',
-  isActive: 'isActive',
-  sortOrder: 'sortOrder',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -505,13 +473,11 @@ exports.Prisma.ModelName = {
   VoucherUsage: 'VoucherUsage',
   PaymentMethod: 'PaymentMethod',
   BankDetail: 'BankDetail',
-  Server: 'Server',
   WhatsAppCampaign: 'WhatsAppCampaign',
   WhatsAppBulkCampaign: 'WhatsAppBulkCampaign',
   WhatsAppBulkCampaignItem: 'WhatsAppBulkCampaignItem',
   WhatsAppContact: 'WhatsAppContact',
-  WhatsAppMessageStats: 'WhatsAppMessageStats',
-  ClientLogo: 'ClientLogo'
+  WhatsAppMessageStats: 'WhatsAppMessageStats'
 };
 
 /**
