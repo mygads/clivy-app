@@ -68,8 +68,8 @@ export default function CheckoutPage() {
     router.push(`/payment/status/${paymentId}`)
   }
 
-  // Simplified - WhatsApp items only
-  const whatsappItems = selectedItems.filter(item => item.type === 'whatsapp')
+  // Simplified - All items are now WhatsApp packages
+  const whatsappItems = selectedItems // No filtering needed anymore
     // Use checkout state hook
   const {
     step,

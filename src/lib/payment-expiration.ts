@@ -240,12 +240,6 @@ export class PaymentExpirationService {
           },          include: {
             whatsappTransaction: {
               include: { whatsappPackage: true }
-            },
-            productTransactions: {
-              include: { package: true }
-            },
-            addonTransactions: {
-              include: { addon: true }
             }
           }
         });
@@ -542,8 +536,6 @@ export class PaymentExpirationService {
       where: { id: transactionId },      
       include: { 
         payment: true,
-        productTransactions: { include: { package: true } },
-        addonTransactions: { include: { addon: true } },
         whatsappTransaction: { include: { whatsappPackage: true } }
       }
     });
@@ -834,7 +826,14 @@ export class PaymentExpirationService {
   }  /**
    * Create ServicesProductCustomers records for multiple products (manual delivery required)
    * Creates separate record for each product type with aggregated quantity
+   * @deprecated - Products/Packages/Addons removed. WhatsApp API only.
    */
+  private static async createProductPackageRecords(transaction: any) {
+    console.warn('[DEPRECATED] createProductPackageRecords - Products removed from system');
+    return { success: false, reason: 'Products feature removed - WhatsApp API only' };
+  }
+
+  /* COMMENTED OUT - PRODUCT FEATURE REMOVED
   private static async createProductPackageRecords(transaction: any) {
     if (!transaction.productTransactions || transaction.productTransactions.length === 0) {
       return { success: false, reason: 'No product transactions found' };
@@ -889,11 +888,18 @@ export class PaymentExpirationService {
       return { success: false, error: error.message };
     }
   }
+  END COMMENTED OUT */
 
   /**
    * Create ServicesProductCustomers record for product (manual delivery required)
    * @deprecated Use createProductPackageRecords for multiple products support
    */
+  private static async createProductPackageRecord(transaction: any) {
+    console.warn('[DEPRECATED] createProductPackageRecord - Products removed from system');
+    return { success: false, reason: 'Products feature removed - WhatsApp API only' };
+  }
+
+  /* COMMENTED OUT - PRODUCT FEATURE REMOVED
   private static async createProductPackageRecord(transaction: any) {
     if (!transaction.productTransaction?.packageId) {
       return { success: false, reason: 'No product package found in transaction' };
@@ -940,10 +946,18 @@ export class PaymentExpirationService {
       return { success: false, error: error.message };
     }
   }
+  END COMMENTED OUT */
+
   /**
    * Create ServicesAddonsCustomers record for add-ons (manual delivery required)
    * Creates ONE record with all addons combined with their quantities
    */
+  private static async createAddonDeliveryRecord(transaction: any) {
+    console.warn('[DEPRECATED] createAddonDeliveryRecord - Addons removed from system');
+    return { success: false, reason: 'Addons feature removed - WhatsApp API only' };
+  }
+
+  /* COMMENTED OUT - ADDON FEATURE REMOVED
   private static async createAddonDeliveryRecord(transaction: any) {
     if (!transaction.addonTransactions || transaction.addonTransactions.length === 0) {
       return { success: false, reason: 'No addon transactions found' };
@@ -991,6 +1005,8 @@ export class PaymentExpirationService {
       return { success: false, error: error.message };
     }
   }
+  END COMMENTED OUT */
+
   /**
    * Manual activation check for transactions that are in-progress with paid payment
    */  static async checkAndActivateTransaction(transactionId: string, userId: string) {
@@ -1004,12 +1020,6 @@ export class PaymentExpirationService {
         payment: true,
         whatsappTransaction: {
           include: { whatsappPackage: true }
-        },
-        productTransactions: {
-          include: { package: true }
-        },
-        addonTransactions: {
-          include: { addon: true }
         }
       }
     });
@@ -1049,12 +1059,6 @@ export class PaymentExpirationService {
           payment: true,
           whatsappTransaction: {
             include: { whatsappPackage: true }
-          },
-          productTransactions: {
-            include: { package: true }
-          },
-          addonTransactions: {
-            include: { addon: true }
           }
         }
       });
@@ -1099,8 +1103,6 @@ export class PaymentExpirationService {
     try {      const transaction = await prisma.transaction.findUnique({
         where: { id: transactionId },
         include: {
-          productTransactions: true,
-          addonTransactions: true,
           whatsappTransaction: true,
           payment: true
         }
@@ -1110,15 +1112,13 @@ export class PaymentExpirationService {
         return { completed: false, reason: 'Transaction not found or not in progress' };
       }
 
-      const hasProduct = transaction.productTransactions && transaction.productTransactions.length > 0;
-      const hasAddons = transaction.addonTransactions && transaction.addonTransactions.length > 0;
-      const hasWhatsapp = transaction.whatsappTransaction?.whatsappPackageId;// Check completion status for each service
-      const productCompleted = hasProduct ? await this.isProductDelivered(transactionId) : true;
-      const addonsCompleted = hasAddons ? await this.isAddonsDelivered(transactionId) : true;
+      const hasWhatsapp = transaction.whatsappTransaction?.whatsappPackageId;
+      
+      // Check WhatsApp activation status
       const whatsappCompleted = hasWhatsapp ? await this.isWhatsAppActivated(transaction.userId, transaction.whatsappTransaction?.whatsappPackageId) : true;
 
-      // Transaction is complete when ALL services are completed
-      if (productCompleted && addonsCompleted && whatsappCompleted) {
+      // Transaction is complete when WhatsApp service is activated
+      if (whatsappCompleted) {
         await prisma.transaction.update({
           where: { id: transactionId },
           data: { 
@@ -1127,20 +1127,28 @@ export class PaymentExpirationService {
           }
         });
 
-        console.log(`[TRANSACTION_COMPLETION] Transaction ${transactionId} completed - Product: ${productCompleted}, Add-ons: ${addonsCompleted}, WhatsApp: ${whatsappCompleted}`);
+        console.log(`[TRANSACTION_COMPLETION] Transaction ${transactionId} completed - WhatsApp: ${whatsappCompleted}`);
         return { completed: true };
       }
 
-      console.log(`[TRANSACTION_COMPLETION] Transaction ${transactionId} not yet complete - Product: ${productCompleted}, Add-ons: ${addonsCompleted}, WhatsApp: ${whatsappCompleted}`);
-      return { completed: false, productCompleted, addonsCompleted, whatsappCompleted };
+      console.log(`[TRANSACTION_COMPLETION] Transaction ${transactionId} not yet complete - WhatsApp: ${whatsappCompleted}`);
+      return { completed: false, whatsappCompleted };
 
     } catch (error: any) {
       console.error('[TRANSACTION_COMPLETION] Error:', error);
       return { completed: false, error: error.message };
     }
-  }  /**
+  }
+
+  /**
    * Check if product is delivered for a transaction
    */
+  private static async isProductDelivered(transactionId: string): Promise<boolean> {
+    console.warn('[DEPRECATED] isProductDelivered - Products removed from system');
+    return true; // Always return true since products are removed
+  }
+
+  /* COMMENTED OUT - PRODUCT FEATURE REMOVED
   private static async isProductDelivered(transactionId: string): Promise<boolean> {
     // Check if ALL products for this transaction are delivered
     const productCustomers = await prisma.servicesProductCustomers.findMany({
@@ -1152,6 +1160,8 @@ export class PaymentExpirationService {
     // All product records must have status 'delivered'
     return productCustomers.every(pc => pc.status === 'delivered');
   }
+  END COMMENTED OUT */
+
   /**
    * Check if WhatsApp service is activated for a user and package
    */
@@ -1172,6 +1182,12 @@ export class PaymentExpirationService {
    * Check if add-ons are delivered for a transaction
    */
   private static async isAddonsDelivered(transactionId: string): Promise<boolean> {
+    console.warn('[DEPRECATED] isAddonsDelivered - Addons removed from system');
+    return true; // Always return true since addons are removed
+  }
+
+  /* COMMENTED OUT - ADDON FEATURE REMOVED
+  private static async isAddonsDelivered(transactionId: string): Promise<boolean> {
     const addonCustomer = await prisma.servicesAddonsCustomers.findFirst({
       where: { 
         transactionId: transactionId,
@@ -1180,10 +1196,18 @@ export class PaymentExpirationService {
     });
     return !!addonCustomer;
   }
+  END COMMENTED OUT */
 
   /**
    * Manual trigger for product delivery completion (called by admin)
-   */  static async completeProductDelivery(transactionId: string, adminUserId?: string) {
+   */  
+  static async completeProductDelivery(transactionId: string, adminUserId?: string) {
+    console.warn('[DEPRECATED] completeProductDelivery - Products removed from system');
+    return { success: false, error: 'Products feature removed - WhatsApp API only' };
+  }
+
+  /* COMMENTED OUT - PRODUCT FEATURE REMOVED
+  static async completeProductDelivery(transactionId: string, adminUserId?: string) {
     try {
       // Update ServicesProductCustomers status to delivered
       const productCustomer = await prisma.servicesProductCustomers.findFirst({
@@ -1217,10 +1241,17 @@ export class PaymentExpirationService {
       return { success: false, error: error.message };
     }
   }
+  END COMMENTED OUT */
 
   /**
    * Manual trigger for add-ons delivery completion (called by admin)
    */
+  static async completeAddonsDelivery(transactionId: string, adminUserId?: string) {
+    console.warn('[DEPRECATED] completeAddonsDelivery - Addons removed from system');
+    return { success: false, error: 'Addons feature removed - WhatsApp API only' };
+  }
+
+  /* COMMENTED OUT - ADDON FEATURE REMOVED
   static async completeAddonsDelivery(transactionId: string, adminUserId?: string) {
     try {
       // Update ServicesAddonsCustomers status to delivered
@@ -1257,10 +1288,20 @@ export class PaymentExpirationService {
       return { success: false, error: error.message };
     }
   }
+  END COMMENTED OUT */
 
   /**
    * Update child transaction statuses (TransactionProduct and TransactionAddons)
    */
+  static async updateChildTransactionStatuses(
+    transactionId: string, 
+    status: 'created' | 'pending' | 'in_progress' | 'success' | 'cancelled'
+  ) {
+    console.warn('[DEPRECATED] updateChildTransactionStatuses - Products/Addons removed from system');
+    // No-op since child transactions (products/addons) are removed
+  }
+
+  /* COMMENTED OUT - PRODUCT/ADDON FEATURE REMOVED
   static async updateChildTransactionStatuses(
     transactionId: string, 
     status: 'created' | 'pending' | 'in_progress' | 'success' | 'cancelled'
@@ -1283,4 +1324,5 @@ export class PaymentExpirationService {
       console.error(`[CHILD_STATUS_UPDATE] Error updating child transaction statuses:`, error);
     }
   }
+  END COMMENTED OUT */
 }

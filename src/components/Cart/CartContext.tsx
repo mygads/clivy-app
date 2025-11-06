@@ -3,62 +3,59 @@
 import type React from "react"
 import { createContext, useContext, useState, useEffect } from "react"
 
+// Simplified CartItem - WhatsApp packages only
 export interface CartItem {
   id: string
   name: string
-  price: number
-  image: string
-  qty: number
-  selected?: boolean
-  category?: string
-  subcategory?: string
-  type?: 'package' | 'addon' | 'whatsapp'
+  price: number // Current price in active currency
+  price_idr: number
+  price_usd: number
+  duration: 'month' | 'year'
+  maxSession: number
+  qty: number // Always 1 for WhatsApp packages
+  image?: string
   // Optional fields for multi-language support
   name_en?: string
   name_id?: string
-  price_usd?: number
-  price_idr?: number
 }
 
+// Simplified CartContext - Single WhatsApp package only
 interface CartContextType {
   items: CartItem[]
   addToCart: (product: CartItem) => void
   removeFromCart: (productId: string) => void
-  updateQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
-  toggleItemSelection: (productId: string, selected: boolean) => void
-  selectAllItems: (selected: boolean) => void
-  removeSelectedItems: () => void
-  clearSelectedItemsFromCart: () => void // New function to clear selected items after checkout
-  selectedItems: CartItem[]
+  buyNow: (product: CartItem) => void
   totalItems: number
   totalPrice: number
-  selectedItemsCount: number
-  selectedItemsTotal: number  // New function for Buy Now functionality
-  buyNow: (product: CartItem) => void
-  // Helper function to check if WhatsApp service is in cart
-  isWhatsAppInCart: (productId: string) => boolean
-  // Helper function to check if any WhatsApp service is in cart
-  hasWhatsAppInCart: () => boolean
+  // Backward compatibility (will be removed after full migration)
+  selectedItems: CartItem[] // Same as items (all items are "selected" now)
+  selectedItemsTotal: number // Same as totalPrice
+  selectedItemsCount: number // Same as totalItems
+  updateQuantity?: (productId: string, quantity: number) => void // No-op for WhatsApp
+  toggleItemSelection?: (productId: string, selected: boolean) => void // No-op
+  selectAllItems?: (selected: boolean) => void // No-op
+  removeSelectedItems?: () => void // Same as clearCart
+  clearSelectedItemsFromCart?: () => void // Same as clearCart
 }
 
 const CartContext = createContext<CartContextType>({
   items: [],
   addToCart: () => {},
   removeFromCart: () => {},
-  updateQuantity: () => {},
   clearCart: () => {},
+  buyNow: () => {},
+  totalItems: 0,
+  totalPrice: 0,
+  // Backward compatibility defaults
+  selectedItems: [],
+  selectedItemsTotal: 0,
+  selectedItemsCount: 0,
+  updateQuantity: () => {},
   toggleItemSelection: () => {},
   selectAllItems: () => {},
   removeSelectedItems: () => {},
   clearSelectedItemsFromCart: () => {},
-  selectedItems: [],
-  totalItems: 0,
-  totalPrice: 0,
-  selectedItemsCount: 0,  selectedItemsTotal: 0,
-  buyNow: () => {},
-  isWhatsAppInCart: () => false,
-  hasWhatsAppInCart: () => false,
 })
 
 export const useCart = () => useContext(CartContext)
@@ -87,65 +84,21 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const addToCart = (product: CartItem) => {
     setItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id)
-        // For WhatsApp services, check if there's already any WhatsApp service in cart
-      if (product.type === 'whatsapp') {
-        const hasWhatsAppService = prevItems.some(item => item.type === 'whatsapp')
-        if (hasWhatsAppService && !existingItem) {
-          // Remove existing WhatsApp service and add new one
-          const filteredItems = prevItems.filter(item => item.type !== 'whatsapp')
-          return [...filteredItems, { ...product, selected: true }]
-        }
-        if (existingItem) {
-          // Don't allow quantity increase for existing WhatsApp services
-          return prevItems
-        }
-      }
       
+      // For WhatsApp packages, only allow one package in cart
+      // If adding same package, keep it (don't increase qty)
+      // If adding different package, replace existing one
       if (existingItem) {
-        return prevItems.map((item) => (item.id === product.id ? { ...item, qty: item.qty + product.qty } : item))
+        return prevItems // Don't change if same package already in cart
       } else {
-        return [...prevItems, { ...product, selected: true }]
+        // Replace any existing package with new one (single package cart)
+        return [{ ...product, qty: 1 }]
       }
     })
   }
 
   const removeFromCart = (productId: string) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== productId))
-  }
-
-  const updateQuantity = (productId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(productId)
-      return
-    }
-
-    setItems((prevItems) => prevItems.map((item) => {
-      if (item.id === productId) {
-        // For WhatsApp services, don't allow quantity increase beyond 1
-        if (item.type === 'whatsapp' && quantity > 1) {
-          return item // Keep quantity at current value (1)
-        }
-        return { ...item, qty: quantity }
-      }
-      return item
-    }))
-  }
-
-  const toggleItemSelection = (productId: string, selected: boolean) => {
-    setItems((prevItems) => prevItems.map((item) => (item.id === productId ? { ...item, selected } : item)))
-  }
-
-  const selectAllItems = (selected: boolean) => {
-    setItems((prevItems) => prevItems.map((item) => ({ ...item, selected })))
-  }
-
-  const removeSelectedItems = () => {
-    setItems((prevItems) => prevItems.filter((item) => !item.selected))
-  }
-
-  const clearSelectedItemsFromCart = () => {
-    // Clear only selected items from cart after successful checkout
-    setItems((prevItems) => prevItems.filter((item) => !item.selected))
   }
 
   const clearCart = () => {
@@ -155,28 +108,16 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   // Buy Now functionality - clear cart and add single item, then redirect to checkout
   const buyNow = (product: CartItem) => {
     // Clear cart and add only this item
-    setItems([{ ...product, selected: true }])
+    setItems([{ ...product, qty: 1 }])
     
     // Redirect to checkout page
     if (typeof window !== 'undefined') {
       window.location.href = '/checkout'
     }
   }
-  // Helper function to check if WhatsApp service is in cart
-  const isWhatsAppInCart = (productId: string) => {
-    return items.some(item => item.id === productId && item.type === 'whatsapp')
-  }
 
-  // Helper function to check if any WhatsApp service is in cart
-  const hasWhatsAppInCart = () => {
-    return items.some(item => item.type === 'whatsapp')
-  }
-
-  const selectedItems = items.filter((item) => item.selected)
   const totalItems = items.reduce((sum, item) => sum + item.qty, 0)
   const totalPrice = items.reduce((sum, item) => sum + item.price * item.qty, 0)
-  const selectedItemsCount = selectedItems.reduce((sum, item) => sum + item.qty, 0)
-  const selectedItemsTotal = selectedItems.reduce((sum, item) => sum + item.price * item.qty, 0)
 
   return (
     <CartContext.Provider
@@ -184,19 +125,19 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         items,
         addToCart,
         removeFromCart,
-        updateQuantity,
         clearCart,
-        toggleItemSelection,
-        selectAllItems,
-        removeSelectedItems,
-        clearSelectedItemsFromCart,
-        selectedItems,
+        buyNow,
         totalItems,
         totalPrice,
-        selectedItemsCount,        selectedItemsTotal,
-        buyNow,
-        isWhatsAppInCart,
-        hasWhatsAppInCart,
+        // Backward compatibility - treat all items as "selected"
+        selectedItems: items,
+        selectedItemsTotal: totalPrice,
+        selectedItemsCount: totalItems,
+        updateQuantity: () => {}, // No-op: WhatsApp packages are always qty=1
+        toggleItemSelection: () => {}, // No-op: selection not needed anymore
+        selectAllItems: () => {}, // No-op
+        removeSelectedItems: clearCart, // Same as clearing entire cart
+        clearSelectedItemsFromCart: clearCart, // Same as clearing entire cart
       }}
     >
       {children}
