@@ -58,8 +58,7 @@ export async function POST(
           status: result.transaction.status,
           activated: true,
           activatedAt: new Date(),          services: {
-            whatsapp: !!result.transaction.whatsappTransaction,
-            product: !!(result.transaction.productTransactions && result.transaction.productTransactions.length > 0)
+            whatsapp: !!result.transaction.whatsappTransaction
           }
         },
         message: "Transaction services activated successfully"
@@ -138,25 +137,6 @@ export async function GET(request: NextRequest) {
               }
             }
           }
-        },        productTransactions: {
-          include: {
-            package: {
-              select: {
-                id: true,
-                name_en: true
-              }
-            }
-          }
-        },
-        addonTransactions: {
-          include: {
-            addon: {
-              select: {
-                id: true,
-                name_en: true
-              }
-            }
-          }
         }
       },
       orderBy: {
@@ -176,9 +156,6 @@ export async function GET(request: NextRequest) {
         whatsapp: transaction.whatsappTransaction ? {
           packageName: transaction.whatsappTransaction.whatsappPackage?.name,
           duration: transaction.whatsappTransaction.duration
-        } : null,        product: (transaction.productTransactions && transaction.productTransactions.length > 0) ? {
-          packages: transaction.productTransactions.map(pt => pt.package?.name_en).filter(Boolean),
-          addons: transaction.addonTransactions ? transaction.addonTransactions.map(at => at.addon?.name_en).filter(Boolean) : []
         } : null
       },
       eligibleForActivation: true

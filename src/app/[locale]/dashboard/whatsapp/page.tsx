@@ -138,10 +138,8 @@ interface DashboardStats {
     maxSessions: number
     expiredAt: string
     activatedAt: string
-    priceMonth_idr: number
-    priceMonth_usd: number
-    priceYear_idr: number
-    priceYear_usd: number
+    priceMonth: number
+    priceYear: number
   } | null
   transactions: Array<{
     id: string
@@ -371,10 +369,10 @@ export default function WhatsAppDashboardPage() {
               <div className="space-y-1 sm:space-y-2">
                 <p className="text-[10px] sm:text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">Harga</p>
                 <p className="text-[10px] sm:text-xs md:text-sm">
-                  {currency === 'idr' ? 'Rp' : '$'} {(currency === 'idr' ? stats.subscription.priceMonth_idr : stats.subscription.priceMonth_usd).toLocaleString()}/bulan
+                  Rp {stats.subscription.priceMonth.toLocaleString()}/bulan
                 </p>
                 <p className="text-[9px] sm:text-xs text-gray-500">
-                  {currency === 'idr' ? 'Rp' : '$'} {(currency === 'idr' ? stats.subscription.priceYear_idr : stats.subscription.priceYear_usd).toLocaleString()}/tahun
+                  Rp {stats.subscription.priceYear.toLocaleString()}/tahun
                 </p>
               </div>
             </div>

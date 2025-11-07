@@ -189,12 +189,7 @@ export async function PATCH(
           // Add WhatsApp service
           if (payment.transaction.whatsappTransaction) {
             const tws = payment.transaction.whatsappTransaction
-            
-            // Detect currency for pricing
-            const currency = detectCurrencySync(request);
-            const priceMonth = currency === 'idr' ? tws.whatsappPackage?.priceMonth_idr : tws.whatsappPackage?.priceMonth_usd;
-            const priceYear = currency === 'idr' ? tws.whatsappPackage?.priceYear_idr : tws.whatsappPackage?.priceYear_usd;
-            const whatsappPrice = tws.duration === 'year' ? priceYear : priceMonth;
+            const whatsappPrice = tws.duration === 'year' ? tws.whatsappPackage?.priceYear : tws.whatsappPackage?.priceMonth;
             
             items.push({
               name: tws.whatsappPackage?.name || 'WhatsApp Service',
@@ -202,7 +197,7 @@ export async function PATCH(
               price: Number(whatsappPrice || 0),
               type: 'whatsapp_service',
               duration: tws.duration as 'month' | 'year',
-              currency: currency
+              currency: 'idr'
             })
           }
 

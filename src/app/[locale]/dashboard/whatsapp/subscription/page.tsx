@@ -79,10 +79,8 @@ interface WhatsappPackage {
   id: string;
   name: string;
   description: string;
-  priceMonth_idr: number;
-  priceMonth_usd: number;
-  priceYear_idr: number;
-  priceYear_usd: number;
+  priceMonth: number;
+  priceYear: number;
   maxSession: number;
 }
 
@@ -420,8 +418,8 @@ export default function WhatsAppSubscriptionPage() {
                       <div className="flex items-center space-x-2">
                         <CreditCard className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground flex-shrink-0" />
                         <span className="text-xs sm:text-sm">Monthly: {formatCurrency(
-                          currency === 'idr' ? subscription.package.priceMonth_idr : subscription.package.priceMonth_usd, 
-                          currency.toUpperCase()
+                          subscription.package.priceMonth, 
+                          'IDR'
                         )}</span>
                       </div>
                     </div>

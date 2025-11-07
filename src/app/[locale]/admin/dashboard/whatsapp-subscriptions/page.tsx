@@ -45,10 +45,8 @@ interface Subscription {
     name: string;
     description?: string;
     maxSession: number;
-    priceMonth_idr: number;
-    priceMonth_usd: number;
-    priceYear_idr: number;
-    priceYear_usd: number;
+    priceMonth: number;
+    priceYear: number;
   };
   expiredAt: string;
   createdAt: string;

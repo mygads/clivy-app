@@ -68,8 +68,7 @@ interface PaymentDetails {
       type: string
       name: string
       category: string
-      price_idr?: number
-      price_usd?: number
+      price?: number
       quantity?: number
       duration?: string
     }>
@@ -573,20 +572,10 @@ export default function PaymentDetailPage() {
                           Qty: {item.quantity || 1}
                         </div>
                         <div className="text-sm text-gray-600 mb-1">
-                          Unit: {formatCurrency(
-                            payment.transaction?.currency === 'usd' 
-                              ? (item.price_usd || 0)
-                              : (item.price_idr || 0), 
-                            payment.transaction?.currency
-                          )}
+                          Unit: {formatCurrency(item.price || 0, 'idr')}
                         </div>
                         <p className="font-semibold">
-                          Total: {formatCurrency(
-                            (payment.transaction?.currency === 'usd' 
-                              ? (item.price_usd || 0)
-                              : (item.price_idr || 0)) * (item.quantity || 1), 
-                            payment.transaction?.currency
-                          )}
+                          Total: {formatCurrency((item.price || 0) * (item.quantity || 1), 'idr')}
                         </p>
                       </div>
                     </div>

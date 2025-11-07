@@ -170,7 +170,6 @@ export async function GET(
                   select: {
                     name_en: true,
                     price_idr: true,
-                    price_usd: true,
                     category: {
                       select: {
                         name_en: true,
@@ -191,7 +190,6 @@ export async function GET(
                   select: {
                     name_en: true,
                     price_idr: true,
-                    price_usd: true,
                     category: {
                       select: {
                         name_en: true,
@@ -206,10 +204,8 @@ export async function GET(
                 whatsappPackage: {
                   select: {
                     name: true,
-                    priceMonth_idr: true,
-                    priceMonth_usd: true,
-                    priceYear_idr: true,
-                    priceYear_usd: true,
+                    priceMonth: true,
+                    priceYear: true,
                   },
                 },
               },

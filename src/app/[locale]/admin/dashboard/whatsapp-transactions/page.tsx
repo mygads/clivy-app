@@ -44,7 +44,7 @@ interface Transaction {
   id: string;
   userId: string;
   amount: number;
-  currency?: string; // Add currency field for user payment currency
+  currency?: string; // IDR only now
   status: string; // created, pending, in_progress, success, failed, cancelled, expired
   createdAt: string;
   updatedAt: string;
@@ -60,10 +60,8 @@ interface Transaction {
       name: string;
       description?: string;
       maxSession: number;
-      priceMonth_idr?: number;
-      priceMonth_usd?: number;
-      priceYear_idr?: number;
-      priceYear_usd?: number;
+      priceMonth?: number;
+      priceYear?: number;
     };
     duration: string;
     status?: string; // pending, success, failed
@@ -97,10 +95,8 @@ export default function WhatsAppTransactionsPage() {
     paid: 0,
     success: 0,
     failed: 0,
-    totalRevenueIDR: 0,
-    totalRevenueUSD: 0,
-    monthlyRevenueIDR: 0,
-    monthlyRevenueUSD: 0
+    totalRevenue: 0,
+    monthlyRevenue: 0
   });
 
   const fetchTransactions = useCallback(async () => {
@@ -148,35 +144,18 @@ export default function WhatsAppTransactionsPage() {
     // Get paid transactions to calculate revenue
     const paidTransactions = transactions.filter(t => t.payment?.status === 'paid');
 
-    // Calculate total revenue based on WhatsApp package price and user payment currency
-    let totalRevenueIDR = 0;
-    let totalRevenueUSD = 0;
-    let monthlyRevenueIDR = 0;
-    let monthlyRevenueUSD = 0;
+    // Calculate total revenue (IDR only)
+    let totalRevenue = 0;
+    let monthlyRevenue = 0;
 
     paidTransactions.forEach(t => {
-      // Use the amount already calculated by API (includes voucher discount and currency handling)
       const finalAmount = Number(t.amount || 0);
-      const transactionCurrency = (t as any).currency || 'idr';
+      totalRevenue += finalAmount;
       
-      // Add to revenue based on the currency user used to pay
-      if (transactionCurrency.toLowerCase() === 'usd') {
-        totalRevenueUSD += finalAmount;
-        
-        // Add to monthly revenue if transaction is from current month
-        const trxDate = new Date(t.createdAt);
-        if (trxDate.getMonth() === currentMonth && trxDate.getFullYear() === currentYear) {
-          monthlyRevenueUSD += finalAmount;
-        }
-      } else {
-        // Default to IDR (includes 'idr', null, undefined cases)
-        totalRevenueIDR += finalAmount;
-        
-        // Add to monthly revenue if transaction is from current month
-        const trxDate = new Date(t.createdAt);
-        if (trxDate.getMonth() === currentMonth && trxDate.getFullYear() === currentYear) {
-          monthlyRevenueIDR += finalAmount;
-        }
+      // Add to monthly revenue if transaction is from current month
+      const trxDate = new Date(t.createdAt);
+      if (trxDate.getMonth() === currentMonth && trxDate.getFullYear() === currentYear) {
+        monthlyRevenue += finalAmount;
       }
     });
 
@@ -186,10 +165,8 @@ export default function WhatsAppTransactionsPage() {
       paid: paid,
       success: success,
       failed: failed,
-      totalRevenueIDR: totalRevenueIDR,
-      totalRevenueUSD: totalRevenueUSD,
-      monthlyRevenueIDR: monthlyRevenueIDR,
-      monthlyRevenueUSD: monthlyRevenueUSD
+      totalRevenue: totalRevenue,
+      monthlyRevenue: monthlyRevenue
     };
 
     setStats(stats);
@@ -304,17 +281,10 @@ export default function WhatsAppTransactionsPage() {
     });
 
   const formatCurrency = (amount: number, currency: string = 'IDR') => {
-    if (currency === 'USD') {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(amount);
-    } else {
-      return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-      }).format(amount);
-    }
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    }).format(amount);
   };
 
   // Payment method mapping function
@@ -626,20 +596,15 @@ export default function WhatsAppTransactionsPage() {
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
             <DollarSign className="h-4 w-4 text-purple-600" />
           </CardHeader>
           <CardContent>
-            <div className="space-y-1">
-              <div className="text-lg font-bold text-purple-600">
-                {formatCurrency(stats.totalRevenueIDR, 'IDR')}
-              </div>
-              <div className="text-sm font-semibold text-blue-600">
-                {formatCurrency(stats.totalRevenueUSD, 'USD')}
-              </div>
+            <div className="text-2xl font-bold text-purple-600">
+              {formatCurrency(stats.totalRevenue, 'IDR')}
             </div>
             <p className="text-xs text-muted-foreground">
-              Total earned
+              Total earned (IDR only)
             </p>
           </CardContent>
         </Card>
@@ -847,24 +812,14 @@ export default function WhatsAppTransactionsPage() {
               <div className="text-muted-foreground">
                 This Month Revenue: 
                 <span className="font-semibold text-green-600 ml-1">
-                  {formatCurrency(stats.monthlyRevenueIDR, 'IDR')}
+                  {formatCurrency(stats.monthlyRevenue, 'IDR')}
                 </span>
-                {stats.monthlyRevenueUSD > 0 && (
-                  <span className="font-semibold text-blue-600 ml-2">
-                    {formatCurrency(stats.monthlyRevenueUSD, 'USD')}
-                  </span>
-                )}
               </div>
               <div className="text-muted-foreground">
                 Total Revenue: 
                 <span className="font-semibold text-purple-600 ml-1">
-                  {formatCurrency(stats.totalRevenueIDR, 'IDR')}
+                  {formatCurrency(stats.totalRevenue, 'IDR')}
                 </span>
-                {stats.totalRevenueUSD > 0 && (
-                  <span className="font-semibold text-blue-600 ml-2">
-                    {formatCurrency(stats.totalRevenueUSD, 'USD')}
-                  </span>
-                )}
               </div>
             </div>
           </div>

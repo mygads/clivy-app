@@ -33,7 +33,7 @@ interface Voucher {
   code: string
   name: string
   description: string
-  type: "total" | "products" | "addons" | "whatsapp"
+  type: "total" | "whatsapp"
   discountType: "percentage" | "fixed_amount"
   value: number
   minAmount: number | null
@@ -59,7 +59,7 @@ interface VoucherFormData {
   code: string
   name: string
   description: string
-  type: "total" | "products" | "addons" | "whatsapp"
+  type: "total" | "whatsapp"
   discountType: "percentage" | "fixed_amount"
   value: number
   minAmount: number | null

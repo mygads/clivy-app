@@ -124,7 +124,6 @@ interface DashboardData {
       total: number;
       product: number;
       whatsapp: number;
-      addons: number;
     };
     pending: {
       awaitingPayment: number;
@@ -299,7 +298,6 @@ export default function DashboardPage() {
 
   // Check if user has purchased different service types
   const hasWhatsAppPackages = (dashboardData?.transactionSummary?.success?.whatsapp ?? 0) > 0
-  const hasAddonPackages = (dashboardData?.transactionSummary?.success?.addons ?? 0) > 0
   const hasProductPackages = (dashboardData?.transactionSummary?.success?.product ?? 0) > 0
 
   return (
@@ -384,17 +382,6 @@ export default function DashboardPage() {
                 <Package className="h-2 w-2 sm:h-3 sm:w-3" />
                 <span className="text-xs">{dashboardData?.transactionSummary.success.product || 0} Produk</span>
               </div>
-              
-              {/* Only show Addons if user has addons */}
-              {hasAddonPackages && (
-                <>
-                  <span className="mx-1">•</span>
-                  <div className="flex items-center gap-1">
-                    <Plus className="h-2 w-2 sm:h-3 sm:w-3" />
-                    <span className="text-xs">{dashboardData?.transactionSummary.success.addons || 0} Addons</span>
-                  </div>
-                </>
-              )}
               
               {/* Only show WhatsApp if user has WhatsApp packages */}
               {hasWhatsAppPackages && (
@@ -487,20 +474,6 @@ export default function DashboardPage() {
                   </div>
                 </div>
               )}
-              
-              {/* Only show Add-ons section if user has addon packages */}
-              {hasAddonPackages && (
-                <div className="flex items-center justify-between p-2 sm:p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <Plus className="h-3 w-3 sm:h-4 sm:w-4 text-purple-500" />
-                    <span className="text-xs sm:text-sm font-medium">Add-ons</span>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm sm:text-lg font-bold text-purple-600">{dashboardData?.transactionSummary.success.addons || 0}</p>
-                    <p className="text-xs text-muted-foreground">transaksi</p>
-                  </div>
-                </div>
-              )}
             </div>
           </CardContent>
         </Card>
@@ -588,7 +561,6 @@ export default function DashboardPage() {
                   const getTypeLabel = (type: string) => {
                     switch (type) {
                       case 'product': return 'Produk'
-                      case 'addon': return 'Addon'
                       case 'whatsapp': return 'WhatsApp'
                       default: return 'Lainnya'
                     }

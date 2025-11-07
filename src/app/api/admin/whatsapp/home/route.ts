@@ -66,10 +66,8 @@ export async function GET(request: NextRequest) {
             id: true,
             name: true,
             description: true,
-            priceMonth_idr: true,
-            priceMonth_usd: true,
-            priceYear_idr: true,
-            priceYear_usd: true,
+            priceMonth: true,
+            priceYear: true,
             maxSession: true,
           },
         });
