@@ -76,7 +76,7 @@ export default function AppointmentForm() {
       }
     } catch (error) {
       console.error('Appointment booking error:', error)
-      setSubmitError('Network error occurred. Please try again or contact us directly at genfity@gmail.com')
+      setSubmitError('Network error occurred. Please try again or contact us directly at clivy@gmail.com')
     } finally {
       setIsSubmitting(false)
     }

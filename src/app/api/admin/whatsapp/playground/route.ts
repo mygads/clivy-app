@@ -46,7 +46,7 @@ export async function GET(req: NextRequest) {
             jid: session.jid, // WhatsApp phone number when logged in
             // Database computed fields matching sessions API
             userName: session.isSystemSession 
-              ? 'System (Genfity App)' 
+              ? 'System (Clivy App)' 
               : session.user?.name || session.user?.email || 'Admin (Unassigned)',
             userRole: session.isSystemSession 
               ? 'system' 

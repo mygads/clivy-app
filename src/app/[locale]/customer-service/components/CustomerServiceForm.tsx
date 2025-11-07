@@ -74,7 +74,7 @@ export default function CustomerServiceForm() {
       }
     } catch (error) {
       console.error('Customer service form error:', error)
-      setSubmitError('Network error occurred. Please try again or contact us directly at genfity@gmail.com')
+      setSubmitError('Network error occurred. Please try again or contact us directly at clivy@gmail.com')
     } finally {
       setIsSubmitting(false)
     }

@@ -27,19 +27,19 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const isIndonesian = locale === 'id';
   
   const title = isIndonesian
-    ? "Cara Pemesanan - Genfity | Panduan Lengkap Order Layanan Digital"
-    : "How to Order - Genfity | Complete Guide to Digital Service Ordering";
+    ? "Cara Pemesanan - Clivy | Panduan Lengkap Order Layanan Digital"
+    : "How to Order - Clivy | Complete Guide to Digital Service Ordering";
     
   const description = isIndonesian
-    ? "Panduan lengkap cara memesan layanan Genfity: website, aplikasi mobile, WhatsApp API. Proses mudah 8 langkah dari keranjang hingga delivery. Konsultasi gratis tersedia!"
-    : "Complete guide on how to order Genfity services: websites, mobile apps, WhatsApp API. Easy 8-step process from cart to delivery. Free consultation available!";
+    ? "Panduan lengkap cara memesan layanan Clivy: website, aplikasi mobile, WhatsApp API. Proses mudah 8 langkah dari keranjang hingga delivery. Konsultasi gratis tersedia!"
+    : "Complete guide on how to order Clivy services: websites, mobile apps, WhatsApp API. Easy 8-step process from cart to delivery. Free consultation available!";
 
   return {
     title,
     description,
     keywords: isIndonesian
-      ? "cara pesan website, cara order aplikasi, proses pemesanan genfity, panduan order digital, langkah pemesanan"
-      : "how to order website, how to order app, genfity ordering process, digital service guide, ordering steps",
+      ? "cara pesan website, cara order aplikasi, proses pemesanan clivy, panduan order digital, langkah pemesanan"
+      : "how to order website, how to order app, clivy ordering process, digital service guide, ordering steps",
     openGraph: {
       title,
       description,

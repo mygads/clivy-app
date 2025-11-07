@@ -471,11 +471,11 @@ export class EmailNotificationService {
         </div>
 
         <div class="footer">
-            <div class="brand">Genfity</div>
+            <div class="brand">Clivy</div>
             <div class="tagline">Thank you for choosing our services. We're here to help you grow!</div>
             <div class="contact">
-                Questions? Email us at support@genfity.com<br/>
-                © ${new Date().getFullYear()} Genfity. All rights reserved.
+                Questions? Email us at support@clivy.com<br/>
+                © ${new Date().getFullYear()} Clivy. All rights reserved.
             </div>
         </div>
     </div>
@@ -546,7 +546,7 @@ export class EmailNotificationService {
 
     <div style="background: #1f2937; color: #d1d5db; padding: 20px; text-align: center; border-radius: 0 0 10px 10px;">
         <p style="margin: 0; font-size: 12px;">
-            © ${new Date().getFullYear()} Genfity. All rights reserved.
+            © ${new Date().getFullYear()} Clivy. All rights reserved.
         </p>
     </div>
 

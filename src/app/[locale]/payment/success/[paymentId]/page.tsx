@@ -438,7 +438,7 @@ export default function PaymentSuccessPage() {
                   PT GENERATION INFINITY INDONESIA
                 </div> */}
                 <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  GENFITY - DIGITAL SOLUTION
+                  CLIVY - DIGITAL SOLUTION
                 </p>
               </div>
             </div>

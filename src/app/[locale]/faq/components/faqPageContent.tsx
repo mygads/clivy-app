@@ -28,7 +28,7 @@ const categories: FaqCategory[] = [
     id: "general", 
     name: "Umum", 
     icon: HelpCircle,
-    description: "Pertanyaan dasar tentang Genfity dan layanan kami"
+    description: "Pertanyaan dasar tentang Clivy dan layanan kami"
   },
   { 
     id: "custom-website", 
@@ -194,28 +194,28 @@ const categories: FaqCategory[] = [
 const faqItems: FaqItem[] = [
   // General FAQs
   {
-    question: "Layanan apa saja yang ditawarkan oleh Genfity?",
+    question: "Layanan apa saja yang ditawarkan oleh Clivy?",
     answer:
-      "Genfity menawarkan berbagai layanan digital yang komprehensif, meliputi pengembangan website kustom, aplikasi web dan mobile, sistem korporat, desain UI/UX, WhatsApp API solutions, SEO specialist, branding korporat, konsultasi IT, dan dukungan teknis. Kami menyediakan solusi end-to-end untuk kebutuhan transformasi digital bisnis Anda.",
+      "Clivy menawarkan berbagai layanan digital yang komprehensif, meliputi pengembangan website kustom, aplikasi web dan mobile, sistem korporat, desain UI/UX, WhatsApp API solutions, SEO specialist, branding korporat, konsultasi IT, dan dukungan teknis. Kami menyediakan solusi end-to-end untuk kebutuhan transformasi digital bisnis Anda.",
     category: "general",
     tags: ["layanan", "digital", "website", "mobile", "api"]
   },
   {
-    question: "Bagaimana cara memulai proyek dengan Genfity?",
+    question: "Bagaimana cara memulai proyek dengan Clivy?",
     answer:
       "Untuk memulai proyek dengan kami, Anda dapat menghubungi kami melalui formulir kontak di website, email, atau WhatsApp. Tim kami akan segera merespons untuk mengatur konsultasi awal yang gratis. Dalam konsultasi ini, kami akan membahas kebutuhan Anda, menjawab pertanyaan, dan memberikan rekomendasi serta estimasi biaya yang sesuai dengan anggaran Anda.",
     category: "general",
     tags: ["konsultasi", "kontak", "memulai proyek"]
   },
   {
-    question: "Berapa biaya untuk layanan Genfity?",
+    question: "Berapa biaya untuk layanan Clivy?",
     answer:
       "Biaya layanan kami bervariasi tergantung pada jenis proyek, kompleksitas, dan fitur yang dibutuhkan. Kami menawarkan paket dengan harga yang transparan dan dapat disesuaikan dengan kebutuhan dan anggaran Anda. Untuk mendapatkan penawaran yang akurat, silakan kunjungi halaman produk kami atau konsultasi gratis dengan tim kami.",
     category: "general",
     tags: ["harga", "biaya", "paket", "pricing"]
   },
   {
-    question: "Apakah Genfity melayani klien dari luar kota atau luar negeri?",
+    question: "Apakah Clivy melayani klien dari luar kota atau luar negeri?",
     answer:
       "Ya, kami melayani klien dari seluruh Indonesia dan juga Australia. Tim kami berlokasi di Indonesia dan Australia, sehingga kami dapat melayani klien dengan zona waktu yang berbeda. Dengan memanfaatkan teknologi komunikasi modern seperti video conference, email, dan platform manajemen proyek, kami dapat bekerja sama secara efektif dengan klien dari mana saja.",
     category: "general",
@@ -229,9 +229,9 @@ const faqItems: FaqItem[] = [
     tags: ["hak cipta", "ownership", "source code"]
   },
   {
-    question: "Apa yang membedakan Genfity dengan penyedia layanan digital lainnya?",
+    question: "Apa yang membedakan Clivy dengan penyedia layanan digital lainnya?",
     answer:
-      "Genfity memiliki keunggulan dalam pengalaman tim yang berpengalaman di pasar internasional (Australia dan Indonesia), teknologi terdepan, dan pendekatan yang disesuaikan untuk setiap klien. Kami tidak hanya membangun produk digital, tetapi juga memastikan strategi yang tepat untuk pertumbuhan bisnis jangka panjang Anda. Tim kami juga menyediakan dukungan berkelanjutan setelah proyek selesai.",
+      "Clivy memiliki keunggulan dalam pengalaman tim yang berpengalaman di pasar internasional (Australia dan Indonesia), teknologi terdepan, dan pendekatan yang disesuaikan untuk setiap klien. Kami tidak hanya membangun produk digital, tetapi juga memastikan strategi yang tepat untuk pertumbuhan bisnis jangka panjang Anda. Tim kami juga menyediakan dukungan berkelanjutan setelah proyek selesai.",
     category: "general",
     tags: ["keunggulan", "differensiasi", "internasional"]
   },
@@ -298,7 +298,7 @@ const faqItems: FaqItem[] = [
 
   // Mobile Development FAQs
   {
-    question: "Apakah Genfity mengembangkan aplikasi untuk iOS dan Android?",
+    question: "Apakah Clivy mengembangkan aplikasi untuk iOS dan Android?",
     answer:
       "Ya, kami mengembangkan aplikasi mobile untuk platform iOS dan Android. Kami menawarkan dua pendekatan: native development (Swift untuk iOS, Kotlin untuk Android) untuk performa maksimal, atau cross-platform development (React Native, Flutter) untuk efisiensi waktu dan biaya dengan tetap mempertahankan kualitas tinggi.",
     category: "mobile-development",
@@ -319,7 +319,7 @@ const faqItems: FaqItem[] = [
     tags: ["timeline", "development time", "planning"]
   },
   {
-    question: "Apakah Genfity membantu proses publishing ke App Store dan Play Store?",
+    question: "Apakah Clivy membantu proses publishing ke App Store dan Play Store?",
     answer:
       "Ya, kami membantu seluruh proses publikasi aplikasi ke App Store dan Google Play Store, termasuk persiapan metadata, screenshot, ikon, deskripsi aplikasi, dan handling review process. Kami juga memberikan panduan untuk App Store Optimization (ASO) agar aplikasi Anda lebih mudah ditemukan oleh pengguna.",
     category: "mobile-development",
@@ -335,7 +335,7 @@ const faqItems: FaqItem[] = [
 
   // Corporate System FAQs
   {
-    question: "Jenis sistem korporat apa saja yang dapat dikembangkan Genfity?",
+    question: "Jenis sistem korporat apa saja yang dapat dikembangkan Clivy?",
     answer:
       "Kami mengembangkan berbagai sistem enterprise seperti ERP (Enterprise Resource Planning), CRM (Customer Relationship Management), HRM (Human Resource Management), sistem inventory management, financial management system, project management tools, document management system, dan sistem custom sesuai kebutuhan spesifik perusahaan Anda.",
     category: "corporate-system",
@@ -365,7 +365,7 @@ const faqItems: FaqItem[] = [
     tags: ["user research", "prototyping", "design system"]
   },
   {
-    question: "Bagaimana proses desain UI/UX di Genfity?",
+    question: "Bagaimana proses desain UI/UX di Clivy?",
     answer:
       "Proses kami dimulai dengan research pengguna dan analisis kompetitor, kemudian membuat wireframe dan user flow, dilanjutkan dengan desain visual dan prototyping. Kami melakukan testing dengan pengguna untuk validasi dan iterasi design. Semua tahap melibatkan kolaborasi erat dengan klien untuk memastikan hasil yang sesuai dengan ekspektasi.",
     category: "ui-ux-design",
@@ -450,7 +450,7 @@ const faqItems: FaqItem[] = [
 
   // SEO Specialist FAQs
   {
-    question: "Layanan SEO apa saja yang ditawarkan Genfity?",
+    question: "Layanan SEO apa saja yang ditawarkan Clivy?",
     answer:
       "Layanan SEO kami meliputi technical SEO audit, keyword research dan strategy, on-page optimization, content optimization, link building, local SEO, e-commerce SEO, dan SEO monitoring & reporting. Kami menggunakan tools professional seperti Ahrefs, SEMrush, dan Google Search Console untuk analisis yang mendalam.",
     category: "seo-specialist",
@@ -473,7 +473,7 @@ const faqItems: FaqItem[] = [
 
   // Pricing & Payment FAQs
   {
-    question: "Bagaimana struktur harga layanan Genfity?",
+    question: "Bagaimana struktur harga layanan Clivy?",
     answer:
       "Kami menawarkan struktur harga yang transparan dan fleksibel. Untuk project-based work, harga dihitung berdasarkan scope dan kompleksitas. Untuk ongoing services seperti maintenance atau digital marketing, kami menawarkan paket berlangganan bulanan. Semua quotation mencakup breakdown detail tanpa hidden costs.",
     category: "pricing-payment",
@@ -512,7 +512,7 @@ const faqItems: FaqItem[] = [
 
   // IT Consulting FAQs
   {
-    question: "Jenis konsultasi IT apa yang disediakan Genfity?",
+    question: "Jenis konsultasi IT apa yang disediakan Clivy?",
     answer:
       "Kami menyediakan konsultasi digital transformation strategy, technology audit dan assessment, sistem architecture planning, cloud migration strategy, cybersecurity assessment, IT infrastructure optimization, software selection guidance, dan technology roadmap development. Konsultasi kami membantu businesses make informed technology decisions.",
     category: "it-consulting",
@@ -544,7 +544,7 @@ const faqItems: FaqItem[] = [
 
   // Process FAQs
   {
-    question: "Bagaimana alur kerja project di Genfity?",
+    question: "Bagaimana alur kerja project di Clivy?",
     answer:
       "Alur kerja kami terstruktur: 1) Discovery & consultation untuk memahami requirements, 2) Proposal & planning dengan timeline jelas, 3) Design & development dengan regular check-ins, 4) Testing & quality assurance, 5) Deployment & launch, 6) Training & handover, 7) Post-launch support. Setiap tahap melibatkan client feedback untuk memastikan hasil sesuai ekspektasi.",
     category: "process",

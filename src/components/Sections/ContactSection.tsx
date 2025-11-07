@@ -55,7 +55,7 @@ export default function ContactSection() {
       }
     } catch (error) {
       console.error('Contact form error:', error)
-      setSubmitError('Network error occurred. Please try again or contact us directly at genfity@gmail.com')
+      setSubmitError('Network error occurred. Please try again or contact us directly at clivy@gmail.com')
     } finally {
       setIsSubmitting(false)
     }
@@ -105,7 +105,7 @@ export default function ContactSection() {
                     Email
                   </h4>
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">
-                    genfity@gmail.com
+                    clivy@gmail.com
                   </p>
                 </div>
               </div>
@@ -119,7 +119,7 @@ export default function ContactSection() {
                     Phone
                   </h4>
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">
-                    +62 85174314023
+                    +62 81233784490
                   </p>
                 </div>
               </div>

@@ -60,7 +60,7 @@ const testimonials = [
         company: "Tasty Bites Restaurant",
         industry: "Food & Beverage",
         logo: "🍕",
-        testimonial: "Our daily menu broadcasts reach 10,000+ customers instantly. Order volume increased by 180% since we started using Genfity.",
+        testimonial: "Our daily menu broadcasts reach 10,000+ customers instantly. Order volume increased by 180% since we started using Clivy.",
         author: "Chef Marco Rodriguez",
         position: "Owner",
         metrics: {
@@ -87,31 +87,31 @@ const testimonials = [
 const performanceMetrics = [
     {
         metric: "Message Delivery Speed",
-        genfity: "<30 seconds",
+        clivy: "<30 seconds",
         industry: "2-5 minutes",
         advantage: "10x faster"
     },
     {
         metric: "Campaign Setup Time",
-        genfity: "5 minutes",
+        clivy: "5 minutes",
         industry: "30-60 minutes",
         advantage: "12x faster"
     },
     {
         metric: "Delivery Success Rate",
-        genfity: "98.5%",
+        clivy: "98.5%",
         industry: "85-90%",
         advantage: "10% higher"
     },
     {
         metric: "Support Response Time",
-        genfity: "<2 hours",
+        clivy: "<2 hours",
         industry: "24-48 hours",
         advantage: "24x faster"
     },
     {
         metric: "Campaign Analytics",
-        genfity: "Real-time",
+        clivy: "Real-time",
         industry: "24-48h delay",
         advantage: "Instant insights"
     }
@@ -211,10 +211,10 @@ export default function WhatsAppBroadcastWhyChoose() {
                     className="mx-auto max-w-4xl text-center"
                 >
                     <h2 className="mb-4 sm:mb-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
-                        Why Choose Genfity Broadcast?
+                        Why Choose Clivy Broadcast?
                     </h2>
                     <p className="mb-8 sm:mb-12 text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                        Join 2000+ businesses who trust Genfity for their WhatsApp marketing campaigns.
+                        Join 2000+ businesses who trust Clivy for their WhatsApp marketing campaigns.
                         Experience superior delivery rates, advanced targeting, and exceptional campaign performance.
                     </p>
                 </motion.div>
@@ -338,7 +338,7 @@ export default function WhatsAppBroadcastWhyChoose() {
                             Outperforming Industry Standards
                         </h3>
                         <p className="mb-8 sm:mb-10 md:mb-12 text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300">
-                            See how Genfity&apos;s broadcast platform delivers superior performance across key metrics
+                            See how Clivy&apos;s broadcast platform delivers superior performance across key metrics
                         </p>
                     </div>
 
@@ -347,7 +347,7 @@ export default function WhatsAppBroadcastWhyChoose() {
                             <thead>
                                 <tr className="border-b border-gray-200/50 dark:border-gray-600/50">
                                     <th className="p-3 sm:p-4 text-left text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Performance Metric</th>
-                                    <th className="p-3 sm:p-4 text-center text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Genfity</th>
+                                    <th className="p-3 sm:p-4 text-center text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Clivy</th>
                                     <th className="p-3 sm:p-4 text-center text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Industry Average</th>
                                     <th className="p-3 sm:p-4 text-center text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Our Advantage</th>
                                 </tr>
@@ -365,7 +365,7 @@ export default function WhatsAppBroadcastWhyChoose() {
                                         <td className="p-3 sm:p-4 text-sm sm:text-base font-medium text-gray-900 dark:text-white">{metric.metric}</td>
                                         <td className="p-3 sm:p-4 text-center">
                                             <span className="rounded-full bg-green-100/70 dark:bg-green-900/30 px-2 sm:px-3 py-1 text-xs sm:text-sm font-semibold text-green-600 dark:text-green-400">
-                                                {metric.genfity}
+                                                {metric.clivy}
                                             </span>
                                         </td>
                                         <td className="p-3 sm:p-4 text-center text-xs sm:text-sm text-gray-600 dark:text-gray-300">{metric.industry}</td>
@@ -497,7 +497,7 @@ export default function WhatsAppBroadcastWhyChoose() {
                         </h3>
                         <p className="mb-8 text-gray-600 dark:text-gray-300">
                             Join successful companies across Indonesia and Southeast Asia who rely on
-                            Genfity for their WhatsApp broadcast marketing campaigns.
+                            Clivy for their WhatsApp broadcast marketing campaigns.
                         </p>
 
                         <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 md:grid-cols-6">

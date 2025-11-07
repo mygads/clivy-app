@@ -4,8 +4,8 @@ import type React from "react"
 
 
 export const metadata: Metadata = {
-  title: 'Admin Dashboard - Genfity',
-  description: 'Genfity Admin Panel',
+  title: 'Admin Dashboard - Clivy',
+  description: 'Clivy Admin Panel',
   robots: {
     index: false,
     follow: false,

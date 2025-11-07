@@ -42,7 +42,7 @@ export default function AdminDashboardLayoutClient({ children }: AdminDashboardL
       </div>
       {/* WhatsApp floating button */}
       <WhatsAppFloatingButton 
-        phoneNumber="6285174314023"
+        phoneNumber="6281233784490"
         message="Hi! I need technical support or have questions about the admin panel."
       />
     </div>

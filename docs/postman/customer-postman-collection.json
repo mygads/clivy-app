@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "Genfity Customer API",
-    "description": "Customer-facing API endpoints for Genfity platform. Includes authentication, checkout, payment, and service management for customers only.",
+    "name": "Clivy Customer API",
+    "description": "Customer-facing API endpoints for Clivy platform. Includes authentication, checkout, payment, and service management for customers only.",
     "version": "1.0.0",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },

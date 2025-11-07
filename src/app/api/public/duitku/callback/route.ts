@@ -81,10 +81,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Extract transaction ID from merchantOrderId
-    // Format: GENFITY-{transactionId}-{timestamp}
+    // Format: CLIVY-{transactionId}-{timestamp}
     let transactionId: string
     
-    if (merchantOrderId && merchantOrderId.startsWith('GENFITY-')) {
+    if (merchantOrderId && merchantOrderId.startsWith('CLIVY-')) {
       const merchantOrderParts = merchantOrderId.split('-')
       if (merchantOrderParts.length >= 2) {
         transactionId = merchantOrderParts[1]

@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       status: 'healthy',
       timestamp: new Date().toISOString(),
-      service: 'genfity-backend',
+      service: 'clivy-backend',
       database: 'connected', // Add actual DB check here
       uptime: process.uptime()
     }, { status: 200 });
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       status: 'unhealthy',
       timestamp: new Date().toISOString(),
-      service: 'genfity-backend',
+      service: 'clivy-backend',
       error: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }

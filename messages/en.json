@@ -16,7 +16,7 @@
     "contact": "Contact Us",    "signUp": "Sign Up",
     "signIn": "Sign In",
     "cart": "Cart",
-    "aboutGenfity": "About Genfity",
+    "aboutClivy": "About Clivy",
     "faq": "FAQ",
     "blog": "Blog (Coming Soon)",
     "career": "Career (Coming Soon)",
@@ -52,8 +52,8 @@
   },
   "terms": {
     "meta": {
-      "title": "Terms and Conditions - Genfity",
-      "description": "Terms and Conditions for using Genfity's digital services and platform"
+      "title": "Terms and Conditions - Clivy",
+      "description": "Terms and Conditions for using Clivy's digital services and platform"
     },
     "title": "Terms and Conditions",
     "lastUpdated": "Last updated September 17, 2025",
@@ -93,8 +93,8 @@
   },
   "privacy": {
     "meta": {
-      "title": "Privacy Policy - Genfity",
-      "description": "Privacy Policy for Genfity's digital services and data protection practices"
+      "title": "Privacy Policy - Clivy",
+      "description": "Privacy Policy for Clivy's digital services and data protection practices"
     },
     "title": "Privacy Policy",
     "lastUpdated": "Last updated September 17, 2025",
@@ -125,8 +125,8 @@
   },
   "refund": {
     "meta": {
-      "title": "Refund Policy - Genfity",
-      "description": "Refund policy and terms for Genfity's digital services"
+      "title": "Refund Policy - Clivy",
+      "description": "Refund policy and terms for Clivy's digital services"
     },
     "title": "Refund Policy",
     "lastUpdated": "Last updated September 17, 2025",
@@ -155,7 +155,7 @@
   "HowToOrder": {
     "title": "How to Order",
     "subtitle": "Complete guide to placing your order",
-    "description": "Follow our comprehensive ordering process to get your project started with Genfity.",
+    "description": "Follow our comprehensive ordering process to get your project started with Clivy.",
     "orderingProcess": {
       "title": "Ordering Process",
       "subtitle": "8 simple steps to complete your order",
@@ -309,7 +309,7 @@
     "signUp": {
       "title": "Sign Up",
       "subtitle": "Create your account",
-      "description": "Join us and start your journey with Genfity",
+      "description": "Join us and start your journey with Clivy",
       "form": {
         "name": "Full Name",
         "namePlaceholder": "Enter your full name",
@@ -560,7 +560,7 @@
   },
   "appointment": {
     "meta": {
-      "title": "Book Appointment - Genfity",
+      "title": "Book Appointment - Clivy",
       "description": "Schedule a consultation with our experts to discuss your digital needs and get personalized solutions."
     },
     "title": "Book Appointment",
@@ -654,11 +654,11 @@
   },
   "sustainability": {
     "meta": {
-      "title": "Sustainability - Genfity",
-      "description": "Learn about Genfity's commitment to environmental sustainability and our green technology initiatives for a better digital future."
+      "title": "Sustainability - Clivy",
+      "description": "Learn about Clivy's commitment to environmental sustainability and our green technology initiatives for a better digital future."
     },
     "title": "Our Commitment to Sustainability",
-    "subtitle": "At Genfity, we believe in creating digital solutions that not only drive business success but also contribute to a sustainable future for our planet.",
+    "subtitle": "At Clivy, we believe in creating digital solutions that not only drive business success but also contribute to a sustainable future for our planet.",
     "hero": {
       "title": "Building a Greener Digital Future",
       "description": "We're committed to reducing our environmental impact through sustainable practices, green technologies, and responsible business operations."
@@ -766,7 +766,7 @@
   },
   "customerService": {
     "meta": {
-      "title": "Customer Service - Genfity",
+      "title": "Customer Service - Clivy",
       "description": "Get comprehensive support for your digital solutions. Our customer service team is ready to help you with technical issues, billing questions, and project inquiries."
     },
     "title": "Customer Service",
@@ -789,7 +789,7 @@
         "email": {
           "title": "Email Support",
           "description": "Send detailed inquiries and get comprehensive responses via email.",
-          "address": "genfity@gmail.com",
+          "address": "clivy@gmail.com",
           "hours": "24/7 Support",
           "response": "Response within 24 hours"
         },

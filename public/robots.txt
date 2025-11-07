@@ -41,7 +41,7 @@ Allow: /
 Allow: /api/og
 
 # Sitemap
-Sitemap: https://www.genfity.com/sitemap.xml
+Sitemap: https://www.clivy.com/sitemap.xml
 
 # Host
-Host: www.genfity.com
+Host: www.clivy.com

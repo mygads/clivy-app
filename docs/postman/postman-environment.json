@@ -1,6 +1,6 @@
 {
-  "id": "genfity-api-environment",
-  "name": "Genfity API Environment",
+  "id": "clivy-api-environment",
+  "name": "Clivy API Environment",
   "values": [
     {
       "key": "base_url",
@@ -10,7 +10,7 @@
     },
     {
       "key": "production_url",
-      "value": "https://api.genfity.com/api",
+      "value": "https://api.clivy.com/api",
       "type": "default",
       "enabled": false
     },

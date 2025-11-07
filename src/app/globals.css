@@ -31,10 +31,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 215 94% 21%; /* Genfity Blue */
+    --primary: 215 94% 21%; /* Clivy Blue */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 355 83% 51%; /* Genfity Red */
+    --secondary: 355 83% 51%; /* Clivy Red */
     --secondary-foreground: 210 40% 98%;
 
     --muted: 210 40% 96.1%;
@@ -48,7 +48,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 215 94% 21%; /* Genfity Blue for focus rings */
+    --ring: 215 94% 21%; /* Clivy Blue for focus rings */
 
     --radius: 0.75rem;
     

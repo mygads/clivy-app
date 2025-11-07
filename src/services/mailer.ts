@@ -21,7 +21,7 @@ const getEmailTemplate = (content: string, title: string) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>${title} - GENFITY</title>
+        <title>${title} - CLIVY</title>
         <style>
             @media only screen and (max-width: 600px) {
                 .email-container { width: 100% !important; margin: 0 !important; }
@@ -39,7 +39,7 @@ const getEmailTemplate = (content: string, title: string) => {
             <div style="text-align: center; padding-top: 26px;">
                 <img 
                     src="https://5kc2v8tlh1bsvesh.public.blob.vercel-storage.com/logo.png" 
-                    alt="GENFITY" 
+                    alt="CLIVY" 
                     width="160"
                     style="display: inline-block; height: auto;" 
                 />
@@ -57,7 +57,7 @@ const getEmailTemplate = (content: string, title: string) => {
                 <!-- Support -->
                 <div style="margin-top: 32px; padding: 18px; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; text-align: center;">
                     <p style="color: #475569; font-size: 14px; margin: 0 0 10px 0; font-weight: 500;">Need help?</p>
-                    <a href="mailto:services@genfity.com" 
+                    <a href="mailto:services@clivy.com" 
                         style="display: inline-block; background: #23284e; color: #ffffff; text-decoration: none; font-weight: 500; padding: 10px 20px; border-radius: 6px; font-size: 14px;">
                         Contact Support
                     </a>
@@ -69,7 +69,7 @@ const getEmailTemplate = (content: string, title: string) => {
                         This email was sent automatically. Please do not reply.
                     </p>
                     <p style="color: #d1d5db; font-size: 11px; margin: 0;">
-                        &copy; ${new Date().getFullYear()} GENFITY. All rights reserved.
+                        &copy; ${new Date().getFullYear()} CLIVY. All rights reserved.
                     </p>
                 </div>
             </div>
@@ -87,7 +87,7 @@ const getEmailTemplate = (content: string, title: string) => {
 //         <div style="text-align: center;">
 //             <img 
 //                 src="https://5kc2v8tlh1bsvesh.public.blob.vercel-storage.com/logo-dark-mode.png" 
-//                 alt="GENFITY" 
+//                 alt="CLIVY" 
 //                 width="200"
 //                 style="display: inline-block; height: auto;" 
 //             />
@@ -101,7 +101,7 @@ const getEmailTemplate = (content: string, title: string) => {
 //             <meta charset="UTF-8">
 //             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 //             <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//             <title>${title} - GENFITY</title>
+//             <title>${title} - CLIVY</title>
 //             <style>
 //                 @media only screen and (max-width: 600px) {
 //                     .email-container { width: 100% !important; margin: 0 !important; }
@@ -127,7 +127,7 @@ const getEmailTemplate = (content: string, title: string) => {
 //                         <div style="margin-bottom: 16px;">
 //                             ${logoDisplay}
 //                         </div>
-//                         <p style="color: rgba(255,255,255,0.8); font-size: 13px; margin: 4px 0 0 0; font-weight: 400;">Genfity Digital Solutions</p>
+//                         <p style="color: rgba(255,255,255,0.8); font-size: 13px; margin: 4px 0 0 0; font-weight: 400;">Clivy WhatsApp API Services</p>
 //                     </div>
                     
 //                     <!-- Content Area -->
@@ -140,7 +140,7 @@ const getEmailTemplate = (content: string, title: string) => {
 //                         <!-- Support Section -->
 //                         <div style="margin-top: 36px; padding: 20px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
 //                             <p style="color: #475569; font-size: 14px; margin: 0 0 12px 0; font-weight: 500;">Need help?</p>
-//                             <a href="mailto:support@genfity.com" style="display: inline-block; background: #23284e; color: #ffffff; text-decoration: none; font-weight: 500; padding: 10px 20px; border-radius: 6px; font-size: 14px;">Contact Support</a>
+//                             <a href="mailto:support@clivy.com" style="display: inline-block; background: #23284e; color: #ffffff; text-decoration: none; font-weight: 500; padding: 10px 20px; border-radius: 6px; font-size: 14px;">Contact Support</a>
 //                         </div>
                         
 //                         <!-- Footer -->
@@ -149,7 +149,7 @@ const getEmailTemplate = (content: string, title: string) => {
 //                                 This email was sent automatically. Please do not reply.
 //                             </p>
 //                             <p style="color: #cbd5e1; font-size: 11px; margin: 0;">
-//                                 &copy; ${new Date().getFullYear()} GENFITY. All rights reserved.
+//                                 &copy; ${new Date().getFullYear()} CLIVY. All rights reserved.
 //                             </p>
 //                         </div>
 //                     </div>
@@ -200,7 +200,7 @@ const getOTPEmailContent = (otp: string, userName: string | null, purpose: strin
                 <strong style="color: #991b1b; font-size: 13px;">Security Notice</strong>
             </div>
             <p style="color: #7f1d1d; font-size: 12px; margin: 0; line-height: 1.4;">
-                Never share this code. Genfity will never ask for your verification code.
+                Never share this code. Clivy will never ask for your verification code.
             </p>
         </div>
         
@@ -218,7 +218,7 @@ const getVerificationLinkContent = (verificationLink: string, userName: string |
                 Hello ${userName || 'User'} 👋
             </p>
             <p style="color: #64748b; font-size: 14px; margin: 0;">
-                Welcome to GENFITY
+                Welcome to CLIVY
             </p>
         </div>
         
@@ -283,9 +283,9 @@ export async function sendVerificationEmail(email: string, token: string, name?:
     const userName = name || 'User';
 
     const mailOptions: MailOptions = {
-        from: `"GENFITY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
+        from: `"CLIVY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
         to: email,
-        subject: 'Verify Your Email Address - GENFITY',
+        subject: 'Verify Your Email Address - CLIVY',
         html: getEmailTemplate(getVerificationLinkContent(verificationLink, userName), 'Email Verification'),
     };
 
@@ -318,9 +318,9 @@ export async function sendVerificationEmail(email: string, token: string, name?:
  */
 export async function sendEmailOtpVerification(email: string, otp: string, userName: string | null): Promise<MailerResponse> {
     const mailOptions: MailOptions = {
-        from: `"GENFITY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
+        from: `"CLIVY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
         to: email,
-        subject: 'Email Verification Code - GENFITY',
+        subject: 'Email Verification Code - CLIVY',
         html: getEmailTemplate(getOTPEmailContent(otp, userName, 'email-verification', 10), 'Email Verification'),
     };
 
@@ -398,9 +398,9 @@ export async function sendPasswordResetEmail(email: string, token: string, userN
     `;
 
     const mailOptions: MailOptions = {
-        from: `"GENFITY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
+        from: `"CLIVY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
         to: email,
-        subject: 'Reset Your Account Password - GENFITY',
+        subject: 'Reset Your Account Password - CLIVY',
         html: getEmailTemplate(resetContent, 'Password Reset'),
     };
 
@@ -432,9 +432,9 @@ export async function sendPasswordResetEmail(email: string, token: string, userN
  */
 export async function sendPasswordResetOtpEmail(email: string, otp: string, userName: string | null): Promise<MailerResponse> {
     const mailOptions: MailOptions = {
-        from: `"GENFITY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
+        from: `"CLIVY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
         to: email,
-        subject: 'Password Reset Code - GENFITY',
+        subject: 'Password Reset Code - CLIVY',
         html: getEmailTemplate(getOTPEmailContent(otp, userName, 'password-reset', 10), 'Password Reset'),
     };
 
@@ -466,9 +466,9 @@ export async function sendPasswordResetOtpEmail(email: string, otp: string, user
  */
 export async function sendSSOLoginOtpEmail(email: string, otp: string, userName: string | null): Promise<MailerResponse> {
     const mailOptions: MailOptions = {
-        from: `"GENFITY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
+        from: `"CLIVY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
         to: email,
-        subject: 'Secure Login Code - GENFITY',
+        subject: 'Secure Login Code - CLIVY',
         html: getEmailTemplate(getOTPEmailContent(otp, userName, 'sso-login', 10), 'Secure Login'),
     };
 
@@ -501,7 +501,7 @@ export async function sendEmail(options: MailOptions): Promise<MailerResponse> {
         if (process.env.NODE_ENV === 'production' || (process.env.EMAIL_SERVER_USER && process.env.EMAIL_SERVER_PASSWORD)) {
             console.log(`Mailer: Sending email to ${options.to}...`);
             const result = await transporter.sendMail({
-                from: options.from || `"GENFITY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
+                from: options.from || `"CLIVY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
                 ...options
             });
             console.log(`Mailer: Email sent successfully to ${options.to}. MessageId: ${result.messageId}`);

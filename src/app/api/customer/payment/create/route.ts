@@ -576,8 +576,8 @@ function getPaymentInstructions(paymentMethod: any, payment: any, serviceFee: an
         return `Instruksi Pembayaran Indomaret:\n\n` +
                `1. Catat dan simpan Kode Pembayaran Anda\n` +
                `2. Datang ke Gerai retail Indomaret / Ceriamart / Lion Super Indo\n` +
-               `3. Informasikan kepada kasir akan melakukan "Pembayaran Genfity"\n` +
-               `4. Apabila kasir mengatakan tidak melayani pembayaran untuk "Genfity", Anda dapat menginformasikan bahwa pembayaran ini merupakan Payment Point pada Kategori "e-Commerce"\n` +
+               `3. Informasikan kepada kasir akan melakukan "Pembayaran Clivy"\n` +
+               `4. Apabila kasir mengatakan tidak melayani pembayaran untuk "Clivy", Anda dapat menginformasikan bahwa pembayaran ini merupakan Payment Point pada Kategori "e-Commerce"\n` +
                `5. Tunjukkan dan berikan Kode Pembayaran ke Kasir\n` +
                `6. Lakukan pembayaran sesuai nominal ${formattedAmount} dan tunggu proses selesai\n` +
                `7. Minta dan simpan struk sebagai bukti pembayaran\n` +

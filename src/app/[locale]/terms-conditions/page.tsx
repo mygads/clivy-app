@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     : "Terms and Conditions - Digital Service Terms of Service";
     
   const description = isIndonesian
-    ? "Syarat dan ketentuan penggunaan layanan Genfity. Ketentuan hukum, hak dan kewajiban pengguna, serta aturan penggunaan platform digital kami."
-    : "Terms and conditions for using Genfity services. Legal terms, user rights and obligations, and rules for using our digital platform.";
+    ? "Syarat dan ketentuan penggunaan layanan Clivy. Ketentuan hukum, hak dan kewajiban pengguna, serta aturan penggunaan platform digital kami."
+    : "Terms and conditions for using Clivy services. Legal terms, user rights and obligations, and rules for using our digital platform.";
 
   return generatePageMetadata({
     title,
@@ -61,19 +61,19 @@ export default async function TermsConditionsPage({ params }: { params: Promise<
                 {/* <p>
                   We are <strong>PT Generation Infinity Indonesia</strong> (&ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; &ldquo;our&rdquo;), 
                   a company registered in Indonesia at Jl. Harvard No. 9 Sulaiman, Margahayu, 
-                  Kabupaten Bandung, Jawa Barat 40229, Indonesia. We also operate as <strong>Genfity Digital Solutions </strong> 
+                  Kabupaten Bandung, Jawa Barat 40229, Indonesia. We also operate as <strong>Clivy WhatsApp API Services </strong> 
                   in Australia (ABN: 13 426 412 034) at 157 Braidwood Dr, Australind WA 6233.
                 </p> */}
                 <p>
-                  We operate the website genfity.com (the &ldquo;Site&rdquo;), as well as any other related products 
+                  We operate the website clivy.com (the &ldquo;Site&rdquo;), as well as any other related products 
                   and services that refer or link to these legal terms (the &ldquo;Legal Terms&rdquo;) (collectively, the &ldquo;Services&rdquo;).
                 </p>
                 <p>
-                  You can contact us by phone at <strong>+62 85174314023</strong>, email at <strong>genfity@gmail.com</strong>.
+                  You can contact us by phone at <strong>+62 81233784490</strong>, email at <strong>clivy@gmail.com</strong>.
                 </p>
                 <p>
                   These Legal Terms constitute a legally binding agreement made between you, whether personally 
-                  or on behalf of an entity (&ldquo;you&rdquo;), and Genfity, concerning your access 
+                  or on behalf of an entity (&ldquo;you&rdquo;), and Clivy, concerning your access 
                   to and use of the Services. You agree that by accessing the Services, you have read, understood, 
                   and agreed to be bound by all of these Legal Terms. <strong>IF YOU DO NOT AGREE WITH ALL OF THESE 
                   LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.</strong>

@@ -12,7 +12,7 @@
     "contact": "Hubungi Kami",    "signUp": "Daftar",
     "signIn": "Masuk",
     "cart": "Keranjang",
-    "aboutGenfity": "Tentang Genfity",
+    "aboutClivy": "Tentang Clivy",
     "faq": "FAQ",
     "blog": "Blog (Segera Hadir)",
     "career": "Karir (Segera Hadir)",
@@ -48,8 +48,8 @@
   },
   "terms": {
     "meta": {
-      "title": "Syarat dan Ketentuan - Genfity",
-      "description": "Syarat dan Ketentuan penggunaan layanan digital dan platform Genfity"
+      "title": "Syarat dan Ketentuan - Clivy",
+      "description": "Syarat dan Ketentuan penggunaan layanan digital dan platform Clivy"
     },
     "title": "Syarat dan Ketentuan",
     "lastUpdated": "Terakhir diperbarui 17 September 2025",
@@ -89,8 +89,8 @@
   },
   "privacy": {
     "meta": {
-      "title": "Kebijakan Privasi - Genfity",
-      "description": "Kebijakan Privasi untuk layanan digital Genfity dan praktik perlindungan data"
+      "title": "Kebijakan Privasi - Clivy",
+      "description": "Kebijakan Privasi untuk layanan digital Clivy dan praktik perlindungan data"
     },
     "title": "Kebijakan Privasi",
     "lastUpdated": "Terakhir diperbarui 17 September 2025",
@@ -121,8 +121,8 @@
   },
   "refund": {
     "meta": {
-      "title": "Kebijakan Pengembalian Dana - Genfity",
-      "description": "Kebijakan pengembalian dana dan ketentuan untuk layanan digital Genfity"
+      "title": "Kebijakan Pengembalian Dana - Clivy",
+      "description": "Kebijakan pengembalian dana dan ketentuan untuk layanan digital Clivy"
     },
     "title": "Kebijakan Pengembalian Dana",
     "lastUpdated": "Terakhir diperbarui 17 September 2025",
@@ -151,7 +151,7 @@
   "HowToOrder": {
     "title": "Cara Pesan",
     "subtitle": "Panduan lengkap untuk melakukan pemesanan",
-    "description": "Ikuti proses pemesanan komprehensif kami untuk memulai proyek Anda dengan Genfity.",
+    "description": "Ikuti proses pemesanan komprehensif kami untuk memulai proyek Anda dengan Clivy.",
     "orderingProcess": {
       "title": "Proses Pemesanan",
       "subtitle": "8 langkah mudah untuk menyelesaikan pesanan Anda",
@@ -305,7 +305,7 @@
     "signUp": {
       "title": "Daftar",
       "subtitle": "Buat akun Anda",
-      "description": "Bergabunglah dengan kami dan mulai perjalanan Anda bersama Genfity",
+      "description": "Bergabunglah dengan kami dan mulai perjalanan Anda bersama Clivy",
       "form": {
         "name": "Nama Lengkap",
         "namePlaceholder": "Masukkan nama lengkap Anda",
@@ -621,7 +621,7 @@
   },
   "appointment": {
     "meta": {
-      "title": "Buat Janji Temu - Genfity",
+      "title": "Buat Janji Temu - Clivy",
       "description": "Jadwalkan konsultasi dengan para ahli kami untuk membahas kebutuhan digital Anda dan mendapatkan solusi yang dipersonalisasi."
     },
     "title": "Buat Janji Temu",
@@ -715,11 +715,11 @@
   },
   "sustainability": {
     "meta": {
-      "title": "Keberlanjutan - Genfity",
-      "description": "Pelajari komitmen Genfity terhadap keberlanjutan lingkungan dan inisiatif teknologi hijau kami untuk masa depan digital yang lebih baik."
+      "title": "Keberlanjutan - Clivy",
+      "description": "Pelajari komitmen Clivy terhadap keberlanjutan lingkungan dan inisiatif teknologi hijau kami untuk masa depan digital yang lebih baik."
     },
     "title": "Komitmen Kami terhadap Keberlanjutan",
-    "subtitle": "Di Genfity, kami percaya dalam menciptakan solusi digital yang tidak hanya mendorong kesuksesan bisnis tetapi juga berkontribusi pada masa depan yang berkelanjutan bagi planet kita.",
+    "subtitle": "Di Clivy, kami percaya dalam menciptakan solusi digital yang tidak hanya mendorong kesuksesan bisnis tetapi juga berkontribusi pada masa depan yang berkelanjutan bagi planet kita.",
     "hero": {
       "title": "Membangun Masa Depan Digital yang Lebih Hijau",
       "description": "Kami berkomitmen untuk mengurangi dampak lingkungan melalui praktik berkelanjutan, teknologi hijau, dan operasi bisnis yang bertanggung jawab."
@@ -827,7 +827,7 @@
   },
   "customerService": {
     "meta": {
-      "title": "Layanan Pelanggan - Genfity",
+      "title": "Layanan Pelanggan - Clivy",
       "description": "Dapatkan dukungan komprehensif untuk solusi digital Anda. Tim layanan pelanggan kami siap membantu Anda dengan masalah teknis, pertanyaan tagihan, dan inquiry proyek."
     },
     "title": "Layanan Pelanggan",
@@ -850,7 +850,7 @@
         "email": {
           "title": "Dukungan Email",
           "description": "Kirim pertanyaan detail dan dapatkan respons komprehensif melalui email.",
-          "address": "genfity@gmail.com",
+          "address": "clivy@gmail.com",
           "hours": "Dukungan 24/7",
           "response": "Respons dalam 24 jam"
         },

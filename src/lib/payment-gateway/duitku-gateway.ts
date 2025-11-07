@@ -173,9 +173,9 @@ export class DuitkuPaymentGateway implements PaymentGateway {
       });
       
       // Create unique merchant order ID that can be traced back to our payment
-      const merchantOrderId = `GENFITY-${request.transactionId}-${Date.now()}`
+      const merchantOrderId = `CLIVY-${request.transactionId}-${Date.now()}`
       const paymentAmount = Math.round(request.amount)
-      const productDetails = `Genfity Services - Transaction ${request.transactionId}`
+      const productDetails = `Clivy Services - Transaction ${request.transactionId}`
       
       // Generate signature sesuai dokumentasi: MD5(merchantCode + merchantOrderId + paymentAmount + apiKey)
       const signature = this.generateTransactionSignature(merchantOrderId, paymentAmount)
@@ -183,7 +183,7 @@ export class DuitkuPaymentGateway implements PaymentGateway {
       // Split customer name untuk firstName dan lastName
       const nameParts = request.customerInfo.name.trim().split(' ')
       const firstName = nameParts[0] || 'Customer'
-      const lastName = nameParts.slice(1).join(' ') || 'Genfity'
+      const lastName = nameParts.slice(1).join(' ') || 'Clivy'
 
       // Prepare request data sesuai dokumentasi Duitku
       const requestData: any = {
@@ -638,8 +638,8 @@ export class DuitkuPaymentGateway implements PaymentGateway {
 
 1. Catat dan simpan Kode Pembayaran Anda
 2. Datang ke Gerai retail Indomaret / Ceriamart / Lion Super Indo
-3. Informasikan kepada kasir akan melakukan "Pembayaran Genfity"
-4. Apabila kasir mengatakan tidak melayani pembayaran untuk "Genfity", Anda dapat menginformasikan bahwa pembayaran ini merupakan Payment Point pada Kategori "e-Commerce"
+3. Informasikan kepada kasir akan melakukan "Pembayaran Clivy"
+4. Apabila kasir mengatakan tidak melayani pembayaran untuk "Clivy", Anda dapat menginformasikan bahwa pembayaran ini merupakan Payment Point pada Kategori "e-Commerce"
 5. Tunjukkan dan berikan Kode Pembayaran ke Kasir
 6. Lakukan pembayaran sesuai nominal yang diinformasikan dan tunggu proses selesai
 7. Minta dan simpan struk sebagai bukti pembayaran

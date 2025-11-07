@@ -5,7 +5,7 @@ export const runtime = 'edge'
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const title = searchParams.get('title') || 'Genfity - Digital Solutions'
+    const title = searchParams.get('title') || 'Clivy - WhatsApp API Services'
     const subtitle = searchParams.get('subtitle') || 'Software House & Digital Marketing Agency'
     const locale = searchParams.get('locale') || 'en'
     
@@ -59,7 +59,7 @@ export async function GET(request: Request) {
                 fontWeight: 'bold',
               }}
             >
-              GENFITY
+              CLIVY
             </div>
           </div>
 

@@ -1,9 +1,9 @@
 {
   "info": {
-    "name": "WhatsApp API - Genfity Backend",
+    "name": "WhatsApp API - Clivy Backend",
     "description": "Complete API collection for WhatsApp session management and message sending.\n\n## Authentication\n\n### Customer API\nUse Bearer Token authentication:\n```\nAuthorization: Bearer gf_your_api_key\n```\n\n### Public API\nUse API Key as URL parameter (no Bearer token required)\nGet your API key from `/api/customer/whatsapp/apikey` endpoint.\nThis API key works for all your WhatsApp sessions.\n\n## Requirements\n1. User must be logged in and have API key\n2. User must have active WhatsApp subscription package\n3. WhatsApp session must be 'connected' for message sending\n4. API key is global - one key works for all user sessions",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "whatsapp-api-genfity"
+    "_exporter_id": "whatsapp-api-clivy"
   },
   "auth": {
     "type": "bearer",

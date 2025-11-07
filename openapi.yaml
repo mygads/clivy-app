@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
-  title: Genfity API - Authentication, Account, and Product Management
+  title: Clivy API - Authentication, Account, and Product Management
   version: 1.1.0
   description: |
-    API untuk manajemen user (sign up, sign in, session, verifikasi email/OTP, password), serta manajemen produk (kategori, subkategori, addon, paket) untuk platform Genfity. Mendukung login berbasis session/cookie (NextAuth.js) dan endpoint CRUD produk.
+    API untuk manajemen user (sign up, sign in, session, verifikasi email/OTP, password), serta manajemen produk (kategori, subkategori, addon, paket) untuk platform Clivy. Mendukung login berbasis session/cookie (NextAuth.js) dan endpoint CRUD produk.
 
 servers:
-  - url: api.genfity.com/api
+  - url: api.clivy.com/api
 
 components:  securitySchemes:
     cookieAuth:

@@ -15,19 +15,19 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const isIndonesian = locale === 'id';
   
   const title = isIndonesian
-    ? "Keberlanjutan Lingkungan - Genfity | Teknologi Ramah Lingkungan"
-    : "Environmental Sustainability - Genfity | Eco-Friendly Technology";
+    ? "Keberlanjutan Lingkungan - Clivy | Teknologi Ramah Lingkungan"
+    : "Environmental Sustainability - Clivy | Eco-Friendly Technology";
     
   const description = isIndonesian
-    ? "Komitmen Genfity terhadap keberlanjutan lingkungan melalui solusi teknologi ramah lingkungan, praktik bisnis yang bertanggung jawab, dan inovasi berkelanjutan untuk masa depan yang lebih hijau."
-    : "Genfity's commitment to environmental sustainability through eco-friendly technology solutions, responsible business practices, and sustainable innovations for a greener future.";
+    ? "Komitmen Clivy terhadap keberlanjutan lingkungan melalui solusi teknologi ramah lingkungan, praktik bisnis yang bertanggung jawab, dan inovasi berkelanjutan untuk masa depan yang lebih hijau."
+    : "Clivy's commitment to environmental sustainability through eco-friendly technology solutions, responsible business practices, and sustainable innovations for a greener future.";
 
   return {
     title,
     description,
     keywords: isIndonesian
-      ? "keberlanjutan lingkungan, teknologi ramah lingkungan, praktik bisnis berkelanjutan, inovasi hijau, genfity sustainability"
-      : "environmental sustainability, eco-friendly technology, sustainable business practices, green innovation, genfity sustainability",
+      ? "keberlanjutan lingkungan, teknologi ramah lingkungan, praktik bisnis berkelanjutan, inovasi hijau, clivy sustainability"
+      : "environmental sustainability, eco-friendly technology, sustainable business practices, green innovation, clivy sustainability",
     openGraph: {
       title,
       description,

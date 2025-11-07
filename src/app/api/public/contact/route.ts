@@ -35,7 +35,7 @@ const getContactEmailTemplate = (data: ContactRequest) => {
         <div class="container">
             <div class="header">
                 <h1 style="margin: 0; font-size: 24px;">New Contact Form Submission</h1>
-                <p style="margin: 10px 0 0 0; opacity: 0.9;">genfity.com</p>
+                <p style="margin: 10px 0 0 0; opacity: 0.9;">clivy.com</p>
             </div>
             
             <div class="content">
@@ -62,10 +62,10 @@ const getContactEmailTemplate = (data: ContactRequest) => {
             
             <div class="footer">
                 <p style="margin: 0; color: #6b7280; font-size: 14px;">
-                    This email was sent automatically from the contact form on genfity.com
+                    This email was sent automatically from the contact form on clivy.com
                 </p>
                 <p style="margin: 5px 0 0 0; color: #9ca3af; font-size: 12px;">
-                    © ${new Date().getFullYear()} GENFITY. All rights reserved.
+                    © ${new Date().getFullYear()} CLIVY. All rights reserved.
                 </p>
             </div>
         </div>
@@ -87,7 +87,7 @@ ${data.message}
 
 ---
 📅 *Time:* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
-🌐 *Source:* genfity.com contact form
+🌐 *Source:* clivy.com contact form
 
 _This message was sent automatically from the website contact form._`
 }
@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
 
     // Send email notification to admin
     const emailResult = await sendEmail({
-      to: 'genfity@gmail.com',
+      to: 'clivy@gmail.com',
       subject: `New Contact Form Submission from ${body.name}`,
       html: getContactEmailTemplate(body)
     })

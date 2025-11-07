@@ -47,7 +47,7 @@ const testimonials = [
         company: "TechnoMart Indonesia",
         industry: "E-commerce",
         logo: "🛒",
-        testimonial: "Genfity's WhatsApp API increased our customer engagement by 400%. The integration was seamless and support was exceptional.",
+        testimonial: "Clivy's WhatsApp API increased our customer engagement by 400%. The integration was seamless and support was exceptional.",
         author: "Sarah Chen",
         position: "CTO",
         metrics: {
@@ -114,31 +114,31 @@ const certifications = [
 const competitiveAdvantages = [
     {
         feature: "API Response Time",
-        genfity: "<200ms",
+        clivy: "<200ms",
         competitor: "500ms+",
         advantage: "2.5x faster"
     },
     {
         feature: "Uptime Guarantee",
-        genfity: "99.9%",
+        clivy: "99.9%",
         competitor: "99.5%",
         advantage: "4x less downtime"
     },
     {
         feature: "Support Response",
-        genfity: "<15 minutes",
+        clivy: "<15 minutes",
         competitor: "2-4 hours",
         advantage: "8x faster support"
     },
     {
         feature: "Global Reach",
-        genfity: "180+ countries",
+        clivy: "180+ countries",
         competitor: "50-100 countries",
         advantage: "2x more coverage"
     },
     {
         feature: "Message Delivery",
-        genfity: "99.8%",
+        clivy: "99.8%",
         competitor: "95-97%",
         advantage: "3-5% higher"
     }
@@ -187,7 +187,7 @@ export default function WhatsAppAPIWhyChoose() {
                     className="mx-auto max-w-3xl text-center"
                 >
                     <h2 className="mb-4 sm:mb-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
-                        Why Choose Genfity WhatsApp API?
+                        Why Choose Clivy WhatsApp API?
                     </h2>
                     <p className="mb-8 sm:mb-12 text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300">
                         Experience the difference with Indonesia&apos;s leading WhatsApp Business Solution Provider.
@@ -314,7 +314,7 @@ export default function WhatsAppAPIWhyChoose() {
                             Outperforming the Competition
                         </h3>
                         <p className="mb-12 text-green-100">
-                            See how Genfity&apos;s WhatsApp API stacks up against other providers in key performance metrics
+                            See how Clivy&apos;s WhatsApp API stacks up against other providers in key performance metrics
                         </p>
                     </div>
 
@@ -323,7 +323,7 @@ export default function WhatsAppAPIWhyChoose() {
                             <thead>
                                 <tr className="border-b border-white/20">
                                     <th className="p-4 text-left font-semibold">Feature</th>
-                                    <th className="p-4 text-center font-semibold">Genfity</th>
+                                    <th className="p-4 text-center font-semibold">Clivy</th>
                                     <th className="p-4 text-center font-semibold">Competitors</th>
                                     <th className="p-4 text-center font-semibold">Advantage</th>
                                 </tr>
@@ -341,7 +341,7 @@ export default function WhatsAppAPIWhyChoose() {
                                         <td className="p-4 font-medium">{item.feature}</td>
                                         <td className="p-4 text-center">
                                             <span className="rounded-full bg-green-400 px-3 py-1 text-sm font-semibold text-green-900">
-                                                {item.genfity}
+                                                {item.clivy}
                                             </span>
                                         </td>
                                         <td className="p-4 text-center text-green-200">{item.competitor}</td>
@@ -430,7 +430,7 @@ export default function WhatsAppAPIWhyChoose() {
                             Trusted by 1000+ Businesses
                         </h3>
                         <p className="mb-8 text-gray-600 dark:text-gray-300">
-                            Join leading companies across Indonesia and Southeast Asia who trust Genfity
+                            Join leading companies across Indonesia and Southeast Asia who trust Clivy
                             for their WhatsApp Business communication needs.
                         </p>
 

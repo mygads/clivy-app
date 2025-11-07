@@ -54,7 +54,7 @@ class WhatsAppGoService {
     private userToken: string;
 
     constructor() {
-        this.baseUrl = process.env.WHATSAPP_SERVER_API || 'https://wa.genfity.com';
+        this.baseUrl = process.env.WHATSAPP_SERVER_API || 'https://wa.clivy.com';
         this.adminToken = process.env.WHATSAPP_ADMIN_TOKEN || '';
         this.userToken = process.env.WHATSAPP_USER_TOKEN || '';
     }
@@ -387,7 +387,7 @@ class WhatsAppGoService {
     }
 
     /**
-     * Get system session status (for genfity system WhatsApp)
+     * Get system session status (for clivy system WhatsApp)
      * Uses /session/status endpoint as specified by user requirements
      */
     async getSystemSessionStatus(): Promise<WhatsAppGoResult> {

@@ -23,32 +23,32 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const isIndonesian = locale === 'id';
   
   const baseTitle = isIndonesian 
-    ? "Genfity - Software House & Digital Marketing Agency Terpercaya"
-    : "Genfity - Leading Software House & Digital Marketing Agency";
+    ? "Clivy - Software House & Digital Marketing Agency Terpercaya"
+    : "Clivy - Leading Software House & Digital Marketing Agency";
     
   const baseDescription = isIndonesian
-    ? "Genfity menyediakan layanan pengembangan website profesional, aplikasi mobile, WhatsApp API, SEO, dan digital marketing. Partner terpercaya untuk transformasi digital bisnis Anda di Indonesia dan Australia dengan harga terjangkau."
-    : "Genfity provides professional website development, mobile applications, WhatsApp API, SEO, and digital marketing services. Your trusted partner for business digital transformation in Indonesia and Australia with affordable pricing.";
+    ? "Clivy menyediakan layanan pengembangan website profesional, aplikasi mobile, WhatsApp API, SEO, dan digital marketing. Partner terpercaya untuk transformasi digital bisnis Anda di Indonesia dan Australia dengan harga terjangkau."
+    : "Clivy provides professional website development, mobile applications, WhatsApp API, SEO, and digital marketing services. Your trusted partner for business digital transformation in Indonesia and Australia with affordable pricing.";
 
   return {
     title: {
-      template: "%s | Genfity Digital Solutions",
+      template: "%s | Clivy WhatsApp API Services",
       default: baseTitle,
     },
     description: baseDescription,
     keywords: isIndonesian 
-      ? "software house indonesia, digital marketing agency, pengembangan website, aplikasi mobile, whatsapp api, seo indonesia, genfity, web development jakarta"
-      : "software house, digital marketing agency, web development, mobile app development, whatsapp api, seo services, genfity, australia indonesia",
-    authors: [{name: "Genfity Digital Solutions"}],
-    creator: "Genfity Digital Solutions",
-    publisher: "Genfity Digital Solutions",
-    metadataBase: new URL("https://www.genfity.com"),
+      ? "software house indonesia, digital marketing agency, pengembangan website, aplikasi mobile, whatsapp api, seo indonesia, clivy, web development jakarta"
+      : "software house, digital marketing agency, web development, mobile app development, whatsapp api, seo services, clivy, australia indonesia",
+    authors: [{name: "Clivy WhatsApp API Services"}],
+    creator: "Clivy WhatsApp API Services",
+    publisher: "Clivy WhatsApp API Services",
+    metadataBase: new URL("https://www.clivy.com"),
     alternates: {
-      canonical: `https://www.genfity.com/${locale}`,
+      canonical: `https://www.clivy.com/${locale}`,
       languages: {
-        "en": "https://www.genfity.com/en",
-        "id": "https://www.genfity.com/id",
-        "x-default": "https://www.genfity.com/id", // Default fallback for unknown locales
+        "en": "https://www.clivy.com/en",
+        "id": "https://www.clivy.com/id",
+        "x-default": "https://www.clivy.com/id", // Default fallback for unknown locales
       },
     },
     robots: {
@@ -82,16 +82,16 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     openGraph: {
       type: "website",
       locale: locale === 'id' ? 'id_ID' : 'en_US',
-      url: `https://www.genfity.com/${locale}`,
+      url: `https://www.clivy.com/${locale}`,
       title: baseTitle,
       description: baseDescription,
-      siteName: "Genfity Digital Solutions",
+      siteName: "Clivy WhatsApp API Services",
       images: [
         {
           url: `/api/og?title=${encodeURIComponent(baseTitle)}&subtitle=${encodeURIComponent(baseDescription.slice(0, 100))}&locale=${locale}`,
           width: 1200,
           height: 630,
-          alt: isIndonesian ? "Genfity - Software House & Digital Marketing" : "Genfity - Software House & Digital Marketing",
+          alt: isIndonesian ? "Clivy - Software House & Digital Marketing" : "Clivy - Software House & Digital Marketing",
         },
       ],
     },

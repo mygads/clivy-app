@@ -1606,7 +1606,7 @@ export default function WhatsAppSessionsPage() {
         <CardHeader>
           <CardTitle>WhatsApp Sessions</CardTitle>
           <CardDescription>
-            Sessions synced from WhatsApp Go service and stored in database. System sessions (marked with 🔧) are used for Genfity app operations. User sessions are owned by admins.
+            Sessions synced from WhatsApp Go service and stored in database. System sessions (marked with 🔧) are used for Clivy app operations. User sessions are owned by admins.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -1669,7 +1669,7 @@ export default function WhatsAppSessionsPage() {
                           <div className="flex items-center gap-1">
                             <ShieldCheck className="h-3 w-3 text-amber-600" />
                             <span className="text-xs text-amber-600 font-medium">
-                              System Session (Genfity App)
+                              System Session (Clivy App)
                             </span>
                           </div>
                         )}

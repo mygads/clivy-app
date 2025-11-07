@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "Genfity API - Comprehensive Checkout & Transaction System",
-    "description": "Complete transaction and payment processing system for Genfity platform. Supports unified checkout for products, addons, and WhatsApp services with multi-currency support and various payment methods.",
+    "name": "Clivy API - Comprehensive Checkout & Transaction System",
+    "description": "Complete transaction and payment processing system for Clivy platform. Supports unified checkout for products, addons, and WhatsApp services with multi-currency support and various payment methods.",
     "version": "1.0.0",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },

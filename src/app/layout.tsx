@@ -4,15 +4,15 @@ import "@/app/globals.css";
 import { inter } from "@/lib/fonts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.genfity.com'),
+  metadataBase: new URL('https://www.clivy.com'),
   title: {
-    template: '%s | GENFITY Digital Solutions',
-    default: "GENFITY - Digital Solutions & Software House",
+    template: '%s | CLIVY WhatsApp API Services',
+    default: "CLIVY - WhatsApp API Services & Software House",
   },
-  description: "GENFITY Digital Solutions adalah software house dan digital agency yang menyediakan layanan pengembangan aplikasi, integrasi WhatsApp API, serta solusi customer service AI berbasis WhatsApp untuk bisnis Anda.",
-  applicationName: "GENFITY",
+  description: "CLIVY WhatsApp API Services adalah software house dan digital agency yang menyediakan layanan pengembangan aplikasi, integrasi WhatsApp API, serta solusi customer service AI berbasis WhatsApp untuk bisnis Anda.",
+  applicationName: "CLIVY",
   authors: [
-    { name: "PT Generation Infinity Indonesia", url: "https://www.genfity.com" }
+    { name: "PT Generation Infinity Indonesia", url: "https://www.clivy.com" }
   ],
   generator: "Next.js",
   keywords: [
@@ -61,31 +61,31 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://www.genfity.com",
-    title: "GENFITY - Digital Solutions & Software House",
+    url: "https://www.clivy.com",
+    title: "CLIVY - WhatsApp API Services & Software House",
     description: "Software house dan digital agency terpercaya untuk solusi digital bisnis Anda",
-    siteName: "GENFITY Digital Solutions",
+    siteName: "CLIVY WhatsApp API Services",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "GENFITY Digital Solutions",
+        alt: "CLIVY WhatsApp API Services",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "GENFITY - Digital Solutions & Software House",
+    title: "CLIVY - WhatsApp API Services & Software House",
     description: "Software house dan digital agency terpercaya untuk solusi digital bisnis Anda",
     images: ["/og-image.png"],
-    creator: "@genfity",
+    creator: "@clivy",
   },
   alternates: {
-    canonical: "https://www.genfity.com",
+    canonical: "https://www.clivy.com",
     languages: {
-      "id-ID": "https://www.genfity.com/id",
-      "en-US": "https://www.genfity.com/en",
+      "id-ID": "https://www.clivy.com/id",
+      "en-US": "https://www.clivy.com/en",
     },
   },
   category: "technology",

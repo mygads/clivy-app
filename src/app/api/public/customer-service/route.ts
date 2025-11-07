@@ -56,7 +56,7 @@ const getCustomerServiceEmailTemplate = (data: CustomerServiceRequest) => {
         <div class="container">
             <div class="header">
                 <h1 style="margin: 0; font-size: 24px;">🛠️ New Support Request</h1>
-                <p style="margin: 10px 0 0 0; opacity: 0.9;">Customer Service - genfity.com</p>
+                <p style="margin: 10px 0 0 0; opacity: 0.9;">Customer Service - clivy.com</p>
             </div>
             
             <div class="content">
@@ -114,7 +114,7 @@ const getCustomerServiceEmailTemplate = (data: CustomerServiceRequest) => {
                     Customer Support Request - Ticket submitted at ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
                 </p>
                 <p style="margin: 5px 0 0 0; color: #9ca3af; font-size: 12px;">
-                    © ${new Date().getFullYear()} GENFITY. All rights reserved.
+                    © ${new Date().getFullYear()} CLIVY. All rights reserved.
                 </p>
             </div>
         </div>
@@ -161,7 +161,7 @@ ${data.priority === 'critical' ? '🚨 *IMMEDIATE* - Within 1 hour' :
   '📋 Within 48 hours'}
 
 📅 *Submitted:* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
-🌐 *Source:* genfity.com/customer-service
+🌐 *Source:* clivy.com/customer-service
 
 ${data.priority === 'critical' ? '_🚨 This is a CRITICAL support request requiring immediate attention! 🚨_' : '_This message was sent automatically from the customer service form._'}`
 }
@@ -216,7 +216,7 @@ export async function POST(request: NextRequest) {
     // Send email notification to admin
     const emailSubject = `[SUPPORT] ${body.category.toUpperCase()} - ${body.priority.toUpperCase()} - ${body.subject}`
     const emailResult = await sendEmail({
-      to: 'genfity@gmail.com',
+      to: 'clivy@gmail.com',
       subject: emailSubject,
       html: getCustomerServiceEmailTemplate(body)
     })

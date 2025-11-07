@@ -98,7 +98,7 @@ export default function AppointmentForm({ locale }: AppointmentFormProps) {
       }
     } catch (error) {
       console.error('Appointment form error:', error)
-      setSubmitError('Network error occurred. Please try again or contact us directly at genfity@gmail.com')
+      setSubmitError('Network error occurred. Please try again or contact us directly at clivy@gmail.com')
     } finally {
       setIsSubmitting(false)
     }

@@ -56,8 +56,8 @@ export async function POST(request: NextRequest) {
 
 1. Catat dan simpan Kode Pembayaran Anda
 2. Datang ke Gerai retail Indomaret / Ceriamart / Lion Super Indo
-3. Informasikan kepada kasir akan melakukan "Pembayaran Genfity"
-4. Apabila kasir mengatakan tidak melayani pembayaran untuk "Genfity", Anda dapat menginformasikan bahwa pembayaran ini merupakan Payment Point pada Kategori "e-Commerce"
+3. Informasikan kepada kasir akan melakukan "Pembayaran Clivy"
+4. Apabila kasir mengatakan tidak melayani pembayaran untuk "Clivy", Anda dapat menginformasikan bahwa pembayaran ini merupakan Payment Point pada Kategori "e-Commerce"
 5. Tunjukkan dan berikan Kode Pembayaran ke Kasir
 6. Lakukan pembayaran sesuai nominal yang diinformasikan dan tunggu proses selesai
 7. Minta dan simpan struk sebagai bukti pembayaran

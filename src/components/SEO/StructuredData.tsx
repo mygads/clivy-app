@@ -6,23 +6,23 @@ export default function StructuredData() {
   const params = useParams();
   const locale = params?.locale as string || 'id';
   const isIndonesian = locale === 'id';
-  const baseUrl = "https://www.genfity.com";
+  const baseUrl = "https://www.clivy.com";
 
   // Organization Schema with enhanced data
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${baseUrl}/#organization`,
-    "name": "Genfity Digital Solutions",
+    "name": "Clivy WhatsApp API Services",
     "legalName": "PT. Generation Infinity Indonesia",
-    "alternateName": "Genfity",
+    "alternateName": "Clivy",
     "url": baseUrl,
     "logo": {
       "@type": "ImageObject",
       "url": `${baseUrl}/logo.png`,
       "width": 512,
       "height": 512,
-      "caption": "Genfity Digital Solutions Logo"
+      "caption": "Clivy WhatsApp API Services Logo"
     },
     "image": `${baseUrl}/logo.png`,
     "description": isIndonesian
@@ -31,18 +31,18 @@ export default function StructuredData() {
     "foundingDate": "2020",
     "founder": {
       "@type": "Person",
-      "name": "Genfity Team"
+      "name": "Clivy Team"
     },
     "numberOfEmployees": {
       "@type": "QuantitativeValue",
       "value": "10-50"
     },
-    "slogan": isIndonesian ? "Solusi Digital untuk Bisnis Anda" : "Digital Solutions for Your Business",
+    "slogan": isIndonesian ? "Solusi Digital untuk Bisnis Anda" : "WhatsApp API Services for Your Business",
     "sameAs": [
-      "https://www.linkedin.com/company/genfity",
-      "https://www.instagram.com/genfity.id",
-      "https://twitter.com/genfity",
-      "https://api.whatsapp.com/send/?phone=6285174314023"
+      "https://www.linkedin.com/company/clivy",
+      "https://www.instagram.com/clivy.id",
+      "https://twitter.com/clivy",
+      "https://api.whatsapp.com/send/?phone=6281233784490"
     ],
     "contactPoint": [
       {
@@ -91,7 +91,7 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${baseUrl}/#website`,
-    "name": "Genfity Digital Solutions",
+    "name": "Clivy WhatsApp API Services",
     "url": baseUrl,
     "description": isIndonesian
       ? "Platform digital terpercaya untuk solusi software house dan digital marketing"
@@ -115,7 +115,7 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${baseUrl}/#localbusiness`,
-    "name": "Genfity Digital Solutions",
+    "name": "Clivy WhatsApp API Services",
     "image": `${baseUrl}/logo.png`,
     "url": baseUrl,
     "telephone": "+62-851-7431-4023",
@@ -154,7 +154,7 @@ export default function StructuredData() {
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": isIndonesian ? "Layanan Digital Genfity" : "Genfity Digital Services",
+    "name": isIndonesian ? "Layanan Digital Clivy" : "Clivy Digital Services",
     "serviceType": isIndonesian
       ? "Pengembangan Software & Digital Marketing"
       : "Software Development & Digital Marketing",

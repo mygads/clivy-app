@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Genfity - Digital Solutions & Software House',
-    short_name: 'Genfity',
+    name: 'Clivy - WhatsApp API Services & Software House',
+    short_name: 'Clivy',
     description: 'Leading software house and digital marketing agency providing website development, mobile apps, WhatsApp API, SEO, and digital transformation services.',
     start_url: '/',
     display: 'standalone',

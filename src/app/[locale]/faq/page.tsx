@@ -19,8 +19,8 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     : "FAQ - Frequently Asked Questions";
     
   const description = isIndonesian
-    ? "Temukan jawaban untuk pertanyaan umum tentang layanan Genfity: website development, aplikasi mobile, WhatsApp API, SEO, digital marketing, dan proses kerja kami. Dapatkan informasi lengkap sebelum memulai project Anda."
-    : "Find answers to frequently asked questions about Genfity services: website development, mobile apps, WhatsApp API, SEO, digital marketing, and our work processes. Get complete information before starting your project.";
+    ? "Temukan jawaban untuk pertanyaan umum tentang layanan Clivy: website development, aplikasi mobile, WhatsApp API, SEO, digital marketing, dan proses kerja kami. Dapatkan informasi lengkap sebelum memulai project Anda."
+    : "Find answers to frequently asked questions about Clivy services: website development, mobile apps, WhatsApp API, SEO, digital marketing, and our work processes. Get complete information before starting your project.";
 
   return generatePageMetadata({
     title,

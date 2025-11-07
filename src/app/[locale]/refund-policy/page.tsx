@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     : "Refund Policy - Terms and Conditions for Returns";
     
   const description = isIndonesian
-    ? "Kebijakan pengembalian dana Genfity. Ketentuan refund untuk layanan digital, proses klaim, dan syarat pengembalian. Informasi lengkap tentang kebijakan pembayaran."
-    : "Genfity's refund policy. Return terms for digital services, claim process, and refund conditions. Complete information about payment policies.";
+    ? "Kebijakan pengembalian dana Clivy. Ketentuan refund untuk layanan digital, proses klaim, dan syarat pengembalian. Informasi lengkap tentang kebijakan pembayaran."
+    : "Clivy's refund policy. Return terms for digital services, claim process, and refund conditions. Complete information about payment policies.";
 
   return generatePageMetadata({
     title,
@@ -67,7 +67,7 @@ export default async function RefundPolicyPage({ params }: { params: Promise<{ l
                   </p>
                 </div>
                 <p>
-                  At <strong>Genfity</strong>, we do not provide refunds
+                  At <strong>Clivy</strong>, we do not provide refunds
                   for any of our digital services. This policy applies to all our services including 
                   website development, WhatsApp API services, subscriptions, and all other digital solutions.
                 </p>
@@ -225,7 +225,7 @@ export default async function RefundPolicyPage({ params }: { params: Promise<{ l
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">If You Experience Issues</h3>
                 <ol className="list-decimal list-inside space-y-2 ml-4">
-                  <li>Contact our customer service team immediately at <strong>genfity@gmail.com</strong></li>
+                  <li>Contact our customer service team immediately at <strong>clivy@gmail.com</strong></li>
                   <li>Provide detailed description of the issue you&apos;re experiencing</li>
                   <li>Include your order/transaction details for faster assistance</li>
                   <li>Our technical team will work to resolve the issue promptly</li>

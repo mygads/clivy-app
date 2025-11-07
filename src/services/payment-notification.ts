@@ -134,7 +134,7 @@ export class PaymentNotificationService {
         }
 
         // Build message
-        let message = `*NEW ORDER - GENFITY*\n\n`;
+        let message = `*NEW ORDER - CLIVY*\n\n`;
         message += `Hello ${data.customerName}! 👋\n\n`;
         // message += `Thank you for your order.\n\n`;
 
@@ -192,7 +192,7 @@ export class PaymentNotificationService {
 
         switch (status) {
             case 'paid':
-            message = `*PAYMENT SUCCESS - GENFITY*\n\n`;
+            message = `*PAYMENT SUCCESS - CLIVY*\n\n`;
             message += `Hello ${customerName}! 🎉\n\n`;
             message += `Your payment of ${currencySymbol} ${amount.toLocaleString('id-ID')} has been successfully confirmed.\n\n`;
             message += `Your order is being processed and will be activated soon.\n\n`;
@@ -200,7 +200,7 @@ export class PaymentNotificationService {
             break;
 
             case 'failed':
-            message = `*PAYMENT FAILED - GENFITY*\n\n`;
+            message = `*PAYMENT FAILED - CLIVY*\n\n`;
             message += `Hello ${customerName},\n\n`;
             message += `Your payment of ${currencySymbol} ${amount.toLocaleString('id-ID')} could not be processed.\n\n`;
             message += `Please try again or use a different payment method.\n\n`;
@@ -208,7 +208,7 @@ export class PaymentNotificationService {
             break;
 
             case 'expired':
-            message = `*PAYMENT EXPIRED - GENFITY*\n\n`;
+            message = `*PAYMENT EXPIRED - CLIVY*\n\n`;
             message += `Hello ${customerName},\n\n`;
             message += `The payment time for the order of ${currencySymbol} ${amount.toLocaleString('id-ID')} has expired.\n\n`;
             message += `You can create a new order at any time.\n\n`;
@@ -216,7 +216,7 @@ export class PaymentNotificationService {
             break;
 
             case 'cancelled':
-            message = `*PAYMENT CANCELLED - GENFITY*\n\n`;
+            message = `*PAYMENT CANCELLED - CLIVY*\n\n`;
             message += `Hello ${customerName},\n\n`;
             message += `Your payment of ${currencySymbol} ${amount.toLocaleString('id-ID')} has been cancelled.\n\n`;
             message += `You can create a new order at any time.\n\n`;
@@ -348,7 +348,7 @@ export class PaymentNotificationService {
         const paymentMethodDesc = `Metode: ${data.paymentMethodName}`;
 
         // Build success message
-        let message = `*PAYMENT SUCCESS - GENFITY*\n\n`;
+        let message = `*PAYMENT SUCCESS - CLIVY*\n\n`;
         message += `Hello ${data.customerName}!\n\n`;
         message += `Your payment has been confirmed and your order is being processed!\n\n`;
 

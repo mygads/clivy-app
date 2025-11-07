@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     : "Contact Us - Free Consultation";
     
   const description = isIndonesian
-    ? "Hubungi tim Genfity untuk konsultasi gratis mengenai kebutuhan website, aplikasi mobile, WhatsApp API, SEO, dan digital marketing. Kami siap membantu transformasi digital bisnis Anda dengan solusi terpercaya dan profesional."
-    : "Contact Genfity team for free consultation about your website, mobile app, WhatsApp API, SEO, and digital marketing needs. We're ready to help your business digital transformation with trusted and professional solutions.";
+    ? "Hubungi tim Clivy untuk konsultasi gratis mengenai kebutuhan website, aplikasi mobile, WhatsApp API, SEO, dan digital marketing. Kami siap membantu transformasi digital bisnis Anda dengan solusi terpercaya dan profesional."
+    : "Contact Clivy team for free consultation about your website, mobile app, WhatsApp API, SEO, and digital marketing needs. We're ready to help your business digital transformation with trusted and professional solutions.";
 
   return generatePageMetadata({
     title,

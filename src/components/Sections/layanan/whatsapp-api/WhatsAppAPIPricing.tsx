@@ -441,7 +441,7 @@ export default function WhatsAppAPIPricing() {
                             </button>
                         </div>
                         <p className="mt-4 sm:mt-6 text-xs sm:text-sm text-green-200">
-                            Questions? Contact our sales team at sales@genfity.com or +62 21 1234 5678
+                            Questions? Contact our sales team at sales@clivy.com or +62 21 1234 5678
                         </p>
                     </div>
                 </motion.div>

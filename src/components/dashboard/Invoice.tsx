@@ -50,9 +50,9 @@ export default function Invoice({ paymentData }: InvoiceProps) {
             <p className="text-lg text-gray-600 dark:text-gray-400 mt-1">#{payment.id.slice(-12).toUpperCase()}</p>
           </div>
           <div className="text-right">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">GENFITY</h2>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">CLIVY</h2>
             <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-              Digital Solutions Provider
+              WhatsApp API Services Provider
             </p>
           </div>
         </div>

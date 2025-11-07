@@ -216,10 +216,10 @@ export async function GET(request: NextRequest) {
       },
       // Add computed fields
       isSystemSession: session.isSystemSession,
-      label: session.isSystemSession ? 'System (Genfity App)' : 'User Session',
+      label: session.isSystemSession ? 'System (Clivy App)' : 'User Session',
       statusDisplay: session.status,
       userName: session.isSystemSession 
-        ? 'System (Genfity App)' 
+        ? 'System (Clivy App)' 
         : session.user?.name || session.user?.email || 'Admin (Unassigned)',
       userRole: session.isSystemSession 
         ? 'system' 

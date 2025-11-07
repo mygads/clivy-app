@@ -69,7 +69,7 @@ export async function GET(
         retention_days: dbSession.s3RetentionDays
       },
       isSystemSession: dbSession.isSystemSession,
-      label: dbSession.isSystemSession ? 'System (Genfity App)' : 'User Session',
+      label: dbSession.isSystemSession ? 'System (Clivy App)' : 'User Session',
       userName: dbSession.user?.name || dbSession.user?.email || 'System',
       userRole: dbSession.user?.role || 'system',
       createdAt: dbSession.createdAt,

@@ -427,8 +427,8 @@ async function main() {
   // Create admin user
   const adminUser = await prisma.user.create({
     data: {
-      name: 'Genfity Admin',
-      email: 'genfity@gmail.com',
+      name: 'Clivy Admin',
+      email: 'clivy@gmail.com',
       phone: '6289668176764',
       password: hashedPassword,
       role: 'admin',
@@ -479,7 +479,7 @@ async function main() {
 
   console.log('\n👥 Test Users Created:');
   console.log(`   • Customer: m.yogaadi1234@gmail.com (${customerUser.id})`);
-  console.log(`   • Admin: genfity@gmail.com (${adminUser.id})`);
+  console.log(`   • Admin: clivy@gmail.com (${adminUser.id})`);
   console.log(`   • Password: 1234abcd (for both users)`);
 
   // 13. Create System WhatsApp Sessions
@@ -487,8 +487,8 @@ async function main() {
 
   const adminSession = await prisma.whatsAppSession.create({
     data: {
-      sessionId: 'genfity-admin-session',
-      sessionName: 'Genfity Admin System',
+      sessionId: 'clivy-admin-session',
+      sessionName: 'Clivy Admin System',
       token: process.env.WHATSAPP_ADMIN_TOKEN || 'admin-system-token-123',
       isSystemSession: true,
       connected: false,
@@ -499,8 +499,8 @@ async function main() {
 
   const userSession = await prisma.whatsAppSession.create({
     data: {
-      sessionId: 'genfity-user-session',
-      sessionName: 'Genfity User System',
+      sessionId: 'clivy-user-session',
+      sessionName: 'Clivy User System',
       token: process.env.WHATSAPP_USER_TOKEN || 'user-system-token-123',
       isSystemSession: true,
       connected: false,

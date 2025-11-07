@@ -154,7 +154,7 @@ const DuitkuUtils = {
    */
   generatePaymentReference: (transactionId) => {
     const timestamp = Date.now();
-    return `GENFITY-${transactionId}-${timestamp}`;
+    return `CLIVY-${transactionId}-${timestamp}`;
   },
   
   /**

@@ -65,7 +65,7 @@ export default function ComparisonSection() {
         <div className="mx-auto max-w-4xl overflow-hidden rounded-xl bg-white shadow-sm dark:bg-gray-900">
           <div className="grid grid-cols-3 border-b border-gray-200 bg-gray-100 p-4 dark:border-gray-700 dark:bg-gray-800">
             <div className="col-span-1 font-semibold text-gray-700 dark:text-gray-300">Features</div>
-            <div className="col-span-1 text-center font-semibold text-primary">Genfity</div>
+            <div className="col-span-1 text-center font-semibold text-primary">Clivy</div>
             <div className="col-span-1 text-center font-semibold text-gray-700 dark:text-gray-300">Others</div>
           </div>
 

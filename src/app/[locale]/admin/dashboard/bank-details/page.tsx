@@ -276,7 +276,7 @@ export default function BankDetailsPage() {
                   id="accountName"
                   value={formData.accountName}
                   onChange={(e) => setFormData({ ...formData, accountName: e.target.value })}
-                  placeholder="e.g., PT Genfity Indonesia"
+                  placeholder="e.g., PT Clivy Indonesia"
                   required
                 />
               </div>

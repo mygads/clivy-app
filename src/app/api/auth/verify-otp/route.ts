@@ -201,14 +201,14 @@ export async function POST(request: Request) {
         data: updateData,
       });      // Send welcome messages with password if auto-generated
       if (newPassword && updatedUser.phone) {
-        const welcomeMessage = `Welcome to GENFITY, ${updatedUser.name}! 🎉
+        const welcomeMessage = `Welcome to CLIVY, ${updatedUser.name}! 🎉
 
 Account: ${updatedUser.phone}
 Auto-Generated Password: *${newPassword}*
 
 Login at: ${process.env.NEXT_PUBLIC_APP_URL}/signin
 
-Thank you for choosing Genfity Digital Solutions!`;
+Thank you for choosing Clivy WhatsApp API Services!`;
 
         whatsappGoService.sendTextMessage(updatedUser.phone, welcomeMessage).catch((err: any) => {
           console.error("Failed to send welcome message via WhatsApp:", err);
@@ -216,7 +216,7 @@ Thank you for choosing Genfity Digital Solutions!`;
       } else if (updatedUser.phone) {
         const confirmationMessage = `Hello ${updatedUser.name}, 🌟
 
-Welcome to GENFITY.COM!
+Welcome to CLIVY.COM!
 
 - Your all-in-one software house and digital agency
 - Helping you grow and build stronger customer trust

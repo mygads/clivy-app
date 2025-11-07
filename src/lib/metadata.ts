@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-const baseUrl = 'https://www.genfity.com';
+const baseUrl = 'https://www.clivy.com';
 
 interface GenerateMetadataParams {
   title?: string;
@@ -37,7 +37,7 @@ export function generatePageMetadata({
   canonicalUrl,
   noindex = false,
 }: GenerateMetadataParams): Metadata {
-  const fullTitle = title ? `${title} | GENFITY Digital Solutions` : 'GENFITY Digital Solutions';
+  const fullTitle = title ? `${title} | CLIVY WhatsApp API Services` : 'CLIVY WhatsApp API Services';
   const localeCode = locale === 'id' ? 'id_ID' : 'en_US';
   const canonical = canonicalUrl || `${baseUrl}/${locale}`;
 
@@ -74,13 +74,13 @@ export function generatePageMetadata({
       url: canonical,
       title: fullTitle,
       description,
-      siteName: 'GENFITY Digital Solutions',
+      siteName: 'CLIVY WhatsApp API Services',
       images: [
         {
           url: ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`,
           width: 1200,
           height: 630,
-          alt: title || 'GENFITY Digital Solutions',
+          alt: title || 'CLIVY WhatsApp API Services',
         },
       ],
     },
@@ -89,8 +89,8 @@ export function generatePageMetadata({
       title: fullTitle,
       description,
       images: [ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`],
-      creator: '@genfity',
-      site: '@genfity',
+      creator: '@clivy',
+      site: '@clivy',
     },
   };
 
@@ -199,7 +199,7 @@ export function generateProductMetadata({
 export const commonKeywords = {
   id: {
     base: [
-      'genfity',
+      'clivy',
       'software house',
       'digital agency',
       'indonesia',
@@ -239,7 +239,7 @@ export const commonKeywords = {
   },
   en: {
     base: [
-      'genfity',
+      'clivy',
       'software house',
       'digital agency',
       'australia',

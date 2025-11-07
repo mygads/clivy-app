@@ -183,7 +183,7 @@ export default function PricingPackages() {
     return formattedIDR
   }
 
-  // Get localized text - default English as per Genfity standards
+  // Get localized text - default English as per Clivy standards
   const getLocalizedText = (textEn: string, textId: string) => {
     return textEn // Default to English as per instructions
   }

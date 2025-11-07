@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     : "Privacy Policy - Customer Data Protection";
     
   const description = isIndonesian
-    ? "Kebijakan privasi Genfity tentang cara kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda. Komitmen kami terhadap keamanan data pelanggan."
-    : "Genfity's privacy policy on how we collect, use, and protect your personal information. Our commitment to customer data security.";
+    ? "Kebijakan privasi Clivy tentang cara kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda. Komitmen kami terhadap keamanan data pelanggan."
+    : "Clivy's privacy policy on how we collect, use, and protect your personal information. Our commitment to customer data security.";
 
   return generatePageMetadata({
     title,
@@ -59,13 +59,13 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
               </h2>
               <div className="text-gray-700 dark:text-gray-300 space-y-4">
                 <p>
-                  At <strong>Genfity</strong>, we are committed 
+                  At <strong>Clivy</strong>, we are committed 
                   to protecting your privacy and personal information. This Privacy Policy explains how we collect, 
-                  use, disclose, and safeguard your information when you visit our website (genfity.com) and use our services.
+                  use, disclose, and safeguard your information when you visit our website (clivy.com) and use our services.
                 </p>
                 {/* <p>
                   We operate from Indonesia at Jl. Harvard No. 9 Sulaiman, Margahayu, Kabupaten Bandung, Jawa Barat 40229, 
-                  and also operate as <strong>Genfity Digital Solutions</strong> in Australia (ABN: 13 426 412 034) 
+                  and also operate as <strong>Clivy WhatsApp API Services</strong> in Australia (ABN: 13 426 412 034) 
                   at 157 Braidwood Dr, Australind WA 6233.
                 </p> */}
               </div>
@@ -173,8 +173,8 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
                   <li><strong>Withdrawal:</strong> Withdraw consent where processing is based on consent</li>
                 </ul>
                 <p>
-                  To exercise these rights, please contact us at <strong>genfity@gmail.com</strong> or 
-                  <strong>+62 85174314023</strong>.
+                  To exercise these rights, please contact us at <strong>clivy@gmail.com</strong> or 
+                  <strong>+62 81233784490</strong>.
                 </p>
               </div>
             </section>

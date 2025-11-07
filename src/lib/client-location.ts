@@ -99,9 +99,9 @@ export async function getUserLocale(): Promise<'id' | 'en'> {
  */
 export function storeLocationPreferences(currency: 'IDR' | 'USD', locale: 'id' | 'en') {
   try {
-    localStorage.setItem('genfity_currency', currency);
-    localStorage.setItem('genfity_locale', locale);
-    localStorage.setItem('genfity_location_timestamp', new Date().toISOString());
+    localStorage.setItem('clivy_currency', currency);
+    localStorage.setItem('clivy_locale', locale);
+    localStorage.setItem('clivy_location_timestamp', new Date().toISOString());
     console.log('[CLIENT_LOCATION] Stored preferences:', { currency, locale });
   } catch (error) {
     console.error('[CLIENT_LOCATION] Failed to store preferences:', error);
@@ -117,9 +117,9 @@ export function getStoredLocationPreferences(): {
   timestamp: string | null;
 } {
   try {
-    const currency = localStorage.getItem('genfity_currency') as 'IDR' | 'USD' | null;
-    const locale = localStorage.getItem('genfity_locale') as 'id' | 'en' | null;
-    const timestamp = localStorage.getItem('genfity_location_timestamp');
+    const currency = localStorage.getItem('clivy_currency') as 'IDR' | 'USD' | null;
+    const locale = localStorage.getItem('clivy_locale') as 'id' | 'en' | null;
+    const timestamp = localStorage.getItem('clivy_location_timestamp');
     
     return { currency, locale, timestamp };
   } catch (error) {

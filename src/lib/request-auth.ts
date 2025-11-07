@@ -125,7 +125,7 @@ export async function getAuthenticationDetails(
 
     // Check cookie (for NextRequest)
     if (request instanceof NextRequest && request.cookies) {
-      const cookieToken = request.cookies.get('genfity-session-token')?.value;
+      const cookieToken = request.cookies.get('clivy-session-token')?.value;
       if (cookieToken) {
         const sessionData = await verifyUserSession(cookieToken);
         if (sessionData) {
@@ -253,7 +253,7 @@ export function createAuthDebugInfo(request: NextRequest | Request): Record<stri
   headers.xUserIdHeader = request.headers.get('x-user-id');
   
   if (request instanceof NextRequest && request.cookies) {
-    headers.sessionCookie = request.cookies.get('genfity-session-token')?.value;
+    headers.sessionCookie = request.cookies.get('clivy-session-token')?.value;
   }
   
   return headers;

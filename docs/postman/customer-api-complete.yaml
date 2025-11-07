@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: GENFITY Customer API - Complete Documentation
+  title: CLIVY Customer API - Complete Documentation
   description: |
-    Comprehensive customer API documentation for GENFITY platform.
+    Comprehensive customer API documentation for CLIVY platform.
     
     ## Authentication Methods
     
@@ -15,7 +15,7 @@ info:
     Uses HTTP-only cookies automatically managed by the browser.
     
     ## Base URL
-    - **Production**: `https://api.genfity.com`
+    - **Production**: `https://api.clivy.com`
     - **Development**: `http://localhost:3000`
     
     ## Response Format
@@ -42,15 +42,15 @@ info:
     
   version: 3.0.0
   contact:
-    name: GENFITY API Support
-    email: api-support@genfity.com
-    url: https://genfity.com/support
+    name: CLIVY API Support
+    email: api-support@clivy.com
+    url: https://clivy.com/support
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
 
 servers:
-  - url: https://api.genfity.com
+  - url: https://api.clivy.com
     description: Production server
   - url: http://localhost:3000
     description: Development server
@@ -922,5 +922,5 @@ tags:
     description: User profile operations
 
 externalDocs:
-  description: Find more info at GENFITY documentation
-  url: https://docs.genfity.com
+  description: Find more info at CLIVY documentation
+  url: https://docs.clivy.com

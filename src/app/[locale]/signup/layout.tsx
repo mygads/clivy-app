@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Sign Up - Genfity',
-  description: 'Create your Genfity account to get started with our digital services.',
+  title: 'Sign Up - Clivy',
+  description: 'Create your Clivy account to get started with our digital services.',
   robots: {
     index: false,
     follow: false,

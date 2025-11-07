@@ -14,19 +14,19 @@ type FaqItem = {
 const faqItems: FaqItem[] = [
   // General FAQs
   {
-    question: "Layanan apa saja yang ditawarkan oleh Genfity?",
+    question: "Layanan apa saja yang ditawarkan oleh Clivy?",
     answer:
-      "Genfity menawarkan berbagai layanan digital yang komprehensif, meliputi pengembangan website kustom, aplikasi web dan mobile, sistem korporat, desain UI/UX, WhatsApp API solutions, SEO specialist, branding korporat, konsultasi IT, dan dukungan teknis. Kami menyediakan solusi end-to-end untuk kebutuhan transformasi digital bisnis Anda.",
+      "Clivy menawarkan berbagai layanan digital yang komprehensif, meliputi pengembangan website kustom, aplikasi web dan mobile, sistem korporat, desain UI/UX, WhatsApp API solutions, SEO specialist, branding korporat, konsultasi IT, dan dukungan teknis. Kami menyediakan solusi end-to-end untuk kebutuhan transformasi digital bisnis Anda.",
     category: "general",
   },
   {
-    question: "Bagaimana cara memulai proyek dengan Genfity?",
+    question: "Bagaimana cara memulai proyek dengan Clivy?",
     answer:
       "Untuk memulai proyek dengan kami, Anda dapat menghubungi kami melalui formulir kontak di website, email, atau WhatsApp. Tim kami akan segera merespons untuk mengatur konsultasi awal yang gratis. Dalam konsultasi ini, kami akan membahas kebutuhan Anda dan memberikan rekomendasi serta estimasi biaya yang sesuai.",
     category: "general",
   },
   {
-    question: "Berapa biaya untuk layanan Genfity?",
+    question: "Berapa biaya untuk layanan Clivy?",
     answer:
       "Biaya layanan kami bervariasi tergantung pada jenis proyek, kompleksitas, dan fitur yang dibutuhkan. Kami menawarkan paket dengan harga yang transparan dan dapat disesuaikan dengan kebutuhan dan anggaran Anda. Untuk mendapatkan penawaran yang akurat, silakan konsultasi gratis dengan tim kami.",
     category: "general",
@@ -98,7 +98,7 @@ const faqItems: FaqItem[] = [
     category: "marketing",
   },
   {
-    question: "Apakah Genfity menangani konten media sosial?",
+    question: "Apakah Clivy menangani konten media sosial?",
     answer:
       "Ya, kami menawarkan layanan manajemen media sosial yang komprehensif, termasuk pembuatan konten, penjadwalan post, interaksi dengan audience, dan analisis performa. Kami akan bekerja sama dengan Anda untuk mengembangkan strategi konten yang selaras dengan brand dan target audience Anda.",
     category: "marketing",
@@ -106,7 +106,7 @@ const faqItems: FaqItem[] = [
 
   // Pricing & Support FAQs
   {
-    question: "Bagaimana struktur harga layanan Genfity?",
+    question: "Bagaimana struktur harga layanan Clivy?",
     answer:
       "Kami menawarkan struktur harga yang transparan dan fleksibel. Untuk project-based work, harga dihitung berdasarkan scope dan kompleksitas. Untuk ongoing services seperti maintenance atau digital marketing, kami menawarkan paket berlangganan bulanan. Semua quotation mencakup breakdown detail tanpa hidden costs.",
     category: "pricing",

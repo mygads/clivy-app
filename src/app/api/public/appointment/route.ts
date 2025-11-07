@@ -41,7 +41,7 @@ const getAppointmentEmailTemplate = (data: AppointmentRequest) => {
         <div class="container">
             <div class="header">
                 <h1 style="margin: 0; font-size: 24px;">🗓️ New Appointment Request</h1>
-                <p style="margin: 10px 0 0 0; opacity: 0.9;">genfity.com</p>
+                <p style="margin: 10px 0 0 0; opacity: 0.9;">clivy.com</p>
             </div>
             
             <div class="content">
@@ -111,10 +111,10 @@ const getAppointmentEmailTemplate = (data: AppointmentRequest) => {
             
             <div class="footer">
                 <p style="margin: 0; color: #6b7280; font-size: 14px;">
-                    This appointment request was submitted automatically from genfity.com
+                    This appointment request was submitted automatically from clivy.com
                 </p>
                 <p style="margin: 5px 0 0 0; color: #9ca3af; font-size: 12px;">
-                    © ${new Date().getFullYear()} GENFITY. All rights reserved.
+                    © ${new Date().getFullYear()} CLIVY. All rights reserved.
                 </p>
             </div>
         </div>
@@ -155,7 +155,7 @@ ${data.message}
 ✅ Send calendar invite
 
 📅 *Submitted:* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
-🌐 *Source:* genfity.com appointment form
+🌐 *Source:* clivy.com appointment form
 
 _Please respond to this appointment request as soon as possible._`
 }
@@ -201,7 +201,7 @@ export async function POST(request: NextRequest) {
 
     // Send email notification to admin
     const emailResult = await sendEmail({
-      to: 'genfity@gmail.com',
+      to: 'clivy@gmail.com',
       subject: `🗓️ URGENT: New Appointment Request from ${body.name} - ${appointmentDate.toLocaleDateString('id-ID')}`,
       html: getAppointmentEmailTemplate(body)
     })

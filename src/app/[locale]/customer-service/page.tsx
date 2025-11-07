@@ -56,7 +56,7 @@ export default function CustomerServicePage() {
                     Email Support
                   </h4>
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-1">
-                    genfity@gmail.com
+                    clivy@gmail.com
                   </p>
                 </div>
               </div>

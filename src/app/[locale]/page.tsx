@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     : "WhatsApp Business API - Professional Integration";
     
   const description = isIndonesian
-    ? "Integrasi WhatsApp Business API dengan sistem Anda. Kirim pesan otomatis, terima respon pelanggan, dan tingkatkan komunikasi dengan solusi messaging yang andal dan aman dari Genfity. Fitur lengkap dengan harga terjangkau."
-    : "Integrate WhatsApp Business API with your system. Send automated messages, receive customer responses, and enhance communication with reliable, secure messaging solutions from Genfity. Complete features at affordable prices.";
+    ? "Integrasi WhatsApp Business API dengan sistem Anda. Kirim pesan otomatis, terima respon pelanggan, dan tingkatkan komunikasi dengan solusi messaging yang andal dan aman dari Clivy. Fitur lengkap dengan harga terjangkau."
+    : "Integrate WhatsApp Business API with your system. Send automated messages, receive customer responses, and enhance communication with reliable, secure messaging solutions from Clivy. Complete features at affordable prices.";
 
   return generateProductMetadata({
     title,
@@ -60,7 +60,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       {/* Integration Process */}
       <WhatsAppAPIProcess />
 
-      {/* Why Choose Genfity */}
+      {/* Why Choose Clivy */}
       <WhatsAppAPIWhyChoose />
 
       {/* Pricing - Static Display */}

@@ -209,7 +209,7 @@ export default function AdminSidebar({ open, setOpen, collapsed = false, setColl
             {resolvedTheme === "dark" ? (
               <Image 
                 src="/logo-dark-mode.svg" 
-                alt="Genfity Logo Dark" 
+                alt="Clivy Logo Dark" 
                 width={collapsed ? 32 : 0}
                 height={collapsed ? 32 : 0}
                 style={{ height: collapsed ? "32px" : "auto", width: collapsed ? "32px" : "auto" }}
@@ -218,7 +218,7 @@ export default function AdminSidebar({ open, setOpen, collapsed = false, setColl
             ) : (
               <Image 
                 src="/logo.svg" 
-                alt="Genfity Logo" 
+                alt="Clivy Logo" 
                 width={collapsed ? 32 : 0}
                 height={collapsed ? 32 : 0}
                 style={{ height: collapsed ? "32px" : "auto", width: collapsed ? "32px" : "auto" }}

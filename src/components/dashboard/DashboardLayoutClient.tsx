@@ -28,7 +28,7 @@ export default function DashboardLayoutClient({ children }: DashboardLayoutClien
       <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} />
       {/* WhatsApp floating button */}
       <WhatsAppFloatingButton 
-        phoneNumber="6285174314023"
+        phoneNumber="6281233784490"
         message="Hi! I need help with my dashboard or services."
       />
     </SidebarProvider>
