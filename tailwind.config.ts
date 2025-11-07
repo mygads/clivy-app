@@ -58,19 +58,19 @@ module.exports = {
 				dark: "#101010",
 				background: "var(--background)",
 				primary: {
-					DEFAULT: "#0D46A0",
-					dark: "#1F69E0",
+					DEFAULT: "#E71D36",
+					dark: "#C41729",
 					foreground: 'hsl(var(--primary-foreground))'
 				},
 				secondary: {
-					DEFAULT: "#ECF0FE",
+					DEFAULT: "#2ECC71",
 					foreground: 'hsl(var(--secondary-foreground))'
 				},
 				yellow: "#FBB040",
-				"bg-color-dark": "#171C28",
+				"bg-color-dark": "#011627",
 				"body-color": {
-					DEFAULT: "#788293",
-					dark: "#959CB1",
+					DEFAULT: "#6B7280",
+					dark: "#9CA3AF",
 				},
 				stroke: {
 					stroke: "#E3E8EF",
@@ -123,10 +123,12 @@ module.exports = {
 					ring: 'hsl(var(--sidebar-ring))',
 				},
 				brand: {
-					blue: "#0A2463",
 					red: "#E71D36",
+					green: "#2ECC71",
 					black: "#011627",
 					white: "#FDFFFC",
+					darkGreen: "#27AE60",
+					lightRed: "#FF4757",
 				},
 			},
 
@@ -195,8 +197,9 @@ module.exports = {
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-				"blue-red-gradient": "linear-gradient(135deg, #0A2463 0%, #E71D36 100%)",
-				"dark-gradient": "linear-gradient(to bottom right, rgba(1, 22, 39, 0.8), rgba(10, 36, 99, 0.8))",
+				"blue-red-gradient": "linear-gradient(135deg, #E71D36 0%, #2ECC71 100%)",
+				"red-green-gradient": "linear-gradient(135deg, #E71D36 0%, #2ECC71 100%)",
+				"dark-gradient": "linear-gradient(to bottom right, rgba(1, 22, 39, 0.9), rgba(17, 24, 39, 0.9))",
 			},
 			backdropBlur: {
 				xs: "2px",

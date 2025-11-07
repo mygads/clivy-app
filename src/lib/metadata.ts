@@ -47,7 +47,7 @@ export function generatePageMetadata({
     keywords: keywords.length > 0 ? keywords : undefined,
     authors: authors.map(name => ({ name })),
     creator: 'Muhammad Yoga Adi Saputra',
-    publisher: 'PT Generation Infinity Indonesia',
+    publisher: 'Clivy App',
     robots: {
       index: !noindex,
       follow: !noindex,

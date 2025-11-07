@@ -58,12 +58,6 @@ export default async function TermsConditionsPage({ params }: { params: Promise<
                 {t('agreement.title')}
               </h2>
               <div className="text-gray-700 dark:text-gray-300 space-y-4">
-                {/* <p>
-                  We are <strong>PT Generation Infinity Indonesia</strong> (&ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; &ldquo;our&rdquo;), 
-                  a company registered in Indonesia at Jl. Harvard No. 9 Sulaiman, Margahayu, 
-                  Kabupaten Bandung, Jawa Barat 40229, Indonesia. We also operate as <strong>Clivy WhatsApp API Services </strong> 
-                  in Australia (ABN: 13 426 412 034) at 157 Braidwood Dr, Australind WA 6233.
-                </p> */}
                 <p>
                   We operate the website clivy.com (the &ldquo;Site&rdquo;), as well as any other related products 
                   and services that refer or link to these legal terms (the &ldquo;Legal Terms&rdquo;) (collectively, the &ldquo;Services&rdquo;).
@@ -249,12 +243,6 @@ export default async function TermsConditionsPage({ params }: { params: Promise<
                 8. {t('sections.governingLaw.title')}
               </h2>
               <div className="text-gray-700 dark:text-gray-300 space-y-4">
-                {/* <p>
-                  These Legal Terms shall be governed by and defined following the laws of Indonesia. 
-                  PT Generation Infinity Indonesia and yourself irrevocably consent that the courts of 
-                  Indonesia shall have exclusive jurisdiction to resolve any dispute which may arise in 
-                  connection with these Legal Terms.
-                </p> */}
               </div>
             </section>
 

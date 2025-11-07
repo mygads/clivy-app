@@ -7,27 +7,25 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.clivy.com'),
   title: {
     template: '%s | CLIVY WhatsApp API Services',
-    default: "CLIVY - WhatsApp API Services & Software House",
+    default: "CLIVY - WhatsApp API Services",
   },
-  description: "CLIVY WhatsApp API Services adalah software house dan digital agency yang menyediakan layanan pengembangan aplikasi, integrasi WhatsApp API, serta solusi customer service AI berbasis WhatsApp untuk bisnis Anda.",
+  description: "CLIVY WhatsApp API Services adalah solusi digital untuk bisnis Anda.",
   applicationName: "CLIVY",
   authors: [
-    { name: "PT Generation Infinity Indonesia", url: "https://www.clivy.com" }
+    { name: "Clivy App", url: "https://www.clivy.com" }
   ],
   generator: "Next.js",
   keywords: [
-    "software house",
-    "digital agency", 
+    "clivy",
+    "whatsapp api services",
+    "whatsapp business api",
     "whatsapp api",
     "whatsapp business",
     "customer service ai",
-    "aplikasi mobile",
-    "web development",
-    "digital marketing"
   ],
   referrer: "origin-when-cross-origin",
   creator: "Muhammad Yoga Adi Saputra",
-  publisher: "PT Generation Infinity Indonesia",
+  publisher: "Clivy App",
   robots: {
     index: true,
     follow: true,
@@ -62,8 +60,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "id_ID",
     url: "https://www.clivy.com",
-    title: "CLIVY - WhatsApp API Services & Software House",
-    description: "Software house dan digital agency terpercaya untuk solusi digital bisnis Anda",
+    title: "CLIVY - WhatsApp API Services",
+    description: "Whatsapp API Services untuk solusi digital bisnis Anda",
     siteName: "CLIVY WhatsApp API Services",
     images: [
       {
@@ -76,8 +74,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CLIVY - WhatsApp API Services & Software House",
-    description: "Software house dan digital agency terpercaya untuk solusi digital bisnis Anda",
+    title: "CLIVY - WhatsApp API Services",
+    description: "Whatsapp API Services untuk solusi digital bisnis Anda",
     images: ["/og-image.png"],
     creator: "@clivy",
   },

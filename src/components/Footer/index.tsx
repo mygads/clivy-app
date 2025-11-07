@@ -67,8 +67,8 @@ const Footer = ({
   return (
     <>
 
-      <footer className="text-white pt-32 md:pt-36 lg:pt-40 pb-6 md:pb-8 relative z-10 bg-blue-900">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-indigo-900 to-black dark:from-slate-800 dark:via-gray-900 dark:to-indigo-900"></div>
+      <footer className="text-white pt-32 md:pt-36 lg:pt-40 pb-6 md:pb-8 relative z-10 bg-gray-900">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-red-950 to-black dark:from-gray-800 dark:via-gray-900 dark:to-black"></div>
         <div className="container mx-auto relative z-10 px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
             <div className="lg:col-span-1">
@@ -96,7 +96,7 @@ const Footer = ({
                   <p className="text-xs md:text-sm text-gray-400 dark:text-gray-500 mb-1">WhatsApp Number:</p>
                   <a
                     href={`tel:${contacts.whatsapp.replace(/\s+/g, "")}`}
-                    className="text-white hover:text-indigo-400 dark:text-gray-200 dark:hover:text-indigo-300 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400 focus-visible:outline-offset-2 rounded text-sm md:text-base"
+                    className="text-white hover:text-green-400 dark:text-gray-200 dark:hover:text-green-300 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-green-400 focus-visible:outline-offset-2 rounded text-sm md:text-base"
                   >
                     {contacts.whatsapp}
                   </a>
@@ -105,7 +105,7 @@ const Footer = ({
                   <p className="text-xs md:text-sm text-gray-400 dark:text-gray-500 mb-1">Email Address:</p>
                   <a
                     href={`mailto:${contacts.email}`}
-                    className="text-white hover:text-indigo-400 dark:text-gray-200 dark:hover:text-indigo-300 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400 focus-visible:outline-offset-2 rounded text-sm md:text-base"
+                    className="text-white hover:text-green-400 dark:text-gray-200 dark:hover:text-green-300 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-green-400 focus-visible:outline-offset-2 rounded text-sm md:text-base"
                   >
                     {contacts.email}
                   </a>
@@ -140,7 +140,7 @@ const Footer = ({
                     href={social.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-8 h-8 md:w-10 md:h-10 bg-gray-800 dark:bg-slate-700 rounded-full flex items-center justify-center hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:scale-105 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400 focus-visible:outline-offset-2"
+                    className="w-8 h-8 md:w-10 md:h-10 bg-gray-800 dark:bg-slate-700 rounded-full flex items-center justify-center hover:bg-red-600 dark:hover:bg-red-500 hover:scale-105 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-400 focus-visible:outline-offset-2"
                     aria-label={`Visit our ${social.name}`}
                   >
                     <svg className="w-4 h-4 md:w-5 md:h-5 text-white dark:text-gray-200" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -159,7 +159,7 @@ const Footer = ({
                     <li key={itemIndex}>
                       <Link
                         href={item.href}
-                        className="text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 hover:underline underline-offset-4 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400 focus-visible:outline-offset-2 rounded text-sm md:text-base"
+                        className="text-gray-300 dark:text-gray-400 hover:text-green-400 dark:hover:text-green-300 hover:underline underline-offset-4 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-green-400 focus-visible:outline-offset-2 rounded text-sm md:text-base"
                       >
                         {item.label}
                       </Link>
@@ -175,21 +175,21 @@ const Footer = ({
               <div className="flex flex-wrap items-center gap-3 md:gap-4">
                 <Link
                   href={`/${locale}/terms-conditions`}
-                  className="hover:text-white dark:hover:text-gray-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400 focus-visible:outline-offset-2 rounded"
+                  className="hover:text-green-400 dark:hover:text-green-300 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-green-400 focus-visible:outline-offset-2 rounded"
                 >
                   Terms & Conditions
                 </Link>
                 <span className="text-gray-600 dark:text-gray-500">|</span>
                 <Link
                   href={`/${locale}/privacy-policy`}
-                  className="hover:text-white dark:hover:text-gray-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400 focus-visible:outline-offset-2 rounded"
+                  className="hover:text-green-400 dark:hover:text-green-300 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-green-400 focus-visible:outline-offset-2 rounded"
                 >
                   Privacy Policy
                 </Link>
                 <span className="text-gray-600 dark:text-gray-500">|</span>
                 <Link
                   href={`/${locale}/refund-policy`}
-                  className="hover:text-white dark:hover:text-gray-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400 focus-visible:outline-offset-2 rounded"
+                  className="hover:text-green-400 dark:hover:text-green-300 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-green-400 focus-visible:outline-offset-2 rounded"
                 >
                   Refund Policy
                 </Link>

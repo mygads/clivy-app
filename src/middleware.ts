@@ -94,7 +94,7 @@ function detectLocaleFromBrowser(request: NextRequest): string {
             return storedLocale;
         }
         
-        console.log('[MIDDLEWARE_LOCALE] No stored preference, detecting from browser language...');
+        // console.log('[MIDDLEWARE_LOCALE] No stored preference, detecting from browser language...');
         
         // Detect from Accept-Language header
         const acceptLanguage = request.headers.get('accept-language');
@@ -105,7 +105,7 @@ function detectLocaleFromBrowser(request: NextRequest): string {
         return detectedLocale;
         
     } catch (error) {
-        console.error('[MIDDLEWARE_LOCALE] Error in locale detection:', error);
+        // console.error('[MIDDLEWARE_LOCALE] Error in locale detection:', error);
         // Default fallback to Indonesian
         return 'id';
     }

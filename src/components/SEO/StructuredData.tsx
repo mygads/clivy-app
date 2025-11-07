@@ -14,7 +14,7 @@ export default function StructuredData() {
     "@type": "Organization",
     "@id": `${baseUrl}/#organization`,
     "name": "Clivy WhatsApp API Services",
-    "legalName": "PT. Generation Infinity Indonesia",
+    "legalName": "D'Garden Teams",
     "alternateName": "Clivy",
     "url": baseUrl,
     "logo": {
