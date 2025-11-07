@@ -42,13 +42,13 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     authors: [{name: "Clivy WhatsApp API Services"}],
     creator: "Clivy WhatsApp API Services",
     publisher: "Clivy WhatsApp API Services",
-    metadataBase: new URL("https://www.clivy.com"),
+    metadataBase: new URL("https://www.clivy.vercel.app"),
     alternates: {
-      canonical: `https://www.clivy.com/${locale}`,
+      canonical: `https://www.clivy.vercel.app/${locale}`,
       languages: {
-        "en": "https://www.clivy.com/en",
-        "id": "https://www.clivy.com/id",
-        "x-default": "https://www.clivy.com/id", // Default fallback for unknown locales
+        "en": "https://www.clivy.vercel.app/en",
+        "id": "https://www.clivy.vercel.app/id",
+        "x-default": "https://www.clivy.vercel.app/id", // Default fallback for unknown locales
       },
     },
     robots: {
@@ -82,7 +82,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     openGraph: {
       type: "website",
       locale: locale === 'id' ? 'id_ID' : 'en_US',
-      url: `https://www.clivy.com/${locale}`,
+      url: `https://www.clivy.vercel.app/${locale}`,
       title: baseTitle,
       description: baseDescription,
       siteName: "Clivy WhatsApp API Services",

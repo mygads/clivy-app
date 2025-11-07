@@ -61,7 +61,7 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
                 <p>
                   At <strong>Clivy</strong>, we are committed 
                   to protecting your privacy and personal information. This Privacy Policy explains how we collect, 
-                  use, disclose, and safeguard your information when you visit our website (clivy.com) and use our services.
+                  use, disclose, and safeguard your information when you visit our website (clivy.vercel.app) and use our services.
                 </p>
                 {/* <p>
                   We operate from Indonesia at Jl. Harvard No. 9 Sulaiman, Margahayu, Kabupaten Bandung, Jawa Barat 40229, 

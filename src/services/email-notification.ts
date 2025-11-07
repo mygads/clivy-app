@@ -474,7 +474,7 @@ export class EmailNotificationService {
             <div class="brand">Clivy</div>
             <div class="tagline">Thank you for choosing our services. We're here to help you grow!</div>
             <div class="contact">
-                Questions? Email us at support@clivy.com<br/>
+                Questions? Email us at clivy@gmail.com<br/>
                 © ${new Date().getFullYear()} Clivy. All rights reserved.
             </div>
         </div>

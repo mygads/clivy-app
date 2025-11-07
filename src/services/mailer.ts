@@ -57,7 +57,7 @@ const getEmailTemplate = (content: string, title: string) => {
                 <!-- Support -->
                 <div style="margin-top: 32px; padding: 18px; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; text-align: center;">
                     <p style="color: #475569; font-size: 14px; margin: 0 0 10px 0; font-weight: 500;">Need help?</p>
-                    <a href="mailto:services@clivy.com" 
+                    <a href="mailto:clivy@gmail.com" 
                         style="display: inline-block; background: #23284e; color: #ffffff; text-decoration: none; font-weight: 500; padding: 10px 20px; border-radius: 6px; font-size: 14px;">
                         Contact Support
                     </a>
@@ -140,7 +140,7 @@ const getEmailTemplate = (content: string, title: string) => {
 //                         <!-- Support Section -->
 //                         <div style="margin-top: 36px; padding: 20px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
 //                             <p style="color: #475569; font-size: 14px; margin: 0 0 12px 0; font-weight: 500;">Need help?</p>
-//                             <a href="mailto:support@clivy.com" style="display: inline-block; background: #23284e; color: #ffffff; text-decoration: none; font-weight: 500; padding: 10px 20px; border-radius: 6px; font-size: 14px;">Contact Support</a>
+//                             <a href="mailto:clivy@gmail.com" style="display: inline-block; background: #23284e; color: #ffffff; text-decoration: none; font-weight: 500; padding: 10px 20px; border-radius: 6px; font-size: 14px;">Contact Support</a>
 //                         </div>
                         
 //                         <!-- Footer -->

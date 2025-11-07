@@ -35,7 +35,7 @@ const getContactEmailTemplate = (data: ContactRequest) => {
         <div class="container">
             <div class="header">
                 <h1 style="margin: 0; font-size: 24px;">New Contact Form Submission</h1>
-                <p style="margin: 10px 0 0 0; opacity: 0.9;">clivy.com</p>
+                <p style="margin: 10px 0 0 0; opacity: 0.9;">clivy.vercel.app</p>
             </div>
             
             <div class="content">
@@ -62,7 +62,7 @@ const getContactEmailTemplate = (data: ContactRequest) => {
             
             <div class="footer">
                 <p style="margin: 0; color: #6b7280; font-size: 14px;">
-                    This email was sent automatically from the contact form on clivy.com
+                    This email was sent automatically from the contact form on clivy.vercel.app
                 </p>
                 <p style="margin: 5px 0 0 0; color: #9ca3af; font-size: 12px;">
                     © ${new Date().getFullYear()} CLIVY. All rights reserved.
@@ -87,7 +87,7 @@ ${data.message}
 
 ---
 📅 *Time:* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
-🌐 *Source:* clivy.com contact form
+🌐 *Source:* clivy.vercel.app contact form
 
 _This message was sent automatically from the website contact form._`
 }

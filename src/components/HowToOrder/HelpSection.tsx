@@ -22,7 +22,7 @@ const HelpSection = () => {
       title: "Email Support",
       description: "Detailed support via email",
       action: "Send Email",
-      href: "mailto:support@clivy.com", // Replace with actual email
+      href: "mailto:clivy@gmail.com", // Replace with actual email
       color: "blue",
     },
     {

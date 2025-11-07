@@ -56,7 +56,7 @@ const getCustomerServiceEmailTemplate = (data: CustomerServiceRequest) => {
         <div class="container">
             <div class="header">
                 <h1 style="margin: 0; font-size: 24px;">🛠️ New Support Request</h1>
-                <p style="margin: 10px 0 0 0; opacity: 0.9;">Customer Service - clivy.com</p>
+                <p style="margin: 10px 0 0 0; opacity: 0.9;">Customer Service - clivy.vercel.app</p>
             </div>
             
             <div class="content">
@@ -161,7 +161,7 @@ ${data.priority === 'critical' ? '🚨 *IMMEDIATE* - Within 1 hour' :
   '📋 Within 48 hours'}
 
 📅 *Submitted:* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
-🌐 *Source:* clivy.com/customer-service
+🌐 *Source:* clivy.vercel.app/customer-service
 
 ${data.priority === 'critical' ? '_🚨 This is a CRITICAL support request requiring immediate attention! 🚨_' : '_This message was sent automatically from the customer service form._'}`
 }

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-const baseUrl = 'https://www.clivy.com';
+const baseUrl = 'https://www.clivy.vercel.app';
 
 interface GenerateMetadataParams {
   title?: string;

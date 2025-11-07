@@ -17,17 +17,17 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://www.clivy.com/",
+    canonical: "https://www.clivy.vercel.app/",
     languages: {
-      "en": "https://www.clivy.com/en",
-      "id": "https://www.clivy.com/id",
+      "en": "https://www.clivy.vercel.app/en",
+      "id": "https://www.clivy.vercel.app/id",
     },
   },
   openGraph: {
     title: "Clivy - Leading Software House & Digital Marketing Agency",
     description: "Clivy provides professional website development, mobile applications, WhatsApp API, SEO, and digital marketing services at affordable prices.",
     type: 'website',
-    url: "https://www.clivy.com/",
+    url: "https://www.clivy.vercel.app/",
     siteName: 'Clivy WhatsApp API Services',
     locale: 'en_US',
     images: [

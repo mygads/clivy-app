@@ -59,7 +59,7 @@ export default async function TermsConditionsPage({ params }: { params: Promise<
               </h2>
               <div className="text-gray-700 dark:text-gray-300 space-y-4">
                 <p>
-                  We operate the website clivy.com (the &ldquo;Site&rdquo;), as well as any other related products 
+                  We operate the website clivy.vercel.app (the &ldquo;Site&rdquo;), as well as any other related products 
                   and services that refer or link to these legal terms (the &ldquo;Legal Terms&rdquo;) (collectively, the &ldquo;Services&rdquo;).
                 </p>
                 <p>

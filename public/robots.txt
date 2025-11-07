@@ -41,7 +41,7 @@ Allow: /
 Allow: /api/og
 
 # Sitemap
-Sitemap: https://www.clivy.com/sitemap.xml
+Sitemap: https://www.clivy.vercel.app/sitemap.xml
 
 # Host
-Host: www.clivy.com
+Host: www.clivy.vercel.app

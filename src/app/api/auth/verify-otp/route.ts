@@ -216,16 +216,9 @@ Thank you for choosing Clivy WhatsApp API Services!`;
       } else if (updatedUser.phone) {
         const confirmationMessage = `Hello ${updatedUser.name}, 🌟
 
-Welcome to CLIVY.COM!
+Welcome to clivy.vercel.app! Your phone number has been successfully verified.
 
-- Your all-in-one software house and digital agency
-- Helping you grow and build stronger customer trust
-- Innovative solutions tailored for your success
-
-Explore our products and exclusive offers:
-${process.env.NEXT_PUBLIC_APP_URL}/product
-
-Let's build the future together! 💪`;
+You can now log in using your existing password.`;
 
         whatsappGoService.sendTextMessage(updatedUser.phone, confirmationMessage).catch((err: any) => {
           console.error("Failed to send confirmation message via WhatsApp:", err);

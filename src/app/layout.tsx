@@ -4,7 +4,7 @@ import "@/app/globals.css";
 import { inter } from "@/lib/fonts";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.clivy.com'),
+  metadataBase: new URL('https://www.clivy.vercel.app'),
   title: {
     template: '%s | CLIVY WhatsApp API Services',
     default: "CLIVY - WhatsApp API Services",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "CLIVY WhatsApp API Services adalah solusi digital untuk bisnis Anda.",
   applicationName: "CLIVY",
   authors: [
-    { name: "Clivy App", url: "https://www.clivy.com" }
+    { name: "Clivy App", url: "https://www.clivy.vercel.app" }
   ],
   generator: "Next.js",
   keywords: [
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://www.clivy.com",
+    url: "https://www.clivy.vercel.app",
     title: "CLIVY - WhatsApp API Services",
     description: "Whatsapp API Services untuk solusi digital bisnis Anda",
     siteName: "CLIVY WhatsApp API Services",
@@ -80,10 +80,10 @@ export const metadata: Metadata = {
     creator: "@clivy",
   },
   alternates: {
-    canonical: "https://www.clivy.com",
+    canonical: "https://www.clivy.vercel.app",
     languages: {
-      "id-ID": "https://www.clivy.com/id",
-      "en-US": "https://www.clivy.com/en",
+      "id-ID": "https://www.clivy.vercel.app/id",
+      "en-US": "https://www.clivy.vercel.app/en",
     },
   },
   category: "technology",

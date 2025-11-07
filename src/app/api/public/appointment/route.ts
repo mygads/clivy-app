@@ -41,7 +41,7 @@ const getAppointmentEmailTemplate = (data: AppointmentRequest) => {
         <div class="container">
             <div class="header">
                 <h1 style="margin: 0; font-size: 24px;">🗓️ New Appointment Request</h1>
-                <p style="margin: 10px 0 0 0; opacity: 0.9;">clivy.com</p>
+                <p style="margin: 10px 0 0 0; opacity: 0.9;">clivy.vercel.app</p>
             </div>
             
             <div class="content">
@@ -111,7 +111,7 @@ const getAppointmentEmailTemplate = (data: AppointmentRequest) => {
             
             <div class="footer">
                 <p style="margin: 0; color: #6b7280; font-size: 14px;">
-                    This appointment request was submitted automatically from clivy.com
+                    This appointment request was submitted automatically from clivy.vercel.app
                 </p>
                 <p style="margin: 5px 0 0 0; color: #9ca3af; font-size: 12px;">
                     © ${new Date().getFullYear()} CLIVY. All rights reserved.
@@ -155,7 +155,7 @@ ${data.message}
 ✅ Send calendar invite
 
 📅 *Submitted:* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
-🌐 *Source:* clivy.com appointment form
+🌐 *Source:* clivy.vercel.app appointment form
 
 _Please respond to this appointment request as soon as possible._`
 }

@@ -6,7 +6,7 @@ export default function StructuredData() {
   const params = useParams();
   const locale = params?.locale as string || 'id';
   const isIndonesian = locale === 'id';
-  const baseUrl = "https://www.clivy.com";
+  const baseUrl = "https://www.clivy.vercel.app";
 
   // Organization Schema with enhanced data
   const organizationSchema = {

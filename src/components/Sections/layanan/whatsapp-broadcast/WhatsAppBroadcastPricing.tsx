@@ -519,7 +519,7 @@ export default function WhatsAppBroadcastPricing() {
                             </button>
                         </div>
                         <p className="mt-6 text-sm text-orange-200">
-                            Questions? Contact our sales team at sales@clivy.com or +62 21 1234 5678
+                            Questions? Contact our sales team at clivy@gmail.com or +62 21 1234 5678
                         </p>
                     </div>
                 </motion.div>
