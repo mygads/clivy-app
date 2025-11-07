@@ -19,7 +19,6 @@ interface BankDetail {
   accountNumber: string;
   accountName: string;
   swiftCode?: string;
-  currency: 'idr' | 'usd';
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -30,7 +29,6 @@ interface BankDetailForm {
   accountNumber: string;
   accountName: string;
   swiftCode: string;
-  currency: 'idr' | 'usd';
   isActive: boolean;
 }
 
@@ -44,7 +42,6 @@ export default function BankDetailsPage() {
     accountNumber: '',
     accountName: '',
     swiftCode: '',
-    currency: 'idr',
     isActive: true,
   });
 
@@ -188,7 +185,6 @@ export default function BankDetailsPage() {
       accountNumber: bank.accountNumber,
       accountName: bank.accountName,
       swiftCode: bank.swiftCode || '',
-      currency: bank.currency,
       isActive: bank.isActive,
     });
     setIsDialogOpen(true);
@@ -201,7 +197,6 @@ export default function BankDetailsPage() {
       accountNumber: '',
       accountName: '',
       swiftCode: '',
-      currency: 'idr',
       isActive: true,
     });
   };
@@ -291,19 +286,6 @@ export default function BankDetailsPage() {
                 />
               </div>
               
-              <div>
-                <Label htmlFor="currency">Currency</Label>
-                <Select value={formData.currency} onValueChange={(value: 'idr' | 'usd') => setFormData({ ...formData, currency: value })}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="idr">IDR (Indonesian Rupiah)</SelectItem>
-                    <SelectItem value="usd">USD (US Dollar)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              
               <div className="flex items-center space-x-2">
                 <Switch
                   id="isActive"
@@ -352,9 +334,6 @@ export default function BankDetailsPage() {
                   {bank.bankName}
                 </CardTitle>
                 <div className="flex gap-2">
-                  <Badge variant={bank.currency === 'idr' ? 'default' : 'secondary'}>
-                    {bank.currency.toUpperCase()}
-                  </Badge>
                   <Badge variant={bank.isActive ? 'default' : 'secondary'}>
                     {bank.isActive ? 'Active' : 'Inactive'}
                   </Badge>

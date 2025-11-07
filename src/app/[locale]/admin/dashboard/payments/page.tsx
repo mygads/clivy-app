@@ -66,7 +66,6 @@ interface Payment {
   expiresAt: string | null
   transaction: {
     id: string
-    currency: string
     status: string
     type: string
     amount: number

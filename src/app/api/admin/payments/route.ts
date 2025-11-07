@@ -10,7 +10,6 @@ const querySchema = z.object({
   limit: z.string().nullable().transform(val => val || "10"),
   status: z.enum(['pending', 'paid', 'failed', 'all']).nullable().transform(val => val || 'all'),
   method: z.string().nullable().optional(),
-  currency: z.enum(['idr', 'usd', 'all']).nullable().transform(val => val || 'all'),
   search: z.string().nullable().optional(),
   dateFrom: z.string().nullable().optional(),
   dateTo: z.string().nullable().optional(),
@@ -49,7 +48,7 @@ export async function GET(request: NextRequest) {
       ));
     }
 
-    const { page, limit, status, method, currency, search, dateFrom, dateTo } = validation.data;
+    const { page, limit, status, method, search, dateFrom, dateTo } = validation.data;
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
     // Build where clause for filtering
@@ -61,12 +60,6 @@ export async function GET(request: NextRequest) {
 
     if (method) {
       where.method = { contains: method, mode: 'insensitive' };
-    }
-
-    if (currency !== 'all') {
-      where.transaction = {
-        currency: currency
-      };
     }
 
     if (search) {
@@ -125,19 +118,6 @@ export async function GET(request: NextRequest) {
                   email: true,
                   phone: true,
                 }
-              },              productTransactions: {
-                include: {
-                  package: {
-                    select: { id: true, name_en: true, name_id: true }
-                  }
-                }
-              },
-              addonTransactions: {
-                include: {
-                  addon: {
-                    select: { id: true, name_en: true, name_id: true }
-                  }
-                }
               },
               whatsappTransaction: {
                 include: {
@@ -183,7 +163,6 @@ export async function GET(request: NextRequest) {
       expiresAt: payment.expiresAt,      
       transaction: payment.transaction ? {
         id: payment.transaction.id,
-        currency: payment.transaction.currency,
         status: payment.transaction.status,
         type: payment.transaction.type,
         amount: Number(payment.transaction.amount),
@@ -223,7 +202,6 @@ export async function GET(request: NextRequest) {
         filters: {
           status,
           method,
-          currency,
           search,
           dateFrom,
           dateTo,
@@ -244,32 +222,7 @@ export async function GET(request: NextRequest) {
 function getTransactionItems(transaction: any) {
   const items = [];
   
-  // Handle multiple products
-  if (transaction.productTransactions && transaction.productTransactions.length > 0) {
-    transaction.productTransactions.forEach((productTx: any) => {
-      if (productTx.package) {
-        items.push({
-          type: 'package',
-          name: productTx.package.name_en,
-          category: 'Product Package',
-          quantity: productTx.quantity || 1,
-        });
-      }
-    });
-  }
-  
-  // Add add-ons from addonTransactions
-  if (transaction.addonTransactions) {
-    transaction.addonTransactions.forEach((addonTx: any) => {
-      items.push({
-        type: 'addon',
-        name: addonTx.addon.name_en,
-        category: 'Product Addon',
-        quantity: addonTx.quantity,
-      });
-    });
-  }
-  
+  // Only WhatsApp service is supported (no more package/addon)
   if (transaction.whatsappTransaction?.whatsappPackage) {
     items.push({
       type: 'whatsapp_service',

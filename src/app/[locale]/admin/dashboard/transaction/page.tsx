@@ -43,7 +43,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { useCurrency } from "@/hooks/useCurrency";
 
 // Simplified - WhatsApp only transactions
 interface WhatsappTransactionDetail {
@@ -56,9 +55,7 @@ interface WhatsappTransactionDetail {
     id: string;
     name: string;
     priceMonth_idr: number;
-    priceMonth_usd: number;
     priceYear_idr: number;
-    priceYear_usd: number;
   };
 }
 
@@ -77,7 +74,6 @@ interface Transaction {
   amount: number;
   status: string; // Consolidated status (created, pending, in-progress, success, cancelled, expired)
   type: string;
-  currency?: string;
   transactionDate: string;
   createdAt: string;
   updatedAt: string;
@@ -114,17 +110,11 @@ interface TransactionStats {
   expired: number;
   totalRevenue: number;
   monthlyRevenue: number;
-  // Multi-currency revenue
-  totalRevenueIdr: number;
-  totalRevenueUsd: number;
-  monthlyRevenueIdr: number;
-  monthlyRevenueUsd: number;
   averageAmount: number;
 }
 
 export default function TransactionPage() {
   const router = useRouter();
-  const { currency } = useCurrency();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -154,19 +144,11 @@ export default function TransactionPage() {
     expired: 0,
     totalRevenue: 0,
     monthlyRevenue: 0,
-    totalRevenueIdr: 0,
-    totalRevenueUsd: 0,
-    monthlyRevenueIdr: 0,
-    monthlyRevenueUsd: 0,
     averageAmount: 0
   });
   // Helper function to calculate total price with quantity
   const calculateItemTotal = (price: number, quantity: number) => {
     return price * quantity;
-  };
-  // Helper function to get currency symbol
-  const getCurrencySymbol = (currency?: string) => {
-    return currency === 'usd' ? '$' : 'Rp';
   };
   
   // Helper function to get transaction type badge - Simplified for WhatsApp only
@@ -233,26 +215,12 @@ export default function TransactionPage() {
              transactionDate.getFullYear() === currentYear;
     });
 
-    // Calculate revenue by currency using final payment amount (after discount and service fee)
-    const totalRevenueIdr = paidTransactions
-      .filter(t => t.currency === 'idr')
+    // Calculate revenue (IDR only)
+    const totalRevenue = paidTransactions
       .reduce((sum, t) => sum + Number(t.payment?.amount || 0), 0);
     
-    const totalRevenueUsd = paidTransactions
-      .filter(t => t.currency === 'usd')
+    const monthlyRevenue = monthlyTransactions
       .reduce((sum, t) => sum + Number(t.payment?.amount || 0), 0);
-
-    const monthlyRevenueIdr = monthlyTransactions
-      .filter(t => t.currency === 'idr')
-      .reduce((sum, t) => sum + Number(t.payment?.amount || 0), 0);
-    
-    const monthlyRevenueUsd = monthlyTransactions
-      .filter(t => t.currency === 'usd')
-      .reduce((sum, t) => sum + Number(t.payment?.amount || 0), 0);
-
-    // Total revenue for backward compatibility (IDR equivalent)
-    const totalRevenue = totalRevenueIdr + (totalRevenueUsd * 15000); // Rough conversion for display
-    const monthlyRevenue = monthlyRevenueIdr + (monthlyRevenueUsd * 15000);
 
     setStats({
       total: transactions.length,
@@ -265,10 +233,6 @@ export default function TransactionPage() {
       expired: transactions.filter(t => t.status === 'expired').length,
       totalRevenue,
       monthlyRevenue,
-      totalRevenueIdr,
-      totalRevenueUsd,
-      monthlyRevenueIdr,
-      monthlyRevenueUsd,
       averageAmount: paidTransactions.length > 0 ? totalRevenue / paidTransactions.length : 0
     });
   }
@@ -369,18 +333,11 @@ export default function TransactionPage() {
     );
   };
 
-  const formatCurrency = (amount: number, currency: string = 'idr') => {
-    if (currency.toLowerCase() === 'usd') {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD"
-      }).format(amount);
-    } else {
-      return new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR"
-      }).format(amount);
-    }
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR"
+    }).format(amount);
   };
 
   const formatDate = (dateString: string) => {
@@ -495,14 +452,10 @@ export default function TransactionPage() {
             </CardHeader>
             <CardContent className="pt-0">
               <div className="text-lg sm:text-2xl font-bold">{stats.total}</div>
-              <div className="text-xs text-muted-foreground space-y-0.5">
-                {stats.totalRevenueIdr > 0 && (
-                  <div>IDR: {formatCurrency(stats.totalRevenueIdr, 'idr')}</div>
-                )}
-                {stats.totalRevenueUsd > 0 && (
-                  <div>USD: {formatCurrency(stats.totalRevenueUsd, 'usd')}</div>
-                )}
-                {stats.totalRevenueIdr === 0 && stats.totalRevenueUsd === 0 && (
+              <div className="text-xs text-muted-foreground">
+                {stats.totalRevenue > 0 ? (
+                  <div>Total: {formatCurrency(stats.totalRevenue)}</div>
+                ) : (
                   <div>No revenue yet</div>
                 )}
               </div>
@@ -547,22 +500,8 @@ export default function TransactionPage() {
               </div>
             </CardHeader>
             <CardContent className="pt-0">
-              <div className="space-y-1">
-                {stats.monthlyRevenueIdr > 0 && (
-                  <div className="text-base sm:text-lg font-bold text-purple-600">
-                    {formatCurrency(stats.monthlyRevenueIdr, 'idr')}
-                  </div>
-                )}
-                {stats.monthlyRevenueUsd > 0 && (
-                  <div className="text-base sm:text-lg font-bold text-purple-600">
-                    {formatCurrency(stats.monthlyRevenueUsd, 'usd')}
-                  </div>
-                )}
-                {stats.monthlyRevenueIdr === 0 && stats.monthlyRevenueUsd === 0 && (
-                  <div className="text-base sm:text-lg font-bold text-purple-600">
-                    {formatCurrency(0, 'idr')}
-                  </div>
-                )}
+              <div className="text-base sm:text-lg font-bold text-purple-600">
+                {formatCurrency(stats.monthlyRevenue)}
               </div>
               <p className="text-xs text-muted-foreground">
                 Current month (after discounts)
@@ -712,23 +651,23 @@ export default function TransactionPage() {
                           {/* Final Amount (after discount and service fee) */}
                           <div className="text-[10px] sm:text-xs font-medium">
                             {transaction.payment ? 
-                              formatCurrency(Number(transaction.payment.amount), transaction.currency) :
-                              formatCurrency(Number(transaction.amount) - Number(transaction.discountAmount || 0), transaction.currency)
+                              formatCurrency(Number(transaction.payment.amount)) :
+                              formatCurrency(Number(transaction.amount) - Number(transaction.discountAmount || 0))
                             }
                           </div>
                           
                           {/* Discount information */}
                           {Number(transaction.discountAmount) > 0 && (
                             <div className="text-[9px] text-green-600 space-y-0">
-                              <div>Original: {formatCurrency(Number(transaction.amount), transaction.currency)}</div>
-                              <div>Discount: -{formatCurrency(Number(transaction.discountAmount), transaction.currency)}</div>
+                              <div>Original: {formatCurrency(Number(transaction.amount))}</div>
+                              <div>Discount: -{formatCurrency(Number(transaction.discountAmount))}</div>
                             </div>
                           )}
                           
                           {/* Service fee info if payment exists */}
                           {transaction.payment && Number(transaction.payment.serviceFee) > 0 && (
                             <div className="text-[9px] text-blue-600">
-                              +{formatCurrency(Number(transaction.payment.serviceFee), transaction.currency)} service fee
+                              +{formatCurrency(Number(transaction.payment.serviceFee))} service fee
                             </div>
                           )}
                         </div>
@@ -830,7 +769,7 @@ export default function TransactionPage() {
                 <div className="text-right">
                   <div className="text-[9px] sm:text-[10px] text-gray-500">Amount</div>
                   <div className="text-[10px] sm:text-xs font-bold text-gray-900 dark:text-gray-100">
-                    {formatCurrency(Number(selectedTransaction.payment?.amount || selectedTransaction.amount), selectedTransaction.currency)}
+                    {formatCurrency(Number(selectedTransaction.payment?.amount || selectedTransaction.amount))}
                   </div>
                 </div>
               </div>
@@ -884,7 +823,7 @@ export default function TransactionPage() {
                     <div>
                       <label className="text-[9px] sm:text-[10px] font-medium text-gray-500 uppercase tracking-wider">Payment Amount</label>
                       <p className="text-[10px] sm:text-xs font-medium text-gray-900 dark:text-gray-100 mt-0.5">
-                        {formatCurrency(Number(selectedTransaction.payment.amount), selectedTransaction.currency)}
+                        {formatCurrency(Number(selectedTransaction.payment.amount))}
                       </p>
                     </div>
                     <div>
@@ -912,13 +851,8 @@ export default function TransactionPage() {
                           <p className="text-[10px] sm:text-xs font-medium text-gray-900 dark:text-gray-100 mt-0.5">
                             {formatCurrency(
                               selectedTransaction.whatsappTransaction.duration === 'year' 
-                                ? (selectedTransaction.currency === 'idr' 
-                                  ? selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_idr 
-                                  : selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_usd)
-                                : (selectedTransaction.currency === 'idr' 
-                                  ? selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_idr 
-                                  : selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_usd),
-                              selectedTransaction.currency
+                                ? selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_idr 
+                                : selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_idr
                             )}
                           </p>
                         </div>
@@ -926,8 +860,7 @@ export default function TransactionPage() {
                           <label className="text-[9px] sm:text-[10px] font-medium text-gray-500 uppercase tracking-wider">WhatsApp Final Amount</label>
                           <p className="text-[10px] sm:text-xs font-medium text-green-600 mt-0.5">
                             {formatCurrency(
-                              Number(selectedTransaction.payment?.amount || selectedTransaction.amount),
-                              selectedTransaction.currency
+                              Number(selectedTransaction.payment?.amount || selectedTransaction.amount)
                             )}
                           </p>
                         </div>
@@ -947,13 +880,8 @@ export default function TransactionPage() {
                             <span>Qty: 1</span>
                             <span>Unit Price: {formatCurrency(
                               selectedTransaction.whatsappTransaction.duration === 'year' 
-                                ? (selectedTransaction.currency === 'idr' 
-                                  ? selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_idr 
-                                  : selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_usd)
-                                : (selectedTransaction.currency === 'idr' 
-                                  ? selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_idr 
-                                  : selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_usd),
-                              selectedTransaction.currency
+                                ? selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_idr 
+                                : selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_idr
                             )}</span>
                           </div>
                         </div>
@@ -962,13 +890,8 @@ export default function TransactionPage() {
                           <div className="text-[10px] sm:text-xs font-semibold text-gray-900 dark:text-gray-100">
                             {formatCurrency(
                               selectedTransaction.whatsappTransaction.duration === 'year' 
-                                ? (selectedTransaction.currency === 'idr' 
-                                  ? selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_idr 
-                                  : selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_usd)
-                                : (selectedTransaction.currency === 'idr' 
-                                  ? selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_idr 
-                                  : selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_usd),
-                              selectedTransaction.currency
+                                ? selectedTransaction.whatsappTransaction.whatsappPackage.priceYear_idr 
+                                : selectedTransaction.whatsappTransaction.whatsappPackage.priceMonth_idr
                             )}
                           </div>
                         </div>
@@ -996,7 +919,7 @@ export default function TransactionPage() {
                           <p className="text-[9px] sm:text-[10px] text-gray-600 dark:text-gray-400 mt-0.5">
                             {(selectedTransaction.voucher.discountType || selectedTransaction.voucher.type) === 'percentage' 
                               ? `${selectedTransaction.voucher.value}% discount applied`
-                              : `${formatCurrency(Number(selectedTransaction.voucher.value), selectedTransaction.currency)} discount applied`
+                              : `${formatCurrency(Number(selectedTransaction.voucher.value))} discount applied`
                             }
                           </p>
                         </div>
@@ -1014,21 +937,21 @@ export default function TransactionPage() {
                               <div className="flex justify-between items-center">
                                 <span className="text-[9px] sm:text-[10px] text-gray-600 dark:text-gray-400">Original Amount:</span>
                                 <span className="text-[9px] sm:text-[10px] font-medium text-gray-900 dark:text-gray-100">
-                                  {formatCurrency(Math.round(originalAmount), selectedTransaction.currency)}
+                                  {formatCurrency(Math.round(originalAmount))}
                                 </span>
                               </div>
                               
                               <div className="flex justify-between items-center">
                                 <span className="text-[9px] sm:text-[10px] text-gray-600 dark:text-gray-400">Discount Amount:</span>
                                 <span className="text-[9px] sm:text-[10px] font-medium text-red-600">
-                                  -{formatCurrency(Math.round(discountAmount), selectedTransaction.currency)}
+                                  -{formatCurrency(Math.round(discountAmount))}
                                 </span>
                               </div>
                               
                               <div className="flex justify-between items-center pt-1.5 border-t border-blue-200 dark:border-blue-600">
                                 <span className="text-[9px] sm:text-[10px] font-semibold text-gray-900 dark:text-gray-100">Final Amount:</span>
                                 <span className="text-[10px] sm:text-xs font-bold text-green-600">
-                                  {formatCurrency(finalAmount, selectedTransaction.currency)}
+                                  {formatCurrency(finalAmount)}
                                 </span>
                               </div>
                             </>

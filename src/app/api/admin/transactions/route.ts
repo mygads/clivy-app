@@ -40,30 +40,9 @@ function getPaymentStatusText(status: string) {
 }
 
 const createTransactionSchema = z.object({
-  // Product transaction fields
-  packageId: z.string().cuid().optional(),
-  addonId: z.string().cuid().optional(),
-  startDate: z.string().datetime().optional(),
-  endDate: z.string().datetime().optional(),
-  referenceLink: z.string().url().optional(),
-  
   // WhatsApp service transaction fields
-  whatsappPackageId: z.string().cuid().optional(),
-  duration: z.enum(['month', 'year']).optional(),
-  
-  // Transaction type
-  type: z.enum(['product', 'whatsapp_service']),
-}).refine((data) => {
-  if (data.type === 'product') {
-    // For product transactions, either packageId or addonId is required
-    return (data.packageId || data.addonId) && data.startDate && data.endDate;
-  } else if (data.type === 'whatsapp_service') {
-    // For WhatsApp transactions, whatsappPackageId and duration are required
-    return data.whatsappPackageId && data.duration;
-  }
-  return false;
-}, {
-  message: "Invalid transaction data for the specified type",
+  whatsappPackageId: z.string().cuid(),
+  duration: z.enum(['month', 'year']),
 });
 
 // GET /api/admin/transactions - Get all transactions for admin (admin only)
@@ -98,16 +77,6 @@ export async function GET(request: NextRequest) {
         where: whereCondition,
         include: {
           payment: true,
-          productTransactions: {
-            include: {
-              package: true,
-            },
-          },
-          addonTransactions: {
-            include: {
-              addon: true,
-            },
-          },
           whatsappTransaction: {
             include: {
               whatsappPackage: true,
@@ -127,7 +96,7 @@ export async function GET(request: NextRequest) {
               id: true,
               name: true,
               email: true,
-              phone: true, // Add phone field
+              phone: true,
             },
           },
         },
@@ -137,19 +106,14 @@ export async function GET(request: NextRequest) {
       }),
       prisma.transaction.count({ where: whereCondition }),
     ]);    const formattedTransactions = transactions.map(trx => {
-      // Get item names from product and addon transactions
-      const productNames = trx.productTransactions?.map(pt => pt.package?.name_en).filter(Boolean) || [];
-      const addonNames = trx.addonTransactions?.map(at => at.addon?.name_en).filter(Boolean) || [];
-      const allNames = [...productNames, ...addonNames];
-      
       return {
         ...trx,
         amount: Number(trx.amount),
         item_name: trx.type === 'whatsapp_service'
-          ? trx.whatsappTransaction?.whatsappPackage?.name
-          : allNames.length > 0 ? allNames.join(', ') : 'No items',
+          ? trx.whatsappTransaction?.whatsappPackage?.name || 'WhatsApp Service'
+          : 'WhatsApp Service',
         canRetryPayment: trx.status === 'created' || trx.status === 'pending' || trx.status === 'expired',
-        canConfirmTransaction: trx.type === 'product' && trx.status === 'in-progress',      
+        canConfirmTransaction: false,
         durationText: trx.type === 'whatsapp_service' && trx.whatsappTransaction?.duration
           ? `${trx.whatsappTransaction.duration === 'year' ? '1 Year' : '1 Month'}`
           : null,
@@ -201,112 +165,50 @@ export async function POST(request: NextRequest) {
     }
 
     const { 
-      packageId, 
-      addonId, 
       whatsappPackageId, 
-      duration, 
-      startDate, 
-      endDate, 
-      referenceLink, 
-      type 
+      duration,
     } = validation.data;
 
-    let amount = 0;
+    // Calculate amount for WhatsApp service transaction
+    const pkg = await prisma.whatsappApiPackage.findUnique({
+      where: { id: whatsappPackageId },
+    });
+    
+    if (!pkg) {
+      return withCORS(NextResponse.json(
+        { success: false, error: "WhatsApp package not found" },
+        { status: 404 }
+      ));
+    }
+    
+    // Use IDR pricing only
+    const amount = duration === 'year' ? pkg.priceYear : pkg.priceMonth;
 
-    if (type === 'product') {
-      // Calculate amount for product transaction
-      if (packageId) {
-        const pkg = await prisma.package.findUnique({
-          where: { id: packageId },
-        });
-        if (!pkg) {
-          return withCORS(NextResponse.json(
-            { success: false, error: "Package not found" },
-            { status: 404 }
-          ));
-        }
-        amount = Number(pkg.price_idr);
-      } else if (addonId) {
-        const addon = await prisma.addon.findUnique({
-          where: { id: addonId },
-        });
-        if (!addon) {
-          return withCORS(NextResponse.json(
-            { success: false, error: "Addon not found" },
-            { status: 404 }
-          ));
-        }
-        amount = Number(addon.price_idr);
-      }
-    } else if (type === 'whatsapp_service') {
-      // Calculate amount for WhatsApp service transaction
-      const pkg = await prisma.whatsappApiPackage.findUnique({
-        where: { id: whatsappPackageId },
-      });
-      if (!pkg) {
-        return withCORS(NextResponse.json(
-          { success: false, error: "WhatsApp package not found" },
-          { status: 404 }
-        ));
-      }
-      // Default to IDR for admin-created transactions
-      amount = duration === 'year' ? pkg.priceYear_idr : pkg.priceMonth_idr;
-    }    // Create transaction with nested details in a transaction block
+    // Create transaction with nested details in a transaction block
     const result = await prisma.$transaction(async (tx) => {
       // Create main transaction with automatic expiration (1 week)
       const transaction = await PaymentExpirationService.createTransactionWithExpiration({
         userId: userId,
         amount: amount,
-        type: type,
+        type: 'whatsapp_service',
         currency: 'idr',
-      });      // Create type-specific transaction details
-      if (type === 'product') {
-        // Create product transaction if packageId is provided
-        if (packageId) {
-          await tx.transactionProduct.create({
-            data: {
-              transactionId: transaction.id,
-              packageId,
-              startDate: startDate ? new Date(startDate) : null,
-              endDate: endDate ? new Date(endDate) : null,
-              referenceLink,
-            },
-          });
-        }        // Create addon transaction if addonId is provided
-        if (addonId) {
-          await tx.transactionAddons.create({
-            data: {
-              transactionId: transaction.id,
-              addonId,
-              startDate: startDate ? new Date(startDate) : null,
-              endDate: endDate ? new Date(endDate) : null,
-            },
-          });
-        }
-      } else if (type === 'whatsapp_service') {
-        await tx.transactionWhatsappService.create({
-          data: {
-            transactionId: transaction.id,
-            whatsappPackageId: whatsappPackageId!,
-            duration: duration!,
-            startDate: null, // Will be set when payment is confirmed
-            endDate: null,   // Will be calculated when payment is confirmed
-          },
-        });
-      }      // Return transaction with details
+      });
+
+      // Create WhatsApp service transaction details
+      await tx.transactionWhatsappService.create({
+        data: {
+          transactionId: transaction.id,
+          whatsappPackageId: whatsappPackageId,
+          duration: duration,
+          startDate: null, // Will be set when payment is confirmed
+          endDate: null,   // Will be calculated when payment is confirmed
+        },
+      });
+
+      // Return transaction with details
       return await tx.transaction.findUnique({
         where: { id: transaction.id },
         include: {
-          productTransactions: {
-            include: {
-              package: true,
-            },
-          },
-          addonTransactions: {
-            include: {
-              addon: true,
-            },
-          },
           whatsappTransaction: {
             include: {
               whatsappPackage: true,
@@ -316,24 +218,19 @@ export async function POST(request: NextRequest) {
       });
     });
 
-    const transaction = result!;    return withCORS(NextResponse.json({
+    const transaction = result!;
+
+    return withCORS(NextResponse.json({
       success: true,
       data: {
         ...transaction,
         amount: Number(transaction.amount),
-        item_name: type === 'whatsapp_service' 
-          ? transaction.whatsappTransaction?.whatsappPackage?.name 
-          : (() => {
-              const productNames = transaction.productTransactions?.map(pt => pt.package?.name_en).filter(Boolean) || [];
-              const addonNames = transaction.addonTransactions?.map(at => at.addon?.name_en).filter(Boolean) || [];
-              const allNames = [...productNames, ...addonNames];
-              return allNames.length > 0 ? allNames.join(', ') : 'No items';
-            })(),
-        item_type: type,        
+        item_name: transaction.whatsappTransaction?.whatsappPackage?.name || 'WhatsApp Service',
+        item_type: 'whatsapp_service',        
         transactionStatusText: getTransactionStatusText(transaction.status),
         paymentStatusText: getPaymentStatusText('pending'), // No payment created yet
         canRetryPayment: transaction.status === 'created',
-        canConfirmTransaction: false, // Will be true once payment is completed for product type
+        canConfirmTransaction: false,
       },
       message: "Transaction created successfully. Proceed with payment.",
     }));
