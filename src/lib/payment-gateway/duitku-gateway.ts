@@ -552,7 +552,6 @@ export class DuitkuPaymentGateway implements PaymentGateway {
           code: method.paymentMethod,
           name: method.paymentName,
           type: this.getMethodType(method.paymentMethod),
-          currency: this.getMethodCurrency(method.paymentMethod),
           gatewayCode: method.paymentMethod,
           image: method.paymentImage,
           isActive: true
@@ -599,7 +598,6 @@ export class DuitkuPaymentGateway implements PaymentGateway {
             name: mapping.name,
             description: method.name,
             type: mapping.type,
-            currency: this.getMethodCurrency(method.code),
             isActive: true,
             isGatewayMethod: true
           },
@@ -608,7 +606,6 @@ export class DuitkuPaymentGateway implements PaymentGateway {
             name: mapping.name,
             description: method.name,
             type: mapping.type,
-            currency: this.getMethodCurrency(method.code),
             gatewayProvider: 'duitku',
             gatewayCode: method.code,
             isGatewayMethod: true,
@@ -664,7 +661,6 @@ export class DuitkuPaymentGateway implements PaymentGateway {
           update: {
             name: methodInfo.name,
             type: methodInfo.type,
-            currency: this.getMethodCurrency(code),
             gatewayImageUrl: methodInfo.image || null,
             isActive: true,
             // Only update payment instructions if we have new ones
@@ -678,7 +674,6 @@ export class DuitkuPaymentGateway implements PaymentGateway {
             name: methodInfo.name,
             description: methodInfo.name_id,
             type: methodInfo.type,
-            currency: this.getMethodCurrency(code),
             gatewayProvider: 'duitku',
             gatewayCode: code,
             gatewayImageUrl: methodInfo.image || null,
@@ -757,16 +752,6 @@ export class DuitkuPaymentGateway implements PaymentGateway {
     }
     
     return typeMapping[paymentMethod] || 'other'
-  }
-
-  private getMethodCurrency(paymentMethod: string): string {
-    // Credit card support multi currency
-    if (paymentMethod === 'VC') {
-      return 'any' // Support all currencies for credit card
-    }
-    
-    // All other Indonesian payment methods use IDR
-    return 'idr'
   }
 
   private getPaymentMethodMapping(code: string) {

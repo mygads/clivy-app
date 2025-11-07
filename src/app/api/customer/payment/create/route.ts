@@ -166,10 +166,6 @@ export async function POST(request: NextRequest) {
       const paymentMethodConfig = await tx.paymentMethod.findFirst({
         where: { 
           code: paymentMethod,
-          OR: [
-            { currency: transaction.currency },
-            { currency: 'any' } // Support multi-currency payment methods like credit cards
-          ],
           isActive: true
           // Remove feeType and feeValue requirements - allow null values with defaults
         },
@@ -179,7 +175,7 @@ export async function POST(request: NextRequest) {
       });
 
       if (!paymentMethodConfig) {
-        throw new Error(`Payment method '${paymentMethod}' not available or inactive for currency '${transaction.currency}'`);
+        throw new Error(`Payment method '${paymentMethod}' not available or inactive`);
       }
 
       // 4. Calculate amounts
@@ -484,10 +480,10 @@ export async function POST(request: NextRequest) {
             type: result.paymentMethodConfig.feeType,
             value: Number(result.paymentMethodConfig.feeValue),
             amount: Number(result.payment.serviceFee),
-            currency: result.paymentMethodConfig.currency,
+            currency: 'idr',
             description: result.paymentMethodConfig.feeType === 'percentage' 
               ? `${Number(result.paymentMethodConfig.feeValue)}% fee` 
-              : `Fixed fee ${(result.paymentMethodConfig.currency || 'IDR').toUpperCase()} ${Number(result.paymentMethodConfig.feeValue).toLocaleString()}`
+              : `Fixed fee IDR ${Number(result.paymentMethodConfig.feeValue).toLocaleString()}`
           },
           finalAmount: Number(result.payment.amount),
           currency: result.transaction.currency,

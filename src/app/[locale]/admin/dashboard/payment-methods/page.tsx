@@ -53,7 +53,6 @@ interface PaymentMethod {
   name: string
   description?: string
   type: string
-  currency: string
   gatewayProvider?: string | null
   gatewayCode?: string | null
   isGatewayMethod?: boolean
@@ -99,7 +98,6 @@ interface ManualPaymentForm {
   name: string
   code: string
   description: string
-  currency: 'idr' | 'usd' | 'any'
   feeType: 'fixed' | 'percentage'
   feeValue: string
   minFee: string
@@ -132,7 +130,6 @@ export default function PaymentMethodsPage() {
     name: '',
     code: '',
     description: '',
-    currency: 'idr',
     feeType: 'fixed',
     feeValue: '0',
     minFee: '0',
@@ -150,7 +147,6 @@ export default function PaymentMethodsPage() {
     name: '',
     code: '',
     description: '',
-    currency: 'idr',
     feeType: 'fixed',
     feeValue: '0',
     minFee: '0',
@@ -247,7 +243,6 @@ export default function PaymentMethodsPage() {
         code: manualForm.code,
         description: manualForm.description,
         type: 'bank_transfer',
-        currency: manualForm.currency,
         isGatewayMethod: false,
         isActive: true,
         bankDetailId: manualForm.bankDetailId === 'none' ? null : manualForm.bankDetailId || null,
@@ -283,7 +278,6 @@ export default function PaymentMethodsPage() {
           name: '',
           code: '',
           description: '',
-          currency: 'idr',
           feeType: 'fixed',
           feeValue: '0',
           minFee: '0',
@@ -310,7 +304,6 @@ export default function PaymentMethodsPage() {
       name: method.name,
       code: method.code,
       description: method.description || '',
-      currency: method.currency as 'idr' | 'usd' | 'any',
       feeType: method.feeType as 'fixed' | 'percentage' || 'fixed',
       feeValue: method.feeValue?.toString() || '0',
       minFee: method.minFee?.toString() || '0',
@@ -339,7 +332,6 @@ export default function PaymentMethodsPage() {
         name: editForm.name,
         code: editForm.code,
         description: editForm.description,
-        currency: editForm.currency,
         feeType: editForm.feeType,
         feeValue: parseFloat(editForm.feeValue),
         minFee: editForm.minFee ? parseFloat(editForm.minFee) : null,
@@ -685,7 +677,6 @@ export default function PaymentMethodsPage() {
                   <TableHead>Method</TableHead>
                   <TableHead>Type</TableHead>
                   <TableHead>Provider</TableHead>
-                  <TableHead>Currency</TableHead>
                   <TableHead>Service Fee</TableHead>
                   <TableHead>Gateway Code</TableHead>
                   <TableHead>Status</TableHead>
@@ -730,18 +721,12 @@ export default function PaymentMethodsPage() {
                       </TableCell>
                       
                       <TableCell>
-                        <Badge variant="outline">
-                          {method.currency === 'any' ? 'MULTI' : method.currency.toUpperCase()}
-                        </Badge>
-                      </TableCell>
-                      
-                      <TableCell>
                         {method.feeType && method.feeValue ? (
                           <div className="text-sm">
                             <div className="font-medium">
                               {method.feeType === 'percentage' 
                                 ? `${method.feeValue}%` 
-                                : `${method.feeValue} ${method.currency.toUpperCase()}`
+                                : `IDR ${method.feeValue}`
                               }
                             </div>
                             {method.feeType === 'percentage' && (method.minFee || method.maxFee) && (
@@ -903,22 +888,6 @@ export default function PaymentMethodsPage() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="currency">Currency</Label>
-                <Select
-                  value={manualForm.currency}
-                  onValueChange={(value: 'idr' | 'usd' | 'any') => setManualForm(prev => ({ ...prev, currency: value }))}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="idr">IDR (Indonesian Rupiah)</SelectItem>
-                    <SelectItem value="usd">USD (US Dollar)</SelectItem>
-                    <SelectItem value="any">ANY (Multi Currency)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
                 <Label htmlFor="bankDetail">Bank Detail</Label>
                 <Select
                   value={manualForm.bankDetailId}
@@ -957,7 +926,7 @@ export default function PaymentMethodsPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="feeValue">
-                  Fee Value {manualForm.feeType === 'percentage' ? '(%)' : `(${manualForm.currency.toUpperCase()})`}
+                  Fee Value {manualForm.feeType === 'percentage' ? '(%)' : '(IDR)'}
                 </Label>
                 <Input
                   id="feeValue"
@@ -974,7 +943,7 @@ export default function PaymentMethodsPage() {
             {manualForm.feeType === 'percentage' && (
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="minFee">Min Fee ({manualForm.currency.toUpperCase()})</Label>
+                  <Label htmlFor="minFee">Min Fee (IDR)</Label>
                   <Input
                     id="minFee"
                     type="number"
@@ -985,7 +954,7 @@ export default function PaymentMethodsPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="maxFee">Max Fee ({manualForm.currency.toUpperCase()})</Label>
+                  <Label htmlFor="maxFee">Max Fee (IDR)</Label>
                   <Input
                     id="maxFee"
                     type="number"
@@ -1118,46 +1087,27 @@ export default function PaymentMethodsPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            {!editingMethod?.isGatewayMethod && (
               <div className="space-y-2">
-                <Label htmlFor="edit-currency">Currency</Label>
+                <Label htmlFor="edit-bankDetail">Bank Detail</Label>
                 <Select
-                  value={editForm.currency}
-                  onValueChange={(value: 'idr' | 'usd' | 'any') => setEditForm(prev => ({ ...prev, currency: value }))}
-                  disabled={editingMethod?.isGatewayMethod}
+                  value={editForm.bankDetailId}
+                  onValueChange={(value) => setEditForm(prev => ({ ...prev, bankDetailId: value }))}
                 >
                   <SelectTrigger>
-                    <SelectValue />
+                    <SelectValue placeholder="Select bank detail" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="idr">IDR (Indonesian Rupiah)</SelectItem>
-                    <SelectItem value="usd">USD (US Dollar)</SelectItem>
-                    <SelectItem value="any">ANY (Multi Currency)</SelectItem>
+                    <SelectItem value="none">No bank detail</SelectItem>
+                    {bankDetails.map(bank => (
+                      <SelectItem key={bank.id} value={bank.id}>
+                        {bank.bankName} - {bank.accountNumber}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
-              {!editingMethod?.isGatewayMethod && (
-                <div className="space-y-2">
-                  <Label htmlFor="edit-bankDetail">Bank Detail</Label>
-                  <Select
-                    value={editForm.bankDetailId}
-                    onValueChange={(value) => setEditForm(prev => ({ ...prev, bankDetailId: value }))}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select bank detail" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="none">No bank detail</SelectItem>
-                      {bankDetails.map(bank => (
-                        <SelectItem key={bank.id} value={bank.id}>
-                          {bank.bankName} - {bank.accountNumber}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
-            </div>
+            )}
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -1177,7 +1127,7 @@ export default function PaymentMethodsPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="edit-feeValue">
-                  Fee Value {editForm.feeType === 'percentage' ? '(%)' : `(${editForm.currency.toUpperCase()})`}
+                  Fee Value {editForm.feeType === 'percentage' ? '(%)' : '(IDR)'}
                 </Label>
                 <Input
                   id="edit-feeValue"
@@ -1194,7 +1144,7 @@ export default function PaymentMethodsPage() {
             {editForm.feeType === 'percentage' && (
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="edit-minFee">Min Fee ({editForm.currency.toUpperCase()})</Label>
+                  <Label htmlFor="edit-minFee">Min Fee (IDR)</Label>
                   <Input
                     id="edit-minFee"
                     type="number"
@@ -1205,7 +1155,7 @@ export default function PaymentMethodsPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="edit-maxFee">Max Fee ({editForm.currency.toUpperCase()})</Label>
+                  <Label htmlFor="edit-maxFee">Max Fee (IDR)</Label>
                   <Input
                     id="edit-maxFee"
                     type="number"
