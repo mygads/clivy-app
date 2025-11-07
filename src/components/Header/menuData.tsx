@@ -12,13 +12,13 @@ const menuData: Menu[] = [
   {
     id: 3,
     title: "pricing",
-    path: "/layanan/whatsapp-api#pricing",
+    path: "/#pricing",
     newTab: false,
   },
   {
     id: 4,
     title: "howToOrder",
-    path: "/how-to-order",
+    path: "/#how-to-order",
     newTab: false,
   },
   {

@@ -3,10 +3,8 @@ import ScrollUp from "@/components/Common/ScrollUp";
 import HeroWhatsAppAPI from '@/components/Sections/layanan/whatsapp-api/HeroWhatsAppAPI';
 import WhatsAppAPIOverview from '@/components/Sections/layanan/whatsapp-api/WhatsAppAPIOverview';
 import WhatsAppAPIBenefits from '@/components/Sections/layanan/whatsapp-api/WhatsAppAPIBenefits';
-import WhatsAppAPIProcess from '@/components/Sections/layanan/whatsapp-api/WhatsAppAPIProcess';
 import WhatsAppAPIWhyChoose from '@/components/Sections/layanan/whatsapp-api/WhatsAppAPIWhyChoose';
-import WhatsAppAPIPricing from '@/components/Sections/layanan/whatsapp-api/WhatsAppAPIPricing';
-import WhatsAppPackageSelector from '@/components/Sections/layanan/whatsapp-api/WhatsAppPackageSelector';
+import PricingSection from '@/components/Sections/PricingSection';
 import ContactSection from "@/components/Sections/ContactSection"
 import FaqSection from "@/components/Sections/FaqSection";
 import { generateProductMetadata } from "@/lib/metadata";
@@ -54,20 +52,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       {/* API Overview */}
       <WhatsAppAPIOverview />
 
+      {/* Pricing Section - Dynamic from Database */}
+      <PricingSection />
       {/* Benefits */}
-      <WhatsAppAPIBenefits />
-
-      {/* Integration Process */}
-      <WhatsAppAPIProcess />
+      {/* <WhatsAppAPIBenefits /> */}
 
       {/* Why Choose Clivy */}
       <WhatsAppAPIWhyChoose />
 
-      {/* Pricing - Static Display */}
-      <WhatsAppAPIPricing />
-
-      {/* Package Selector - Dynamic with Cart Integration */}
-      <WhatsAppPackageSelector />
 
       {/* Contact & FAQ */}
       <ContactSection />

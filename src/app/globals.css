@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Define keyframes directly in the CSS */
 @keyframes shimmer {
   0%, 100% { background-position: 0 0; }

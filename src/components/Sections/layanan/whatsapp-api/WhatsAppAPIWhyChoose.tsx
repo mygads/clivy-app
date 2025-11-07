@@ -176,8 +176,8 @@ const clientLogos = [
 
 export default function WhatsAppAPIWhyChoose() {
     return (
-        <section className="py-12 sm:py-16 md:py-20 bg-white sm:bg-gradient-to-br sm:from-white sm:via-green-50/30 sm:to-white dark:bg-gray-800 dark:sm:from-gray-900 dark:sm:via-gray-800 dark:sm:to-green-900/20">
-            <div className="max-w-7xl mx-auto px-4">
+        <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-dark">
+            <div className="container mx-auto px-4">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -186,10 +186,10 @@ export default function WhatsAppAPIWhyChoose() {
                     viewport={{ once: true }}
                     className="mx-auto max-w-3xl text-center"
                 >
-                    <h2 className="mb-4 sm:mb-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
-                        Why Choose Clivy WhatsApp API?
+                    <h2 className="mb-3 sm:mb-4 text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                        Why Choose <span className="text-primary">Clivy</span> WhatsApp API?
                     </h2>
-                    <p className="mb-8 sm:mb-12 text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300">
+                    <p className="mb-8 sm:mb-12 text-sm sm:text-base text-gray-600 dark:text-gray-300">
                         Experience the difference with Indonesia&apos;s leading WhatsApp Business Solution Provider.
                         Trusted by 1000+ businesses for reliable, secure, and scalable messaging solutions.
                     </p>
@@ -354,118 +354,6 @@ export default function WhatsAppAPIWhyChoose() {
                                 ))}
                             </tbody>
                         </table>
-                    </div>
-                </motion.div>
-
-                {/* Certifications & Awards */}
-                <div className="mb-16 grid gap-8 lg:grid-cols-2">
-                    {/* Certifications */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6 }}
-                        viewport={{ once: true }}
-                        className="rounded-xl bg-white p-8 shadow-sm dark:bg-gray-900"
-                    >
-                        <h3 className="mb-6 text-xl font-bold text-gray-900 dark:text-white">
-                            Certifications & Compliance
-                        </h3>
-                        <div className="grid gap-4 sm:grid-cols-2">
-                            {certifications.map((cert, index) => (
-                                <div key={index} className="flex items-center gap-3 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-                                    <div className="text-2xl">{cert.icon}</div>
-                                    <div>
-                                        <div className="font-semibold text-gray-900 dark:text-white">
-                                            {cert.name}
-                                        </div>
-                                        <div className="text-sm text-gray-600 dark:text-gray-300">
-                                            {cert.description} • {cert.year}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Awards */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6 }}
-                        viewport={{ once: true }}
-                        className="rounded-xl bg-white p-8 shadow-sm dark:bg-gray-900"
-                    >
-                        <h3 className="mb-6 text-xl font-bold text-gray-900 dark:text-white">
-                            Awards & Recognition
-                        </h3>
-                        <div className="space-y-4">
-                            {awards.map((award, index) => (
-                                <div key={index} className="flex items-start gap-4 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-                                    <div className="text-2xl">{award.icon}</div>
-                                    <div>
-                                        <div className="font-semibold text-gray-900 dark:text-white">
-                                            {award.title}
-                                        </div>
-                                        <div className="text-sm text-gray-600 dark:text-gray-300">
-                                            {award.organization} • {award.year}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-                </div>
-
-                {/* Client Logos */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="text-center"
-                >
-                    <div className="mx-auto max-w-2xl rounded-2xl bg-white p-8 shadow-sm dark:bg-gray-900 md:p-12">
-                        <Award className="mx-auto mb-6 h-16 w-16 text-green-600 dark:text-green-400" />
-                        <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-                            Trusted by 1000+ Businesses
-                        </h3>
-                        <p className="mb-8 text-gray-600 dark:text-gray-300">
-                            Join leading companies across Indonesia and Southeast Asia who trust Clivy
-                            for their WhatsApp Business communication needs.
-                        </p>
-
-                        <div className="grid grid-cols-3 gap-6 md:grid-cols-6">
-                            {clientLogos.map((client, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                    className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-4 dark:bg-gray-800"
-                                >
-                                    <div className="text-2xl mb-2">{client.logo}</div>
-                                    <div className="text-xs text-gray-600 dark:text-gray-300">
-                                        {client.name}
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-
-                        <div className="mt-8 grid gap-6 md:grid-cols-3">
-                            <div className="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
-                                <div className="text-2xl font-bold text-green-600 dark:text-green-400">1000+</div>
-                                <div className="text-sm text-gray-600 dark:text-gray-300">Active clients</div>
-                            </div>
-                            <div className="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
-                                <div className="text-2xl font-bold text-green-600 dark:text-green-400">10M+</div>
-                                <div className="text-sm text-gray-600 dark:text-gray-300">Messages sent daily</div>
-                            </div>
-                            <div className="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
-                                <div className="text-2xl font-bold text-green-600 dark:text-green-400">99.8%</div>
-                                <div className="text-sm text-gray-600 dark:text-gray-300">Client satisfaction</div>
-                            </div>
-                        </div>
                     </div>
                 </motion.div>
             </div>

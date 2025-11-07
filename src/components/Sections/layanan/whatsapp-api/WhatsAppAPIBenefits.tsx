@@ -93,8 +93,8 @@ const industries = [
 
 export default function WhatsAppAPIBenefits() {
     return (
-        <section className="py-12 sm:py-16 md:py-20 bg-white sm:bg-gradient-to-br sm:from-white sm:via-green-50/30 sm:to-white dark:bg-gray-800 dark:sm:from-gray-900 dark:sm:via-gray-800 dark:sm:to-green-900/20">
-            <div className="max-w-7xl mx-auto px-4">
+        <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-dark">
+            <div className="container mx-auto px-4">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -103,10 +103,10 @@ export default function WhatsAppAPIBenefits() {
                     viewport={{ once: true }}
                     className="mx-auto max-w-3xl text-center"
                 >
-                    <h2 className="mb-4 sm:mb-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
-                        Transform Your Business Communication
+                    <h2 className="mb-3 sm:mb-4 text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                        Transform Your Business <span className="text-primary">Communication</span>
                     </h2>
-                    <p className="mb-8 sm:mb-12 text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300">
+                    <p className="mb-8 sm:mb-12 text-sm sm:text-base text-gray-600 dark:text-gray-300">
                         Unlock the power of WhatsApp Business API to enhance customer relationships,
                         automate communications, and drive business growth with proven results.
                     </p>
@@ -142,13 +142,13 @@ export default function WhatsAppAPIBenefits() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="mb-12 sm:mb-16 rounded-2xl bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-6 sm:p-8 md:p-12 border border-gray-100 dark:border-gray-700"
+                    className="mb-12 sm:mb-16 rounded-2xl bg-gray-50 dark:bg-gray-800 p-6 sm:p-8 border border-gray-100 dark:border-gray-700"
                 >
                     <div className="text-center">
-                        <h3 className="mb-3 sm:mb-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">
+                        <h3 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                             Proven Performance Metrics
                         </h3>
-                        <p className="mb-12 text-green-100">
+                        <p className="mb-8 sm:mb-12 text-sm sm:text-base text-gray-600 dark:text-gray-300">
                             Our WhatsApp API delivers exceptional performance and reliability for business communications
                         </p>
                     </div>
@@ -163,13 +163,13 @@ export default function WhatsAppAPIBenefits() {
                                 viewport={{ once: true }}
                                 className="text-center"
                             >
-                                <div className="mb-2 text-4xl font-bold text-white md:text-5xl">
+                                <div className="mb-2 text-4xl font-bold text-green-600 dark:text-green-400 md:text-5xl">
                                     {stat.value}
                                 </div>
-                                <div className="mb-1 text-lg font-semibold text-green-100">
+                                <div className="mb-1 text-lg font-semibold text-gray-900 dark:text-gray-100">
                                     {stat.label}
                                 </div>
-                                <div className="text-sm text-green-200">
+                                <div className="text-sm text-gray-600 dark:text-gray-300">
                                     {stat.description}
                                 </div>
                             </motion.div>
@@ -261,39 +261,6 @@ export default function WhatsAppAPIBenefits() {
                     </div>
                 </motion.div>
 
-                {/* ROI Calculator */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="text-center"
-                >
-                    <div className="mx-auto max-w-2xl rounded-2xl bg-white p-8 shadow-sm dark:bg-gray-900 md:p-12">
-                        <MessageSquare className="mx-auto mb-6 h-16 w-16 text-green-600 dark:text-green-400" />
-                        <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-                            Calculate Your ROI
-                        </h3>
-                        <p className="mb-8 text-gray-600 dark:text-gray-300">
-                            Businesses typically see 3-5x ROI within the first quarter of implementing WhatsApp API.
-                            Start with our API and measure the impact on your customer engagement.
-                        </p>
-                        <div className="grid gap-6 md:grid-cols-3">
-                            <div className="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
-                                <div className="text-2xl font-bold text-green-600 dark:text-green-400">3-5x</div>
-                                <div className="text-sm text-gray-600 dark:text-gray-300">Average ROI</div>
-                            </div>
-                            <div className="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
-                                <div className="text-2xl font-bold text-green-600 dark:text-green-400">30 Days</div>
-                                <div className="text-sm text-gray-600 dark:text-gray-300">Time to see results</div>
-                            </div>
-                            <div className="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
-                                <div className="text-2xl font-bold text-green-600 dark:text-green-400">90%</div>
-                                <div className="text-sm text-gray-600 dark:text-gray-300">Customer retention</div>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
             </div>
         </section>
     )

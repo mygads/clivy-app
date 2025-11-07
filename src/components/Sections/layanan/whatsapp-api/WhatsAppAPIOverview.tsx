@@ -281,30 +281,6 @@ export default function WhatsAppAPIOverview() {
                         </div>
                     </div>
                 </motion.div>
-
-                {/* CTA Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="mt-16 text-center"
-                >
-                    <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-                        Ready to Integrate WhatsApp API?
-                    </h3>
-                    <p className="mb-8 text-gray-600 dark:text-gray-300">
-                        Start building powerful messaging solutions with our comprehensive WhatsApp API service
-                    </p>
-                    <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="group inline-flex items-center rounded-lg bg-green-600 px-8 py-4 font-semibold text-white shadow-lg transition-all hover:bg-green-700 hover:shadow-xl"
-                    >
-                        Get API Access
-                        <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                    </motion.button>
-                </motion.div>
             </div>
         </section>
     )
