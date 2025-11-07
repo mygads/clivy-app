@@ -94,26 +94,17 @@ function getDateRangeFilter(period: string) {
 function formatCurrency(amount: number | null | undefined, currency: string): string {
   // Handle null, undefined, or NaN values
   if (amount === null || amount === undefined || isNaN(Number(amount))) {
-    return currency === 'idr' ? 'Rp 0' : '$0.00';
+    return 'Rp 0';
   }
   
   const numericAmount = Number(amount);
   
-  if (currency === 'idr') {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(numericAmount);
-  } else {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(numericAmount);
-  }
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(numericAmount);
 }
 
 // Helper function to convert UTC to WIB for peak hour
@@ -134,7 +125,7 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const period = searchParams.get('period') || 'today'; // today, week, month, all_time
-    const currency = searchParams.get('currency') || 'idr'; // idr, usd
+    const currency = searchParams.get('currency') || 'idr'; // IDR only
     
     // console.log(`Analytics request - Period: ${period}, Currency: ${currency}`);
     
@@ -807,16 +798,16 @@ export async function GET(request: NextRequest) {
         : 0
     }));
 
-    // Process top products/services - WhatsApp packages only
-    const processedTopProducts: any[] = [];
+    // Process top services - WhatsApp packages only
+    const processedTopServices: any[] = [];
     
     // Get total revenue for WhatsApp package
-    const getProductRevenue = async (productId: string) => {
+    const getServiceRevenue = async (serviceId: string) => {
       // For WhatsApp services, sum up the finalAmount of transactions that contain this whatsapp package
       const revenueQuery = await prisma.transaction.aggregate({
         where: {
           whatsappTransaction: {
-            whatsappPackageId: productId
+            whatsappPackageId: serviceId
           },
           payment: { status: 'paid' },
           createdAt: currentPeriodFilter,
@@ -845,11 +836,11 @@ export async function GET(request: NextRequest) {
           });
           
           if (packageInfo) {
-            const revenue = await getProductRevenue(whatsapp.whatsappPackageId);
+            const revenue = await getServiceRevenue(whatsapp.whatsappPackageId);
             return {
               id: whatsapp.whatsappPackageId,
-              productName: packageInfo.name,
-              productType: 'whatsapp',
+              serviceName: packageInfo.name,
+              serviceType: 'whatsapp',
               orderCount: Number(whatsapp._count.whatsappPackageId),
               totalDuration: 1,
               totalRevenue: revenue,
@@ -866,12 +857,12 @@ export async function GET(request: NextRequest) {
       );
       
       whatsappDetails.forEach(detail => {
-        if (detail) processedTopProducts.push(detail);
+        if (detail) processedTopServices.push(detail);
       });
     }
     
     // Sort by order count descending and take top 10
-    const sortedTopProducts = processedTopProducts.sort((a, b) => b.orderCount - a.orderCount).slice(0, 10);
+    const sortedTopServices = processedTopServices.sort((a, b) => b.orderCount - a.orderCount).slice(0, 10);
 
     // Process recent transactions - WhatsApp only
     const processedRecentTransactions = recentTransactions.map((transaction: any) => {
@@ -974,7 +965,7 @@ export async function GET(request: NextRequest) {
           _count: { id: cat._count.type },
           _sum: { finalAmount: cat._sum.finalAmount }
         })),
-        topProducts: sortedTopProducts,
+        topServices: sortedTopServices,
         recentTransactions: processedRecentTransactions,
         conversionFunnel: processedConversionFunnel,
         analytics: {

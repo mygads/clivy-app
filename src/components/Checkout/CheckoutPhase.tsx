@@ -20,7 +20,6 @@ interface CheckoutPhaseProps {
   }
   selectedItems: any[]
   whatsappItems: any[]
-  // Removed: regularItems and addOns (WhatsApp only)
   voucherApplied: boolean
   selectedItemsTotal: number
   voucherDiscount: number
@@ -32,7 +31,6 @@ export function CheckoutPhase({
   formData,
   selectedItems,
   whatsappItems,
-  // Removed: regularItems and addOns
   voucherApplied,
   selectedItemsTotal,
   voucherDiscount,
@@ -66,7 +64,6 @@ export function CheckoutPhase({
       const checkoutData: CheckoutRequest = {
         currency: "idr",
         notes: formData.notes || undefined,
-        // WhatsApp only - no packages or addons
         ...(whatsapp.length > 0 && { whatsapp }),
         ...(voucherApplied && formData.voucher && { voucherCode: formData.voucher })
       }

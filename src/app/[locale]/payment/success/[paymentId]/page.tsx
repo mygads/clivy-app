@@ -47,8 +47,8 @@ export default function PaymentSuccessPage() {
   // Clear selected items from cart when payment success page loads
   useEffect(() => {
     // Clear selected items from cart on success page load
-    clearSelectedItemsFromCart()
-    console.log("[PaymentSuccess] Cleared selected items from cart on success page load")
+    clearSelectedItemsFromCart?.()
+    // console.log("[PaymentSuccess] Cleared selected items from cart on success page load")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []) // Only run once on mount to avoid infinite loop
 
@@ -238,7 +238,7 @@ export default function PaymentSuccessPage() {
                 href="/products"
                 className="block w-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm sm:text-base"
               >
-                Lihat Produk Lainnya
+                Lihat Layanan WhatsApp
               </Link>
             )}
           </div>
@@ -277,7 +277,7 @@ export default function PaymentSuccessPage() {
                 href="/products"
                 className="block w-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm sm:text-base"
               >
-                Lihat Produk Lainnya
+                Lihat Layanan WhatsApp
               </Link>
             )}
           </div>
@@ -413,7 +413,7 @@ export default function PaymentSuccessPage() {
                   className="flex items-center justify-center gap-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm sm:text-base"
                 >
                   <Package className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="truncate">Explore Products</span>
+                  <span className="truncate">Lihat Layanan WhatsApp</span>
                 </Link>
               </div>
             </div>

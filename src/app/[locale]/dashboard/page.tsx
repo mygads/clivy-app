@@ -122,7 +122,6 @@ interface DashboardData {
     totalOverall: number;
     success: {
       total: number;
-      product: number;
       whatsapp: number;
     };
     pending: {
@@ -145,11 +144,9 @@ interface DashboardData {
     expiration: string | null;
   };
   recentHistory: {
-    products: any[];
     whatsapp: any[];
     transactions: any[];
   };
-  productDeliveryLog: any[];
 }
 
 
@@ -298,7 +295,6 @@ export default function DashboardPage() {
 
   // Check if user has purchased different service types
   const hasWhatsAppPackages = (dashboardData?.transactionSummary?.success?.whatsapp ?? 0) > 0
-  const hasProductPackages = (dashboardData?.transactionSummary?.success?.product ?? 0) > 0
 
   return (
     <div className="flex-1 space-y-4 sm:space-y-6 p-3 sm:p-4 md:p-6 lg:p-8 pt-4 sm:pt-6 bg-background">
@@ -377,21 +373,11 @@ export default function DashboardPage() {
               {dashboardData?.transactionSummary.success.total || 0}
             </div>
             <div className="flex items-center text-xs text-muted-foreground mt-1 flex-wrap gap-1">
-              {/* Always show Products */}
-              <div className="flex items-center gap-1">
-                <Package className="h-2 w-2 sm:h-3 sm:w-3" />
-                <span className="text-xs">{dashboardData?.transactionSummary.success.product || 0} Produk</span>
-              </div>
-              
-              {/* Only show WhatsApp if user has WhatsApp packages */}
               {hasWhatsAppPackages && (
-                <>
-                  <span className="mx-1">•</span>
-                  <div className="flex items-center gap-1">
-                    <FaWhatsapp className="h-2 w-2 sm:h-3 sm:w-3" />
-                    <span className="text-xs">{dashboardData?.transactionSummary.success.whatsapp || 0} WhatsApp</span>
-                  </div>
-                </>
+                <div className="flex items-center gap-1">
+                  <FaWhatsapp className="h-2 w-2 sm:h-3 sm:w-3" />
+                  <span className="text-xs">{dashboardData?.transactionSummary.success.whatsapp || 0} WhatsApp Services</span>
+                </div>
               )}
             </div>
           </CardContent>
@@ -449,24 +435,11 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="pt-0">
             <div className="space-y-3 sm:space-y-4">
-              {/* Always show Products section */}
-              <div className="flex items-center justify-between p-2 sm:p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <Package className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500" />
-                  <span className="text-xs sm:text-sm font-medium">Paket Produk</span>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm sm:text-lg font-bold text-blue-600">{dashboardData?.transactionSummary.success.product || 0}</p>
-                  <p className="text-xs text-muted-foreground">transaksi</p>
-                </div>
-              </div>
-              
-              {/* Only show WhatsApp section if user has WhatsApp packages */}
               {hasWhatsAppPackages && (
                 <div className="flex items-center justify-between p-2 sm:p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
                     <FaWhatsapp className="h-3 w-3 sm:h-4 sm:w-4 text-green-500" />
-                    <span className="text-xs sm:text-sm font-medium">WhatsApp API</span>
+                    <span className="text-xs sm:text-sm font-medium">WhatsApp API Services</span>
                   </div>
                   <div className="text-right">
                     <p className="text-sm sm:text-lg font-bold text-green-600">{dashboardData?.transactionSummary.success.whatsapp || 0}</p>
@@ -488,14 +461,6 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="pt-0">
             <div className="space-y-2 sm:space-y-3">
-              <Link href="/dashboard/product" className="block">
-                <Button className="w-full justify-start gap-2 h-auto py-2 sm:py-3 text-xs sm:text-sm" variant="outline">
-                  <Package className="h-3 w-3 sm:h-4 sm:w-4" />
-                  Beli Paket Baru
-                  <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-auto" />
-                </Button>
-              </Link>
-              
               {/* Only show WhatsApp Dashboard if user has WhatsApp packages */}
               {hasWhatsAppPackages && (
                 <Link href="/dashboard/whatsapp" className="block">
@@ -538,8 +503,6 @@ export default function DashboardPage() {
                 {dashboardData.recentHistory.transactions.map((transaction) => {
                   const getTypeIcon = (type: string) => {
                     switch (type) {
-                      case 'product': return <Package className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500" />
-                      case 'addon': return <Plus className="h-3 w-3 sm:h-4 sm:w-4 text-purple-500" />
                       case 'whatsapp': return <FaWhatsapp className="h-3 w-3 sm:h-4 sm:w-4 text-green-500" />
                       default: return <CreditCard className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500" />
                     }
@@ -560,7 +523,6 @@ export default function DashboardPage() {
                   
                   const getTypeLabel = (type: string) => {
                     switch (type) {
-                      case 'product': return 'Produk'
                       case 'whatsapp': return 'WhatsApp'
                       default: return 'Lainnya'
                     }
@@ -584,7 +546,7 @@ export default function DashboardPage() {
                       </div>
                       <div className="text-right flex-shrink-0 ml-2">
                         <p className="font-medium text-xs sm:text-sm whitespace-nowrap">
-                          {transaction.currency === 'usd' ? '$' : 'Rp'} {Number(transaction.amount).toLocaleString()}
+                          Rp {Number(transaction.amount).toLocaleString()}
                         </p>
                         <div className="mt-1">
                           {getStatusBadge(transaction.status)}

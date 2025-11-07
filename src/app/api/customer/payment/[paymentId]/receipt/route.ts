@@ -71,15 +71,7 @@ export async function GET(
       }, { status: 400 }))
     }
 
-    // Calculate price helper
-    const calculatePrice = (priceIdr: any, priceUsd: any, currency: string) => {
-      if (currency === 'usd') {
-        return Number(priceUsd || 0);
-      }
-      return Number(priceIdr || 0);
-    };
-
-    // Calculate totals
+    // Calculate totals for WhatsApp service (IDR only)
     const whatsappTotal = payment.transaction?.whatsappTransaction ? 
       (payment.transaction.whatsappTransaction.duration === 'year' 
         ? Number(payment.transaction.whatsappTransaction.whatsappPackage?.priceYear || 0)

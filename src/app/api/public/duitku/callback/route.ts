@@ -247,7 +247,7 @@ export async function POST(request: NextRequest) {
             name: string;
             quantity: number;
             price: number;
-            type: 'package' | 'addon' | 'whatsapp_service';
+            type: 'whatsapp_service';
             duration?: 'month' | 'year';
           }> = []
 

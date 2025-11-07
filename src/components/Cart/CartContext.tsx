@@ -7,9 +7,8 @@ import { createContext, useContext, useState, useEffect } from "react"
 export interface CartItem {
   id: string
   name: string
-  price: number // Current price in active currency
+  price: number // Current price in IDR
   price_idr: number
-  price_usd: number
   duration: 'month' | 'year'
   maxSession: number
   qty: number // Always 1 for WhatsApp packages

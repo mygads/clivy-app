@@ -12,7 +12,7 @@ export async function OPTIONS() {
 const updatePaymentMethodSchema = z.object({
   name: z.string().min(1, "Display name is required").optional(),
   description: z.string().optional(),
-  currency: z.enum(['idr', 'usd', 'any']).optional().nullable().transform(val => val === null ? undefined : val),
+  currency: z.enum(['idr', 'any']).optional().nullable().transform(val => val === null ? undefined : val),
   isActive: z.boolean().optional(),
   feeType: z.enum(['fixed', 'percentage']).optional(),
   feeValue: z.number().min(0).optional(),

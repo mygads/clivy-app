@@ -19,21 +19,10 @@ export async function GET(request: NextRequest) {
     }
 
     const url = new URL(request.url);
-    const currency = url.searchParams.get('currency') as 'idr' | 'usd' | null;
+    const currency = url.searchParams.get('currency') as 'idr' | null;
 
-    // Get all active payment methods
-    let whereClause: any = { isActive: true };
-    
-    // If currency is specified, filter by payment methods that support that currency or have no currency restriction
-    if (currency) {
-      whereClause = {
-        isActive: true,
-        OR: [
-          { currency: currency },
-          { currency: null } // Payment methods with no currency restriction
-        ]
-      };
-    }
+    // Get all active payment methods (IDR only)
+    const whereClause: any = { isActive: true };
 
     const paymentMethods = await prisma.paymentMethod.findMany({
       where: whereClause,
@@ -56,28 +45,23 @@ export async function GET(request: NextRequest) {
         name: method.name,
         description: method.description,
         type: method.type,
-        currency: method.currency,
+        currency: 'idr', // IDR only
         isSystem: method.isSystem,
         hasServiceFee,
         bankDetail: method.bankDetail ? {
           bankName: method.bankDetail.bankName,
           accountNumber: method.bankDetail.accountNumber,
           accountName: method.bankDetail.accountName,
-          currency: method.bankDetail.currency
+          currency: 'idr' // IDR only
         } : null,
-        // Show if this payment method can be used for the specified currency
-        compatibleWithCurrency: currency ? 
-          (method.currency === null || method.currency === currency) : 
-          true
+        compatibleWithCurrency: true // Always true for IDR-only system
       };
     });
 
-    // Filter out payment methods that already have service fee for the specified currency
-    const filteredMethods = currency ? 
-      availablePaymentMethods.filter(method => 
-        method.compatibleWithCurrency && !method.hasServiceFee
-      ) : 
-      availablePaymentMethods;
+    // Filter out payment methods that already have service fee
+    const filteredMethods = availablePaymentMethods.filter(method => 
+      !method.hasServiceFee
+    );
 
     return withCORS(NextResponse.json({
       success: true,

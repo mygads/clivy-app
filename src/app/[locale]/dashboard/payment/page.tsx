@@ -255,11 +255,9 @@ export default function PaymentDashboardPage() {
 
   // Currency formatter
   const formatCurrency = (amount: number, currency: string = 'IDR') => {
-    const currencyUpper = currency.toUpperCase()
-    const locale = currencyUpper === 'USD' ? 'en-US' : 'id-ID'
-    return new Intl.NumberFormat(locale, {
+    return new Intl.NumberFormat('id-ID', {
       style: 'currency',
-      currency: currencyUpper
+      currency: 'IDR'
     }).format(amount)
   }
 

@@ -14,7 +14,7 @@ const updateVoucherSchema = z.object({
   code: z.string().min(1, 'Code is required').optional(),
   name: z.string().min(1, 'Name is required').optional(),
   description: z.string().optional(),
-  type: z.enum(['total', 'products', 'addons', 'whatsapp']).optional(),
+  type: z.enum(['total', 'whatsapp']).optional(),
   discountType: z.enum(['percentage', 'fixed_amount']).optional(),
   value: z.union([z.number(), z.string()]).pipe(z.coerce.number().positive('Value must be positive')).optional(),
   minAmount: z.union([z.number(), z.string(), z.null()]).optional().transform(val => val === null || val === '' ? undefined : Number(val)),

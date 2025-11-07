@@ -205,7 +205,7 @@ export async function POST(request: NextRequest) {
       gatewayResponse = await gatewayManager.createPayment({
         transactionId: transactionData.transaction.id,
         amount: transactionData.finalAmount,
-        currency: transactionData.transaction.currency as 'idr' | 'usd',
+        currency: 'idr',
         paymentMethodCode: paymentMethod,
         customerInfo: {
           id: userAuth.id,
@@ -238,7 +238,7 @@ export async function POST(request: NextRequest) {
         }
       });
 
-      // 5.1. Update child transaction statuses to pending  - Product/Addon removed, only WhatsApp now
+      // 5.1. Update child transaction statuses to pending
       // WhatsApp transaction status is managed separately
       
       // 7. Create or update payment record
@@ -311,7 +311,7 @@ export async function POST(request: NextRequest) {
           }
         });
 
-        // Update child transaction statuses to in_progress - Product/Addon removed
+        // Update child transaction statuses to in_progress
         await tx.transactionWhatsappService.updateMany({
           where: { transactionId: transactionData.transaction.id },
           data: { status: 'in_progress' }
@@ -566,7 +566,7 @@ function buildTransactionItems(transaction: any): Array<{
 }> {
   const items: Array<any> = [];
 
-  // Add WhatsApp service items (only service type now - product/addon removed)
+  // Add WhatsApp service items
   if (transaction.whatsappTransaction) {
     const whatsappTx = transaction.whatsappTransaction;
     items.push({
@@ -587,7 +587,7 @@ function buildPaymentNotificationData(
   transaction: any,
   instructions: string
 ): any {
-  // Build items for notification (WhatsApp only - product/addon removed)
+  // Build items for notification
   const items = [];
 
   // Add WhatsApp service items

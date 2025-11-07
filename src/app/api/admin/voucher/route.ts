@@ -10,7 +10,7 @@ const voucherSchema = z.object({
   code: z.string().min(1, 'Code is required'),
   name: z.string().min(1, 'Name is required'),
   description: z.string().optional(),
-  type: z.enum(['total', 'products', 'addons', 'whatsapp']),
+  type: z.enum(['total', 'whatsapp']),
   discountType: z.enum(['percentage', 'fixed_amount']),
   value: z.union([z.number(), z.string()]).pipe(z.coerce.number().positive('Value must be positive')),
   minAmount: z.union([z.number(), z.string(), z.null()]).optional().transform(val => val === null || val === '' ? undefined : Number(val)),

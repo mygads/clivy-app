@@ -12,7 +12,6 @@ const packages = [
     description_en: "Simple and effective landing page with responsive design, contact form, and basic SEO optimization",
     description_id: "Landing page sederhana dan efektif dengan desain responsif, form kontak, dan optimasi SEO dasar",
     price_idr: 2500000,
-    price_usd: 165,
     popular: false,
     features: [
       {
@@ -59,7 +58,6 @@ const packages = [
     description_en: "Advanced landing page with animations, advanced SEO, analytics integration, and premium support",
     description_id: "Landing page lanjutan dengan animasi, SEO lanjutan, integrasi analytics, dan dukungan premium",
     price_idr: 5000000,
-    price_usd: 330,
     popular: true,
     features: [
       {
@@ -106,7 +104,6 @@ const packages = [
     description_en: "Custom solutions for complex business needs with dedicated project management and ongoing support",
     description_id: "Solusi kustom untuk kebutuhan bisnis yang kompleks dengan manajemen proyek khusus dan dukungan berkelanjutan",
     price_idr: null,
-    price_usd: null,
     popular: false,
     features: [
       {
@@ -168,9 +165,9 @@ export default function PricingPackages() {
   }, [])
 
 
-  // Consistent price formatting - IDR currency for Indonesian market
-  const formatPrice = (priceIdr: number | null, priceUsd: number | null) => {
-    if (!priceIdr || !priceUsd) return "Custom"
+  // Consistent price formatting - IDR currency only
+  const formatPrice = (priceIdr: number | null) => {
+    if (!priceIdr) return "Custom"
 
     // Format IDR with proper thousand separators (Indonesian format)
     const formattedIDR = new Intl.NumberFormat('id-ID', {
@@ -228,9 +225,9 @@ export default function PricingPackages() {
             </h3>
             <div className="mb-2 flex items-end justify-center">
               <span className="text-2xl font-bold text-primary md:text-3xl">
-                {formatPrice(pkg.price_idr, pkg.price_usd)}
+                {formatPrice(pkg.price_idr)}
               </span>
-              {pkg.price_usd && (
+              {pkg.price_idr && (
                 <span className="text-gray-500 dark:text-gray-400">/project</span>
               )}
             </div>
@@ -265,7 +262,7 @@ export default function PricingPackages() {
                 : "bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
               }`}
           >
-            {!pkg.price_usd ? "Contact Us" : "Choose Package"}
+            {!pkg.price_idr ? "Contact Us" : "Choose Package"}
           </button>
         </div>
       </div>

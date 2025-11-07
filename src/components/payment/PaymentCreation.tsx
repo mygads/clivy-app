@@ -93,7 +93,7 @@ const PaymentCreation: React.FC<PaymentCreationProps> = ({
   const formatCurrency = (amount: number, currency: string) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
-      currency: currency === 'IDR' ? 'IDR' : 'USD',
+      currency: 'IDR', // IDR only
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     }).format(amount)

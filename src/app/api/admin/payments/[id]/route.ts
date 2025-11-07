@@ -432,7 +432,6 @@ function getTransactionItems(transaction: any) {
       name: whatsappPackage.name,
       category: 'WhatsApp Service',
       price_idr: price_idr,
-      price_usd: 0, // WhatsApp services are IDR only
       quantity: 1,
       duration: duration,
     });

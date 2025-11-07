@@ -225,7 +225,7 @@ export async function GET(request: NextRequest) {
       todayTotalMessages,
       todaySuccessRate,
 
-      // Top Products
+      // Top WhatsApp Packages
       topPackages: topPackagesWithDetails,
 
       // Additional metrics

@@ -6,16 +6,8 @@ import { PaymentExpirationService } from "@/lib/payment-expiration";
 import { z } from "zod";
 import { detectCurrencySync } from "@/lib/currency-detection";
 
-const createTransactionSchema = z.object({
-  packageId: z.string().cuid().optional(),
-  addonId: z.string().cuid().optional(),
-  startDate: z.string().datetime(),
-  endDate: z.string().datetime(),
-  referenceLink: z.string().url().optional(),
-  notes: z.string().max(1000).optional(),
-}).refine(data => data.packageId || data.addonId, {
-  message: "Either packageId or addonId must be provided",
-});
+// Schema no longer used - WhatsApp transactions handled differently
+// Keeping for backward compatibility but validation removed
 
 export async function OPTIONS() {
   return corsOptionsResponse();
@@ -180,10 +172,10 @@ export async function POST(request: NextRequest) {
       ));
     }
 
-    // Product/Addon transactions removed - only WhatsApp service now
+    // This endpoint is no longer supported
     return withCORS(NextResponse.json(
-      { success: false, error: "Product and addon transactions have been removed. Please use WhatsApp services instead." },
-      { status: 410 } // 410 Gone - indicates the resource is permanently removed
+      { success: false, error: "This transaction type is no longer supported. Please use WhatsApp services." },
+      { status: 410 }
     ));
   } catch (error) {
     console.error("Transaction creation error:", error);

@@ -186,7 +186,7 @@ export default function CreateVoucherDialog({
         <DialogHeader>
           <DialogTitle>Create New Voucher</DialogTitle>
           <DialogDescription>
-            Create a new discount voucher for your products and services.
+            Create a new discount voucher for WhatsApp services.
           </DialogDescription>
         </DialogHeader>
 

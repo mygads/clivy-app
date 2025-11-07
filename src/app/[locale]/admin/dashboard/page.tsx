@@ -120,10 +120,10 @@ interface DashboardData {
     _count: { id: number };
     _sum: { finalAmount: number };
   }>;
-  topProducts: Array<{
+  topServices: Array<{
     id: string;
-    productName: string;
-    productType: string;
+    serviceName: string;
+    serviceType: string;
     orderCount: number;
     totalQuantity?: number;
     totalRevenue: number;
@@ -820,45 +820,45 @@ export default function DashboardPage() {
         </Card>
       </div>
 
-      {/* Top Products & Voucher Analytics */}
+      {/* Top Services & Voucher Analytics */}
       <div className="grid gap-3 sm:gap-4 md:gap-6 md:grid-cols-2">
-        {/* Top Products */}
+        {/* Top Services */}
         <Card className="overflow-hidden">
           <CardHeader className="pb-3 border-b">
             <div className="flex items-center justify-between">
               <CardTitle className="text-base sm:text-lg font-semibold">
-                Top Products ({getPeriodLabel(period)})
+                Top Services ({getPeriodLabel(period)})
               </CardTitle>
               <Badge variant="outline" className="text-xs">
-                {data?.topProducts?.length || 0} items
+                {data?.topServices?.length || 0} items
               </Badge>
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              {period === 'today' ? 'Produk terlaris hari ini berdasarkan jumlah pesanan' :
-               period === 'week' ? 'Produk terlaris 7 hari terakhir berdasarkan jumlah pesanan' :
-               period === 'month' ? 'Produk terlaris bulan ini berdasarkan jumlah pesanan' :
-               'Produk terlaris sepanjang waktu berdasarkan jumlah pesanan'}
+              {period === 'today' ? 'Layanan terlaris hari ini berdasarkan jumlah pesanan' :
+               period === 'week' ? 'Layanan terlaris 7 hari terakhir berdasarkan jumlah pesanan' :
+               period === 'month' ? 'Layanan terlaris bulan ini berdasarkan jumlah pesanan' :
+               'Layanan terlaris sepanjang waktu berdasarkan jumlah pesanan'}
             </p>
           </CardHeader>
           <div className="p-0 max-h-96 overflow-y-auto">
-            {data?.topProducts && data.topProducts.length > 0 ? (
+            {data?.topServices && data.topServices.length > 0 ? (
               <div className="divide-y divide-white/10">
-                {data.topProducts.map((product, index) => (
-                  <div key={product.id} className="p-3 sm:p-4 flex items-center justify-between hover:bg-white/5">
+                {data.topServices.map((service, index) => (
+                  <div key={service.id} className="p-3 sm:p-4 flex items-center justify-between hover:bg-white/5">
                     <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                       <div className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-brand-blue/10 text-brand-blue font-semibold text-xs sm:text-sm flex-shrink-0">
                         {index + 1}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="font-medium text-xs sm:text-sm truncate">{product.productName}</p>
+                        <p className="font-medium text-xs sm:text-sm truncate">{service.serviceName}</p>
                         <div className="flex flex-wrap items-center gap-1 sm:gap-2 mt-0.5">
-                          <p className="text-xs text-muted-foreground capitalize">{product.productType}</p>
+                          <p className="text-xs text-muted-foreground capitalize">{service.serviceType}</p>
                           <span className="text-xs bg-blue-500/10 text-blue-500 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded whitespace-nowrap">
-                            {product.orderCount} orders
+                            {service.orderCount} orders
                           </span>
-                          {product.totalQuantity && product.totalQuantity > 0 && (
+                          {service.totalQuantity && service.totalQuantity > 0 && (
                             <span className="text-xs bg-green-500/10 text-green-500 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded whitespace-nowrap">
-                              {product.totalQuantity} qty
+                              {service.totalQuantity} qty
                             </span>
                           )}
                         </div>
@@ -866,13 +866,13 @@ export default function DashboardPage() {
                     </div>
                     <div className="text-right flex-shrink-0 ml-2">
                       <p className="font-medium text-xs sm:text-sm text-green-600">
-                        {formatCurrency(product.totalRevenue || 0, product.currency)}
+                        {formatCurrency(service.totalRevenue || 0, service.currency)}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        Avg: {formatCurrency(product.avgOrderValue || 0, product.currency)}
+                        Avg: {formatCurrency(service.avgOrderValue || 0, service.currency)}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        @{formatCurrency(product.amount || 0, product.currency)}
+                        @{formatCurrency(service.amount || 0, service.currency)}
                       </p>
                     </div>
                   </div>

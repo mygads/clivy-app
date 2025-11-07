@@ -508,47 +508,21 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
     
     // Group items by category with prioritized order: Products -> Add-ons -> WhatsApp Services
     const groupItemsByCategory = () => {
-        const packages = items.filter((item: any) => item.type === 'package')
-        const addons = items.filter((item: any) => item.type === 'addon')
         const whatsappServices = items.filter((item: any) => item.type === 'whatsapp_service')
         
-        // Create separate categories for better organization
-        const productGroups = packages.map((packageItem: any) => ({
-            package: packageItem,
-            addons: addons.filter((addon: any) => addon.category === packageItem.category),
-            categoryType: 'product'
-        }))
         
         const whatsappGroups = whatsappServices.map((whatsappItem: any) => ({
             package: whatsappItem,
-            addons: [],
             categoryType: 'whatsapp'
         }))
         
-        // Handle standalone add-ons (add-ons without matching package category)
-        const usedAddonCategories = new Set(productGroups.flatMap((group: any) => group.addons.map((addon: any) => addon.category)))
-        const standaloneAddons = addons.filter((addon: any) => !usedAddonCategories.has(addon.category))
-        
-        // Group standalone add-ons by category
-        const standaloneGroups = standaloneAddons.reduce((acc: any, addon: any) => {
-        if (!acc[addon.category]) {
-            acc[addon.category] = []
-        }
-        acc[addon.category].push(addon)
-        return acc
-        }, {} as Record<string, any[]>)
         
         return {
-        // Ordered: Products first, then WhatsApp services
-        packageGroups: [...productGroups, ...whatsappGroups],
-        standaloneGroups: Object.entries(standaloneGroups).map(([category, addons]) => ({
-            category,
-            addons
-        }))
+        packageGroups: [...whatsappGroups],
         }
     }
     
-    const { packageGroups, standaloneGroups } = groupItemsByCategory()
+    const { packageGroups } = groupItemsByCategory()
     
     // Status configuration
     const getStatusConfig = () => {
@@ -1196,46 +1170,6 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                                             </div>
                                         </div>
                                     </div>
-
-                                    {(group as any).addons.length > 0 && (
-                                        <div className="ml-4 space-y-2">
-                                            {(group as any).addons.map((addon: any, addonIndex: number) => (
-                                                <div key={addonIndex} className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-300 dark:border-blue-600">
-                                                    <div className="flex justify-between items-start">
-                                                        <div className="flex-1">
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="text-blue-600 dark:text-blue-400 text-sm">+ Add-on:</span>
-                                                                <p className="font-medium text-gray-900 dark:text-white">
-                                                                    {addon.name}
-                                                                </p>
-                                                            </div>
-                                                            <p className="text-sm text-gray-600 dark:text-gray-400 capitalize">
-                                                            {addon.type.replace('_', ' ')} - {addon.category}
-                                                            </p>
-                                                            <div className="flex items-center gap-4 mt-1">
-                                                                <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                                    Qty: {(addon as any).quantity || 1}
-                                                                </p>
-                                                                <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                                    Harga satuan: Rp {(addon.price / ((addon as any).quantity || 1)).toLocaleString('id-ID')}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-right">
-                                                            <p className="text-sm font-medium">
-                                                            Rp {((addon as any).totalPrice || addon.price).toLocaleString('id-ID')}
-                                                            </p>
-                                                            {addon.originalPriceIdr && addon.originalPriceIdr !== addon.price && (
-                                                            <p className="text-xs text-gray-500 line-through">
-                                                                Rp {addon.originalPriceIdr.toLocaleString('id-ID')}
-                                                            </p>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
                                 </div>
                             ))}
 
@@ -1245,43 +1179,6 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                                         <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
                                             {group.category} Add-ons
                                         </p>
-                                    </div>
-                                    <div className="space-y-2">
-                                    {(group as any).addons.map((addon: any, addonIndex: number) => (
-                                        <div key={addonIndex} className="p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-300 dark:border-yellow-600">
-                                            <div className="flex justify-between items-start">
-                                                <div className="flex-1">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-yellow-600 dark:text-yellow-400 text-sm">Add-on:</span>
-                                                        <p className="font-medium text-gray-900 dark:text-white">
-                                                        {addon.name}
-                                                        </p>
-                                                    </div>
-                                                    <p className="text-sm text-gray-600 dark:text-gray-400 capitalize">
-                                                        {addon.type.replace('_', ' ')} - {addon.category}
-                                                    </p>
-                                                    <div className="flex items-center gap-4 mt-1">
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                        Qty: {(addon as any).quantity || 1}
-                                                        </p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                        Harga satuan: Rp {(addon.price / ((addon as any).quantity || 1)).toLocaleString('id-ID')}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="text-right">
-                                                    <p className="text-sm font-medium">
-                                                        Rp {((addon as any).totalPrice || addon.price).toLocaleString('id-ID')}
-                                                    </p>
-                                                    {addon.originalPriceIdr && addon.originalPriceIdr !== addon.price && (
-                                                        <p className="text-xs text-gray-500 line-through">
-                                                        Rp {addon.originalPriceIdr.toLocaleString('id-ID')}
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
                                     </div>
                                 </div>
                             ))}
@@ -1412,103 +1309,6 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
 
                     {/* Categorized Items Display */}
                     <div className="space-y-6">
-                    {/* Products Section */}
-                    {packageGroups.filter((group: any) => group.categoryType === 'product').length > 0 && (
-                        <div className="space-y-3">
-                        <div className="flex items-center gap-2 mb-3">
-                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                            <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Products</h4>
-                        </div>
-                        {packageGroups
-                            .filter((group: any) => group.categoryType === 'product')
-                            .map((group, groupIndex) => (
-                            <div key={`product-${groupIndex}`} className="space-y-2 ml-4">
-                                {/* Package Item */}
-                                <div className="flex justify-between items-start">
-                                <div className="flex-1">
-                                    <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                    {group.package.name}
-                                    </p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-                                    {group.package.type.replace('_', ' ')} - {group.package.category}
-                                    </p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                                    Qty: {(group.package as any).quantity || 1} × Rp {(group.package.price / ((group.package as any).quantity || 1)).toLocaleString('id-ID')}
-                                    </p>
-                                </div>
-                                <div className="text-right">
-                                    <p className="text-sm">Rp {((group.package as any).totalPrice || group.package.price).toLocaleString('id-ID')}</p>
-                                </div>
-                                </div>
-
-                                {/* Related Add-ons */}
-                                {(group as any).addons.length > 0 && (
-                                <div className="ml-4 space-y-2">
-                                    {(group as any).addons.map((addon: any, addonIndex: number) => (
-                                    <div key={addonIndex} className="flex justify-between items-start pl-2 border-l-2 border-blue-300 dark:border-blue-600">
-                                        <div className="flex-1">
-                                        <div className="flex items-center gap-1">
-                                            <span className="text-blue-600 dark:text-blue-400 text-xs">+</span>
-                                            <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                            {addon.name}
-                                            </p>
-                                        </div>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-                                            {addon.type.replace('_', ' ')} - {addon.category}
-                                        </p>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                                            Qty: {(addon as any).quantity || 1} × Rp {(addon.price / ((addon as any).quantity || 1)).toLocaleString('id-ID')}
-                                        </p>
-                                        </div>
-                                        <div className="text-right">
-                                        <p className="text-sm">Rp {((addon as any).totalPrice || addon.price).toLocaleString('id-ID')}</p>
-                                        </div>
-                                    </div>
-                                    ))}
-                                </div>
-                                )}
-                            </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Standalone Add-ons Section */}
-                    {standaloneGroups.length > 0 && (
-                        <div className="space-y-3">
-                        <div className="flex items-center gap-2 mb-3">
-                            <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                            <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Add-on Services</h4>
-                        </div>
-                        {standaloneGroups.map((group, groupIndex) => (
-                            <div key={`addon-${groupIndex}`} className="ml-4 space-y-2">
-                            <div className="space-y-2">
-                                {(group as any).addons.map((addon: any, addonIndex: number) => (
-                                <div key={addonIndex} className="flex justify-between items-start pl-2 border-l-2 border-yellow-300 dark:border-yellow-600">
-                                    <div className="flex-1">
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-yellow-600 dark:text-yellow-400 text-xs">•</span>
-                                        <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                        {addon.name}
-                                        </p>
-                                    </div>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-                                        {addon.type.replace('_', ' ')} - {addon.category}
-                                    </p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                                        Qty: {(addon as any).quantity || 1} × Rp {(addon.price / ((addon as any).quantity || 1)).toLocaleString('id-ID')}
-                                    </p>
-                                    </div>
-                                    <div className="text-right">
-                                    <p className="text-sm">Rp {((addon as any).totalPrice || addon.price).toLocaleString('id-ID')}</p>
-                                    </div>
-                                </div>
-                                ))}
-                            </div>
-                            </div>
-                        ))}
-                        </div>
-                    )}
-
                     {/* WhatsApp Services Section */}
                     {packageGroups.filter((group: any) => group.categoryType === 'whatsapp').length > 0 && (
                         <div className="space-y-3">

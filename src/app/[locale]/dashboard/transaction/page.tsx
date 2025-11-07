@@ -303,10 +303,9 @@ export default function TransactionDashboardPage() {
   }
 
   const formatCurrency = (amount: number, currency: string = 'IDR') => {
-    const locale = currency === 'USD' ? 'en-US' : 'id-ID'
-    return new Intl.NumberFormat(locale, {
+    return new Intl.NumberFormat('id-ID', {
       style: "currency",
-      currency: currency
+      currency: 'IDR'
     }).format(amount)
   }
 

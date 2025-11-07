@@ -235,12 +235,12 @@ export async function GET(
     let uniqueCode = null;
     if (isManualPayment) {
       const totalPayment = Number(payment.amount);
-      const productCost = payment.transaction?.originalAmount ? Number(payment.transaction.originalAmount) : 0;
+      const serviceCost = payment.transaction?.originalAmount ? Number(payment.transaction.originalAmount) : 0;
       const discountAmount = payment.transaction?.discountAmount ? Number(payment.transaction.discountAmount) : 0;
       const serviceFeeAmount = payment.serviceFee ? Number(payment.serviceFee) : 0;
       
-      // uniqueCode = totalPayment - (productCost - discountAmount + serviceFeeAmount)
-      uniqueCode = totalPayment - (productCost - discountAmount + serviceFeeAmount);
+      // uniqueCode = totalPayment - (serviceCost - discountAmount + serviceFeeAmount)
+      uniqueCode = totalPayment - (serviceCost - discountAmount + serviceFeeAmount);
       
       // Ensure uniqueCode is a positive 3-digit number
       if (uniqueCode <= 0 || uniqueCode > 999) {
@@ -382,14 +382,8 @@ export async function GET(
           canCancel: payment.status === 'pending',
           nextAction: payment.status === 'pending' ? 'Complete payment using the instructions above' : null
         },
-          // Add service activation info for relevant transaction types
-        ...(transactionType === 'whatsapp_service' || 
-            transactionType === 'package_and_whatsapp' || 
-            transactionType === 'addon_and_whatsapp' || 
-            transactionType === 'package_addon_whatsapp' ||
-            transactionType === 'package' ||
-            transactionType === 'addon' ||
-            transactionType === 'package_and_addon' ? {
+          // Add service activation info (WhatsApp only)
+        ...(transactionType === 'whatsapp_service' ? {
           activationInfo: {
             activated: servicesActivated,
             message: servicesActivated 

@@ -254,7 +254,7 @@ export default function VouchersPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Voucher Management</h1>
           <p className="text-muted-foreground">
-            Create and manage discount vouchers for your products and services
+            Create and manage discount vouchers for WhatsApp services
           </p>
         </div>
         <Button onClick={() => setCreateDialogOpen(true)} className="w-full sm:w-auto">

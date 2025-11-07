@@ -94,22 +94,19 @@ export default function TransactionDetailPage() {
   }
   const formatCurrency = (amount: number | string, currency: string = 'IDR') => {
     const n = typeof amount === 'string' ? parseFloat(amount) : amount
-    const currencyUpper = currency.toUpperCase()
-    const locale = currencyUpper === 'USD' ? 'en-US' : 'id-ID'
-    return new Intl.NumberFormat(locale, {
+    return new Intl.NumberFormat('id-ID', {
       style: 'currency',
-      currency: currencyUpper,
-      minimumFractionDigits: currencyUpper === 'USD' ? 2 : 0
+      currency: 'IDR',
+      minimumFractionDigits: 0
     }).format(n)
   }
 
-  // Helper function to get status information for transaction items
-  const getItemStatusInfo = (status: string, type: 'product' | 'addon' | 'whatsapp') => {
+  // Helper function to get status information for transaction items (WhatsApp only)
+  const getItemStatusInfo = (status: string, type: 'whatsapp') => {
     const statusMap: Record<string, { label: string; description: string; color: string; icon: any }> = {
       pending: {
         label: 'Pending',
-        description: type === 'product' ? 'Awaiting delivery preparation' : 
-                    type === 'addon' ? 'Addon service pending setup' : 'Service activation pending',
+        description: 'Service activation pending',
         color: 'text-yellow-600',
         icon: Clock
       },
@@ -121,8 +118,7 @@ export default function TransactionDetailPage() {
       },
       in_progress: {
         label: 'In Progress',
-        description: type === 'product' ? 'Work in progress' : 
-                    type === 'addon' ? 'Addon service being implemented' : 'Service being activated',
+        description: 'Service being activated',
         color: 'text-blue-600',
         icon: RefreshCw
       },
@@ -134,8 +130,7 @@ export default function TransactionDetailPage() {
       },
       success: {
         label: 'Completed',
-        description: type === 'product' ? 'Product successfully delivered' : 
-                    type === 'addon' ? 'Addon service completed' : 'Service successfully activated',
+        description: 'Service successfully activated',
         color: 'text-green-600',
         icon: CheckCircle
       },
@@ -618,12 +613,6 @@ export default function TransactionDetailPage() {
                             
                             // Handle the different transaction type formats
                             const typeMap: Record<string, string> = {
-                              'package_addon_whatsapp': 'Package + Addons + WhatsApp',
-                              'package_and_addon': 'Package + Addons',
-                              'package_and_whatsapp': 'Package + WhatsApp',
-                              'addon_and_whatsapp': 'Addons + WhatsApp',
-                              'package': 'Product Package',
-                              'addon': 'Addon Services',
                               'whatsapp_service': 'WhatsApp Service',
                               'whatsapp': 'WhatsApp Service'
                             };
