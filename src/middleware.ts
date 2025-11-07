@@ -400,7 +400,7 @@ export async function middleware(req: NextRequest) {
                 httpOnly: false, // Allow client-side access
                 sameSite: 'lax'
             });
-            console.log(`[MIDDLEWARE] Saved locale preference from direct URL visit: ${locale}`);
+            // console.log(`[MIDDLEWARE] Saved locale preference from direct URL visit: ${locale}`);
         }
         
         return response;

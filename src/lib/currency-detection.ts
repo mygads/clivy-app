@@ -24,7 +24,7 @@ export async function detectLocale(request: NextRequest): Promise<'id' | 'en'> {
   try {
     const acceptLanguage = request.headers.get('accept-language');
     
-    console.log(`[LOCALE_DETECTION] Accept-Language: ${acceptLanguage}`);
+    // console.log(`[LOCALE_DETECTION] Accept-Language: ${acceptLanguage}`);
     
     // Check if browser requests Indonesian
     if (acceptLanguage?.includes('id')) {
