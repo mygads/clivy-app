@@ -24,7 +24,7 @@ const stats = [
 
 export default function HeroWhatsAppAPI() {
     return (
-        <section className="relative overflow-hidden bg-white sm:bg-gradient-to-br sm:from-green-50 sm:via-white sm:to-emerald-50 py-12 md:py-16 pt-32 md:pt-40 dark:bg-gray-800 dark:sm:from-gray-900 dark:sm:via-gray-800 dark:sm:to-green-900/20">
+        <section className="relative overflow-hidden bg-white sm:bg-gradient-to-br sm:from-green-50 sm:via-white sm:to-emerald-50 py-12 md:py-16 pt-32 md:pt-24 dark:bg-gray-800 dark:sm:from-gray-900 dark:sm:via-gray-800 dark:sm:to-green-900/20">
             <div className="container mx-auto pt-16 pb-24 px-4">
                 <div className="grid gap-8 md:gap-12 lg:grid-cols-2 items-center">
                     {/* Left Content */}

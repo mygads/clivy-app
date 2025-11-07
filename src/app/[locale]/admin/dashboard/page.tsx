@@ -39,22 +39,6 @@ interface DashboardData {
     peakHour: number;
     totalServiceFeeRevenue: number;
   };
-  addonDeliveries?: {
-    totalDeliveries: number;
-    awaitingDelivery: number;
-    inProgress: number;
-    delivered: number;
-    deliveryRate: number;
-    avgDeliveryTime: number;
-  };
-  packageDeliveries?: {
-    totalDeliveries: number;
-    awaitingDelivery: number;
-    inProgress: number;
-    delivered: number;
-    deliveryRate: number;
-    avgDeliveryTime: number;
-  };
   whatsappSubscriptions?: {
     totalSubscriptions: number;
     activeSubscriptions: number;
@@ -230,11 +214,8 @@ function formatPaymentMethod(method: string): string {
 
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null);
-  const [dataIDR, setDataIDR] = useState<DashboardData | null>(null);
-  const [dataUSD, setDataUSD] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState('today');
-  const [currency, setCurrency] = useState('idr');
   
   const { user, token, isLoading: isAuthLoading } = useAuth();
   const router = useRouter();
@@ -255,74 +236,11 @@ export default function DashboardPage() {
     }
   }, [user, token, isAuthLoading, router]);
 
-  // Fetch data for both IDR and USD
-  const fetchDashboardDataBoth = useCallback(async () => {
-    try {
-      setLoading(true);
-      console.log('Fetching dashboard data for both currencies:', { period });
-      
-      // Use token from AuthContext
-      if (!token) {
-        console.error('No auth token found');
-        router.push('/signin');
-        return;
-      }
-      
-      // Fetch IDR data
-      const responseIDR = await fetch(`/api/admin/dashboard/analytics?period=${period}&currency=idr`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      
-      // Fetch USD data
-      const responseUSD = await fetch(`/api/admin/dashboard/analytics?period=${period}&currency=usd`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      
-      console.log('Response status IDR:', responseIDR.status, 'USD:', responseUSD.status);
-      
-      if (responseIDR.ok && responseUSD.ok) {
-        const resultIDR = await responseIDR.json();
-        const resultUSD = await responseUSD.json();
-        console.log('API Response IDR:', resultIDR);
-        console.log('API Response USD:', resultUSD);
-        
-        if (resultIDR.success && resultUSD.success) {
-          setDataIDR(resultIDR.data);
-          setDataUSD(resultUSD.data);
-          // Keep the main data for current selected currency
-          setData(currency === 'idr' ? resultIDR.data : resultUSD.data);
-        } else {
-          console.error('API returned error IDR:', resultIDR.error, 'USD:', resultUSD.error);
-        }
-      } else {
-        const errorTextIDR = !responseIDR.ok ? await responseIDR.text() : '';
-        const errorTextUSD = !responseUSD.ok ? await responseUSD.text() : '';
-        console.error('API request failed IDR:', responseIDR.status, errorTextIDR, 'USD:', responseUSD.status, errorTextUSD);
-        
-        // If 401/403, redirect to admin signin
-        if (responseIDR.status === 401 || responseIDR.status === 403 || responseUSD.status === 401 || responseUSD.status === 403) {
-          router.push('/signin');
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching dashboard data:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [period, token, router, currency]);
-
+  // Fetch data for IDR only
   const fetchDashboardData = useCallback(async () => {
     try {
       setLoading(true);
-      console.log('Fetching dashboard data:', { period, currency });
+      console.log('Fetching dashboard data:', { period });
       
       // Use token from AuthContext
       if (!token) {
@@ -331,7 +249,7 @@ export default function DashboardPage() {
         return;
       }
       
-      const response = await fetch(`/api/admin/dashboard/analytics?period=${period}&currency=${currency}`, {
+      const response = await fetch(`/api/admin/dashboard/analytics?period=${period}&currency=idr`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -364,21 +282,14 @@ export default function DashboardPage() {
     } finally {
       setLoading(false);
     }
-  }, [period, currency, token, router]);
+  }, [period, token, router]);
   useEffect(() => {
     // Only fetch data if user is authenticated and has admin role
     if (!isAuthLoading && user && token && 
         ((user as any).role === 'admin' || (user as any).role === 'super_admin')) {
-      fetchDashboardDataBoth();
+      fetchDashboardData();
     }
-  }, [fetchDashboardDataBoth, isAuthLoading, user, token]);
-
-  // Update main data when currency changes
-  useEffect(() => {
-    if (dataIDR && dataUSD) {
-      setData(currency === 'idr' ? dataIDR : dataUSD);
-    }
-  }, [currency, dataIDR, dataUSD]);
+  }, [fetchDashboardData, isAuthLoading, user, token]);
   const getPeriodLabel = (period: string) => {
     switch (period) {
       case 'today': return 'Today';
@@ -457,20 +368,10 @@ export default function DashboardPage() {
             </SelectContent>
           </Select>
           
-          <Select value={currency} onValueChange={setCurrency}>
-            <SelectTrigger className="w-auto min-w-[70px] sm:w-[90px] md:w-[100px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="idr">IDR</SelectItem>
-              <SelectItem value="usd">USD</SelectItem>
-            </SelectContent>
-          </Select>
-          
           <Button 
             variant="outline" 
             size="sm" 
-            onClick={fetchDashboardDataBoth}
+            onClick={fetchDashboardData}
             disabled={loading}
             className="px-2 sm:px-3"
           >
@@ -480,49 +381,26 @@ export default function DashboardPage() {
       </div>
 
       {/* Overview Stats Cards - Fixed Height */}
-      <div className="grid gap-3 sm:gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-3 sm:gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card className="flex flex-col">
           <CardContent className="p-3 sm:p-4 md:p-5 flex flex-col flex-1">
             <div className="flex items-start justify-between mb-2">
-              <p className="text-xs sm:text-sm font-medium text-muted-foreground">Revenue (IDR)</p>
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground">Total Revenue</p>
               <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-brand-blue/10 flex items-center justify-center">
                 <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-brand-blue" />
               </div>
             </div>
             <div className="flex items-baseline gap-2 mb-1">
               <h3 className="text-base sm:text-lg md:text-xl font-bold truncate">
-                {dataIDR ? dataIDR.revenue.formattedRevenue : formatCurrency(0, 'idr')}
+                {data ? data.revenue.formattedRevenue : formatCurrency(0, 'idr')}
               </h3>
               <span className="text-xs font-medium text-green-500 flex items-center whitespace-nowrap">
                 <TrendingUp className="h-3 w-3 mr-0.5" />
-                {dataIDR ? `${dataIDR.overview.conversionRate}%` : '0%'}
+                {data ? `${data.overview.conversionRate}%` : '0%'}
               </span>
             </div>
             <p className="text-xs text-muted-foreground mt-auto">
-              Fee: {dataIDR ? formatCurrency(dataIDR.revenue.serviceFeeRevenue, 'idr') : formatCurrency(0, 'idr')}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="flex flex-col">
-          <CardContent className="p-3 sm:p-4 md:p-5 flex flex-col flex-1">
-            <div className="flex items-start justify-between mb-2">
-              <p className="text-xs sm:text-sm font-medium text-muted-foreground">Revenue (USD)</p>
-              <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-green-500/10 flex items-center justify-center">
-                <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
-              </div>
-            </div>
-            <div className="flex items-baseline gap-2 mb-1">
-              <h3 className="text-base sm:text-lg md:text-xl font-bold truncate">
-                {dataUSD ? dataUSD.revenue.formattedRevenue : formatCurrency(0, 'usd')}
-              </h3>
-              <span className="text-xs font-medium text-green-500 flex items-center whitespace-nowrap">
-                <TrendingUp className="h-3 w-3 mr-0.5" />
-                {dataUSD ? `${dataUSD.overview.conversionRate}%` : '0%'}
-              </span>
-            </div>
-            <p className="text-xs text-muted-foreground mt-auto">
-              Fee: {dataUSD ? formatCurrency(dataUSD.revenue.serviceFeeRevenue, 'usd') : formatCurrency(0, 'usd')}
+              Fee: {data ? formatCurrency(data.revenue.serviceFeeRevenue, 'idr') : formatCurrency(0, 'idr')}
             </p>
           </CardContent>
         </Card>
@@ -579,7 +457,7 @@ export default function DashboardPage() {
             </div>
             <div className="flex items-baseline gap-2 mb-1">
               <h3 className="text-base sm:text-lg md:text-xl font-bold truncate">
-                {data ? formatCurrency(data.revenue.avgOrderValue, currency) : formatCurrency(0, currency)}
+                {data ? formatCurrency(data.revenue.avgOrderValue, 'idr') : formatCurrency(0, 'idr')}
               </h3>
               <span className={`text-xs font-medium flex items-center whitespace-nowrap ${
                 data && data.revenue.revenueGrowth >= 0 ? 'text-green-500' : 'text-red-500'
@@ -634,7 +512,7 @@ export default function DashboardPage() {
               <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-green-500" />
             </div>
             <div className="text-lg sm:text-xl md:text-2xl font-bold mb-1 truncate">
-              {data ? formatCurrency(data.overview.totalServiceFeeRevenue, currency) : formatCurrency(0, currency)}
+              {data ? formatCurrency(data.overview.totalServiceFeeRevenue, 'idr') : formatCurrency(0, 'idr')}
             </div>
             <p className="text-xs text-muted-foreground">
               Total service fees earned
@@ -659,164 +537,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Addon Delivery Metrics */}
-      <Card>
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-base sm:text-lg font-semibold">Addon Delivery Overview</CardTitle>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs">
-                {getPeriodLabel(period)}
-              </Badge>
-              <Layers className="h-4 w-4 sm:h-5 sm:w-5 text-indigo-500" />
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-        <div className="grid gap-2 sm:gap-3 md:gap-4 sm:grid-cols-2 md:grid-cols-4">
-          <div className="text-center p-2 sm:p-3 md:p-4 border border-white/10 rounded-lg">
-            <div className="text-lg sm:text-xl md:text-2xl font-bold text-indigo-500">
-              {data?.addonDeliveries?.totalDeliveries || 0}
-            </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">Total Deliveries</p>
-          </div>
-          
-          <div className="text-center p-2 sm:p-3 md:p-4 border border-white/10 rounded-lg">
-            <div className="text-lg sm:text-xl md:text-2xl font-bold text-yellow-500">
-              {data?.addonDeliveries?.awaitingDelivery || 0}
-            </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">Awaiting Delivery</p>
-          </div>
-          
-          <div className="text-center p-2 sm:p-3 md:p-4 border border-white/10 rounded-lg">
-            <div className="text-lg sm:text-xl md:text-2xl font-bold text-blue-500">
-              {data?.addonDeliveries?.inProgress || 0}
-            </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">In Progress</p>
-          </div>
-          
-          <div className="text-center p-2 sm:p-3 md:p-4 border border-white/10 rounded-lg">
-            <div className="text-lg sm:text-xl md:text-2xl font-bold text-green-500">
-              {data?.addonDeliveries?.delivered || 0}
-            </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">Delivered</p>
-          </div>
-        </div>
-        
-        <div className="mt-3 sm:mt-4 md:mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-            <div className="text-xs sm:text-sm">
-              <span className="text-muted-foreground">Delivery Rate: </span>
-              <span className={`font-medium ${
-                data && data.addonDeliveries && data.addonDeliveries.deliveryRate >= 80 
-                  ? 'text-green-500' 
-                  : data && data.addonDeliveries && data.addonDeliveries.deliveryRate >= 60 
-                    ? 'text-yellow-500' 
-                    : 'text-red-500'
-              }`}>
-                {data?.addonDeliveries?.deliveryRate || 0}%
-              </span>
-            </div>
-            <div className="text-xs sm:text-sm">
-              <span className="text-muted-foreground">Avg. Delivery Time: </span>
-              <span className="font-medium">
-                {data?.addonDeliveries?.avgDeliveryTime || 0} hours
-              </span>
-            </div>
-          </div>
-          
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => window.location.href = '/dashboard/addon-delivery'}
-            className="w-full sm:w-auto text-indigo-600 border-indigo-200 hover:bg-indigo-50 dark:text-indigo-400 dark:border-indigo-800 dark:hover:bg-indigo-950"
-          >
-            <Layers className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
-            Manage Deliveries
-          </Button>
-        </div>
-        </CardContent>
-      </Card>
-
-      {/* Package Delivery Metrics */}
-      <Card>
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-base sm:text-lg font-semibold">Package Delivery Overview</CardTitle>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs">
-                {getPeriodLabel(period)}
-              </Badge>
-              <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500" />
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-        <div className="grid gap-2 sm:gap-3 md:gap-4 sm:grid-cols-2 md:grid-cols-4">
-          <div className="text-center p-2 sm:p-3 md:p-4 border border-white/10 rounded-lg">
-            <div className="text-lg sm:text-xl md:text-2xl font-bold text-purple-500">
-              {data?.packageDeliveries?.totalDeliveries || 0}
-            </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">Total Deliveries</p>
-          </div>
-          
-          <div className="text-center p-2 sm:p-3 md:p-4 border border-white/10 rounded-lg">
-            <div className="text-lg sm:text-xl md:text-2xl font-bold text-yellow-500">
-              {data?.packageDeliveries?.awaitingDelivery || 0}
-            </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">Awaiting Delivery</p>
-          </div>
-          
-          <div className="text-center p-2 sm:p-3 md:p-4 border border-white/10 rounded-lg">
-            <div className="text-lg sm:text-xl md:text-2xl font-bold text-blue-500">
-              {data?.packageDeliveries?.inProgress || 0}
-            </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">In Progress</p>
-          </div>
-          
-          <div className="text-center p-2 sm:p-3 md:p-4 border border-white/10 rounded-lg">
-            <div className="text-lg sm:text-xl md:text-2xl font-bold text-green-500">
-              {data?.packageDeliveries?.delivered || 0}
-            </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">Delivered</p>
-          </div>
-        </div>
-        
-        <div className="mt-3 sm:mt-4 md:mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-            <div className="text-xs sm:text-sm">
-              <span className="text-muted-foreground">Delivery Rate: </span>
-              <span className={`font-medium ${
-                data && data.packageDeliveries && data.packageDeliveries.deliveryRate >= 80 
-                  ? 'text-green-500' 
-                  : data && data.packageDeliveries && data.packageDeliveries.deliveryRate >= 60 
-                    ? 'text-yellow-500' 
-                    : 'text-red-500'
-              }`}>
-                {data?.packageDeliveries?.deliveryRate || 0}%
-              </span>
-            </div>
-            <div className="text-xs sm:text-sm">
-              <span className="text-muted-foreground">Avg. Delivery Time: </span>
-              <span className="font-medium">
-                {data?.packageDeliveries?.avgDeliveryTime || 0} hours
-              </span>
-            </div>
-          </div>
-          
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => window.location.href = '/admin/dashboard/package-delivery'}
-            className="w-full sm:w-auto text-purple-600 border-purple-200 hover:bg-purple-50 dark:text-purple-400 dark:border-purple-800 dark:hover:bg-purple-950"
-          >
-            <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
-            Manage Packages
-          </Button>
-        </div>
-        </CardContent>
-      </Card>
 
       {/* WhatsApp Subscription Metrics */}
       <Card>
@@ -921,7 +641,7 @@ export default function DashboardPage() {
                   <div className="text-right">
                     <p className="text-xs sm:text-sm font-medium">{category.transactions} transactions</p>
                     <p className="text-xs text-muted-foreground">
-                      {formatCurrency(category.revenue, currency)} ({category.percentage.toFixed(1)}%)
+                      {formatCurrency(category.revenue, 'idr')} ({category.percentage.toFixed(1)}%)
                     </p>
                   </div>
                 </div>
@@ -941,7 +661,7 @@ export default function DashboardPage() {
                   <div className="text-right">
                     <p className="text-xs sm:text-sm font-medium">{category._count.id} transactions</p>
                     <p className="text-xs text-muted-foreground">
-                      {formatCurrency(Number(category._sum.finalAmount || 0), currency)}
+                      {formatCurrency(Number(category._sum.finalAmount || 0), 'idr')}
                     </p>
                   </div>
                 </div>
@@ -969,8 +689,8 @@ export default function DashboardPage() {
                 <span className="text-xs sm:text-sm text-muted-foreground">Gross Revenue</span>
                 <span className="text-xs sm:text-sm font-medium">
                   {data?.revenueCostAnalysis ? 
-                    formatCurrency(data.revenueCostAnalysis.grossRevenue, currency) : 
-                    data ? formatCurrency(data.revenue.grossRevenue, currency) : formatCurrency(0, currency)
+                    formatCurrency(data.revenueCostAnalysis.grossRevenue, 'idr') : 
+                    data ? formatCurrency(data.revenue.grossRevenue, 'idr') : formatCurrency(0, 'idr')
                   }
                 </span>
               </div>
@@ -984,8 +704,8 @@ export default function DashboardPage() {
                 <span className="text-xs sm:text-sm text-muted-foreground">Service Fees</span>
                 <span className="text-xs sm:text-sm font-medium">
                   {data?.revenueCostAnalysis ? 
-                    formatCurrency(data.revenueCostAnalysis.serviceFeeRevenue, currency) : 
-                    data ? formatCurrency(data.revenue.serviceFeeRevenue, currency) : formatCurrency(0, currency)
+                    formatCurrency(data.revenueCostAnalysis.serviceFeeRevenue, 'idr') : 
+                    data ? formatCurrency(data.revenue.serviceFeeRevenue, 'idr') : formatCurrency(0, 'idr')
                   }
                 </span>
               </div>
@@ -1005,8 +725,8 @@ export default function DashboardPage() {
                 <span className="text-xs sm:text-sm text-muted-foreground">Total Discounts</span>
                 <span className="text-xs sm:text-sm font-medium text-red-500">
                   -{data?.revenueCostAnalysis ? 
-                    formatCurrency(data.revenueCostAnalysis.discountCost, currency) :
-                    data ? formatCurrency(data.revenue.totalDiscountGiven, currency) : formatCurrency(0, currency)
+                    formatCurrency(data.revenueCostAnalysis.discountCost, 'idr') :
+                    data ? formatCurrency(data.revenue.totalDiscountGiven, 'idr') : formatCurrency(0, 'idr')
                   }
                 </span>
               </div>
@@ -1034,7 +754,7 @@ export default function DashboardPage() {
                 }`}>
                   {data?.revenueCostAnalysis ? 
                     `${data.revenueCostAnalysis.profitMargin.toFixed(1)}%` :
-                    data ? formatCurrency(data.revenue.totalRevenue, currency) : formatCurrency(0, currency)
+                    data ? formatCurrency(data.revenue.totalRevenue, 'idr') : formatCurrency(0, 'idr')
                   }
                 </span>
               </div>
@@ -1050,7 +770,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
           {data?.paymentMethods && data.paymentMethods.length > 0 ? (
-            <PaymentMethodChart data={data.paymentMethods} currency={currency} />
+            <PaymentMethodChart data={data.paymentMethods} currency={'idr'} />
           ) : (
             <div className="text-center text-muted-foreground py-6 sm:py-8">
               <CreditCard className="h-6 w-6 sm:h-8 sm:w-8 mx-auto mb-2 opacity-50" />
@@ -1080,7 +800,7 @@ export default function DashboardPage() {
           {data?.trends && ((data.trends.revenue && data.trends.revenue.length > 0) || (data.trends.daily && data.trends.daily.length > 0)) ? (
             <RevenueTrendChart 
               data={data.trends} 
-              currency={currency} 
+              currency={'idr'} 
               period={getPeriodLabel(period)} 
             />
           ) : (
@@ -1208,10 +928,10 @@ export default function DashboardPage() {
               <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto mb-2 sm:mb-3 rounded-full bg-brand-blue/10">
                 <DollarSign className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-brand-blue" />
               </div>
-              <h4 className="text-lg sm:text-xl md:text-2xl font-bold">{data?.vouchers.formattedDiscount || formatCurrency(0, currency)}</h4>
+              <h4 className="text-lg sm:text-xl md:text-2xl font-bold">{data?.vouchers.formattedDiscount || formatCurrency(0, 'idr')}</h4>
               <p className="text-xs sm:text-sm text-muted-foreground">Total Diskon Diberikan</p>
               <p className="text-xs text-muted-foreground mt-1">
-                Rata-rata: {data?.vouchers?.formattedAvgDiscount || formatCurrency(0, currency)} per transaksi
+                Rata-rata: {data?.vouchers?.formattedAvgDiscount || formatCurrency(0, 'idr')} per transaksi
               </p>
             </div>
             
@@ -1321,7 +1041,7 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-xs sm:text-sm">{formatCurrency(user.totalRevenue || 0, currency)}</p>
+                      <p className="font-medium text-xs sm:text-sm">{formatCurrency(user.totalRevenue || 0, 'idr')}</p>
                       <p className="text-xs text-muted-foreground">Total Revenue</p>
                     </div>
                   </div>

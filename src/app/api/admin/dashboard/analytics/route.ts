@@ -157,8 +157,8 @@ export async function GET(request: NextRequest) {
       newUsersCount,
       totalActiveUsersCount,
       
-      // Top performing data
-      [topProductsData, topAddonsData, topWhatsappData],
+      // Top performing WhatsApp services
+      topWhatsappData,
       
       // Distribution analytics
       hourlyDistribution,
@@ -175,12 +175,6 @@ export async function GET(request: NextRequest) {
       
       // WhatsApp subscription analytics
       whatsappSubscriptionData,
-      
-      // Addon delivery analytics
-      addonDeliveryData,
-      
-      // Package delivery analytics
-      packageDeliveryData,
       
       // Recent transactions
       recentTransactions
@@ -261,75 +255,26 @@ export async function GET(request: NextRequest) {
         }
       }),
       
-      // Top performing products from separate tables - count-based analysis
-      Promise.all([
-        // Top products with count
-        prisma.transactionProduct.groupBy({
-          by: ['packageId'],
-          where: {
-            transaction: {
-              payment: { status: 'paid' },
-              createdAt: currentPeriodFilter,
-              currency: currency
-            }
-          },
+      // Top performing WhatsApp services - count-based analysis
+      prisma.transactionWhatsappService.groupBy({
+        by: ['whatsappPackageId'],
+        where: {
+          transaction: {
+            payment: { status: 'paid' },
+            createdAt: currentPeriodFilter,
+            currency: currency
+          }
+        },
+        _count: {
+          whatsappPackageId: true
+        },
+        orderBy: {
           _count: {
-            packageId: true
-          },
-          _sum: {
-            quantity: true
-          },
-          orderBy: {
-            _count: {
-              packageId: 'desc'
-            }
-          },
-          take: 20
-        }),
-        // Top addons with count
-        prisma.transactionAddons.groupBy({
-          by: ['addonId'],
-          where: {
-            transaction: {
-              payment: { status: 'paid' },
-              createdAt: currentPeriodFilter,
-              currency: currency
-            }
-          },
-          _count: {
-            addonId: true
-          },
-          _sum: {
-            quantity: true
-          },
-          orderBy: {
-            _count: {
-              addonId: 'desc'
-            }
-          },
-          take: 20
-        }),
-        // Top WhatsApp services with count
-        prisma.transactionWhatsappService.groupBy({
-          by: ['whatsappPackageId'],
-          where: {
-            transaction: {
-              payment: { status: 'paid' },
-              createdAt: currentPeriodFilter,
-              currency: currency
-            }
-          },
-          _count: {
-            whatsappPackageId: true
-          },
-          orderBy: {
-            _count: {
-              whatsappPackageId: 'desc'
-            }
-          },
-          take: 20
-        })
-      ]),
+            whatsappPackageId: 'desc'
+          }
+        },
+        take: 20
+      }),
       
       // Hourly transaction distribution - only paid transactions
       prisma.$queryRaw<{hour: number, count: number}[]>`
@@ -456,34 +401,10 @@ export async function GET(request: NextRequest) {
             select: {
               name: true,
               maxSession: true,
-              priceMonth_idr: true,
-              priceMonth_usd: true,
-              priceYear_idr: true,
-              priceYear_usd: true,
+              priceMonth: true,
+              priceYear: true,
             }
           }
-        }
-      }),
-      
-      // Addon delivery analytics for current period
-      prisma.servicesAddonsCustomers.groupBy({
-        by: ['status'],
-        where: {
-          createdAt: currentPeriodFilter
-        },
-        _count: {
-          id: true
-        }
-      }),
-      
-      // Package delivery analytics for current period  
-      prisma.servicesProductCustomers.groupBy({
-        by: ['status'],
-        where: {
-          createdAt: currentPeriodFilter
-        },
-        _count: {
-          id: true
         }
       }),
       
@@ -506,31 +427,11 @@ export async function GET(request: NextRequest) {
               status: true
             }
           },
-          productTransactions: {
-            include: {
-              package: {
-                select: {
-                  name_en: true,
-                  name_id: true
-                }
-              }
-            }
-          },
           whatsappTransaction: {
             include: {
               whatsappPackage: {
                 select: {
                   name: true
-                }
-              }
-            }
-          },
-          addonTransactions: {
-            include: {
-              addon: {
-                select: {
-                  name_en: true,
-                  name_id: true
                 }
               }
             }
@@ -834,94 +735,6 @@ export async function GET(request: NextRequest) {
       };
     }
 
-    // Process Addon delivery data
-    let addonDeliveries = {
-      totalDeliveries: 0,
-      awaitingDelivery: 0,
-      inProgress: 0,
-      delivered: 0,
-      deliveryRate: 0,
-      avgDeliveryTime: 0
-    };
-
-    if (addonDeliveryData && addonDeliveryData.length > 0) {
-      const awaitingCount = addonDeliveryData.find(d => d.status === 'awaiting_delivery')?._count.id || 0;
-      const inProgressCount = addonDeliveryData.find(d => d.status === 'in_progress')?._count.id || 0;
-      const deliveredCount = addonDeliveryData.find(d => d.status === 'delivered')?._count.id || 0;
-      const totalCount = awaitingCount + inProgressCount + deliveredCount;
-      
-      // Get additional data for comprehensive metrics
-      const [totalAllTimeDeliveries, avgDeliveryTimeData] = await Promise.all([
-        // Total all-time deliveries
-        prisma.servicesAddonsCustomers.count(),
-        
-        // Average delivery time for completed deliveries
-        prisma.$queryRaw<{avg_delivery_time: number}[]>`
-          SELECT AVG(
-            EXTRACT(EPOCH FROM ("deliveredAt" - "createdAt")) / 3600
-          )::float as avg_delivery_time
-          FROM "ServicesAddonsCustomers"
-          WHERE "status" = 'delivered'
-            AND "createdAt" >= ${currentPeriodFilter.gte}
-            AND "createdAt" < ${currentPeriodFilter.lt}
-            AND "deliveredAt" IS NOT NULL
-        `
-      ]);
-
-      addonDeliveries = {
-        totalDeliveries: totalAllTimeDeliveries,
-        awaitingDelivery: awaitingCount,
-        inProgress: inProgressCount,
-        delivered: deliveredCount,
-        deliveryRate: totalCount > 0 ? (deliveredCount / totalCount) * 100 : 0,
-        avgDeliveryTime: avgDeliveryTimeData[0]?.avg_delivery_time || 0
-      };
-    }
-
-    // Process Package delivery data
-    let packageDeliveries = {
-      totalDeliveries: 0,
-      awaitingDelivery: 0,
-      inProgress: 0,
-      delivered: 0,
-      deliveryRate: 0,
-      avgDeliveryTime: 0
-    };
-
-    if (packageDeliveryData && packageDeliveryData.length > 0) {
-      const awaitingCount = packageDeliveryData.find(d => d.status === 'awaiting_delivery')?._count.id || 0;
-      const inProgressCount = packageDeliveryData.find(d => d.status === 'in_progress')?._count.id || 0;
-      const deliveredCount = packageDeliveryData.find(d => d.status === 'delivered')?._count.id || 0;
-      const totalCount = awaitingCount + inProgressCount + deliveredCount;
-      
-      // Get additional data for comprehensive metrics
-      const [totalAllTimePackageDeliveries, avgPackageDeliveryTimeData] = await Promise.all([
-        // Total all-time package deliveries
-        prisma.servicesProductCustomers.count(),
-        
-        // Average delivery time for completed package deliveries
-        prisma.$queryRaw<{avg_delivery_time: number}[]>`
-          SELECT AVG(
-            EXTRACT(EPOCH FROM ("deliveredAt" - "createdAt")) / 3600
-          )::float as avg_delivery_time
-          FROM "ServicesProductCustomers"
-          WHERE "status" = 'delivered'
-            AND "createdAt" >= ${currentPeriodFilter.gte}
-            AND "createdAt" < ${currentPeriodFilter.lt}
-            AND "deliveredAt" IS NOT NULL
-        `
-      ]);
-
-      packageDeliveries = {
-        totalDeliveries: totalAllTimePackageDeliveries,
-        awaitingDelivery: awaitingCount,
-        inProgress: inProgressCount,
-        delivered: deliveredCount,
-        deliveryRate: totalCount > 0 ? (deliveredCount / totalCount) * 100 : 0,
-        avgDeliveryTime: avgPackageDeliveryTimeData[0]?.avg_delivery_time || 0
-      };
-    }
-
     // Calculate growth rates
     let revenueGrowthRate = 0;
     let transactionGrowthRate = 0;
@@ -994,151 +807,27 @@ export async function GET(request: NextRequest) {
         : 0
     }));
 
-    // Process top products/services from separate tables (count-based analysis) with period context
+    // Process top products/services - WhatsApp packages only
     const processedTopProducts: any[] = [];
     
-    // Get total revenue for each product to provide better insights
-    const getProductRevenue = async (productId: string, productType: 'package' | 'addon' | 'whatsapp') => {
-      if (productType === 'package') {
-        // For packages, sum up the finalAmount of transactions that contain this package
-        const revenueQuery = await prisma.transaction.aggregate({
-          where: {
-            productTransactions: {
-              some: {
-                packageId: productId
-              }
-            },
-            payment: { status: 'paid' },
-            createdAt: currentPeriodFilter,
-            currency: currency
+    // Get total revenue for WhatsApp package
+    const getProductRevenue = async (productId: string) => {
+      // For WhatsApp services, sum up the finalAmount of transactions that contain this whatsapp package
+      const revenueQuery = await prisma.transaction.aggregate({
+        where: {
+          whatsappTransaction: {
+            whatsappPackageId: productId
           },
-          _sum: {
-            finalAmount: true
-          }
-        });
-        return Number(revenueQuery._sum.finalAmount || 0);
-      } else if (productType === 'addon') {
-        // For addons, sum up the finalAmount of transactions that contain this addon
-        const revenueQuery = await prisma.transaction.aggregate({
-          where: {
-            addonTransactions: {
-              some: {
-                addonId: productId
-              }
-            },
-            payment: { status: 'paid' },
-            createdAt: currentPeriodFilter,
-            currency: currency
-          },
-          _sum: {
-            finalAmount: true
-          }
-        });
-        return Number(revenueQuery._sum.finalAmount || 0);
-      } else {
-        // For WhatsApp services, sum up the finalAmount of transactions that contain this whatsapp package
-        const revenueQuery = await prisma.transaction.aggregate({
-          where: {
-            whatsappTransaction: {
-              whatsappPackageId: productId
-            },
-            payment: { status: 'paid' },
-            createdAt: currentPeriodFilter,
-            currency: currency
-          },
-          _sum: {
-            finalAmount: true
-          }
-        });
-        return Number(revenueQuery._sum.finalAmount || 0);
-      }
+          payment: { status: 'paid' },
+          createdAt: currentPeriodFilter,
+          currency: currency
+        },
+        _sum: {
+          finalAmount: true
+        }
+      });
+      return Number(revenueQuery._sum?.finalAmount || 0);
     };
-    
-    // Process products - get package details for each grouped product
-    if (topProductsData && topProductsData.length > 0) {
-      const productDetails = await Promise.all(
-        topProductsData.map(async (product) => {
-          if (!product.packageId) return null;
-          
-          const packageInfo = await prisma.package.findUnique({
-            where: { id: product.packageId },
-            select: {
-              id: true,
-              name_en: true,
-              name_id: true,
-              price_idr: true,
-              price_usd: true
-            }
-          });
-          
-          if (packageInfo) {
-            const revenue = await getProductRevenue(product.packageId, 'package');
-            return {
-              id: product.packageId,
-              productName: currency === 'idr' ? packageInfo.name_id : packageInfo.name_en,
-              productType: 'package',
-              orderCount: Number(product._count.packageId),
-              totalQuantity: Number(product._sum.quantity || 0),
-              totalRevenue: revenue,
-              amount: currency === 'idr' ? packageInfo.price_idr : packageInfo.price_usd, // Unit price
-              price: currency === 'idr' ? packageInfo.price_idr : packageInfo.price_usd,
-              currency: currency,
-              period: period,
-              avgOrderValue: product._count.packageId > 0 ? revenue / product._count.packageId : 0,
-              date: new Date().toISOString() // Current date as reference
-            };
-          }
-          return null;
-        })
-      );
-      
-      productDetails.forEach(detail => {
-        if (detail) processedTopProducts.push(detail);
-      });
-    }
-    
-    // Process addons - get addon details for each grouped addon
-    if (topAddonsData && topAddonsData.length > 0) {
-      const addonDetails = await Promise.all(
-        topAddonsData.map(async (addon) => {
-          if (!addon.addonId) return null;
-          
-          const addonInfo = await prisma.addon.findUnique({
-            where: { id: addon.addonId },
-            select: {
-              id: true,
-              name_en: true,
-              name_id: true,
-              price_idr: true,
-              price_usd: true
-            }
-          });
-          
-          if (addonInfo) {
-            const revenue = await getProductRevenue(addon.addonId, 'addon');
-            return {
-              id: addon.addonId,
-              productName: currency === 'idr' ? addonInfo.name_id : addonInfo.name_en,
-              productType: 'addon',
-              orderCount: Number(addon._count.addonId),
-              totalQuantity: Number(addon._sum.quantity || 0),
-              totalRevenue: revenue,
-              amount: currency === 'idr' ? addonInfo.price_idr : addonInfo.price_usd, // Unit price
-              price: currency === 'idr' ? addonInfo.price_idr : addonInfo.price_usd,
-              currency: currency,
-              period: period,
-              avgOrderValue: addon._count.addonId > 0 ? revenue / addon._count.addonId : 0,
-              date: new Date().toISOString() // Current date as reference
-            };
-          }
-          return null;
-        })
-      );
-      
-      addonDetails.forEach(detail => {
-        if (detail) processedTopProducts.push(detail);
-      });
-    }
     
     // Process WhatsApp services - get package details for each grouped service
     if (topWhatsappData && topWhatsappData.length > 0) {
@@ -1151,26 +840,25 @@ export async function GET(request: NextRequest) {
             select: {
               id: true,
               name: true,
-              priceMonth_idr: true,
-              priceMonth_usd: true
+              priceMonth: true
             }
           });
           
           if (packageInfo) {
-            const revenue = await getProductRevenue(whatsapp.whatsappPackageId, 'whatsapp');
+            const revenue = await getProductRevenue(whatsapp.whatsappPackageId);
             return {
               id: whatsapp.whatsappPackageId,
               productName: packageInfo.name,
               productType: 'whatsapp',
               orderCount: Number(whatsapp._count.whatsappPackageId),
-              totalDuration: 1, // WhatsApp services don't have duration in groupBy
+              totalDuration: 1,
               totalRevenue: revenue,
-              amount: currency === 'idr' ? packageInfo.priceMonth_idr : packageInfo.priceMonth_usd, // Unit price
-              price: currency === 'idr' ? packageInfo.priceMonth_idr : packageInfo.priceMonth_usd,
+              amount: packageInfo.priceMonth,
+              price: packageInfo.priceMonth,
               currency: currency,
               period: period,
               avgOrderValue: whatsapp._count.whatsappPackageId > 0 ? revenue / whatsapp._count.whatsappPackageId : 0,
-              date: new Date().toISOString() // Current date as reference
+              date: new Date().toISOString()
             };
           }
           return null;
@@ -1185,32 +873,13 @@ export async function GET(request: NextRequest) {
     // Sort by order count descending and take top 10
     const sortedTopProducts = processedTopProducts.sort((a, b) => b.orderCount - a.orderCount).slice(0, 10);
 
-    // Process recent transactions (Show ALL with dual status)
+    // Process recent transactions - WhatsApp only
     const processedRecentTransactions = recentTransactions.map((transaction: any) => {
-      // Determine the main item name with more details
+      // Get WhatsApp package name
       let itemName = 'Unknown Item';
-      let itemDetails = [];
-      
-      if (transaction.productTransactions && transaction.productTransactions.length > 0) {
-        itemDetails = transaction.productTransactions.map((pt: any) => 
-          currency === 'idr' ? pt.package?.name_id : pt.package?.name_en
-        ).filter(Boolean);
-        itemName = itemDetails.length > 0 ? itemDetails.join(', ') : 'Product Package';
-      }
       
       if (transaction.whatsappTransaction) {
-        itemDetails.push(transaction.whatsappTransaction.whatsappPackage?.name || 'WhatsApp Package');
-      }
-      
-      if (transaction.addonTransactions && transaction.addonTransactions.length > 0) {
-        const addonNames = transaction.addonTransactions.map((at: any) => 
-          currency === 'idr' ? at.addon?.name_id : at.addon?.name_en
-        ).filter(Boolean);
-        itemDetails.push(...addonNames);
-      }
-      
-      if (itemDetails.length > 0) {
-        itemName = itemDetails.join(' + ');
+        itemName = transaction.whatsappTransaction.whatsappPackage?.name || 'WhatsApp Package';
       }
 
       return {
@@ -1231,43 +900,8 @@ export async function GET(request: NextRequest) {
       };
     });
 
-    // Process detailed voucher/addon analytics for period
-    const voucherMetrics = [];
-    if (topAddonsData && topAddonsData.length > 0) {
-      // Get all addon info for name translation
-      const allAddons = await prisma.addon.findMany({
-        select: {
-          id: true,
-          name_en: true,
-          name_id: true,
-          price_idr: true,
-          price_usd: true
-        }
-      });
-      
-      const voucherUsageTotal = topAddonsData.reduce((sum, addon) => sum + addon._count.addonId, 0);
-      
-      for (const addon of topAddonsData) {
-        const addon_info = allAddons.find(p => p.id === addon.addonId);
-        if (!addon_info) continue;
-
-        const revenue = await getProductRevenue(addon.addonId, 'addon');
-        voucherMetrics.push({
-          id: addon.addonId,
-          name: currency === 'idr' ? addon_info.name_id : addon_info.name_en,
-          type: 'addon',
-          usageCount: Number(addon._count.addonId),
-          totalQuantity: Number(addon._sum.quantity || 0),
-          revenue: revenue,
-          amount: currency === 'idr' ? addon_info.price_idr : addon_info.price_usd,
-          period: period,
-          discountRate: 0, // Addon doesn't have discount percentage in schema
-          usageRate: voucherUsageTotal > 0 ? Number((addon._count.addonId / voucherUsageTotal * 100).toFixed(1)) : 0,
-          avgOrderValue: addon._count.addonId > 0 ? revenue / addon._count.addonId : 0,
-          date: new Date().toISOString()
-        });
-      }
-    }
+    // Voucher metrics - empty array (no addon support)
+    const voucherMetrics: any[] = [];
 
     return withCORS(NextResponse.json({
       success: true,
@@ -1334,22 +968,6 @@ export async function GET(request: NextRequest) {
           newSubscriptions: whatsappSubscriptions.newSubscriptions,
           subscriptionRate: Math.round(whatsappSubscriptions.subscriptionRate * 100) / 100,
           avgSubscriptionDuration: Math.round(whatsappSubscriptions.avgSubscriptionDuration)
-        },
-        addonDeliveries: {
-          totalDeliveries: addonDeliveries.totalDeliveries,
-          awaitingDelivery: addonDeliveries.awaitingDelivery,
-          inProgress: addonDeliveries.inProgress,
-          delivered: addonDeliveries.delivered,
-          deliveryRate: Math.round(addonDeliveries.deliveryRate * 100) / 100,
-          avgDeliveryTime: Math.round(addonDeliveries.avgDeliveryTime)
-        },
-        packageDeliveries: {
-          totalDeliveries: packageDeliveries.totalDeliveries,
-          awaitingDelivery: packageDeliveries.awaitingDelivery,
-          inProgress: packageDeliveries.inProgress,
-          delivered: packageDeliveries.delivered,
-          deliveryRate: Math.round(packageDeliveries.deliveryRate * 100) / 100,
-          avgDeliveryTime: Math.round(packageDeliveries.avgDeliveryTime)
         },
         categoryStats: categoryStats.map(cat => ({
           type: cat.type,
