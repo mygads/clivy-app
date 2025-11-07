@@ -42,7 +42,6 @@ interface VoucherFormData {
   maxDiscount: number | null
   maxUses: number | null
   allowMultipleUsePerUser: boolean
-  currency: "idr" | "usd"
   isActive: boolean
   startDate: Date
   endDate: Date | null
@@ -59,7 +58,6 @@ const initialFormData: VoucherFormData = {
   maxDiscount: null,
   maxUses: null,
   allowMultipleUsePerUser: false,
-  currency: "idr",
   isActive: true,
   startDate: new Date(),
   endDate: null,
@@ -260,19 +258,6 @@ export default function CreateVoucherDialog({
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="currency">Currency</Label>
-                <Select value={formData.currency} onValueChange={(value: any) => handleInputChange("currency", value)}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="idr">IDR (Indonesian Rupiah)</SelectItem>
-                    <SelectItem value="usd">USD (US Dollar)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -291,7 +276,7 @@ export default function CreateVoucherDialog({
 
               <div className="space-y-2">
                 <Label htmlFor="value">
-                  Discount Value {formData.discountType === "percentage" ? "(%)" : `(${formData.currency.toUpperCase()})`}
+                  Discount Value {formData.discountType === "percentage" ? "(%)" : "(IDR)"}
                 </Label>
                 <Input
                   id="value"
@@ -314,7 +299,7 @@ export default function CreateVoucherDialog({
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="minAmount">Minimum Order Amount ({formData.currency.toUpperCase()})</Label>
+                <Label htmlFor="minAmount">Minimum Order Amount (IDR)</Label>
                 <Input
                   id="minAmount"
                   type="number"
@@ -328,7 +313,7 @@ export default function CreateVoucherDialog({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="maxDiscount">Maximum Discount ({formData.currency.toUpperCase()})</Label>
+                <Label htmlFor="maxDiscount">Maximum Discount (IDR)</Label>
                 <Input
                   id="maxDiscount"
                   type="number"

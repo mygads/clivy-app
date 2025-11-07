@@ -41,7 +41,6 @@ interface Voucher {
   maxUses: number | null
   usedCount: number
   allowMultipleUsePerUser: boolean
-  currency: "idr" | "usd"
   isActive: boolean
   startDate: string
   endDate: string | null
@@ -67,7 +66,6 @@ interface VoucherFormData {
   maxDiscount: number | null
   maxUses: number | null
   allowMultipleUsePerUser: boolean
-  currency: "idr" | "usd"
   isActive: boolean
   startDate: Date
   endDate: Date | null
@@ -89,7 +87,6 @@ export default function EditVoucherDialog({
     maxDiscount: null,
     maxUses: null,
     allowMultipleUsePerUser: false,
-    currency: "idr",
     isActive: true,
     startDate: new Date(),
     endDate: null
@@ -110,7 +107,6 @@ export default function EditVoucherDialog({
         maxDiscount: voucher.maxDiscount,
         maxUses: voucher.maxUses,
         allowMultipleUsePerUser: voucher.allowMultipleUsePerUser,
-        currency: voucher.currency || "idr",
         isActive: voucher.isActive,
         startDate: new Date(voucher.startDate),
         endDate: voucher.endDate ? new Date(voucher.endDate) : null
@@ -295,21 +291,6 @@ export default function EditVoucherDialog({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="currency">Currency</Label>
-                <Select value={formData.currency} onValueChange={(value: any) => handleInputChange("currency", value)}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="idr">IDR (Indonesian Rupiah)</SelectItem>
-                    <SelectItem value="usd">USD (US Dollar)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
                 <Label htmlFor="discountType">Discount Type</Label>
                 <Select value={formData.discountType} onValueChange={(value: any) => handleInputChange("discountType", value)}>
                   <SelectTrigger>
@@ -323,22 +304,22 @@ export default function EditVoucherDialog({
               </div>
             </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="value">
-                  Discount Value {formData.discountType === "percentage" ? "(%)" : `(${formData.currency.toUpperCase()})`}
-                </Label>
-                <Input
-                  id="value"
-                  type="number"
-                  value={formData.value}
-                  onChange={(e) => handleInputChange("value", Number(e.target.value))}
-                  placeholder={formData.discountType === "percentage" ? "Enter percentage" : "Enter amount"}
-                  min="0"
-                  max={formData.discountType === "percentage" ? "100" : undefined}
-                  className={errors.value ? "border-red-500" : ""}
-                />
-                {errors.value && <p className="text-sm text-red-500">{errors.value}</p>}
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="value">
+                Discount Value {formData.discountType === "percentage" ? "(%)" : "(IDR)"}
+              </Label>
+              <Input
+                id="value"
+                type="number"
+                value={formData.value}
+                onChange={(e) => handleInputChange("value", Number(e.target.value))}
+                placeholder={formData.discountType === "percentage" ? "Enter percentage" : "Enter amount"}
+                min="0"
+                max={formData.discountType === "percentage" ? "100" : undefined}
+                className={errors.value ? "border-red-500" : ""}
+              />
+              {errors.value && <p className="text-sm text-red-500">{errors.value}</p>}
+            </div>
           </div>
 
           {/* Restrictions */}
@@ -347,7 +328,7 @@ export default function EditVoucherDialog({
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="minAmount">Minimum Order Amount ({formData.currency.toUpperCase()})</Label>
+                <Label htmlFor="minAmount">Minimum Order Amount (IDR)</Label>
                 <Input
                   id="minAmount"
                   type="number"
@@ -361,7 +342,7 @@ export default function EditVoucherDialog({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="maxDiscount">Maximum Discount ({formData.currency.toUpperCase()})</Label>
+                <Label htmlFor="maxDiscount">Maximum Discount (IDR)</Label>
                 <Input
                   id="maxDiscount"
                   type="number"

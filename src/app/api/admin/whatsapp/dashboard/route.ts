@@ -97,7 +97,7 @@ export async function GET(request: NextRequest) {
         },
       });
 
-      // Calculate revenue from WhatsApp packages based on transaction currency
+      // Calculate revenue from WhatsApp packages (IDR only)
       const whatsappTransactions = await prisma.transactionWhatsappService.findMany({
         where: {
           transaction: {
@@ -116,30 +116,24 @@ export async function GET(request: NextRequest) {
                   discountType: true,
                   value: true
                 }
-              },
-              productTransactions: true,
-              addonTransactions: true
+              }
             }
           },
           whatsappPackage: true,
         },
       });
 
-      // Calculate total revenue by currency (based on what user actually paid with voucher discount)
-      let totalRevenueIdr = 0;
-      let totalRevenueUsd = 0;
-      let monthlyRevenueIdr = 0;
-      let monthlyRevenueUsd = 0;
+      // Calculate total revenue (IDR only, based on what user actually paid with voucher discount)
+      let totalRevenue = 0;
+      let monthlyRevenue = 0;
 
       whatsappTransactions.forEach(wt => {
-        const currency = wt.transaction.currency || 'idr';
-        
-        // Get base package price
+        // Get base package price (IDR only)
         let packagePrice = 0;
         if (wt.duration === 'year') {
-          packagePrice = currency === 'idr' ? Number(wt.whatsappPackage.priceYear_idr || 0) : Number(wt.whatsappPackage.priceYear_usd || 0);
+          packagePrice = Number(wt.whatsappPackage.priceYear || 0);
         } else {
-          packagePrice = currency === 'idr' ? Number(wt.whatsappPackage.priceMonth_idr || 0) : Number(wt.whatsappPackage.priceMonth_usd || 0);
+          packagePrice = Number(wt.whatsappPackage.priceMonth || 0);
         }
 
         // Apply voucher discount if exists
@@ -153,7 +147,6 @@ export async function GET(request: NextRequest) {
             finalWhatsAppPrice = packagePrice * (1 - (voucherValue / 100));
           } else {
             // Fixed amount discount - calculate proportional discount based on total transaction amount
-            // Get total amount from transaction (before discount, excluding service fees)
             const totalTransactionAmount = Number(wt.transaction.amount || 0);
             
             if (totalTransactionAmount > 0 && packagePrice > 0) {
@@ -170,21 +163,12 @@ export async function GET(request: NextRequest) {
           }
         }
 
-        // Add revenue based on transaction currency (what user actually paid)
-        if (currency === 'idr') {
-          totalRevenueIdr += finalWhatsAppPrice;
-          
-          // Add to monthly revenue if transaction is within current month
-          if (wt.transaction.createdAt >= startOfMonth && wt.transaction.createdAt <= endOfMonth) {
-            monthlyRevenueIdr += finalWhatsAppPrice;
-          }
-        } else if (currency === 'usd') {
-          totalRevenueUsd += finalWhatsAppPrice;
-          
-          // Add to monthly revenue if transaction is within current month
-          if (wt.transaction.createdAt >= startOfMonth && wt.transaction.createdAt <= endOfMonth) {
-            monthlyRevenueUsd += finalWhatsAppPrice;
-          }
+        // Add revenue (IDR only)
+        totalRevenue += finalWhatsAppPrice;
+        
+        // Add to monthly revenue if transaction is within current month
+        if (wt.transaction.createdAt >= startOfMonth && wt.transaction.createdAt <= endOfMonth) {
+          monthlyRevenue += finalWhatsAppPrice;
         }
       });
 
@@ -243,7 +227,7 @@ export async function GET(request: NextRequest) {
           total: dayTotal,
         });
 
-        // Revenue data for this day - calculate from package prices based on transaction currency with voucher discount
+        // Revenue data for this day - calculate from package prices (IDR only) with voucher discount
         const dayWhatsappTransactions = await prisma.transactionWhatsappService.findMany({
           where: {
             transaction: {
@@ -266,27 +250,22 @@ export async function GET(request: NextRequest) {
                     discountType: true,
                     value: true
                   }
-                },
-                productTransactions: true,
-                addonTransactions: true
+                }
               }
             },
             whatsappPackage: true,
           },
         });
 
-        let dayRevenueIdr = 0;
-        let dayRevenueUsd = 0;
+        let dayRevenue = 0;
 
         dayWhatsappTransactions.forEach(wt => {
-          const currency = wt.transaction.currency || 'idr';
-          
-          // Get base package price
+          // Get base package price (IDR only)
           let packagePrice = 0;
           if (wt.duration === 'year') {
-            packagePrice = currency === 'idr' ? Number(wt.whatsappPackage.priceYear_idr || 0) : Number(wt.whatsappPackage.priceYear_usd || 0);
+            packagePrice = Number(wt.whatsappPackage.priceYear || 0);
           } else {
-            packagePrice = currency === 'idr' ? Number(wt.whatsappPackage.priceMonth_idr || 0) : Number(wt.whatsappPackage.priceMonth_usd || 0);
+            packagePrice = Number(wt.whatsappPackage.priceMonth || 0);
           }
 
           // Apply voucher discount if exists
@@ -299,36 +278,26 @@ export async function GET(request: NextRequest) {
               const voucherValue = Number(wt.transaction.voucher.value || 0);
               finalWhatsAppPrice = packagePrice * (1 - (voucherValue / 100));
             } else {
-              // Fixed amount discount - calculate proportional discount based on total transaction amount
-              // Get total amount from transaction (before discount, excluding service fees)
+              // Fixed amount discount - calculate proportional discount
               const totalTransactionAmount = Number(wt.transaction.amount || 0);
               
               if (totalTransactionAmount > 0 && packagePrice > 0) {
-                // Calculate WhatsApp proportion of total transaction
                 const whatsappProportion = packagePrice / totalTransactionAmount;
-                
-                // Apply proportional discount to WhatsApp service
                 const whatsappDiscountShare = discountAmount * whatsappProportion;
                 finalWhatsAppPrice = Math.max(0, packagePrice - whatsappDiscountShare);
               } else {
-                // If we can't calculate proportion, apply full discount (single service case)
                 finalWhatsAppPrice = Math.max(0, packagePrice - discountAmount);
               }
             }
           }
 
-          // Add revenue based on transaction currency (what user actually paid)
-          if (currency === 'idr') {
-            dayRevenueIdr += finalWhatsAppPrice;
-          } else if (currency === 'usd') {
-            dayRevenueUsd += finalWhatsAppPrice;
-          }
+          // Add revenue (IDR only)
+          dayRevenue += finalWhatsAppPrice;
         });
 
         revenueChartData.push({
           date: date.toISOString().split('T')[0],
-          idr: dayRevenueIdr,
-          usd: dayRevenueUsd,
+          revenue: dayRevenue,
         });
       }
 
@@ -445,10 +414,8 @@ export async function GET(request: NextRequest) {
         id: pkg.id,
         name: pkg.name,
         description: pkg.description,
-        priceMonth_idr: pkg.priceMonth_idr,
-        priceMonth_usd: pkg.priceMonth_usd,
-        priceYear_idr: pkg.priceYear_idr,
-        priceYear_usd: pkg.priceYear_usd,
+        priceMonth: pkg.priceMonth,
+        priceYear: pkg.priceYear,
         maxSession: pkg.maxSession,
         purchaseCount: pkg._count.whatsappCustomers,
       }));
@@ -459,10 +426,7 @@ export async function GET(request: NextRequest) {
         totalActiveSubscriptions,
         totalSessions,
         totalWhatsAppUsers,
-        totalRevenue: {
-          idr: totalRevenueIdr,
-          usd: totalRevenueUsd,
-        },
+        totalRevenue: totalRevenue,
 
         // Message Statistics
         messageStats: {
@@ -485,10 +449,7 @@ export async function GET(request: NextRequest) {
           messageFailed: monthlyFailed,
           successRate: monthlySuccessRate,
           newSubscriptions: newSubscriptionsMonth,
-          revenue: {
-            idr: monthlyRevenueIdr,
-            usd: monthlyRevenueUsd,
-          },
+          revenue: monthlyRevenue,
         },
 
         // Charts Data

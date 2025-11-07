@@ -36,7 +36,6 @@ interface Voucher {
   maxDiscount: number | null
   maxUses: number | null
   usedCount: number
-  currency: "idr" | "usd"
   isActive: boolean
   startDate: string
   endDate: string | null
@@ -128,8 +127,7 @@ export default function VoucherDetailsDialog({
     if (voucher.discountType === "percentage") {
       return `${voucher.value}%`
     } else {
-      const currencySymbol = voucher.currency === "idr" ? "Rp" : "$"
-      return `${currencySymbol} ${voucher.value.toLocaleString()}`
+      return `Rp ${voucher.value.toLocaleString()}`
     }
   }
 
@@ -228,7 +226,7 @@ export default function VoucherDetailsDialog({
                 <div className="space-y-1">
                   <p className="text-sm font-medium text-muted-foreground">Total Discount Given</p>
                   <p className="font-semibold text-lg">
-                    {voucher.currency === "idr" ? "Rp" : "$"} {totalDiscountGiven.toLocaleString()}
+                    Rp {totalDiscountGiven.toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -245,13 +243,13 @@ export default function VoucherDetailsDialog({
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-muted-foreground">Minimum Order Amount</p>
                   <p className="font-medium">
-                    {voucher.minAmount ? `${voucher.currency === "idr" ? "Rp" : "$"} ${voucher.minAmount.toLocaleString()}` : "No minimum"}
+                    {voucher.minAmount ? `Rp ${voucher.minAmount.toLocaleString()}` : "No minimum"}
                   </p>
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-muted-foreground">Maximum Discount</p>
                   <p className="font-medium">
-                    {voucher.maxDiscount ? `${voucher.currency === "idr" ? "Rp" : "$"} ${voucher.maxDiscount.toLocaleString()}` : "No limit"}
+                    {voucher.maxDiscount ? `Rp ${voucher.maxDiscount.toLocaleString()}` : "No limit"}
                   </p>
                 </div>
                 <div className="space-y-2">
