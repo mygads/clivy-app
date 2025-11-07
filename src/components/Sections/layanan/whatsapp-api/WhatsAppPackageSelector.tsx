@@ -33,7 +33,7 @@ export default function WhatsAppPackageSelector() {
     const fetchPackages = async () => {
       try {
         setLoading(true)
-        const response = await fetch('/api/public/whatsapp-packages')
+        const response = await fetch('/api/public/whatsapp/packages')
         const data = await response.json()
 
         if (data.success) {

@@ -201,7 +201,7 @@ const Footer = ({
                   onMouseLeave={() => setShowTooltip(false)}
                 >
                   <span className="text-gray-400 dark:text-gray-400 cursor-help  border-gray-500 dark:border-gray-400">
-                    Copyright © {year}, Clivy WhatsApp API Services
+                    Copyright © {year}, Clivy App
                   </span>
                   
                   {/* Tooltip */}

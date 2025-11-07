@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
 /**
- * GET /api/public/whatsapp-packages
+ * GET /api/public/whatsapp/packages
  * Fetch all active WhatsApp packages for customer selection
  * Public endpoint - no authentication required
  * Now only returns IDR pricing
