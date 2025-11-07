@@ -46,28 +46,6 @@ export async function GET(request: NextRequest) {
         where: whereClause,        include: {
           transaction: {
             include: {
-              productTransactions: {
-                include: {
-                  package: {
-                    select: {
-                      id: true,
-                      name_en: true,
-                      name_id: true
-                    }
-                  }
-                }
-              },
-              addonTransactions: {
-                include: {
-                  addon: {
-                    select: {
-                      id: true,
-                      name_en: true,
-                      name_id: true
-                    }
-                  }
-                }
-              },
               whatsappTransaction: {
                 include: {
                   whatsappPackage: {
@@ -129,33 +107,7 @@ export async function GET(request: NextRequest) {
       } : null
     }));    // Add items to each payment that has a transaction
     formattedPayments.forEach(payment => {
-      if (payment.transaction && payment.transaction.type === 'product') {
-        const paymentData = payments.find(p => p.id === payment.id);
-        const productTransactions = paymentData?.transaction?.productTransactions || [];
-        const addonTransactions = paymentData?.transaction?.addonTransactions || [];
-        
-        // Add product packages
-        productTransactions.forEach((productTx: any) => {
-          if (productTx?.package && payment.transaction?.items) {
-            payment.transaction.items.push({
-              type: 'package',
-              name: productTx.package.name_en,
-              id: productTx.package.id
-            });
-          }
-        });
-        
-        // Add add-ons
-        addonTransactions.forEach((addonTx: any) => {
-          if (addonTx?.addon && payment.transaction?.items) {
-            payment.transaction.items.push({
-              type: 'addon',
-              name: addonTx.addon.name_en,
-              id: addonTx.addon.id
-            });
-          }
-        });
-      } else if (payment.transaction && payment.transaction.type === 'whatsapp_service') {
+      if (payment.transaction && payment.transaction.type === 'whatsapp_service') {
         const paymentData = payments.find(p => p.id === payment.id);
         const whatsappTx = paymentData?.transaction?.whatsappTransaction;
         if (whatsappTx?.whatsappPackage && payment.transaction?.items) {

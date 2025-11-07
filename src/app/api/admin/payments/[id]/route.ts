@@ -41,7 +41,7 @@ export async function PATCH(
       ));
     }
 
-    const { action, adminNotes } = validation.data;    // Get payment with transaction details
+    const { action, adminNotes } = validation.data;    // Get payment with transaction details (WhatsApp only)
     const payment = await prisma.payment.findUnique({
       where: { id },
       include: {
@@ -53,15 +53,6 @@ export async function PATCH(
             whatsappTransaction: {
               include: {
                 whatsappPackage: true,
-              },
-            },            productTransactions: {
-              include: {
-                package: true,
-              },
-            },
-            addonTransactions: {
-              include: {
-                addon: true,
               },
             },
           }
@@ -156,35 +147,15 @@ export async function PATCH(
             select: { phone: true }
           });
 
-          // Build items array for notification
+          // Build items array for notification (WhatsApp only)
           const items: Array<{
             name: string;
             quantity: number;
             price: number;
-            type: 'package' | 'addon' | 'whatsapp_service';
+            type: 'whatsapp_service';
             duration?: 'month' | 'year';
             currency?: string;
           }> = []
-
-          // Add packages (products)
-          payment.transaction.productTransactions?.forEach((tp: any) => {
-            items.push({
-              name: tp.package?.name || 'Package',
-              quantity: tp.quantity,
-              price: Number(tp.package?.price || 0),
-              type: 'package'
-            })
-          })
-
-          // Add addons
-          payment.transaction.addonTransactions?.forEach((ta: any) => {
-            items.push({
-              name: ta.addon?.name || 'Addon',
-              quantity: ta.quantity,
-              price: Number(ta.addon?.price || 0),
-              type: 'addon'
-            })
-          })
 
           // Add WhatsApp service
           if (payment.transaction.whatsappTransaction) {
@@ -197,7 +168,7 @@ export async function PATCH(
               price: Number(whatsappPrice || 0),
               type: 'whatsapp_service',
               duration: tws.duration as 'month' | 'year',
-              currency: 'idr'
+              currency: 'IDR'
             })
           }
 
@@ -292,24 +263,11 @@ export async function GET(
                 email: true,
                 phone: true,
               }
-            },            productTransactions: {
-              include: {
-                package: {
-                  select: { id: true, name_en: true, name_id: true, price_idr: true, price_usd: true }
-                }
-              }
-            },
-            addonTransactions: {
-              include: {
-                addon: {
-                  select: { id: true, name_en: true, name_id: true, price_idr: true, price_usd: true }
-                }
-              }
             },
             whatsappTransaction: {
               include: {
                 whatsappPackage: {
-                  select: { id: true, name: true, priceMonth_idr: true, priceMonth_usd: true, priceYear_idr: true, priceYear_usd: true }
+                  select: { id: true, name: true, priceMonth: true, priceYear: true }
                 }
               }
             },
@@ -452,38 +410,9 @@ function getPaymentInstructions(method: string, currency: string) {
   }
 }
 
-// Helper function to extract transaction items (same as in main route)
+// Helper function to extract transaction items (WhatsApp only)
 function getTransactionItems(transaction: any) {
   const items = [];
-    // Handle multiple products
-  if (transaction.productTransactions && transaction.productTransactions.length > 0) {
-    transaction.productTransactions.forEach((productTx: any) => {
-      if (productTx.package) {
-        items.push({
-          type: 'package',
-          name: productTx.package.name_en,
-          category: 'Product Package',
-          price_idr: Number(productTx.package.price_idr || 0),
-          price_usd: Number(productTx.package.price_usd || 0),
-          quantity: productTx.quantity || 1,
-        });
-      }
-    });
-  }
-  
-  // Add add-ons from addonTransactions
-  if (transaction.addonTransactions && transaction.addonTransactions.length > 0) {
-    transaction.addonTransactions.forEach((addonTx: any) => {
-      items.push({
-        type: 'addon',
-        name: addonTx.addon.name_en,
-        category: 'Product Addon',
-        price_idr: Number(addonTx.addon.price_idr || 0),
-        price_usd: Number(addonTx.addon.price_usd || 0),
-        quantity: addonTx.quantity || 1,
-      });
-    });
-  }
   
   // Add WhatsApp services with proper pricing
   if (transaction.whatsappTransaction?.whatsappPackage) {
@@ -493,9 +422,9 @@ function getTransactionItems(transaction: any) {
     // Get pricing based on duration
     let price_idr = 0;
     if (duration === 'month') {
-      price_idr = Number(whatsappPackage.priceMonth_idr || 0);
+      price_idr = Number(whatsappPackage.priceMonth || 0);
     } else if (duration === 'year') {
-      price_idr = Number(whatsappPackage.priceYear_idr || 0);
+      price_idr = Number(whatsappPackage.priceYear || 0);
     }
     
     items.push({
@@ -512,26 +441,11 @@ function getTransactionItems(transaction: any) {
   return items;
 }
 
-// Helper function to determine actual transaction type based on items
+// Helper function to determine actual transaction type (WhatsApp only)
 function getActualTransactionType(transaction: any) {
-  const hasProducts = transaction.productTransactions && transaction.productTransactions.length > 0;
-  const hasAddons = transaction.addonTransactions && transaction.addonTransactions.length > 0;
   const hasWhatsapp = transaction.whatsappTransaction && transaction.whatsappTransaction.whatsappPackage;
     
-  // Determine transaction type based on all possible combinations
-  if (hasProducts && hasAddons && hasWhatsapp) {
-    return 'package_addon_whatsapp';
-  } else if (hasProducts && hasAddons && !hasWhatsapp) {
-    return 'package_and_addon';
-  } else if (hasProducts && !hasAddons && hasWhatsapp) {
-    return 'package_and_whatsapp';
-  } else if (!hasProducts && hasAddons && hasWhatsapp) {
-    return 'addon_and_whatsapp';
-  } else if (hasProducts && !hasAddons && !hasWhatsapp) {
-    return 'package';
-  } else if (!hasProducts && hasAddons && !hasWhatsapp) {
-    return 'addon';
-  } else if (!hasProducts && !hasAddons && hasWhatsapp) {
+  if (hasWhatsapp) {
     return 'whatsapp_service';
   } else {
     return transaction.type || 'unknown'; // Fallback to original type

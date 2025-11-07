@@ -204,13 +204,6 @@ export default function TransactionDetailPage() {
       const json: TransactionDetailResponse = await res.json()
       if (json.success) {
         setTransactionData(json.data)
-        console.log('Frontend received transaction data:', {
-          productTransactions: json.data.productTransactions?.length,
-          productDeliveries: json.data.productDeliveries?.length,
-          addonDeliveries: json.data.addonDeliveries?.length,
-          productDelData: json.data.productDeliveries,
-          fullData: json.data
-        })
       }
       else toast({ variant: 'destructive', title: 'Error', description: json.message })
     } catch (e) {
@@ -655,237 +648,11 @@ export default function TransactionDetailPage() {
                       <p className="text-xs sm:text-sm text-gray-500 mt-1">Items in this transaction</p>
                     </div>
                     <Badge variant="outline" className="text-xs font-medium w-fit">
-                        {(transactionData.productTransactions?.length || 0) + 
-                        (transactionData.addonTransactions?.length || 0) + 
-                        (transactionData.whatsappTransaction ? 1 : 0)} item{((transactionData.productTransactions?.length || 0) + 
-                        (transactionData.addonTransactions?.length || 0) + 
-                        (transactionData.whatsappTransaction ? 1 : 0)) !== 1 ? 's' : ''}
+                        {transactionData.whatsappTransaction ? 1 : 0} item{transactionData.whatsappTransaction ? '' : 's'}
                     </Badge>
                   </div>
                 </CardHeader>
                 <CardContent className="p-2 sm:p-3 md:p-4 space-y-3 sm:space-y-4">
-                  
-                  {/* Products Section */}
-                  {transactionData.productTransactions && transactionData.productTransactions.length > 0 && (
-                    <div className="space-y-3 sm:space-y-4">
-                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between py-2 sm:py-3 border-b border-border/10">
-                        <div className="flex items-center gap-2 sm:gap-3">
-                          <h3 className="text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">Products</h3>
-                          <Badge variant="outline" className="text-xs font-normal">
-                            {transactionData.productTransactions.length} product{transactionData.productTransactions.length !== 1 ? 's' : ''}
-                          </Badge>
-                        </div>
-                        <Badge variant="outline" className="text-xs font-normal">
-                          {(() => {
-                            // Check actual delivery statuses instead of transaction statuses
-                            const deliveries = transactionData.productDeliveries || [];
-                            if (deliveries.length === 0) return 'No Deliveries';
-                            const allDelivered = deliveries.every((d: any) => d.status === 'delivered');
-                            const allPending = deliveries.every((d: any) => d.status === 'pending');
-                            return allDelivered ? 'All Delivered' : allPending ? 'All Pending' : 'Mixed Status';
-                          })()}
-                        </Badge>
-                      </div>
-                      <div className="space-y-2 sm:space-y-3">
-                        {transactionData.productTransactions.map((pt, index) => {
-                          // Find the corresponding delivery status for this product
-                          const delivery = transactionData.productDeliveries?.find((pd: any) => pd.packageId === pt.package?.id);
-                          const actualStatus = delivery?.status || pt.status; // Use delivery status if available, fallback to transaction status
-                          
-                          console.log('Product Transaction:', {
-                            productId: pt.package?.id,
-                            packageId: pt.packageId,
-                            transactionStatus: pt.status,
-                            delivery: delivery,
-                            actualStatus: actualStatus
-                          });
-                          
-                          return (
-                          <div key={pt.id} className="p-2 sm:p-3 rounded-lg border border-border/10 bg-gray-50/50 dark:bg-gray-900/20 hover:bg-gray-50 dark:hover:bg-gray-900/30 transition-colors">
-                            <div className="flex items-start gap-2 sm:gap-3">
-                              <div className="relative flex-shrink-0">
-                                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg border border-border/20 bg-gray-100 dark:bg-gray-800 overflow-hidden">
-                                  {pt.package?.image ? (
-                                    <Image
-                                      src={pt.package.image}
-                                      alt={pt.package.name_en || 'Product image'}
-                                      width={40}
-                                      height={40}
-                                      className="object-cover w-full h-full"
-                                    />
-                                  ) : (
-                                    <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                                      <Package className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" />
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                              
-                              <div className="flex-1 min-w-0">
-                                <div className="flex flex-col gap-2">
-                                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-2">
-                                    <div className="flex-1 min-w-0">
-                                      <div className="flex flex-wrap items-center gap-1 sm:gap-2 mb-1">
-                                        <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                                          {pt.package?.name_en || 'Product Package'}
-                                        </h4>
-                                        <Badge 
-                                          variant={
-                                            actualStatus === 'delivered' ? 'default' : 
-                                            actualStatus === 'pending' || actualStatus === 'awaiting_delivery' ? 'secondary' : 
-                                            actualStatus === 'in_progress' ? 'outline' : 'destructive'
-                                          } 
-                                          className="text-xs px-1.5 py-0.5 font-normal"
-                                        >
-                                          {getItemStatusInfo(actualStatus, 'product').label}
-                                        </Badge>
-                                      </div>
-                                      <p className="text-xs text-gray-500 line-clamp-1">
-                                        {pt.package?.description_en || 'No description available'}
-                                      </p>
-                                    </div>
-                                    <div className="text-left sm:text-right shrink-0">
-                                      <p className="text-xs text-gray-500">Qty: {pt.quantity}x</p>
-                                      <p className="font-medium text-xs sm:text-sm text-gray-900 dark:text-gray-100">{formatCurrency(
-                                        (transactionData.currency === 'USD' ? parseFloat(pt.package?.price_usd || '0') : parseFloat(pt.package?.price_idr || '0')) * pt.quantity,
-                                        transactionData.currency || 'IDR'
-                                      )}</p>
-                                    </div>
-                                  </div>
-                                  {delivery && (
-                                    <div className="space-y-1">
-                                      {delivery.domainName && (
-                                        <p className="text-xs text-gray-600">Domain: {delivery.domainName}</p>
-                                      )}
-                                      {delivery.websiteUrl && (
-                                        <p className="text-xs text-gray-600">
-                                          <a href={delivery.websiteUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                            View Website →
-                                          </a>
-                                        </p>
-                                      )}
-                                      {delivery.deliveredAt && (
-                                        <p className="text-xs text-gray-500">Delivered: {new Date(delivery.deliveredAt).toLocaleDateString()}</p>
-                                      )}
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Add-ons Section */}
-                  {transactionData.addonTransactions && transactionData.addonTransactions.length > 0 && (
-                    <motion.div 
-                      className="space-y-3 sm:space-y-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: 0.3 }}
-                    >
-                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between py-2 sm:py-3 border-b border-border/10">
-                        <div className="flex items-center gap-2 sm:gap-3">
-                          <h3 className="text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">Add-ons</h3>
-                          <Badge variant="outline" className="text-xs font-normal">
-                            {transactionData.addonTransactions.length} addon{transactionData.addonTransactions.length !== 1 ? 's' : ''}
-                          </Badge>
-                        </div>
-                        <Badge variant="outline" className="text-xs font-normal">
-                          {(() => {
-                            // Check actual delivery statuses for addons
-                            const deliveries = transactionData.addonDeliveries || [];
-                            if (deliveries.length === 0) return 'No Deliveries';
-                            const allDelivered = deliveries.every((d: any) => d.status === 'delivered');
-                            const allPending = deliveries.every((d: any) => d.status === 'pending');
-                            return allDelivered ? 'All Delivered' : allPending ? 'All Pending' : 'Mixed Status';
-                          })()}
-                        </Badge>
-                      </div>
-                      <div className="space-y-2 sm:space-y-3">
-                        {transactionData.addonTransactions.map((at, index) => {
-                          // Find delivery status for addons (note: addons are grouped in single delivery record)
-                          const delivery = transactionData.addonDeliveries?.[0]; // Addons typically share one delivery record
-                          const actualStatus = delivery?.status || at.status; // Use delivery status if available
-                          
-                          return (
-                          <div key={at.id} className="p-2 sm:p-3 rounded-lg border border-border/10 bg-gray-50/50 dark:bg-gray-900/20 hover:bg-gray-50 dark:hover:bg-gray-900/30 transition-colors">
-                            <div className="flex items-start gap-2 sm:gap-3">
-                              <div className="relative flex-shrink-0">
-                                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg border border-border/20 bg-gray-100 dark:bg-gray-800 overflow-hidden">
-                                  {at.addon?.image ? (
-                                    <Image
-                                      src={at.addon.image}
-                                      alt={at.addon.name_en || 'Addon image'}
-                                      width={40}
-                                      height={40}
-                                      className="object-cover w-full h-full"
-                                    />
-                                  ) : (
-                                    <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                                      <Plus className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" />
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                              
-                              <div className="flex-1 min-w-0">
-                                <div className="flex flex-col gap-2">
-                                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-2">
-                                    <div className="flex-1 min-w-0">
-                                      <div className="flex flex-wrap items-center gap-1 sm:gap-2 mb-1">
-                                        <h4 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                                          {at.addon?.name_en || 'Addon Service'}
-                                        </h4>
-                                        <Badge 
-                                          variant={
-                                            actualStatus === 'delivered' ? 'default' : 
-                                            actualStatus === 'pending' || actualStatus === 'awaiting_delivery' ? 'secondary' : 
-                                            actualStatus === 'in_progress' ? 'outline' : 'destructive'
-                                          } 
-                                          className="text-xs px-1.5 py-0.5 font-normal"
-                                        >
-                                          {getItemStatusInfo(actualStatus, 'addon').label}
-                                        </Badge>
-                                      </div>
-                                      <p className="text-xs text-gray-500 line-clamp-1">
-                                        {at.addon?.description_en || 'No description available'}
-                                      </p>
-                                    </div>
-                                    <div className="text-left sm:text-right shrink-0">
-                                      <p className="text-xs text-gray-500">Qty: {at.quantity}x</p>
-                                      <p className="font-medium text-xs sm:text-sm text-gray-900 dark:text-gray-100">{formatCurrency(
-                                        (transactionData.currency === 'USD' ? parseFloat(at.addon?.price_usd || '0') : parseFloat(at.addon?.price_idr || '0')) * at.quantity,
-                                        transactionData.currency || 'IDR'
-                                      )}</p>
-                                    </div>
-                                  </div>
-                                  {delivery && index === 0 && ( // Only show delivery info once for the first addon
-                                    <div className="space-y-1">
-                                      {delivery.driveUrl && (
-                                        <p className="text-xs text-gray-600">
-                                          <a href={delivery.driveUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                            View Files →
-                                          </a>
-                                        </p>
-                                      )}
-                                      {delivery.deliveredAt && (
-                                        <p className="text-xs text-gray-500">Delivered: {new Date(delivery.deliveredAt).toLocaleDateString()}</p>
-                                      )}
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          );
-                        })}
-                      </div>
-                    </motion.div>
-                  )}
 
                   {/* WhatsApp Service */}
                   {transactionData.whatsappTransaction && (
@@ -950,12 +717,8 @@ export default function TransactionDetailPage() {
                                     <p className="font-medium text-xs sm:text-sm text-gray-900 dark:text-gray-100">
                                       {formatCurrency(
                                         transactionData.whatsappTransaction.duration === 'year' 
-                                          ? (currency === 'idr' 
-                                            ? transactionData.whatsappTransaction.whatsappPackage?.priceYear_idr 
-                                            : transactionData.whatsappTransaction.whatsappPackage?.priceYear_usd) || 0
-                                          : (currency === 'idr' 
-                                            ? transactionData.whatsappTransaction.whatsappPackage?.priceMonth_idr 
-                                            : transactionData.whatsappTransaction.whatsappPackage?.priceMonth_usd) || 0,
+                                          ? transactionData.whatsappTransaction.whatsappPackage?.priceYear || 0
+                                          : transactionData.whatsappTransaction.whatsappPackage?.priceMonth || 0,
                                         currency.toUpperCase()
                                       )}
                                     </p>
