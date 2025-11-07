@@ -116,8 +116,6 @@ export default function VoucherDetailsDialog({
   const getTypeLabel = (type: string) => {
     switch (type) {
       case "total": return "Total Discount"
-      case "products": return "Product Discount"
-      case "addons": return "Addon Discount"
       case "whatsapp": return "WhatsApp Service"
       default: return type
     }

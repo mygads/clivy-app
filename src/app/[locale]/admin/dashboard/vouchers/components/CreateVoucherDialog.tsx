@@ -252,8 +252,6 @@ export default function CreateVoucherDialog({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="total">Total Discount</SelectItem>
-                    <SelectItem value="products">Product Discount</SelectItem>
-                    <SelectItem value="addons">Addon Discount</SelectItem>
                     <SelectItem value="whatsapp">WhatsApp Service</SelectItem>
                   </SelectContent>
                 </Select>

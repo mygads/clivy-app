@@ -338,8 +338,6 @@ export default function VouchersPage() {
           <SelectContent>
             <SelectItem value="all">All Types</SelectItem>
             <SelectItem value="total">Total Discount</SelectItem>
-            <SelectItem value="products">Product Discount</SelectItem>
-            <SelectItem value="addons">Addon Discount</SelectItem>
             <SelectItem value="whatsapp">WhatsApp Service</SelectItem>
           </SelectContent>
         </Select>
