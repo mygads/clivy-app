@@ -463,7 +463,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\fadli\\Project EAI\\clivy-app\\src\\generated\\prisma",
+      "value": "C:\\Yoga\\Programming\\Kuliah\\clivy-app\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -489,7 +489,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\fadli\\Project EAI\\clivy-app\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Yoga\\Programming\\Kuliah\\clivy-app\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
