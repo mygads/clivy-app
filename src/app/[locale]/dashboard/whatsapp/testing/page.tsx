@@ -224,7 +224,7 @@ export default function WhatsAppTestingPage() {
   const generateCurlCommand = (type: 'text' | 'image' | 'audio' | 'document' | 'video' | 'sticker' | 'location' | 'contact' | 'template') => {
     if (!selectedSession) return '';
     
-    const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API + '/wa' || 'http://localhost:8070/wa';
+    const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API || 'http://localhost:8070';
     const displayPhone = phoneNumber || '62*******';
     let endpoint = '';
     const body: any = { Phone: displayPhone };
@@ -462,7 +462,7 @@ export default function WhatsAppTestingPage() {
         throw new Error('Selected session not found');
       }
 
-      const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API + '/wa' || 'http://localhost:8070/wa';
+      const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API || 'http://localhost:8070';
       let endpoint = '';
       const requestBody: any = { Phone: phoneNumber };
 

@@ -852,7 +852,7 @@ export default function WhatsAppDashboardPage() {
       </Card>
       
       {/* Enhanced Transactions with Complete Details */}
-      {stats.transactions.length > 0 && (
+      {/* {stats.transactions.length > 0 && (
         <Card className="my-4 sm:my-6 md:my-8">
           <CardHeader className="pb-2 sm:pb-3 md:pb-4">
             <CardTitle className="flex items-center gap-1 sm:gap-2 text-sm sm:text-base md:text-lg">
@@ -972,7 +972,7 @@ export default function WhatsAppDashboardPage() {
             </div>
           </CardContent>
         </Card>
-      )}
+      )} */}
       </SubscriptionGuard>
     </div>
   )
