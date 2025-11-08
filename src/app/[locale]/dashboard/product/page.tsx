@@ -8,7 +8,9 @@ import {
   Check,
   Zap,
   TrendingUp,
-  Shield
+  Shield,
+  Loader2,
+  AlertCircle
 } from "lucide-react"
 import { FaWhatsapp } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
@@ -16,183 +18,56 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/components/Cart/CartContext"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { toast } from "sonner"
+import { useLocale } from "next-intl"
 
 interface WhatsAppPackage {
   id: string
   name: string
-  category: string
-  subcategory: string
-  duration: "month" | "year"
-  price: number
-  originalPrice?: number
-  sessionQuota: number
-  features: string[]
-  popular?: boolean
+  description: string | null
+  priceMonth: number
+  priceYear: number
+  maxSession: number
+  recommended?: boolean
+  yearlyDiscount: number
 }
-
-const whatsappPackages: WhatsAppPackage[] = [
-  {
-    id: "wa-starter-monthly",
-    name: "Starter - Bulanan",
-    category: "whatsapp",
-    subcategory: "starter",
-    duration: "month",
-    price: 100000,
-    originalPrice: 120000,
-    sessionQuota: 1,
-    features: [
-      "1 Sesi WhatsApp Aktif",
-      "Unlimited pesan per bulan",
-      "Support 24/7",
-      "API Documentation",
-      "Webhook Integration"
-    ]
-  },
-  {
-    id: "wa-starter-yearly",
-    name: "Starter - Tahunan",
-    category: "whatsapp",
-    subcategory: "starter",
-    duration: "year",
-    price: 1000000,
-    originalPrice: 1200000,
-    sessionQuota: 1,
-    features: [
-      "1 Sesi WhatsApp Aktif",
-      "Unlimited pesan per tahun",
-      "Support 24/7",
-      "API Documentation",
-      "Webhook Integration",
-      "Hemat 2 bulan!"
-    ],
-    popular: true
-  },
-  {
-    id: "wa-professional-monthly",
-    name: "Professional - Bulanan",
-    category: "whatsapp",
-    subcategory: "professional",
-    duration: "month",
-    price: 250000,
-    originalPrice: 300000,
-    sessionQuota: 3,
-    features: [
-      "3 Sesi WhatsApp Aktif",
-      "Unlimited pesan per bulan",
-      "Priority Support 24/7",
-      "API Documentation",
-      "Webhook Integration",
-      "Auto Reply Bot"
-    ]
-  },
-  {
-    id: "wa-professional-yearly",
-    name: "Professional - Tahunan",
-    category: "whatsapp",
-    subcategory: "professional",
-    duration: "year",
-    price: 2500000,
-    originalPrice: 3000000,
-    sessionQuota: 3,
-    features: [
-      "3 Sesi WhatsApp Aktif",
-      "Unlimited pesan per tahun",
-      "Priority Support 24/7",
-      "API Documentation",
-      "Webhook Integration",
-      "Auto Reply Bot",
-      "Hemat 2 bulan!"
-    ]
-  },
-  {
-    id: "wa-business-monthly",
-    name: "Business - Bulanan",
-    category: "whatsapp",
-    subcategory: "business",
-    duration: "month",
-    price: 500000,
-    originalPrice: 600000,
-    sessionQuota: 5,
-    features: [
-      "5 Sesi WhatsApp Aktif",
-      "Unlimited pesan per bulan",
-      "Dedicated Support 24/7",
-      "API Documentation",
-      "Webhook Integration",
-      "Auto Reply Bot",
-      "Advanced Analytics"
-    ]
-  },
-  {
-    id: "wa-business-yearly",
-    name: "Business - Tahunan",
-    category: "whatsapp",
-    subcategory: "business",
-    duration: "year",
-    price: 5000000,
-    originalPrice: 6000000,
-    sessionQuota: 5,
-    features: [
-      "5 Sesi WhatsApp Aktif",
-      "Unlimited pesan per tahun",
-      "Dedicated Support 24/7",
-      "API Documentation",
-      "Webhook Integration",
-      "Auto Reply Bot",
-      "Advanced Analytics",
-      "Hemat 2 bulan!"
-    ],
-    popular: true
-  },
-  {
-    id: "wa-enterprise-monthly",
-    name: "Enterprise - Bulanan",
-    category: "whatsapp",
-    subcategory: "enterprise",
-    duration: "month",
-    price: 1000000,
-    originalPrice: 1200000,
-    sessionQuota: 10,
-    features: [
-      "10 Sesi WhatsApp Aktif",
-      "Unlimited pesan per bulan",
-      "Dedicated Support 24/7",
-      "API Documentation",
-      "Webhook Integration",
-      "Auto Reply Bot",
-      "Advanced Analytics",
-      "Custom Integration"
-    ]
-  },
-  {
-    id: "wa-enterprise-yearly",
-    name: "Enterprise - Tahunan",
-    category: "whatsapp",
-    subcategory: "enterprise",
-    duration: "year",
-    price: 10000000,
-    originalPrice: 12000000,
-    sessionQuota: 10,
-    features: [
-      "10 Sesi WhatsApp Aktif",
-      "Unlimited pesan per tahun",
-      "Dedicated Support 24/7",
-      "API Documentation",
-      "Webhook Integration",
-      "Auto Reply Bot",
-      "Advanced Analytics",
-      "Custom Integration",
-      "Hemat 2 bulan!"
-    ]
-  }
-]
 
 export default function ProductPage() {
   const t = useTranslations()
-  const { items, addToCart } = useCart()
+  const { items, addToCart, buyNow } = useCart()
   const router = useRouter()
+  const locale = useLocale()
   const [addingToCart, setAddingToCart] = useState<string | null>(null)
+  const [packages, setPackages] = useState<WhatsAppPackage[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [billingCycle, setBillingCycle] = useState<'month' | 'year'>('month')
+
+  useEffect(() => {
+    fetchPackages()
+  }, [])
+
+  const fetchPackages = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch('/api/public/whatsapp/packages')
+      const data = await response.json()
+      
+      if (data.success) {
+        setPackages(data.data)
+      } else {
+        setError(data.message || 'Failed to fetch packages')
+        toast.error('Gagal memuat paket')
+      }
+    } catch (err) {
+      console.error('Error fetching packages:', err)
+      setError('Failed to load WhatsApp packages')
+      toast.error('Terjadi kesalahan saat memuat paket')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const formatPrice = (price: number) => {
     if (isNaN(price) || price === null || price === undefined) {
@@ -207,21 +82,27 @@ export default function ProductPage() {
   }
 
   const handleAddToCart = (pkg: WhatsAppPackage) => {
-    setAddingToCart(pkg.id)
+    const price = billingCycle === 'month' ? pkg.priceMonth : pkg.priceYear
+    const duration = billingCycle
     
+    setAddingToCart(`${pkg.id}-${duration}`)
+    
+    // Create cart item with proper format for CartContext
     const cartItem = {
       id: pkg.id,
-      name: pkg.name,
-      price: pkg.price,
-      price_idr: pkg.price,
-      duration: pkg.duration,
-      maxSession: pkg.sessionQuota,
+      name: `${pkg.name} - ${billingCycle === 'month' ? 'Bulanan' : 'Tahunan'}`,
+      name_en: `${pkg.name} - ${billingCycle === 'month' ? 'Monthly' : 'Yearly'}`,
+      name_id: `${pkg.name} - ${billingCycle === 'month' ? 'Bulanan' : 'Tahunan'}`,
+      price: price,
+      price_idr: price,
+      duration: duration,
+      maxSession: pkg.maxSession,
       qty: 1,
-      name_en: pkg.name,
-      name_id: pkg.name,
+      image: '/images/whatsapp-icon.png'
     }
 
     addToCart(cartItem)
+    toast.success('Paket berhasil ditambahkan ke keranjang!')
 
     // Reset animation after 2 seconds
     setTimeout(() => {
@@ -229,23 +110,96 @@ export default function ProductPage() {
     }, 2000)
   }
 
-  const isInCart = (packageId: string) => {
-    return items.some(item => item.id === packageId)
+  const handleBuyNow = (pkg: WhatsAppPackage) => {
+    const price = billingCycle === 'month' ? pkg.priceMonth : pkg.priceYear
+    const duration = billingCycle
+    
+    // Create cart item with proper format for CartContext
+    const cartItem = {
+      id: pkg.id,
+      name: `${pkg.name} - ${billingCycle === 'month' ? 'Bulanan' : 'Tahunan'}`,
+      name_en: `${pkg.name} - ${billingCycle === 'month' ? 'Monthly' : 'Yearly'}`,
+      name_id: `${pkg.name} - ${billingCycle === 'month' ? 'Bulanan' : 'Tahunan'}`,
+      price: price,
+      price_idr: price,
+      duration: duration,
+      maxSession: pkg.maxSession,
+      qty: 1,
+      image: '/images/whatsapp-icon.png'
+    }
+
+    // Use buyNow from CartContext - it will clear cart, add item, and redirect to checkout
+    buyNow(cartItem)
+    toast.success('Mengarahkan ke halaman checkout...')
   }
 
-  const getPackageIcon = (subcategory: string) => {
-    switch (subcategory) {
-      case 'starter':
-        return <Zap className="h-5 w-5" />
-      case 'professional':
-        return <TrendingUp className="h-5 w-5" />
-      case 'business':
-        return <Shield className="h-5 w-5" />
-      case 'enterprise':
-        return <Package className="h-5 w-5" />
-      default:
-        return <FaWhatsapp className="h-5 w-5" />
+  const isInCart = (packageId: string) => {
+    return items.some(item => item.id === packageId && item.duration === billingCycle)
+  }
+
+  const getPackageIcon = (name: string) => {
+    const nameLower = name.toLowerCase()
+    if (nameLower.includes('starter') || nameLower.includes('basic')) {
+      return <Zap className="h-5 w-5" />
+    } else if (nameLower.includes('professional') || nameLower.includes('pro')) {
+      return <TrendingUp className="h-5 w-5" />
+    } else if (nameLower.includes('business')) {
+      return <Shield className="h-5 w-5" />
+    } else if (nameLower.includes('enterprise')) {
+      return <Package className="h-5 w-5" />
     }
+    return <FaWhatsapp className="h-5 w-5" />
+  }
+
+  const getFeatures = (maxSession: number, packageName: string) => {
+    const baseFeatures = [
+      `${maxSession} WhatsApp Sessions`,
+      'Webhook Integration',
+      'Send & Receive Messages',
+      'Media Support (Image, Video, Audio)',
+      'Auto-reply & Chatbot',
+      'Message Templates',
+      'Real-time Dashboard',
+      '24/7 Technical Support'
+    ]
+
+    if (packageName.toLowerCase().includes('business') || packageName.toLowerCase().includes('profesional') || packageName.toLowerCase().includes('professional')) {
+      baseFeatures.push('Priority Support', 'Advanced Analytics')
+    }
+
+    if (packageName.toLowerCase().includes('enterprise')) {
+      baseFeatures.push('Dedicated Account Manager', 'Custom Integration', 'SLA Guarantee')
+    }
+
+    return baseFeatures
+  }
+
+  if (loading) {
+    return (
+      <div className="flex-1 flex items-center justify-center min-h-[400px] bg-background">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
+          <p className="mt-4 text-muted-foreground">Memuat paket WhatsApp API...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex-1 flex items-center justify-center min-h-[400px] bg-background">
+        <Card className="max-w-md">
+          <CardContent className="p-6 text-center">
+            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+            <h3 className="text-lg font-semibold mb-2">Gagal Memuat Data</h3>
+            <p className="text-sm text-muted-foreground mb-4">{error}</p>
+            <Button onClick={fetchPackages}>
+              Coba Lagi
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   return (
@@ -267,114 +221,153 @@ export default function ProductPage() {
           className="gap-2"
         >
           <ShoppingCart className="h-4 w-4" />
-          Lihat Keranjang ({items.length})
+          Checkout ({items.length})
         </Button>
       </div>
 
       {/* Filter Tabs */}
       <div className="flex gap-2 overflow-x-auto pb-2">
-        <Badge variant="default" className="cursor-pointer">Semua Paket</Badge>
-        <Badge variant="outline" className="cursor-pointer">Bulanan</Badge>
-        <Badge variant="outline" className="cursor-pointer">Tahunan</Badge>
+        <Badge 
+          variant="outline" 
+          className="cursor-pointer"
+        >
+          Semua Paket
+        </Badge>
+        <Badge 
+          variant={billingCycle === 'month' ? 'default' : 'outline'} 
+          className="cursor-pointer"
+          onClick={() => setBillingCycle('month')}
+        >
+          Bulanan
+        </Badge>
+        <Badge 
+          variant={billingCycle === 'year' ? 'default' : 'outline'} 
+          className="cursor-pointer"
+          onClick={() => setBillingCycle('year')}
+        >
+          Tahunan
+          <span className="ml-1 text-xs">(-20%)</span>
+        </Badge>
       </div>
 
       {/* Packages Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {whatsappPackages.map((pkg, index) => (
-          <motion.div
-            key={pkg.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: index * 0.05 }}
-          >
-            <Card className={`relative overflow-hidden h-full flex flex-col ${pkg.popular ? 'border-primary shadow-lg' : ''}`}>
-              {pkg.popular && (
-                <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-3 py-1 text-xs font-medium rounded-bl-lg">
-                  Populer
-                </div>
-              )}
-              
-              <CardHeader className="pb-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className={`p-2 rounded-lg ${pkg.popular ? 'bg-primary/10 text-primary' : 'bg-green-500/10 text-green-500'}`}>
-                    {getPackageIcon(pkg.subcategory)}
-                  </div>
-                  <Badge variant={pkg.duration === 'year' ? 'default' : 'outline'} className="text-xs">
-                    {pkg.duration === 'month' ? 'Bulanan' : 'Tahunan'}
-                  </Badge>
-                </div>
-                <CardTitle className="text-lg">{pkg.name}</CardTitle>
-                <CardDescription className="text-xs">
-                  {pkg.sessionQuota} sesi WhatsApp aktif
-                </CardDescription>
-              </CardHeader>
+        {packages.map((pkg, index) => {
+          const price = billingCycle === 'month' ? pkg.priceMonth : pkg.priceYear
+          const originalPrice = billingCycle === 'month' ? pkg.priceMonth : pkg.priceMonth * 12
+          const features = getFeatures(pkg.maxSession, pkg.name)
+          const isPopular = pkg.recommended
+          const currentItemId = `${pkg.id}-${billingCycle}`
 
-              <CardContent className="flex-1 flex flex-col">
-                {/* Pricing */}
-                <div className="mb-4">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-bold text-foreground">
-                      {formatPrice(pkg.price)}
-                    </span>
+          return (
+            <motion.div
+              key={currentItemId}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
+            >
+              <Card className={`relative overflow-hidden h-full flex flex-col ${isPopular ? 'border-primary shadow-lg' : ''}`}>
+                {isPopular && (
+                  <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-3 py-1 text-xs font-medium rounded-bl-lg">
+                    Populer
                   </div>
-                  {pkg.originalPrice && pkg.originalPrice !== pkg.price && (
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-sm text-muted-foreground line-through">
-                        {formatPrice(pkg.originalPrice)}
-                      </span>
-                      <Badge variant="destructive" className="text-xs">
-                        Hemat {Math.round(((pkg.originalPrice - pkg.price) / pkg.originalPrice) * 100)}%
-                      </Badge>
+                )}
+                
+                <CardHeader className="pb-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className={`p-2 rounded-lg ${isPopular ? 'bg-primary/10 text-primary' : 'bg-green-500/10 text-green-500'}`}>
+                      {getPackageIcon(pkg.name)}
                     </div>
-                  )}
-                </div>
+                    <Badge variant={billingCycle === 'year' ? 'default' : 'outline'} className="text-xs">
+                      {billingCycle === 'month' ? 'Bulanan' : 'Tahunan'}
+                    </Badge>
+                  </div>
+                  <CardTitle className="text-lg">{pkg.name}</CardTitle>
+                  <CardDescription className="text-xs">
+                    {pkg.maxSession} sesi WhatsApp aktif
+                  </CardDescription>
+                </CardHeader>
 
-                {/* Features */}
-                <div className="flex-1">
-                  <p className="text-sm font-medium mb-2">Fitur:</p>
-                  <ul className="space-y-2">
-                    {pkg.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm">
-                        <Check className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <CardContent className="flex-1 flex flex-col">
+                  {/* Pricing */}
+                  <div className="mb-4">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl font-bold text-foreground">
+                        {formatPrice(price)}
+                      </span>
+                    </div>
+                    {billingCycle === 'year' && pkg.yearlyDiscount > 0 && (
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-sm text-muted-foreground line-through">
+                          {formatPrice(originalPrice)}
+                        </span>
+                        <Badge variant="destructive" className="text-xs">
+                          Hemat {pkg.yearlyDiscount.toFixed(0)}%
+                        </Badge>
+                      </div>
+                    )}
+                  </div>
 
-                {/* Add to Cart Button */}
-                <Button
-                  onClick={() => handleAddToCart(pkg)}
-                  disabled={isInCart(pkg.id)}
-                  className={`w-full mt-4 gap-2 ${isInCart(pkg.id) ? 'bg-green-500 hover:bg-green-600' : ''}`}
-                >
-                  {addingToCart === pkg.id ? (
-                    <>
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 200 }}
-                      >
-                        <Check className="h-4 w-4" />
-                      </motion.div>
-                      Ditambahkan!
-                    </>
-                  ) : isInCart(pkg.id) ? (
-                    <>
-                      <Check className="h-4 w-4" />
-                      Sudah di Keranjang
-                    </>
-                  ) : (
-                    <>
-                      <ShoppingCart className="h-4 w-4" />
-                      Tambah ke Keranjang
-                    </>
-                  )}
-                </Button>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
+                  {/* Features */}
+                  <div className="flex-1">
+                    <p className="text-sm font-medium mb-2">Fitur:</p>
+                    <ul className="space-y-2">
+                      {features.slice(0, 6).map((feature, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm">
+                          <Check className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                          <span className="text-muted-foreground">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="space-y-2 mt-4">
+                    {/* Buy Now Button */}
+                    <Button
+                      onClick={() => handleBuyNow(pkg)}
+                      className={`w-full gap-2 ${isPopular ? 'bg-gradient-to-r from-primary to-primary/80' : ''}`}
+                      variant={isPopular ? 'default' : 'default'}
+                    >
+                      Beli Sekarang
+                    </Button>
+
+                    {/* Add to Cart Button */}
+                    <Button
+                      onClick={() => handleAddToCart(pkg)}
+                      disabled={isInCart(pkg.id)}
+                      variant="outline"
+                      className={`w-full gap-2 ${isInCart(pkg.id) ? 'bg-green-500/10 border-green-500 text-green-700 dark:text-green-400' : ''}`}
+                    >
+                      {addingToCart === currentItemId ? (
+                        <>
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 200 }}
+                          >
+                            <Check className="h-4 w-4" />
+                          </motion.div>
+                          Ditambahkan!
+                        </>
+                      ) : isInCart(pkg.id) ? (
+                        <>
+                          <Check className="h-4 w-4" />
+                          Sudah di Keranjang
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingCart className="h-4 w-4" />
+                          Tambah ke Keranjang
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )
+        })}
       </div>
 
       {/* Info Footer */}

@@ -128,7 +128,7 @@ export default function ContactsPage() {
 
     setContactsLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API}/bulk/contact`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/bulk/contact`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwtToken}`,
@@ -170,7 +170,7 @@ export default function ContactsPage() {
 
     setSyncing(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API}/bulk/contact/sync`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/bulk/contact/sync`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ export default function ContactsPage() {
 
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API}/bulk/contact/add`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/bulk/contact/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -299,7 +299,7 @@ export default function ContactsPage() {
     setDeletingContacts(true);
     try {
       const phoneNumbers = Array.from(selectedContacts);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API}/bulk/contact/delete`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/bulk/contact/delete`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

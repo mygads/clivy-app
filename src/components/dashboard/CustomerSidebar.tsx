@@ -52,6 +52,11 @@ const data = {
       icon: Home,
     },
     {
+      title: "Product",
+      url: "/dashboard/product",
+      icon: ShoppingCart,
+    },
+    {
       title: "Transaction",
       url: "/dashboard/transaction",
       icon: CreditCard,

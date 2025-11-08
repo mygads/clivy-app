@@ -373,7 +373,7 @@ export default function BulkMessagePage() {
     
     setContactsLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API}/bulk/contact`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/bulk/contact`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwtToken}`,
@@ -411,7 +411,7 @@ export default function BulkMessagePage() {
     
     setCampaignsLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API}/bulk/campaign`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/bulk/campaign`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwtToken}`,
@@ -486,7 +486,7 @@ export default function BulkMessagePage() {
         }
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API}/bulk/campaign`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/bulk/campaign`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -549,7 +549,7 @@ export default function BulkMessagePage() {
         }
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API}/bulk/campaign/${editingCampaign.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/bulk/campaign/${editingCampaign.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -589,7 +589,7 @@ export default function BulkMessagePage() {
 
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API}/bulk/campaign/${campaignId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/bulk/campaign/${campaignId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -770,7 +770,7 @@ export default function BulkMessagePage() {
     if (!selectedCampaign) return '';
     
     const phoneNumbers = getAllSelectedPhones();
-    const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API;
+    const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API;
 
     return `curl -X POST ${baseUrl}/bulk/campaign/execute \\
   -H "Content-Type: application/json" \\
@@ -796,7 +796,7 @@ export default function BulkMessagePage() {
         return;
       }
 
-      const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API;
+      const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API;
       const response = await fetch(`${baseUrl}/bulk/campaigns`, {
         headers: {
           'Authorization': `Bearer ${jwtToken}`,
@@ -844,7 +844,7 @@ export default function BulkMessagePage() {
         throw new Error('Authentication required');
       }
 
-      const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API;
+      const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API;
       const response = await fetch(`${baseUrl}/bulk/campaigns/${campaignId}`, {
         headers: {
           'Authorization': `Bearer ${jwtToken}`,
@@ -886,7 +886,7 @@ export default function BulkMessagePage() {
         throw new Error('Authentication required');
       }
 
-      const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API;
+      const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API;
       const response = await fetch(`${baseUrl}/bulk/campaigns/${bulkCampaignId}`, {
         method: 'DELETE',
         headers: {
@@ -1207,7 +1207,7 @@ export default function BulkMessagePage() {
         })
       };
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_BULK_SERVER_API}/bulk/campaign/execute`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/bulk/campaign/execute`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
