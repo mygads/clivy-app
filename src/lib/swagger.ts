@@ -4,7 +4,7 @@ export const getApiDocs = () => {
   const swaggerDefinition = {
     openapi: '3.0.0',
     info: {
-      title: 'Clivy API Documentation',
+      title: 'Swagger Clivy API Documentation',
       version: '1.0.0',
       description: `Comprehensive API documentation for Clivy WhatsApp service application. This documentation covers all available endpoints, request/response schemas, authentication methods, and error handling.
       All endpoints support CORS and can be accessed from external applications like Postman or other web services.`,
