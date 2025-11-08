@@ -1238,7 +1238,7 @@ export default function APIDocsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API || 'http://localhost:8070';
+  const baseUrl = process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API + '/wa' || 'http://localhost:8070/wa';
 
   const filtered = useMemo(() => {
     if (!search.trim()) return apiEndpoints;
