@@ -413,10 +413,29 @@
       "or": "or",
       "showPassword": "Show password",
       "hidePassword": "Hide password"
-    },
-    "dashboard": {
-      "whatsapp": {
-        "bulk": {
+    }
+  },
+  "dashboard": {
+    "whatsapp": {
+      "subscriptionGuard": {
+        "loading": "Loading subscription data...",
+        "error": "Error loading subscription data",
+        "refresh": "Refresh",
+        "noSubscription": {
+          "title": "No Active WhatsApp Subscription",
+          "description": "You need an active WhatsApp subscription to access this feature.",
+          "features": {
+            "title": "With WhatsApp subscription you can:",
+            "sendMessages": "Send messages via API",
+            "manageContacts": "Manage contact lists",
+            "bulkCampaigns": "Create bulk campaigns",
+            "apiAccess": "Full API access"
+          },
+          "buySubscription": "Buy Subscription",
+          "note": "Your subscription may be processing. Try refresh if you just purchased."
+        }
+      },
+      "bulk": {
           "title": "Campaign",
           "subtitle": "Send promotional messages to multiple contacts",
           "contactSources": {
@@ -560,9 +579,8 @@
           "subscribeNow": "Subscribe now"
         }
       }
-    }
-  },
-  "appointment": {
+    },
+    "appointment": {
     "meta": {
       "title": "Book Appointment - Clivy",
       "description": "Schedule a consultation with our experts to discuss your digital needs and get personalized solutions."
