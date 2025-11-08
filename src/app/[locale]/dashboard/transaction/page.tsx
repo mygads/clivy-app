@@ -850,8 +850,8 @@ export default function TransactionDashboardPage() {
                 }
               </p>
               {(!searchTerm && statusFilter === "all") && (
-                <Link href="/products">
-                  <Button>Browse Products</Button>
+                <Link href="/#pricing">
+                  <Button>Lihat Layanan WhatsApp</Button>
                 </Link>
               )}
             </div>

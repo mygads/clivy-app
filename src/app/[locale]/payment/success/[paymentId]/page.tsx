@@ -235,7 +235,7 @@ export default function PaymentSuccessPage() {
               </Link>
             ) : (
               <Link
-                href="/products"
+                href="/#pricing"
                 className="block w-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm sm:text-base"
               >
                 Lihat Layanan WhatsApp
@@ -274,7 +274,7 @@ export default function PaymentSuccessPage() {
               </Link>
             ) : (
               <Link
-                href="/products"
+                href="/#pricing"
                 className="block w-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm sm:text-base"
               >
                 Lihat Layanan WhatsApp
@@ -409,7 +409,7 @@ export default function PaymentSuccessPage() {
                   </Link>
                 )}
                 <Link
-                  href="/products"
+                  href="/#pricing"
                   className="flex items-center justify-center gap-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm sm:text-base"
                 >
                   <Package className="h-3 w-3 sm:h-4 sm:w-4" />

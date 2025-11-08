@@ -39,32 +39,41 @@ export function CheckoutPhase({
 }: CheckoutPhaseProps) {
   const [isProcessing, setIsProcessing] = useState(false)
 
+  const formatPrice = (price: number) => {
+    if (isNaN(price) || price === null || price === undefined) {
+      return 'Rp 0'
+    }
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price)
+  }
+
   const handleCheckout = async () => {
     setIsProcessing(true)
     onError("") // Clear any previous errors
 
     try {
-      // Prepare checkout data - WhatsApp only
-      const whatsapp: CheckoutWhatsApp[] = whatsappItems.map(item => {
-        // Extract package ID and duration from composite ID
-        // WhatsApp items have IDs like "packageId_monthly" or "packageId_yearly"
-        const idParts = item.id.split('_')
-        const packageId = idParts[0] // Original package ID
-        const billingType = idParts[1] // "monthly" or "yearly"
-        
-        // Convert billing type to duration format expected by backend
-        const duration = billingType === "yearly" ? "year" : "month"
-        
-        return {
-          packageId: packageId, // Use the original package ID, not the composite one
-          duration: duration
-        }
-      })
+      // Prepare checkout data - WhatsApp only (single package)
+      if (whatsappItems.length === 0) {
+        throw new Error("No WhatsApp package selected")
+      }
+
+      // Get the first (and only) WhatsApp package
+      const item = whatsappItems[0]
+      
+      // The cart item should have the correct format from CartContext
+      const whatsappData: CheckoutWhatsApp = {
+        packageId: item.id, // This should be the package ID
+        duration: item.duration // This should be 'month' or 'year'
+      }
 
       const checkoutData: CheckoutRequest = {
+        whatsapp: whatsappData, // Send as object, not array
         currency: "idr",
         notes: formData.notes || undefined,
-        ...(whatsapp.length > 0 && { whatsapp }),
         ...(voucherApplied && formData.voucher && { voucherCode: formData.voucher })
       }
 
@@ -86,6 +95,11 @@ export function CheckoutPhase({
       const result = await response.json()
       
       if (!response.ok) {
+        // Handle validation errors
+        if (result.error && Array.isArray(result.error)) {
+          const errorMessages = result.error.map((err: any) => err.message).join(', ')
+          throw new Error(errorMessages)
+        }
         throw new Error(result.error || 'Checkout failed')
       }
       
@@ -121,18 +135,18 @@ export function CheckoutPhase({
         <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
           <div className="flex justify-between">
             <span>Subtotal:</span>
-            <span>Rp {selectedItemsTotal.toLocaleString('id-ID')}</span>
+            <span>{formatPrice(selectedItemsTotal)}</span>
           </div>
           {voucherApplied && (
             <div className="flex justify-between text-green-600">
               <span>Diskon Voucher:</span>
-              <span>-Rp {voucherDiscount.toLocaleString('id-ID')}</span>
+              <span>-{formatPrice(voucherDiscount)}</span>
             </div>
           )}
           <div className="border-t border-gray-200 dark:border-gray-700 pt-1.5 sm:pt-2 mt-1.5 sm:mt-2">
             <div className="flex justify-between font-medium text-base ">
               <span>Total:</span>
-              <span className="text-primary">Rp {(selectedItemsTotal - voucherDiscount).toLocaleString('id-ID')}</span>
+              <span className="text-primary">{formatPrice(selectedItemsTotal - voucherDiscount)}</span>
             </div>
           </div>
         </div>

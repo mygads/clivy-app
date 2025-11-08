@@ -90,7 +90,7 @@ function detectLocaleFromBrowser(request: NextRequest): string {
         // First check if user already has stored preference
         const storedLocale = getStoredLocalePreference(request);
         if (storedLocale) {
-            console.log(`[MIDDLEWARE_LOCALE] Using stored preference: ${storedLocale}`);
+            // console.log(`[MIDDLEWARE_LOCALE] Using stored preference: ${storedLocale}`);
             return storedLocale;
         }
         
@@ -101,7 +101,7 @@ function detectLocaleFromBrowser(request: NextRequest): string {
         const hasIndoLangPref = hasIndonesianLanguagePreference(acceptLanguage);
         
         const detectedLocale = hasIndoLangPref ? 'id' : 'en';
-        console.log(`[MIDDLEWARE_LOCALE] Detected locale from browser: ${detectedLocale}`);
+        // console.log(`[MIDDLEWARE_LOCALE] Detected locale from browser: ${detectedLocale}`);
         return detectedLocale;
         
     } catch (error) {

@@ -72,7 +72,7 @@ export interface CheckoutForm {
   }
 
   export interface CheckoutRequest {
-    whatsapp?: CheckoutWhatsApp[]
+    whatsapp: CheckoutWhatsApp  // Changed from array to single object
     currency: "idr"
     voucherCode?: string
     notes?: string

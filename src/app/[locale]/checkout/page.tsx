@@ -388,17 +388,11 @@ export default function CheckoutPage() {
       
       // Add whatsapp items as "whatsapp" type
       whatsappItems.forEach(item => {
-        // Extract package ID and duration from composite ID
-        // WhatsApp items have IDs like "packageId_monthly" or "packageId_yearly"
-        const idParts = item.id.split('_')
-        const packageId = idParts[0] // Original package ID
-        const billingType = idParts[1] // "monthly" or "yearly"
-          // Convert billing type to duration format expected by backend
-        const duration = billingType === "yearly" ? "year" : "month"
+        // Cart items now have correct id and duration from CartContext
         voucherItems.push({
           type: "whatsapp",
-          id: packageId, // Use the original package ID, not the composite one
-          duration: duration
+          id: item.id, // Package ID from cart
+          duration: item.duration // Duration from cart ('month' or 'year')
         })
       })
 

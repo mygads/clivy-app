@@ -12,7 +12,7 @@ export function EmptyCart() {
         </div>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-4">There is nothing in your cart</h1>
         <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">You haven&apos;t selected any products in the cart</p>
-        <Link href="/products">
+        <Link href="/#pricing">
           <button className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 sm:px-6 py-2 sm:py-3 font-medium text-white transition-all hover:bg-primary/90 text-sm sm:text-base">
             <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" />
             View Products

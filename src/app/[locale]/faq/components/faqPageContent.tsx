@@ -880,7 +880,7 @@ export default function FaqPageContent() {
                     </Link>
                   </Button>
                   <Button asChild variant="outline" size="default" className="w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base font-semibold border-gray-300 dark:border-gray-600 dark:text-gray-200">
-                    <Link href="/products">
+                    <Link href="/#pricing">
                       Lihat Paket Layanan
                     </Link>
                   </Button>
