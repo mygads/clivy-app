@@ -9,6 +9,7 @@ const defaultMenus = [
   {
     title: "Company",
     items: [
+      { label: "About Us", href: "/about" },
       { label: "Sustainability", href: "/sustainability" },
       { label: "Appointment", href: "/appointment" },
     ],

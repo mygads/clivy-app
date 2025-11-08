@@ -68,7 +68,7 @@ export async function POST(
 
     if (!validation.success) {
       return withCORS(NextResponse.json(
-        { success: false, error: "Invalid phone number format. Use international format without leading 0 (e.g., 6281233784490)", details: validation.error.errors },
+        { success: false, error: "Invalid phone number format. Use international format without leading 0 (e.g., 628123456789)", details: validation.error.errors },
         { status: 400 }
       ));
     }

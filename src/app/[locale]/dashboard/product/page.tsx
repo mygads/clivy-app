@@ -82,6 +82,12 @@ export default function ProductPage() {
   }
 
   const handleAddToCart = (pkg: WhatsAppPackage) => {
+    // Check if there's already a different package in cart
+    if (hasItemInCart() && !isThisItemInCart(pkg.id)) {
+      toast.warning('Keranjang sudah berisi paket lain. Hanya dapat memilih 1 paket WhatsApp API.')
+      return
+    }
+
     const price = billingCycle === 'month' ? pkg.priceMonth : pkg.priceYear
     const duration = billingCycle
     
@@ -134,6 +140,17 @@ export default function ProductPage() {
   }
 
   const isInCart = (packageId: string) => {
+    // Check if this specific package with current billing cycle is in cart
+    return items.some(item => item.id === packageId && item.duration === billingCycle)
+  }
+
+  // Check if cart has any item (to disable all other add to cart buttons)
+  const hasItemInCart = () => {
+    return items.length > 0
+  }
+
+  // Check if this is the item currently in cart
+  const isThisItemInCart = (packageId: string) => {
     return items.some(item => item.id === packageId && item.duration === billingCycle)
   }
 
@@ -250,6 +267,39 @@ export default function ProductPage() {
         </Badge>
       </div>
 
+      {/* Cart Status Alert */}
+      {hasItemInCart() && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-4"
+        >
+          <Card className="bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800">
+            <CardContent className="p-4">
+              <div className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-green-900 dark:text-green-100">
+                    {items[0]?.name || 'Paket'} sudah ada di keranjang
+                  </p>
+                  <p className="text-xs text-green-700 dark:text-green-300 mt-1">
+                    Hanya dapat memilih 1 paket. Paket lain akan otomatis di-disable.
+                  </p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => router.push(`/${locale}/checkout`)}
+                  className="border-green-500 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/50"
+                >
+                  Checkout
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      )}
+
       {/* Packages Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {packages.map((pkg, index) => {
@@ -335,9 +385,15 @@ export default function ProductPage() {
                     {/* Add to Cart Button */}
                     <Button
                       onClick={() => handleAddToCart(pkg)}
-                      disabled={isInCart(pkg.id)}
+                      disabled={hasItemInCart() && !isThisItemInCart(pkg.id)}
                       variant="outline"
-                      className={`w-full gap-2 ${isInCart(pkg.id) ? 'bg-green-500/10 border-green-500 text-green-700 dark:text-green-400' : ''}`}
+                      className={`w-full gap-2 ${
+                        isThisItemInCart(pkg.id) 
+                          ? 'bg-green-500/10 border-green-500 text-green-700 dark:text-green-400' 
+                          : hasItemInCart()
+                          ? 'opacity-50 cursor-not-allowed'
+                          : ''
+                      }`}
                     >
                       {addingToCart === currentItemId ? (
                         <>
@@ -350,7 +406,7 @@ export default function ProductPage() {
                           </motion.div>
                           Ditambahkan!
                         </>
-                      ) : isInCart(pkg.id) ? (
+                      ) : isThisItemInCart(pkg.id) ? (
                         <>
                           <Check className="h-4 w-4" />
                           Sudah di Keranjang

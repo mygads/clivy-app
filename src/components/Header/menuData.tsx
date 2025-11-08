@@ -6,8 +6,15 @@ const menuData: Menu[] = [
     title: "explore",
     newTab: false,
     submenu: [
+      { id: 11, title: "about", path: "/about", newTab: false },
       { id: 12, title: "faq", path: "/faq", newTab: false },
     ],
+  },
+  {
+    id: 2,
+    title: "whatIsWhatsappApi",
+    path: "/#what-is-whatsapp-api",
+    newTab: false,
   },
   {
     id: 3,
@@ -17,8 +24,8 @@ const menuData: Menu[] = [
   },
   {
     id: 4,
-    title: "howToOrder",
-    path: "/#how-to-order",
+    title: "whyClivy",
+    path: "/#why-clivy",
     newTab: false,
   },
   {

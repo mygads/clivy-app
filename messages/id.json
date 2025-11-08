@@ -6,14 +6,18 @@
   "Header": {
     "explore": "Jelajahi",
     "services": "Layanan",
+    "about": "Tentang Kami",
     "pricing": "Harga",
     "portfolio": "Portofolio",
     "howToOrder": "Cara Pesan",
-    "contact": "Hubungi Kami",    "signUp": "Daftar",
+    "contact": "Hubungi Kami",
+    "signUp": "Daftar",
     "signIn": "Masuk",
     "cart": "Keranjang",
     "aboutClivy": "Tentang Clivy",
     "faq": "FAQ",
+    "whatIsWhatsappApi": "Apa itu Clivy",
+    "whyClivy": "Mengapa Clivy",
     "blog": "Blog (Segera Hadir)",
     "career": "Karir (Segera Hadir)",
     "mainServices": "Layanan Utama",
@@ -823,6 +827,67 @@
       "description": "Bergabunglah dengan kami dalam menciptakan masa depan digital yang lebih berkelanjutan. Baik Anda klien, mitra, atau sesama developer, kami mengundang Anda untuk menjadi bagian dari perjalanan keberlanjutan kami.",
       "cta": "Pelajari Lebih Lanjut Tentang Solusi Hijau Kami",
       "contact": "Hubungi kami untuk membahas bagaimana kami dapat membuat proyek Anda berikutnya lebih ramah lingkungan."
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Tentang Kami - Clivy",
+      "description": "Pelajari tentang Clivy, platform WhatsApp API yang dikembangkan oleh mahasiswa Sistem Informasi Telkom University."
+    },
+    "hero": {
+      "badge": "Tentang Kami",
+      "title": "Tentang Clivy",
+      "description": "Platform WhatsApp API yang dikembangkan oleh mahasiswa Sistem Informasi Telkom University untuk memudahkan bisnis dalam berkomunikasi dengan pelanggan."
+    },
+    "story": {
+      "title": "Cerita Kami",
+      "paragraph1": "Clivy adalah platform WhatsApp Business API yang lahir dari proyek kolaboratif mahasiswa Jurusan Sistem Informasi di Telkom University. Kami memahami bahwa komunikasi yang efektif antara bisnis dan pelanggan adalah kunci kesuksesan di era digital.",
+      "paragraph2": "Dengan memanfaatkan teknologi modern seperti Next.js, TypeScript, dan WhatsApp Business API, kami menghadirkan solusi yang tidak hanya powerful, tetapi juga mudah digunakan. Platform kami dirancang untuk membantu bisnis dari berbagai skala, mulai dari UMKM hingga enterprise, dalam mengelola komunikasi WhatsApp mereka secara profesional.",
+      "paragraph3": "Proyek ini merupakan wujud dari dedikasi kami untuk menerapkan ilmu yang didapat di bangku kuliah menjadi solusi nyata yang memberikan manfaat bagi masyarakat luas."
+    },
+    "values": {
+      "title": "Nilai-Nilai Kami",
+      "subtitle": "Prinsip-prinsip yang menjadi fondasi dalam setiap langkah pengembangan Clivy",
+      "innovation": {
+        "title": "Inovasi",
+        "description": "Menghadirkan solusi teknologi terkini untuk memudahkan komunikasi bisnis melalui WhatsApp API."
+      },
+      "collaboration": {
+        "title": "Kolaborasi",
+        "description": "Bekerja sama sebagai tim yang solid untuk menciptakan produk terbaik bagi pengguna."
+      },
+      "creativity": {
+        "title": "Kreativitas",
+        "description": "Menerapkan ide-ide kreatif dalam setiap aspek pengembangan aplikasi."
+      },
+      "quality": {
+        "title": "Kualitas",
+        "description": "Berkomitmen untuk memberikan layanan dan produk berkualitas tinggi kepada pelanggan."
+      }
+    },
+    "team": {
+      "title": "Tim Kami",
+      "subtitle": "Mahasiswa Sistem Informasi Telkom University yang berdedikasi untuk menciptakan solusi teknologi inovatif",
+      "university": "Telkom University - Sistem Informasi",
+      "nim": "NIM",
+      "members": {
+        "yoga": {
+          "role": "Project Leader",
+          "description": "Memimpin proyek dan mengoordinasikan tim untuk memastikan keberhasilan platform Clivy."
+        },
+        "fadli": {
+          "role": "Full Stack Developer",
+          "description": "Mengembangkan sistem backend dan frontend dengan teknologi modern seperti Next.js dan Prisma."
+        },
+        "riyana": {
+          "role": "Frontend Developer",
+          "description": "Membuat komponen antarmuka pengguna yang menarik dan intuitif dengan teknologi web modern."
+        },
+        "delita": {
+          "role": "Dokumentasi & QA Engineer",
+          "description": "Mendokumentasikan proyek dan memastikan kualitas aplikasi melalui testing yang komprehensif."
+        }
+      }
     }
   },
   "customerService": {
