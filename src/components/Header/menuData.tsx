@@ -8,6 +8,7 @@ const menuData: Menu[] = [
     submenu: [
       { id: 11, title: "about", path: "/about", newTab: false },
       { id: 12, title: "faq", path: "/faq", newTab: false },
+      { id: 14, title: "documentation", path: "/whatsapp/documentation", newTab: false },
     ],
   },
   {
