@@ -365,7 +365,7 @@ export async function POST(request: NextRequest) {
     const paymentInstructions = getPaymentInstructions(
       result.paymentMethodConfig,
       result.payment,
-      result.paymentMethodConfig,
+      result.transaction.currency, // Pass currency directly instead of serviceFee object
       result.requiresManualApproval
     );
 
@@ -494,10 +494,10 @@ export async function POST(request: NextRequest) {
 }
 
 // Helper function to generate payment instructions
-function getPaymentInstructions(paymentMethod: any, payment: any, serviceFee: any, requiresManualApproval: boolean): string {
+function getPaymentInstructions(paymentMethod: any, payment: any, currency: string, requiresManualApproval: boolean): string {
   const amount = Number(payment.amount);
-  const currency = serviceFee.currency.toUpperCase();
-  const formattedAmount = currency === 'IDR' 
+  const currencyUpper = currency.toUpperCase();
+  const formattedAmount = currencyUpper === 'IDR' 
     ? `Rp ${amount.toLocaleString('id-ID')}`
     : `$${amount.toFixed(2)}`;
 
