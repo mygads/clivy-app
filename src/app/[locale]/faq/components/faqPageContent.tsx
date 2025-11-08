@@ -25,72 +25,6 @@ type FaqItem = {
 
 const categories: FaqCategory[] = [
   { 
-    id: "general", 
-    name: "Umum", 
-    icon: HelpCircle,
-    description: "Pertanyaan dasar tentang Clivy dan layanan kami"
-  },
-  { 
-    id: "custom-website", 
-    name: "Pengembangan Website Kustom", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-        <line x1="8" y1="21" x2="16" y2="21"/>
-        <line x1="12" y1="17" x2="12" y2="21"/>
-      </svg>
-    ),
-    description: "Website yang dirancang khusus sesuai kebutuhan bisnis Anda"
-  },
-  { 
-    id: "web-app", 
-    name: "Pengembangan Aplikasi Web", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10"/>
-        <line x1="2" y1="12" x2="22" y2="12"/>
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-      </svg>
-    ),
-    description: "Aplikasi web modern dan skalabel dengan teknologi terdepan"
-  },
-  { 
-    id: "mobile-development", 
-    name: "Pengembangan Mobile", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-        <line x1="12" y1="18" x2="12.01" y2="18"/>
-      </svg>
-    ),
-    description: "Aplikasi mobile native dan cross-platform untuk iOS dan Android"
-  },
-  { 
-    id: "corporate-system", 
-    name: "Sistem Korporat", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <ellipse cx="12" cy="5" rx="9" ry="3"/>
-        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
-        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
-      </svg>
-    ),
-    description: "Sistem manajemen enterprise dan otomatisasi proses bisnis"
-  },
-  { 
-    id: "ui-ux-design", 
-    name: "Desain UI/UX", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M12 19l7-7 3 3-7 7-3-3z"/>
-        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
-        <path d="M2 2l7.586 7.586"/>
-        <circle cx="11" cy="11" r="2"/>
-      </svg>
-    ),
-    description: "Desain yang berfokus pada pengguna dengan estetika dan fungsionalitas optimal"
-  },
-  { 
     id: "whatsapp-api", 
     name: "WhatsApp API", 
     icon: MessageSquare,
@@ -119,266 +53,10 @@ const categories: FaqCategory[] = [
       </svg>
     ),
     description: "Chatbot bertenaga AI untuk layanan pelanggan otomatis 24/7"
-  },
-  { 
-    id: "seo-specialist", 
-    name: "Spesialis SEO", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
-      </svg>
-    ),
-    description: "Optimisasi mesin pencari untuk meningkatkan visibilitas website"
-  },
-  { 
-    id: "corporate-branding", 
-    name: "Branding Korporat", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-        <line x1="8" y1="21" x2="16" y2="21"/>
-        <line x1="12" y1="17" x2="12" y2="21"/>
-        <polyline points="10,9 10,11 14,11 14,9"/>
-      </svg>
-    ),
-    description: "Pengembangan identitas merek dan positioning strategis"
-  },
-  { 
-    id: "it-consulting", 
-    name: "Konsultasi IT", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-      </svg>
-    ),
-    description: "Konsultasi teknologi strategis dan transformasi digital"
-  },
-  { 
-    id: "tech-support", 
-    name: "Dukungan Teknis", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
-        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
-      </svg>
-    ),
-    description: "Bantuan teknis dan layanan pemeliharaan yang andal"
-  },
-  { 
-    id: "pricing-payment", 
-    name: "Harga & Pembayaran", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
-        <line x1="1" y1="10" x2="23" y2="10"/>
-      </svg>
-    ),
-    description: "Informasi tentang harga layanan dan metode pembayaran"
-  },
-  { 
-    id: "process", 
-    name: "Proses Kerja", 
-    icon: ({ className }) => (
-      <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-      </svg>
-    ),
-    description: "Tahapan dan metodologi kerja dalam proyek"
   }
 ]
 
 const faqItems: FaqItem[] = [
-  // General FAQs
-  {
-    question: "Layanan apa saja yang ditawarkan oleh Clivy?",
-    answer:
-      "Clivy menawarkan berbagai layanan digital yang komprehensif, meliputi pengembangan website kustom, aplikasi web dan mobile, sistem korporat, desain UI/UX, WhatsApp API solutions, SEO specialist, branding korporat, konsultasi IT, dan dukungan teknis. Kami menyediakan solusi end-to-end untuk kebutuhan transformasi digital bisnis Anda.",
-    category: "general",
-    tags: ["layanan", "digital", "website", "mobile", "api"]
-  },
-  {
-    question: "Bagaimana cara memulai proyek dengan Clivy?",
-    answer:
-      "Untuk memulai proyek dengan kami, Anda dapat menghubungi kami melalui formulir kontak di website, email, atau WhatsApp. Tim kami akan segera merespons untuk mengatur konsultasi awal yang gratis. Dalam konsultasi ini, kami akan membahas kebutuhan Anda, menjawab pertanyaan, dan memberikan rekomendasi serta estimasi biaya yang sesuai dengan anggaran Anda.",
-    category: "general",
-    tags: ["konsultasi", "kontak", "memulai proyek"]
-  },
-  {
-    question: "Berapa biaya untuk layanan Clivy?",
-    answer:
-      "Biaya layanan kami bervariasi tergantung pada jenis proyek, kompleksitas, dan fitur yang dibutuhkan. Kami menawarkan paket dengan harga yang transparan dan dapat disesuaikan dengan kebutuhan dan anggaran Anda. Untuk mendapatkan penawaran yang akurat, silakan kunjungi halaman produk kami atau konsultasi gratis dengan tim kami.",
-    category: "general",
-    tags: ["harga", "biaya", "paket", "pricing"]
-  },
-  {
-    question: "Apakah Clivy melayani klien dari luar kota atau luar negeri?",
-    answer:
-      "Ya, kami melayani klien dari seluruh Indonesia dan juga Australia. Tim kami berlokasi di Indonesia dan Australia, sehingga kami dapat melayani klien dengan zona waktu yang berbeda. Dengan memanfaatkan teknologi komunikasi modern seperti video conference, email, dan platform manajemen proyek, kami dapat bekerja sama secara efektif dengan klien dari mana saja.",
-    category: "general",
-    tags: ["internasional", "remote", "australia", "indonesia"]
-  },
-  {
-    question: "Apakah saya akan mendapatkan hak cipta penuh atas proyek yang dikerjakan?",
-    answer:
-      "Ya, setelah proyek selesai dan pembayaran lunas, Anda akan mendapatkan hak cipta penuh atas semua aset digital yang dibuat khusus untuk Anda, termasuk website, sistem, desain, dan konten (kecuali elemen berlisensi pihak ketiga yang digunakan dengan izin). Kami juga akan memberikan source code lengkap dan dokumentasi yang diperlukan.",
-    category: "general",
-    tags: ["hak cipta", "ownership", "source code"]
-  },
-  {
-    question: "Apa yang membedakan Clivy dengan penyedia layanan digital lainnya?",
-    answer:
-      "Clivy memiliki keunggulan dalam pengalaman tim yang berpengalaman di pasar internasional (Australia dan Indonesia), teknologi terdepan, dan pendekatan yang disesuaikan untuk setiap klien. Kami tidak hanya membangun produk digital, tetapi juga memastikan strategi yang tepat untuk pertumbuhan bisnis jangka panjang Anda. Tim kami juga menyediakan dukungan berkelanjutan setelah proyek selesai.",
-    category: "general",
-    tags: ["keunggulan", "differensiasi", "internasional"]
-  },
-
-  // Custom Website Development FAQs
-  {
-    question: "Berapa lama waktu yang dibutuhkan untuk membuat website kustom?",
-    answer:
-      "Waktu pengembangan website kustom bervariasi tergantung pada kompleksitas dan fitur yang diinginkan. Website landing page sederhana dapat selesai dalam 1-2 minggu, website bisnis dengan fitur standar membutuhkan 2-4 minggu, sementara website e-commerce atau sistem perusahaan yang kompleks dapat membutuhkan waktu 1-3 bulan. Kami akan memberikan timeline yang jelas setelah analisis kebutuhan awal.",
-    category: "custom-website",
-    tags: ["timeline", "development", "estimasi"]
-  },
-  {
-    question: "Apa saja yang termasuk dalam layanan pengembangan website kustom?",
-    answer:
-      "Layanan kami mencakup konsultasi kebutuhan, desain UI/UX, pengembangan frontend dan backend, integrasi database, sistem manajemen konten (CMS), optimisasi SEO dasar, testing dan quality assurance, deployment, pelatihan penggunaan, dan dokumentasi. Kami juga menyediakan garansi bug-fixing selama 3 bulan setelah peluncuran.",
-    category: "custom-website",
-    tags: ["fitur", "layanan", "komprehensif"]
-  },
-  {
-    question: "Apakah saya akan mendapatkan domain dan hosting?",
-    answer:
-      "Ya, kami menyediakan paket lengkap yang mencakup domain dan hosting. Kami akan membantu Anda memilih nama domain yang sesuai dengan brand Anda dan menyediakan hosting yang cepat, aman, dan andal. Alternatifnya, kami juga dapat bekerja dengan domain dan hosting yang sudah Anda miliki sebelumnya.",
-    category: "custom-website",
-    tags: ["domain", "hosting", "deployment"]
-  },
-  {
-    question: "Apakah website yang dibuat responsif untuk semua perangkat?",
-    answer:
-      "Tentu saja! Semua website yang kami kembangkan menggunakan pendekatan mobile-first dan sepenuhnya responsif. Website Anda akan tampil dan berfungsi dengan sempurna di desktop, tablet, dan smartphone. Kami melakukan testing menyeluruh pada berbagai ukuran layar dan browser untuk memastikan pengalaman pengguna yang optimal di semua perangkat.",
-    category: "custom-website",
-    tags: ["responsive", "mobile", "testing"]
-  },
-
-  // Web App Development FAQs
-  {
-    question: "Apa perbedaan antara website statis dan aplikasi web dinamis?",
-    answer:
-      "Website statis memiliki konten yang tetap dan cocok untuk company profile atau landing page. Aplikasi web dinamis memiliki konten yang dapat berubah secara otomatis atau manual, dilengkapi dengan database dan sistem manajemen konten. Aplikasi web lebih cocok untuk e-commerce, blog, portal berita, atau sistem yang memerlukan interaksi pengguna yang kompleks.",
-    category: "web-app",
-    tags: ["perbedaan", "fungsionalitas", "kompleksitas"]
-  },
-  {
-    question: "Teknologi apa yang digunakan untuk mengembangkan aplikasi web?",
-    answer:
-      "Kami menggunakan teknologi modern seperti React.js, Next.js, Node.js, TypeScript, dan database PostgreSQL atau MongoDB. Untuk CMS, kami dapat menggunakan WordPress, Strapi, atau membangun sistem custom sesuai kebutuhan. Semua teknologi yang kami pilih mengutamakan keamanan, performa, dan skalabilitas.",
-    category: "web-app",
-    tags: ["teknologi", "modern", "scalable"]
-  },
-  {
-    question: "Berapa lama waktu yang dibutuhkan untuk mengembangkan aplikasi web?",
-    answer:
-      "Waktu pengembangan aplikasi web tergantung pada kompleksitas fitur dan integrations yang dibutuhkan. Aplikasi web sederhana dapat selesai dalam 4-8 minggu, aplikasi dengan fitur menengah membutuhkan 2-4 bulan, sedangkan aplikasi enterprise yang kompleks dapat membutuhkan 4-8 bulan. Kami menggunakan metodologi Agile untuk memastikan delivery yang tepat waktu.",
-    category: "web-app",
-    tags: ["timeline", "development", "planning"]
-  },
-  {
-    question: "Apakah saya bisa mengelola konten aplikasi web sendiri?",
-    answer:
-      "Ya, kami akan menyediakan sistem manajemen konten (CMS) yang user-friendly sehingga Anda dapat dengan mudah memperbarui konten, menambah halaman baru, mengelola produk (untuk e-commerce), dan mengatur pengaturan aplikasi tanpa pengetahuan teknis. Kami juga menyediakan pelatihan dan dokumentasi lengkap.",
-    category: "web-app",
-    tags: ["cms", "content management", "user-friendly"]
-  },
-
-  // Mobile Development FAQs
-  {
-    question: "Apakah Clivy mengembangkan aplikasi untuk iOS dan Android?",
-    answer:
-      "Ya, kami mengembangkan aplikasi mobile untuk platform iOS dan Android. Kami menawarkan dua pendekatan: native development (Swift untuk iOS, Kotlin untuk Android) untuk performa maksimal, atau cross-platform development (React Native, Flutter) untuk efisiensi waktu dan biaya dengan tetap mempertahankan kualitas tinggi.",
-    category: "mobile-development",
-    tags: ["native", "cross-platform", "ios", "android"]
-  },
-  {
-    question: "Apa perbedaan antara aplikasi native dan cross-platform?",
-    answer:
-      "Aplikasi native dikembangkan khusus untuk satu platform dengan bahasa pemrograman asli, memberikan performa terbaik dan akses penuh ke fitur device. Cross-platform menggunakan satu codebase untuk kedua platform, lebih efisien dari segi waktu dan biaya. Kami akan merekomendasikan pendekatan terbaik berdasarkan kebutuhan dan anggaran Anda.",
-    category: "mobile-development",
-    tags: ["native vs cross-platform", "performa", "budget"]
-  },
-  {
-    question: "Berapa lama waktu pengembangan aplikasi mobile?",
-    answer:
-      "Waktu pengembangan bervariasi: aplikasi sederhana 2-3 bulan, aplikasi dengan fitur menengah 3-6 bulan, dan aplikasi kompleks 6-12 bulan. Faktor yang mempengaruhi adalah kompleksitas UI/UX, jumlah fitur, integrasi dengan sistem external, dan proses testing. Kami akan memberikan timeline detail setelah analisis requirement.",
-    category: "mobile-development",
-    tags: ["timeline", "development time", "planning"]
-  },
-  {
-    question: "Apakah Clivy membantu proses publishing ke App Store dan Play Store?",
-    answer:
-      "Ya, kami membantu seluruh proses publikasi aplikasi ke App Store dan Google Play Store, termasuk persiapan metadata, screenshot, ikon, deskripsi aplikasi, dan handling review process. Kami juga memberikan panduan untuk App Store Optimization (ASO) agar aplikasi Anda lebih mudah ditemukan oleh pengguna.",
-    category: "mobile-development",
-    tags: ["app store", "google play", "publishing", "aso"]
-  },
-  {
-    question: "Bagaimana keamanan aplikasi mobile yang dikembangkan?",
-    answer:
-      "Kami menerapkan praktik keamanan terbaik seperti enkripsi data, secure API communication, authentication yang kuat, code obfuscation, dan protection terhadap common vulnerabilities. Untuk aplikasi yang menangani data sensitif, kami juga implementasi additional security layers seperti biometric authentication dan advanced encryption.",
-    category: "mobile-development",
-    tags: ["security", "ssl", "protection"]
-  },
-
-  // Corporate System FAQs
-  {
-    question: "Jenis sistem korporat apa saja yang dapat dikembangkan Clivy?",
-    answer:
-      "Kami mengembangkan berbagai sistem enterprise seperti ERP (Enterprise Resource Planning), CRM (Customer Relationship Management), HRM (Human Resource Management), sistem inventory management, financial management system, project management tools, document management system, dan sistem custom sesuai kebutuhan spesifik perusahaan Anda.",
-    category: "corporate-system",
-    tags: ["erp", "crm", "hrm", "enterprise"]
-  },
-  {
-    question: "Apakah sistem dapat diintegrasikan dengan software existing?",
-    answer:
-      "Ya, kami memiliki expertise dalam integrasi sistem dengan software existing seperti sistem akuntansi, payment gateway, third-party APIs, cloud services, dan legacy systems. Kami menggunakan modern integration techniques dan APIs untuk memastikan data flow yang seamless antar systems.",
-    category: "corporate-system",
-    tags: ["integration", "api", "existing systems"]
-  },
-  {
-    question: "Bagaimana keamanan data dalam sistem korporat?",
-    answer:
-      "Keamanan data adalah prioritas utama. Kami implementasi multi-layer security termasuk encryption at rest dan in transit, role-based access control, audit trails, regular security updates, backup automation, dan compliance dengan standar keamanan industri seperti ISO 27001. Untuk kebutuhan khusus, kami juga menyediakan on-premise deployment.",
-    category: "corporate-system",
-    tags: ["data security", "enterprise", "compliance"]
-  },
-
-  // UI/UX Design FAQs
-  {
-    question: "Apa yang termasuk dalam layanan desain UI/UX?",
-    answer:
-      "Layanan UI/UX kami mencakup user research, competitor analysis, information architecture, wireframing, prototyping interaktif, visual design, design system creation, usability testing, dan iterasi berdasarkan feedback. Kami memastikan design tidak hanya menarik secara visual tetapi juga intuitif dan user-friendly.",
-    category: "ui-ux-design",
-    tags: ["user research", "prototyping", "design system"]
-  },
-  {
-    question: "Bagaimana proses desain UI/UX di Clivy?",
-    answer:
-      "Proses kami dimulai dengan research pengguna dan analisis kompetitor, kemudian membuat wireframe dan user flow, dilanjutkan dengan desain visual dan prototyping. Kami melakukan testing dengan pengguna untuk validasi dan iterasi design. Semua tahap melibatkan kolaborasi erat dengan klien untuk memastikan hasil yang sesuai dengan ekspektasi.",
-    category: "ui-ux-design",
-    tags: ["design process", "user-centered", "iterative"]
-  },
-  {
-    question: "Apakah desain yang dibuat mengikuti tren terkini?",
-    answer:
-      "Ya, tim designer kami selalu mengikuti perkembangan tren desain terkini sambil tetap mempertimbangkan aspek fungsionalitas dan user experience. Kami menggunakan modern design principles, micro-interactions, dan aesthetic yang contemporary namun timeless, sehingga design tidak cepat terlihat outdated.",
-    category: "ui-ux-design",
-    tags: ["modern technology", "react", "nextjs", "cms"]
-  },
-
   // WhatsApp API FAQs
   {
     question: "Apa manfaat menggunakan WhatsApp API untuk bisnis?",
@@ -446,123 +124,6 @@ const faqItems: FaqItem[] = [
       "Chatbot kami dilengkapi dengan intelligent fallback system yang dapat mengenali ketika pertanyaan di luar kemampuannya. Dalam situasi ini, chatbot akan secara otomatis mengarahkan conversation ke human agent atau menyediakan alternatif jawaban. Kami juga implementasi continuous learning sehingga chatbot semakin pintar dari interaksi sebelumnya.",
     category: "whatsapp-chatbot",
     tags: ["human-bot collaboration", "intelligent routing", "customer service"]
-  },
-
-  // SEO Specialist FAQs
-  {
-    question: "Layanan SEO apa saja yang ditawarkan Clivy?",
-    answer:
-      "Layanan SEO kami meliputi technical SEO audit, keyword research dan strategy, on-page optimization, content optimization, link building, local SEO, e-commerce SEO, dan SEO monitoring & reporting. Kami menggunakan tools professional seperti Ahrefs, SEMrush, dan Google Search Console untuk analisis yang mendalam.",
-    category: "seo-specialist",
-    tags: ["seo audit", "keyword research", "optimization"]
-  },
-  {
-    question: "Berapa lama waktu untuk melihat hasil dari SEO?",
-    answer:
-      "SEO adalah investasi jangka panjang. Biasanya hasil awal terlihat dalam 3-6 bulan, dengan peningkatan signifikan dalam 6-12 bulan. Faktor yang mempengaruhi timeline adalah kondisi website saat ini, kompetisi keyword, kualitas content, dan konsistensi implementasi strategy. Kami menyediakan monthly reports untuk tracking progress.",
-    category: "seo-specialist",
-    tags: ["timeline", "results", "long-term strategy"]
-  },
-  {
-    question: "Apakah layanan SEO dapat disesuaikan dengan budget yang terbatas?",
-    answer:
-      "Ya, kami menawarkan paket SEO yang fleksibel dan dapat disesuaikan dengan budget Anda. Mulai dari basic SEO audit dan optimization hingga comprehensive SEO campaign. Kami akan memprioritaskan strategy yang memberikan ROI terbaik sesuai dengan budget yang tersedia, sehingga Anda tetap mendapatkan hasil yang optimal.",
-    category: "seo-specialist",
-    tags: ["scalable", "future-proof", "maintenance"]
-  },
-
-  // Pricing & Payment FAQs
-  {
-    question: "Bagaimana struktur harga layanan Clivy?",
-    answer:
-      "Kami menawarkan struktur harga yang transparan dan fleksibel. Untuk project-based work, harga dihitung berdasarkan scope dan kompleksitas. Untuk ongoing services seperti maintenance atau digital marketing, kami menawarkan paket berlangganan bulanan. Semua quotation mencakup breakdown detail tanpa hidden costs.",
-    category: "pricing-payment",
-    tags: ["flexible pricing", "payment options", "milestones"]
-  },
-  {
-    question: "Metode pembayaran apa saja yang diterima?",
-    answer:
-      "Kami menerima berbagai metode pembayaran untuk kemudahan klien: transfer bank (IDR dan AUD), kartu kredit/debit, PayPal, dan payment gateway lokal seperti GoPay, OVO, Dana. Untuk project besar, kami juga menawarkan payment terms yang fleksibel dengan milestone-based payments.",
-    category: "pricing-payment",
-    tags: ["transparent pricing", "no hidden costs", "detailed proposal"]
-  },
-  {
-    question: "Apakah ada paket bundling untuk multiple services?",
-    answer:
-      "Ya, kami menawarkan paket bundling yang cost-effective untuk klien yang membutuhkan multiple services. Misalnya paket 'Digital Transformation' yang mencakup website development, mobile app, dan digital marketing. Paket bundling biasanya memberikan savings 15-25% dibanding mengambil services secara terpisah.",
-    category: "pricing-payment",
-    tags: ["bundle package", "cost-effective", "enterprise"]
-  },
-
-  // Corporate Branding FAQs
-  {
-    question: "Apa yang termasuk dalam layanan corporate branding?",
-    answer:
-      "Layanan branding kami mencakup brand strategy development, logo design, visual identity system, brand guidelines, marketing collateral design, website branding, social media branding, packaging design, dan brand implementation across all touchpoints. Kami memastikan konsistensi brand di semua platform dan material komunikasi.",
-    category: "corporate-branding",
-    tags: ["brand strategy", "logo design", "brand identity"]
-  },
-  {
-    question: "Berapa lama proses pengembangan brand identity?",
-    answer:
-      "Proses branding komprehensif biasanya membutuhkan 4-8 minggu, tergantung scope dan kompleksitas. Tahapan meliputi brand discovery (1-2 minggu), concept development (2-3 minggu), design refinement (1-2 minggu), dan finalization dengan brand guidelines (1 minggu). Kami melibatkan klien dalam setiap tahap untuk memastikan hasil yang sesuai visi.",
-    category: "corporate-branding",
-    tags: ["timeline", "brand development", "design process"]
-  },
-
-  // IT Consulting FAQs
-  {
-    question: "Jenis konsultasi IT apa yang disediakan Clivy?",
-    answer:
-      "Kami menyediakan konsultasi digital transformation strategy, technology audit dan assessment, sistem architecture planning, cloud migration strategy, cybersecurity assessment, IT infrastructure optimization, software selection guidance, dan technology roadmap development. Konsultasi kami membantu businesses make informed technology decisions.",
-    category: "it-consulting",
-    tags: ["digital transformation", "technology strategy", "consulting"]
-  },
-  {
-    question: "Bagaimana konsultasi IT disesuaikan dengan kebutuhan bisnis?",
-    answer:
-      "Kami memulai dengan comprehensive business analysis untuk memahami goals, challenges, dan current technology landscape Anda. Berdasarkan findings ini, kami develop customized recommendations yang align dengan business objectives, budget constraints, dan timeline. Setiap saran dilengkapi dengan ROI analysis dan implementation roadmap yang praktis.",
-    category: "it-consulting",
-    tags: ["target audience", "business needs", "optimization"]
-  },
-
-  // Tech Support FAQs
-  {
-    question: "Apa saja yang termasuk dalam layanan tech support?",
-    answer:
-      "Layanan tech support kami meliputi website maintenance, server monitoring, security updates, backup management, performance optimization, bug fixing, feature updates, technical troubleshooting, dan emergency support. Kami menawarkan berbagai paket support mulai dari basic maintenance hingga comprehensive managed services.",
-    category: "tech-support",
-    tags: ["maintenance", "monitoring", "emergency support"]
-  },
-  {
-    question: "Bagaimana response time untuk tech support?",
-    answer:
-      "Response time bervariasi berdasarkan severity dan paket support. Untuk critical issues yang menyebabkan downtime, kami response dalam 1-2 jam. Non-critical issues biasanya response dalam 4-24 jam. Kami menyediakan different SLA levels tergantung kebutuhan bisnis, termasuk 24/7 support untuk enterprise clients.",
-    category: "tech-support",
-    tags: ["response time", "sla", "priority support"]
-  },
-
-  // Process FAQs
-  {
-    question: "Bagaimana alur kerja project di Clivy?",
-    answer:
-      "Alur kerja kami terstruktur: 1) Discovery & consultation untuk memahami requirements, 2) Proposal & planning dengan timeline jelas, 3) Design & development dengan regular check-ins, 4) Testing & quality assurance, 5) Deployment & launch, 6) Training & handover, 7) Post-launch support. Setiap tahap melibatkan client feedback untuk memastikan hasil sesuai ekspektasi.",
-    category: "process",
-    tags: ["project workflow", "methodology", "client involvement"]
-  },
-  {
-    question: "Seberapa sering update progress diberikan?",
-    answer:
-      "Kami memberikan weekly progress updates melalui email dan project management tools. Untuk milestone penting, kami schedule review meetings via video call. Client memiliki akses 24/7 ke project dashboard untuk tracking real-time progress. Komunikasi yang transparent dan regular adalah kunci kesuksesan project.",
-    category: "process",
-    tags: ["communication", "project management", "regular updates"]
-  },
-  {
-    question: "Bagaimana jika ada perubahan requirement di tengah project?",
-    answer:
-      "Change requests adalah hal normal dalam development process. Untuk perubahan minor dalam scope yang sama, biasanya tidak ada additional cost. Untuk perubahan significant atau penambahan fitur baru, kami will assess impact terhadap timeline dan budget, kemudian discuss dengan client sebelum implementasi. Fleksibilitas dalam reasonable bounds adalah prioritas kami.",
-    category: "process",
-    tags: ["change management", "scope changes", "project flexibility"]
   }
 ]
 
@@ -632,7 +193,7 @@ export default function FaqPageContent() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                Temukan jawaban komprehensif untuk pertanyaan umum tentang layanan digital kami, proses kerja, harga, dan informasi perusahaan
+                Temukan jawaban komprehensif untuk pertanyaan umum tentang integrasi WhatsApp API, layanan broadcast, dan chatbot AI untuk bisnis Anda
               </motion.p>
 
               {/* Enhanced Search Bar - More Responsive */}
@@ -649,7 +210,7 @@ export default function FaqPageContent() {
                   {/* Input Field */}
                   <Input
                     type="text"
-                    placeholder="Cari pertanyaan atau kata kunci..."
+                    placeholder="Cari pertanyaan tentang WhatsApp API..."
                     className="w-full h-12 sm:h-14 rounded-2xl border-2 border-gray-200 dark:border-gray-700 pl-10 sm:pl-12 pr-4 py-3 sm:py-4 text-sm sm:text-base focus:border-primary focus:ring-primary/20 dark:bg-gray-800/50 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -678,7 +239,7 @@ export default function FaqPageContent() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.7 }}
                 >
-                  <span className="font-medium">{faqItems.length}+ pertanyaan</span> tersedia dalam <span className="font-medium">{categories.length} kategori</span> layanan
+                  <span className="font-medium">{faqItems.length}+ pertanyaan</span> tersedia dalam <span className="font-medium">{categories.length} kategori</span> WhatsApp
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -870,7 +431,7 @@ export default function FaqPageContent() {
                 </h3>
                 <p className="mb-6 sm:mb-8 text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                   Jika Anda tidak menemukan jawaban yang Anda cari, jangan ragu untuk menghubungi tim ahli kami. 
-                  Kami siap membantu dengan solusi yang tepat untuk kebutuhan digital Anda.
+                  Kami siap membantu dengan solusi WhatsApp API yang tepat untuk pertumbuhan bisnis Anda.
                 </p>
                 <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 sm:flex-row">
                   <Button asChild size="default" className="w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base font-semibold dark:text-white">
@@ -880,6 +441,8 @@ export default function FaqPageContent() {
                     </Link>
                   </Button>
                   <Button asChild variant="outline" size="default" className="w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base font-semibold border-gray-300 dark:border-gray-600 dark:text-gray-200">
+                    <Link href="/products">
+                      Lihat Paket WhatsApp API
                     <Link href="/#pricing">
                       Lihat Paket Layanan
                     </Link>
