@@ -1,7 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { CheckCircle, MessageSquare, Smartphone, Star, TrendingUp, Zap } from "lucide-react"
+import { CheckCircle, MessageSquare, Smartphone, Star, TrendingUp, Zap, ShoppingCart, Check } from "lucide-react"
+import { useCart } from "@/components/Cart/CartContext"
 
 const pricingPlans = [
     {
@@ -161,6 +162,8 @@ const faqs = [
 ]
 
 export default function WhatsAppAPIPricing() {
+    const { items, addToCart } = useCart()
+
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat("id-ID", {
             style: "currency",
@@ -168,6 +171,29 @@ export default function WhatsAppAPIPricing() {
             minimumFractionDigits: 0,
             maximumFractionDigits: 0,
         }).format(price)
+    }
+
+    // Helper untuk cek apakah paket sudah di cart
+    const isInCart = (planName: string) => {
+        return items.some(item => item.name === planName)
+    }
+
+    // Handler untuk add to cart
+    const handleAddToCart = (plan: typeof pricingPlans[0]) => {
+        const cartItem = {
+            id: `whatsapp-api-${plan.name.toLowerCase()}`,
+            name: plan.name,
+            price: plan.price,
+            price_idr: plan.price,
+            duration: 'month' as 'month' | 'year',
+            maxSession: plan.name === 'Starter' ? 1 : plan.name === 'Business' ? 5 : 10,
+            qty: 1,
+            name_en: `WhatsApp API ${plan.name}`,
+            name_id: `WhatsApp API ${plan.name}`
+        }
+        
+        addToCart(cartItem)
+        // Tidak ada redirect - hanya tambah ke cart dan update badge
     }
 
     return (
@@ -258,12 +284,27 @@ export default function WhatsAppAPIPricing() {
                             )}
 
                             <button
-                                className={`w-full rounded-xl py-3 sm:py-4 text-sm sm:text-base font-semibold transition-all ${plan.popular
-                                    ? "bg-green-600 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
-                                    : "bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
-                                    }`}
+                                onClick={() => handleAddToCart(plan)}
+                                disabled={isInCart(plan.name)}
+                                className={`w-full rounded-xl py-3 sm:py-4 text-sm sm:text-base font-semibold transition-all flex items-center justify-center gap-2 ${
+                                    isInCart(plan.name)
+                                        ? "bg-gray-200 text-gray-500 cursor-not-allowed dark:bg-gray-800 dark:text-gray-500"
+                                        : plan.popular
+                                        ? "bg-green-600 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                                        : "bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+                                }`}
                             >
-                                Start Free Trial
+                                {isInCart(plan.name) ? (
+                                    <>
+                                        <Check className="h-4 w-4" />
+                                        Sudah di Keranjang
+                                    </>
+                                ) : (
+                                    <>
+                                        <ShoppingCart className="h-4 w-4" />
+                                        Pilih Paket
+                                    </>
+                                )}
                             </button>
                         </motion.div>
                     ))}

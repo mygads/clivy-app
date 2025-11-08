@@ -321,7 +321,6 @@ export default function TransactionPage() {
   };
   const getTypeBadge = (type: string) => {
     const typeColors = {
-      product: "bg-blue-100 text-blue-800 border-blue-200",
       whatsapp_service: "bg-green-100 text-green-800 border-green-200",
       digital_service: "bg-purple-100 text-purple-800 border-purple-200",
     };
@@ -559,7 +558,6 @@ export default function TransactionPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all" className="text-xs sm:text-sm">All Types</SelectItem>
-                <SelectItem value="product" className="text-xs sm:text-sm">Product</SelectItem>
                 <SelectItem value="whatsapp_service" className="text-xs sm:text-sm">WhatsApp Service</SelectItem>
                 <SelectItem value="digital_service" className="text-xs sm:text-sm">Digital Service</SelectItem>
               </SelectContent>

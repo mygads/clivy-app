@@ -58,8 +58,6 @@ export async function GET(request: NextRequest) {
         include: {
           transactions: {
             include: {
-              productTransactions: true,
-              addonTransactions: true,
               whatsappTransaction: true,
             },
           },
@@ -72,17 +70,7 @@ export async function GET(request: NextRequest) {
       }),
       prisma.user.count({ where: whereCondition }),
     ]);const formattedUsers = users.map(user => {
-      // Calculate successful product transactions
-      const productTransactions = user.transactions?.filter(t => 
-        t.status === 'success' && t.productTransactions.length > 0
-      ).length || 0;
-      
-      // Calculate successful addon transactions
-      const addonTransactions = user.transactions?.filter(t => 
-        t.status === 'success' && t.addonTransactions.length > 0
-      ).length || 0;
-      
-      // Calculate successful WhatsApp transactions
+      // Calculate successful WhatsApp transactions only
       const whatsappTransactions = user.transactions?.filter(t => 
         t.status === 'success' && t.whatsappTransaction
       ).length || 0;
@@ -95,8 +83,6 @@ export async function GET(request: NextRequest) {
           totalTransactions: user.transactions?.length || 0,
           activeWhatsAppSessions: user.whatsAppSessions?.length || 0,
           whatsappServices: user.whatsappCustomers?.length || 0,
-          productTransactions,
-          addonTransactions,
           whatsappTransactions,
         },
       };

@@ -10,7 +10,6 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LineChart } from '@/components/ui/line-chart';
-import { useCurrency } from "@/hooks/useCurrency";
 import { 
   Users, 
   MessageSquare, 
@@ -41,10 +40,7 @@ interface DashboardData {
   totalActiveSubscriptions: number;
   totalSessions: number;
   totalWhatsAppUsers: number;
-  totalRevenue: {
-    idr: number;
-    usd: number;
-  };
+  totalRevenue: number;
 
   // Message Statistics
   messageStats: {
@@ -67,10 +63,7 @@ interface DashboardData {
     messageFailed: number;
     successRate: number;
     newSubscriptions: number;
-    revenue: {
-      idr: number;
-      usd: number;
-    };
+    revenue: number;
   };
 
   // Charts Data
@@ -83,8 +76,7 @@ interface DashboardData {
 
   revenueChart: Array<{
     date: string;
-    idr: number;
-    usd: number;
+    revenue: number;
   }>;
 
   // Top Users of the Week
@@ -113,10 +105,8 @@ interface DashboardData {
     id: string;
     name: string;
     description: string | null;
-    priceMonth_idr: number;
-    priceMonth_usd: number;
-    priceYear_idr: number;
-    priceYear_usd: number;
+    priceMonth: number;
+    priceYear: number;
     maxSession: number;
     purchaseCount: number;
   }>;
@@ -124,7 +114,6 @@ interface DashboardData {
 
 export default function WhatsAppHomePage() {
   const router = useRouter();
-  const { currency } = useCurrency();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedMonth, setSelectedMonth] = useState<string>(new Date().toISOString().slice(0, 7)); // YYYY-MM format
@@ -173,14 +162,7 @@ export default function WhatsAppHomePage() {
     fetchDashboardData();
   }, [fetchDashboardData]);
 
-  const formatCurrency = (amount: number, curr: 'idr' | 'usd' = 'idr') => {
-    if (curr === 'usd') {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 2,
-      }).format(amount);
-    }
+  const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
       currency: 'IDR',
@@ -352,34 +334,19 @@ export default function WhatsAppHomePage() {
         </Card>
       </div>
 
-      {/* Revenue Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Revenue Card */}
+      <div className="grid grid-cols-1 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue (IDR)</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {formatCurrency(data.totalRevenue.idr, 'idr')}
+              {formatCurrency(data.totalRevenue)}
             </div>
             <p className="text-xs text-muted-foreground">
-              Revenue from WhatsApp packages (IDR)
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue (USD)</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">
-              {formatCurrency(data.totalRevenue.usd, 'usd')}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Revenue from WhatsApp packages (USD)
+              Revenue from WhatsApp packages
             </p>
           </CardContent>
         </Card>
@@ -519,30 +486,15 @@ export default function WhatsAppHomePage() {
           </div>
 
           {/* Monthly Revenue */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Monthly Revenue (IDR)</CardTitle>
+                <CardTitle className="text-sm font-medium">Monthly Revenue</CardTitle>
                 <DollarSign className="h-4 w-4 text-green-500" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-green-600">
-                  {formatCurrency(data.monthlyStats.revenue.idr, 'idr')}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Revenue for {getMonthName(selectedMonth)}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Monthly Revenue (USD)</CardTitle>
-                <DollarSign className="h-4 w-4 text-green-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-green-600">
-                  {formatCurrency(data.monthlyStats.revenue.usd, 'usd')}
+                  {formatCurrency(data.monthlyStats.revenue)}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Revenue for {getMonthName(selectedMonth)}
@@ -589,8 +541,7 @@ export default function WhatsAppHomePage() {
             <LineChart
               data={data.revenueChart}
               lines={[
-                { key: 'idr', name: 'Revenue IDR', color: '#22c55e' },
-                { key: 'usd', name: 'Revenue USD', color: '#3b82f6' }
+                { key: 'revenue', name: 'Revenue (IDR)', color: '#22c55e' }
               ]}
               xAxis="date"
               height={300}
@@ -769,7 +720,7 @@ export default function WhatsAppHomePage() {
                       <div className="flex justify-between items-center">
                         <div>
                           <p className="text-sm font-medium">
-                            {formatCurrency(currency === 'idr' ? pkg.priceMonth_idr : pkg.priceMonth_usd, currency === 'idr' ? 'idr' : 'usd')}/month
+                            {formatCurrency(pkg.priceMonth)}/month
                           </p>
                           <p className="text-xs text-muted-foreground">
                             {pkg.maxSession} max sessions

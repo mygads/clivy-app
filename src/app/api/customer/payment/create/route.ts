@@ -113,25 +113,6 @@ export async function POST(request: NextRequest) {
         },
         include: {
           voucher: true,
-          productTransactions: {
-            include: {
-              package: {
-                include: {
-                  category: true,
-                  subcategory: true,
-                }
-              }
-            }
-          },
-          addonTransactions: {
-            include: {
-              addon: {
-                include: {
-                  category: true,
-                }
-              }
-            }
-          },
           whatsappTransaction: {
             include: {
               whatsappPackage: true,
@@ -224,7 +205,7 @@ export async function POST(request: NextRequest) {
       gatewayResponse = await gatewayManager.createPayment({
         transactionId: transactionData.transaction.id,
         amount: transactionData.finalAmount,
-        currency: transactionData.transaction.currency as 'idr' | 'usd',
+        currency: 'idr',
         paymentMethodCode: paymentMethod,
         customerInfo: {
           id: userAuth.id,
@@ -258,16 +239,8 @@ export async function POST(request: NextRequest) {
       });
 
       // 5.1. Update child transaction statuses to pending
-      await tx.transactionProduct.updateMany({
-        where: { transactionId: transactionData.transaction.id },
-        data: { status: 'pending' }
-      });
-
-      await tx.transactionAddons.updateMany({
-        where: { transactionId: transactionData.transaction.id },
-        data: { status: 'pending' }
-      });
-
+      // WhatsApp transaction status is managed separately
+      
       // 7. Create or update payment record
       const expiresAt = gatewayResponse.expiresAt || new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours default
       
@@ -339,16 +312,6 @@ export async function POST(request: NextRequest) {
         });
 
         // Update child transaction statuses to in_progress
-        await tx.transactionProduct.updateMany({
-          where: { transactionId: transactionData.transaction.id },
-          data: { status: 'in_progress' }
-        });
-
-        await tx.transactionAddons.updateMany({
-          where: { transactionId: transactionData.transaction.id },
-          data: { status: 'in_progress' }
-        });
-
         await tx.transactionWhatsappService.updateMany({
           where: { transactionId: transactionData.transaction.id },
           data: { status: 'in_progress' }
@@ -383,12 +346,6 @@ export async function POST(request: NextRequest) {
             include: {
               whatsappTransaction: {
                 include: { whatsappPackage: true }
-              },
-              productTransactions: {
-                include: { package: true }
-              },
-              addonTransactions: {
-                include: { addon: true }
               }
             }
           });
@@ -408,7 +365,7 @@ export async function POST(request: NextRequest) {
     const paymentInstructions = getPaymentInstructions(
       result.paymentMethodConfig,
       result.payment,
-      result.paymentMethodConfig,
+      result.transaction.currency, // Pass currency directly instead of serviceFee object
       result.requiresManualApproval
     );
 
@@ -537,10 +494,10 @@ export async function POST(request: NextRequest) {
 }
 
 // Helper function to generate payment instructions
-function getPaymentInstructions(paymentMethod: any, payment: any, serviceFee: any, requiresManualApproval: boolean): string {
+function getPaymentInstructions(paymentMethod: any, payment: any, currency: string, requiresManualApproval: boolean): string {
   const amount = Number(payment.amount);
-  const currency = serviceFee.currency.toUpperCase();
-  const formattedAmount = currency === 'IDR' 
+  const currencyUpper = currency.toUpperCase();
+  const formattedAmount = currencyUpper === 'IDR' 
     ? `Rp ${amount.toLocaleString('id-ID')}`
     : `$${amount.toFixed(2)}`;
 
@@ -609,33 +566,6 @@ function buildTransactionItems(transaction: any): Array<{
 }> {
   const items: Array<any> = [];
 
-  // Add package items
-  if (transaction.productTransactions?.length > 0) {
-    transaction.productTransactions.forEach((productTx: any) => {
-      if (productTx.package) {
-        items.push({
-          type: 'package',
-          name: productTx.package.name_en,
-          category: productTx.package.category.name_en,
-          subcategory: productTx.package.subcategory?.name_en,
-          quantity: productTx.quantity,
-        });
-      }
-    });
-  }
-
-  // Add addon items
-  if (transaction.addonTransactions?.length > 0) {
-    transaction.addonTransactions.forEach((addonTx: any) => {
-      items.push({
-        type: 'addon',
-        name: addonTx.addon.name_en,
-        category: addonTx.addon.category.name_en,
-        quantity: addonTx.quantity,
-      });
-    });
-  }
-
   // Add WhatsApp service items
   if (transaction.whatsappTransaction) {
     const whatsappTx = transaction.whatsappTransaction;
@@ -660,41 +590,10 @@ function buildPaymentNotificationData(
   // Build items for notification
   const items = [];
 
-  // Add package items
-  if (transaction.productTransactions?.length > 0) {
-    transaction.productTransactions.forEach((productTx: any) => {
-      if (productTx.package) {
-        items.push({
-          name: productTx.package.name_en,
-          quantity: productTx.quantity,
-          price: Number(productTx.package.price_idr),
-          type: 'package' as const,
-          category: productTx.package.category?.name_en,
-        });
-      }
-    });
-  }
-
-  // Add addon items
-  if (transaction.addonTransactions?.length > 0) {
-    transaction.addonTransactions.forEach((addonTx: any) => {
-      items.push({
-        name: addonTx.addon.name_en,
-        quantity: addonTx.quantity,
-        price: Number(addonTx.addon.price_idr),
-        type: 'addon' as const,
-        category: addonTx.addon.category?.name_en,
-      });
-    });
-  }
-
   // Add WhatsApp service items
   if (transaction.whatsappTransaction) {
     const whatsappTx = transaction.whatsappTransaction;
-    const currency = transaction.currency || 'idr';
-    const priceMonth = currency === 'idr' ? whatsappTx.whatsappPackage.priceMonth_idr : whatsappTx.whatsappPackage.priceMonth_usd;
-    const priceYear = currency === 'idr' ? whatsappTx.whatsappPackage.priceYear_idr : whatsappTx.whatsappPackage.priceYear_usd;
-    const price = whatsappTx.duration === 'month' ? priceMonth : priceYear;
+    const price = whatsappTx.duration === 'month' ? whatsappTx.whatsappPackage.priceMonth : whatsappTx.whatsappPackage.priceYear;
     
     items.push({
       name: whatsappTx.whatsappPackage.name,

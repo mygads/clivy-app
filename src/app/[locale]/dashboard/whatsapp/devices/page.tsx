@@ -3928,7 +3928,7 @@ export default function WhatsAppDevicesPage() {
                   id="phone-number"
                   value={pairPhoneForm.Phone}
                   onChange={(e) => setPairPhoneForm(prev => ({ ...prev, Phone: e.target.value }))}
-                  placeholder="6281233784490"
+                  placeholder="628123456789"
                   maxLength={15}
                   className="text-xs sm:text-sm"
                 />

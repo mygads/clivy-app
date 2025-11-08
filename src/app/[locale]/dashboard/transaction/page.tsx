@@ -60,10 +60,8 @@ interface WhatsappTransactionDetail {
   whatsappPackage: {
     id: string;
     name: string;
-    priceMonth_idr: number;
-    priceMonth_usd: number;
-    priceYear_idr: number;
-    priceYear_usd: number;
+    priceMonth: number;
+    priceYear: number;
   };
 }
 
@@ -305,10 +303,9 @@ export default function TransactionDashboardPage() {
   }
 
   const formatCurrency = (amount: number, currency: string = 'IDR') => {
-    const locale = currency === 'USD' ? 'en-US' : 'id-ID'
-    return new Intl.NumberFormat(locale, {
+    return new Intl.NumberFormat('id-ID', {
       style: "currency",
-      currency: currency
+      currency: 'IDR'
     }).format(amount)
   }
 
@@ -853,8 +850,8 @@ export default function TransactionDashboardPage() {
                 }
               </p>
               {(!searchTerm && statusFilter === "all") && (
-                <Link href="/products">
-                  <Button>Browse Products</Button>
+                <Link href="/#pricing">
+                  <Button>Lihat Layanan WhatsApp</Button>
                 </Link>
               )}
             </div>
@@ -977,12 +974,8 @@ export default function TransactionDashboardPage() {
                                       <p className="text-xs sm:text-sm font-semibold">
                                         {formatCurrency(
                                           transaction.whatsappTransaction.duration === 'year' 
-                                            ? (currency === 'idr' 
-                                              ? transaction.whatsappTransaction.whatsappPackage?.priceYear_idr 
-                                              : transaction.whatsappTransaction.whatsappPackage?.priceYear_usd) || 0
-                                            : (currency === 'idr' 
-                                              ? transaction.whatsappTransaction.whatsappPackage?.priceMonth_idr 
-                                              : transaction.whatsappTransaction.whatsappPackage?.priceMonth_usd) || 0,
+                                            ? transaction.whatsappTransaction.whatsappPackage?.priceYear || 0
+                                            : transaction.whatsappTransaction.whatsappPackage?.priceMonth || 0,
                                           currency.toUpperCase()
                                         )}
                                       </p>
@@ -1260,12 +1253,8 @@ export default function TransactionDashboardPage() {
                                 <p className="font-semibold text-lg">
                                   {formatCurrency(
                                     selectedTransaction.whatsappTransaction.duration === 'year' 
-                                      ? (currency === 'idr' 
-                                        ? selectedTransaction.whatsappTransaction.whatsappPackage?.priceYear_idr 
-                                        : selectedTransaction.whatsappTransaction.whatsappPackage?.priceYear_usd) || 0
-                                      : (currency === 'idr' 
-                                        ? selectedTransaction.whatsappTransaction.whatsappPackage?.priceMonth_idr 
-                                        : selectedTransaction.whatsappTransaction.whatsappPackage?.priceMonth_usd) || 0,
+                                      ? selectedTransaction.whatsappTransaction.whatsappPackage?.priceYear || 0
+                                      : selectedTransaction.whatsappTransaction.whatsappPackage?.priceMonth || 0,
                                     currency.toUpperCase()
                                   )}
                                 </p>

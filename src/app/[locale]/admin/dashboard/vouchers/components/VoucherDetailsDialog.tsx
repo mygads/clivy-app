@@ -29,14 +29,13 @@ interface Voucher {
   code: string
   name: string
   description: string
-  type: "total" | "products" | "addons" | "whatsapp"
+  type: "total" | "whatsapp"
   discountType: "percentage" | "fixed_amount"
   value: number
   minAmount: number | null
   maxDiscount: number | null
   maxUses: number | null
   usedCount: number
-  currency: "idr" | "usd"
   isActive: boolean
   startDate: string
   endDate: string | null
@@ -107,8 +106,6 @@ export default function VoucherDetailsDialog({
   const getTypeColor = (type: string) => {
     switch (type) {
       case "total": return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
-      case "products": return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-      case "addons": return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300"
       case "whatsapp": return "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300"
       default: return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300"
     }
@@ -117,8 +114,6 @@ export default function VoucherDetailsDialog({
   const getTypeLabel = (type: string) => {
     switch (type) {
       case "total": return "Total Discount"
-      case "products": return "Product Discount"
-      case "addons": return "Addon Discount"
       case "whatsapp": return "WhatsApp Service"
       default: return type
     }
@@ -128,8 +123,7 @@ export default function VoucherDetailsDialog({
     if (voucher.discountType === "percentage") {
       return `${voucher.value}%`
     } else {
-      const currencySymbol = voucher.currency === "idr" ? "Rp" : "$"
-      return `${currencySymbol} ${voucher.value.toLocaleString()}`
+      return `Rp ${voucher.value.toLocaleString()}`
     }
   }
 
@@ -228,7 +222,7 @@ export default function VoucherDetailsDialog({
                 <div className="space-y-1">
                   <p className="text-sm font-medium text-muted-foreground">Total Discount Given</p>
                   <p className="font-semibold text-lg">
-                    {voucher.currency === "idr" ? "Rp" : "$"} {totalDiscountGiven.toLocaleString()}
+                    Rp {totalDiscountGiven.toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -245,13 +239,13 @@ export default function VoucherDetailsDialog({
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-muted-foreground">Minimum Order Amount</p>
                   <p className="font-medium">
-                    {voucher.minAmount ? `${voucher.currency === "idr" ? "Rp" : "$"} ${voucher.minAmount.toLocaleString()}` : "No minimum"}
+                    {voucher.minAmount ? `Rp ${voucher.minAmount.toLocaleString()}` : "No minimum"}
                   </p>
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-muted-foreground">Maximum Discount</p>
                   <p className="font-medium">
-                    {voucher.maxDiscount ? `${voucher.currency === "idr" ? "Rp" : "$"} ${voucher.maxDiscount.toLocaleString()}` : "No limit"}
+                    {voucher.maxDiscount ? `Rp ${voucher.maxDiscount.toLocaleString()}` : "No limit"}
                   </p>
                 </div>
                 <div className="space-y-2">

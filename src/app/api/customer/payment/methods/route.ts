@@ -18,10 +18,10 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const currency = searchParams.get('currency') || 'idr';
 
-    // Validate currency
-    if (!['idr', 'usd'].includes(currency.toLowerCase())) {
+    // Validate currency - only IDR supported
+    if (currency.toLowerCase() !== 'idr') {
       return withCORS(NextResponse.json(
-        { success: false, error: "Invalid currency. Supported currencies: IDR, USD" },
+        { success: false, error: "Only IDR currency is supported" },
         { status: 400 }
       ));
     }
@@ -29,10 +29,6 @@ export async function GET(request: NextRequest) {
     // Get available payment methods for checkout - allow methods without fee configuration
     const paymentMethods = await prisma.paymentMethod.findMany({
       where: {
-        OR: [
-          { currency: currency },
-          { currency: 'any' } // Support multi-currency payment methods like credit cards
-        ],
         isActive: true
       },
       include: {
@@ -47,16 +43,16 @@ export async function GET(request: NextRequest) {
         const serviceFee = method.feeType && method.feeValue ? {
           type: method.feeType,
           value: Number(method.feeValue),
-          currency: method.currency,
+          currency: 'idr',
           description: method.feeType === 'percentage' 
             ? `${Number(method.feeValue)}% fee` 
-            : `Fixed fee ${(method.currency || 'IDR').toUpperCase()} ${Number(method.feeValue).toLocaleString()}`,
+            : `Fixed fee IDR ${Number(method.feeValue).toLocaleString()}`,
           minFee: method.minFee ? Number(method.minFee) : null,
           maxFee: method.maxFee ? Number(method.maxFee) : null,
         } : {
           type: 'fixed' as const,
           value: 0,
-          currency: method.currency,
+          currency: 'idr',
           description: 'No service fee',
           minFee: null,
           maxFee: null,

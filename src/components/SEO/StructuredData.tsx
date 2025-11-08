@@ -42,7 +42,7 @@ export default function StructuredData() {
       "https://www.linkedin.com/company/clivy",
       "https://www.instagram.com/clivy.id",
       "https://twitter.com/clivy",
-      "https://api.whatsapp.com/send/?phone=6281233784490"
+      "https://api.whatsapp.com/send/?phone=628123456789"
     ],
     "contactPoint": [
       {

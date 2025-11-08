@@ -35,7 +35,15 @@ export function PaymentOrderSummary({
 
   // Helper function to format price based on detected currency (not locale)
   const formatPrice = (price: number) => {
-    return `${getCurrencySymbol(currency)}${price.toLocaleString()}`
+    if (isNaN(price) || price === null || price === undefined) {
+      return 'Rp 0'
+    }
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price)
   }
 
   // Helper function to get localized name

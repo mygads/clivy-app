@@ -25,6 +25,18 @@ interface InvoiceProps {
 export default function Invoice({ paymentData }: InvoiceProps) {
   const { payment, transaction, items, voucher, pricing } = paymentData.data
 
+  const formatPrice = (price: number) => {
+    if (isNaN(price) || price === null || price === undefined) {
+      return 'Rp 0'
+    }
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price)
+  }
+
   const handlePrint = () => {
     window.print()
   }
@@ -148,7 +160,7 @@ export default function Invoice({ paymentData }: InvoiceProps) {
                       {item.category || '-'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-900 dark:text-white">
-                      Rp {item.price.toLocaleString('id-ID')}
+                      {formatPrice(item.price)}
                     </td>
                   </tr>
                 ))}
@@ -168,7 +180,7 @@ export default function Invoice({ paymentData }: InvoiceProps) {
                 </span>
               </div>
               <span className="font-medium text-green-600">
-                -Rp {voucher.discountAmount.toLocaleString('id-ID')}
+                -{formatPrice(voucher.discountAmount)}
               </span>
             </div>
           </div>
@@ -181,20 +193,20 @@ export default function Invoice({ paymentData }: InvoiceProps) {
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
-                  <span className="font-medium">Rp {pricing.subtotal.toLocaleString('id-ID')}</span>
+                  <span className="font-medium">{formatPrice(pricing.subtotal)}</span>
                 </div>
                 
                 {pricing.discountAmount > 0 && (
                   <div className="flex justify-between text-sm text-green-600">
                     <span>Discount:</span>
-                    <span>-Rp {pricing.discountAmount.toLocaleString('id-ID')}</span>
+                    <span>-{formatPrice(pricing.discountAmount)}</span>
                   </div>
                 )}
                 
                 {pricing.serviceFee && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600 dark:text-gray-400">Service Fee:</span>
-                    <span className="font-medium">Rp {pricing.serviceFee.amount.toLocaleString('id-ID')}</span>
+                    <span className="font-medium">{formatPrice(pricing.serviceFee.amount)}</span>
                   </div>
                 )}
                 
@@ -202,7 +214,7 @@ export default function Invoice({ paymentData }: InvoiceProps) {
                 
                 <div className="flex justify-between text-lg font-semibold">
                   <span>Total Paid:</span>
-                  <span className="text-green-600">Rp {payment.amount.toLocaleString('id-ID')}</span>
+                  <span className="text-green-600">{formatPrice(payment.amount)}</span>
                 </div>
               </div>
             </div>

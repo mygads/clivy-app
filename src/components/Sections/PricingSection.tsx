@@ -6,6 +6,8 @@ import { Check, ShoppingCart, Zap, TrendingUp, Shield, Clock } from "lucide-reac
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { useCart } from "@/components/Cart/CartContext"
+import { useLocale } from "next-intl"
 
 interface WhatsAppPackage {
   id: string
@@ -23,6 +25,8 @@ export default function PricingSection() {
   const [loading, setLoading] = useState(true)
   const [billingCycle, setBillingCycle] = useState<'month' | 'year'>('month')
   const router = useRouter()
+  const { addToCart, buyNow } = useCart()
+  const locale = useLocale()
 
   useEffect(() => {
     fetchPackages()
@@ -47,54 +51,46 @@ export default function PricingSection() {
   }
 
   const handleAddToCart = (pkg: WhatsAppPackage) => {
-    // Simpan ke localStorage untuk cart
+    const price = billingCycle === 'month' ? pkg.priceMonth : pkg.priceYear
+    
+    // Create cart item with proper format for CartContext
     const cartItem = {
       id: pkg.id,
-      name: pkg.name,
-      type: 'whatsapp',
+      name: `${pkg.name} - ${billingCycle === 'month' ? 'Bulanan' : 'Tahunan'}`,
+      name_en: `${pkg.name} - ${billingCycle === 'month' ? 'Monthly' : 'Yearly'}`,
+      name_id: `${pkg.name} - ${billingCycle === 'month' ? 'Bulanan' : 'Tahunan'}`,
+      price: price,
+      price_idr: price,
       duration: billingCycle,
-      price: billingCycle === 'month' ? pkg.priceMonth : pkg.priceYear,
-      quantity: 1
+      maxSession: pkg.maxSession,
+      qty: 1,
+      image: '/images/whatsapp-icon.png'
     }
 
-    // Get existing cart
-    const existingCart = localStorage.getItem('cart')
-    const cart = existingCart ? JSON.parse(existingCart) : []
-
-    // Check if item already in cart
-    const existingIndex = cart.findIndex((item: any) => 
-      item.id === pkg.id && item.duration === billingCycle
-    )
-
-    if (existingIndex >= 0) {
-      toast.info('Paket sudah ada di keranjang')
-      router.push('/checkout')
-    } else {
-      cart.push(cartItem)
-      localStorage.setItem('cart', JSON.stringify(cart))
-      toast.success('Paket berhasil ditambahkan ke keranjang!')
-      
-      // Trigger cart update event
-      window.dispatchEvent(new Event('cartUpdated'))
-    }
+    // Add to cart using CartContext
+    addToCart(cartItem)
+    toast.success('Paket berhasil ditambahkan ke keranjang!')
   }
 
   const handleBuyNow = (pkg: WhatsAppPackage) => {
-    // Langsung ke checkout dengan item ini
-    const checkoutItem = {
+    const price = billingCycle === 'month' ? pkg.priceMonth : pkg.priceYear
+    
+    // Create cart item with proper format for CartContext
+    const cartItem = {
       id: pkg.id,
-      name: pkg.name,
-      type: 'whatsapp',
+      name: `${pkg.name} - ${billingCycle === 'month' ? 'Bulanan' : 'Tahunan'}`,
+      name_en: `${pkg.name} - ${billingCycle === 'month' ? 'Monthly' : 'Yearly'}`,
+      name_id: `${pkg.name} - ${billingCycle === 'month' ? 'Bulanan' : 'Tahunan'}`,
+      price: price,
+      price_idr: price,
       duration: billingCycle,
-      price: billingCycle === 'month' ? pkg.priceMonth : pkg.priceYear,
-      quantity: 1
+      maxSession: pkg.maxSession,
+      qty: 1,
+      image: '/images/whatsapp-icon.png'
     }
 
-    // Set to localStorage
-    localStorage.setItem('cart', JSON.stringify([checkoutItem]))
-    
-    // Navigate to checkout
-    router.push('/checkout')
+    // Use buyNow from CartContext - it will clear cart, add item, and redirect to checkout
+    buyNow(cartItem)
     toast.success('Mengarahkan ke halaman checkout...')
   }
 

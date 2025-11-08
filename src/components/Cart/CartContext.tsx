@@ -2,14 +2,14 @@
 
 import type React from "react"
 import { createContext, useContext, useState, useEffect } from "react"
+import { useRouter, usePathname } from "next/navigation"
 
 // Simplified CartItem - WhatsApp packages only
 export interface CartItem {
   id: string
   name: string
-  price: number // Current price in active currency
+  price: number // Current price in IDR
   price_idr: number
-  price_usd: number
   duration: 'month' | 'year'
   maxSession: number
   qty: number // Always 1 for WhatsApp packages
@@ -63,6 +63,14 @@ export const useCart = () => useContext(CartContext)
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([])
   const [isClient, setIsClient] = useState(false)
+  const router = useRouter()
+  const pathname = usePathname()
+
+  // Extract locale from pathname (e.g., /en/... or /id/...)
+  const getLocale = () => {
+    const segments = pathname?.split('/').filter(Boolean) || []
+    return segments[0] || 'id' // default to 'id' if no locale found
+  }
 
   useEffect(() => {
     setIsClient(true)
@@ -92,6 +100,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         return prevItems // Don't change if same package already in cart
       } else {
         // Replace any existing package with new one (single package cart)
+        console.log('[CartContext] Replacing cart with new package:', product.name)
         return [{ ...product, qty: 1 }]
       }
     })
@@ -110,9 +119,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     // Clear cart and add only this item
     setItems([{ ...product, qty: 1 }])
     
-    // Redirect to checkout page
+    // Redirect to checkout page with locale
     if (typeof window !== 'undefined') {
-      window.location.href = '/checkout'
+      const locale = getLocale()
+      router.push(`/${locale}/checkout`)
     }
   }
 

@@ -28,7 +28,7 @@ export default function ConditionalLayoutWrapper({ children }: { children: React
       {!hideHeaderFooter && <ScrollToTop />}
       {!hideHeaderFooter && (
         <WhatsAppFloatingButton 
-          phoneNumber="6281233784490"
+          phoneNumber="628123456789"
           message="Hi! I'm interested in your services and would like to know more."
         />
       )}

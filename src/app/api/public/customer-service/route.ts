@@ -223,7 +223,7 @@ export async function POST(request: NextRequest) {
 
     // Send WhatsApp notification to admin
     const whatsappResult = await sendWhatsAppMessageDetailed(
-      '6281233784490', // Admin WhatsApp number
+      '628123456789', // Admin WhatsApp number
       getCustomerServiceWhatsAppMessage(body)
     )
 

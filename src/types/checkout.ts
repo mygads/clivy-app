@@ -12,16 +12,17 @@ export interface CheckoutForm {
     isCompleted: boolean
     number: number
   }
-  // Voucher Check Types
+
+  // Voucher Check Types - WhatsApp only
   export interface VoucherCheckItem {
-    type: "product" | "whatsapp" | "addons"
+    type: "whatsapp"
     id: string
-    duration?: "month" | "year" // Required for WhatsApp items to specify billing duration
+    duration?: "month" | "year"
   }
 
   export interface VoucherCheckRequest {
     code: string
-    currency: "idr" | "usd"
+    currency: "idr"
     items: VoucherCheckItem[]
   }
 
@@ -64,22 +65,22 @@ export interface CheckoutForm {
     message?: string
   }
 
-  // Checkout Types - Simplified for WhatsApp only
+  // Checkout Types - WhatsApp only
   export interface CheckoutWhatsApp {
     packageId: string
     duration: "month" | "year"
   }
 
   export interface CheckoutRequest {
-    whatsapp?: CheckoutWhatsApp[]
-    currency: "idr" | "usd"
+    whatsapp: CheckoutWhatsApp  // Changed from array to single object
+    currency: "idr"
     voucherCode?: string
     notes?: string
   }
 
   export interface CheckoutItem {
     id: string
-    type: "whatsapp" // Simplified - only WhatsApp
+    type: "whatsapp"
     name: string
     description?: string
     price: number
@@ -244,17 +245,12 @@ export interface CheckoutForm {
     }
   }
 
-  // Legacy types for backward compatibility
-  export interface CheckoutProduct {
-    id: string
-    type: "package" | "addon"
-    quantity: number
-  }
-
   export interface PaymentProcessRequest {
     transactionId: string
     method: string
-  }  export interface PaymentStatus {
+  }
+
+  export interface PaymentStatus {
     success: boolean
     data: {      
       payment: {
@@ -305,7 +301,6 @@ export interface CheckoutForm {
         subcategory: string
         price: number
         originalPriceIdr: number
-        originalPriceUsd: number
         duration?: string
       }>
       voucher?: {
@@ -364,23 +359,23 @@ export interface CheckoutForm {
     message: string
   }
 
-// Customer Products - Simplified for WhatsApp only (IDR only)
-export interface WhatsAppProductItem {
+// Customer WhatsApp Services - IDR only
+export interface WhatsAppServiceItem {
   id: string
   name: string
   description: string | null
-  priceMonth: number  // IDR only
-  priceYear: number   // IDR only
+  priceMonth: number
+  priceYear: number
   maxSession: number
   yearlyDiscount: number
   recommended: boolean
   features: string[]
 }
 
-export interface CustomerProductsResponse {
+export interface CustomerServicesResponse {
   success: boolean
   data: {
-    whatsapp: WhatsAppProductItem[]
+    whatsapp: WhatsAppServiceItem[]
   }
   message: string
 }

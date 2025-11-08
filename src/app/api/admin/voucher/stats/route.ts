@@ -36,44 +36,14 @@ export async function GET(request: NextRequest) {
     // Get usage statistics
     const [
       totalUsage,
-      totalUsageIDR,
-      totalUsageUSD,
       usageByVoucher,
       recentUsage,
       topUsers,
       dailyUsage,
     ] = await Promise.all([
-      // Total usage count and discount amount (all currencies)
+      // Total usage count and discount amount (IDR only)
       prisma.voucherUsage.aggregate({
         where,
-        _count: true,
-        _sum: {
-          discountAmount: true,
-        },
-      }),
-
-      // Total usage for IDR vouchers only
-      prisma.voucherUsage.aggregate({
-        where: {
-          ...where,
-          voucher: {
-            currency: 'idr',
-          },
-        },
-        _count: true,
-        _sum: {
-          discountAmount: true,
-        },
-      }),
-
-      // Total usage for USD vouchers only
-      prisma.voucherUsage.aggregate({
-        where: {
-          ...where,
-          voucher: {
-            currency: 'usd',
-          },
-        },
         _count: true,
         _sum: {
           discountAmount: true,
@@ -220,14 +190,6 @@ export async function GET(request: NextRequest) {
         totalUsage: {
           count: totalUsage._count,
           totalDiscount: totalUsage._sum.discountAmount || 0,
-        },
-        totalUsageIDR: {
-          count: totalUsageIDR._count,
-          totalDiscount: totalUsageIDR._sum.discountAmount || 0,
-        },
-        totalUsageUSD: {
-          count: totalUsageUSD._count,
-          totalDiscount: totalUsageUSD._sum.discountAmount || 0,
         },
         usageByVoucher: usageWithDetails,
         recentUsage,

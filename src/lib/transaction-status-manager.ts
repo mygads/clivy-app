@@ -3,7 +3,7 @@ import { prisma } from './prisma';
 export class TransactionStatusManager {
     /**
      * Update transaction status based on payment status
-     * When payment is 'paid', all child transactions (product/addon/whatsapp) become 'in_progress'
+     * When payment is 'paid', WhatsApp transactions become 'in_progress'
      */
     static async updateTransactionOnPayment(transactionId: string, paymentStatus: string) {
         try {

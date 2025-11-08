@@ -2811,7 +2811,7 @@ export default function WhatsAppSessionsPage() {
                 id="phone-number"
                 value={pairPhoneForm.Phone}
                 onChange={(e) => setPairPhoneForm(prev => ({ ...prev, Phone: e.target.value }))}
-                placeholder="6281233784490"
+                placeholder="628123456789"
                 maxLength={15}
               />
               <p className="text-xs text-muted-foreground">

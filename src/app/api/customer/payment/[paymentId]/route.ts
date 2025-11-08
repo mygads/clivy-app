@@ -16,13 +16,12 @@ function createCorsResponse(data: any, options: { status?: number } = {}, reques
   return withCORS(response, request.headers.get('origin') || undefined);
 }
 
-// Helper function to get bank details for manual payments
+// Helper function to get bank details for manual payments (IDR only now)
 async function getBankDetailsForPayment(method: string, currency: string) {
   try {
-    // Try to get from database first
+    // Get active bank detail (IDR only now, no currency field)
     const bankDetail = await prisma.bankDetail.findFirst({
       where: {
-        currency: currency,
         isActive: true,
       },
       select: {
@@ -30,7 +29,6 @@ async function getBankDetailsForPayment(method: string, currency: string) {
         accountNumber: true,
         accountName: true,
         swiftCode: true,
-        currency: true,
       }
     });
     
@@ -164,52 +162,14 @@ export async function GET(
                 type: true,
                 value: true,
               },
-            },            productTransactions: {
-              include: {
-                package: {
-                  select: {
-                    name_en: true,
-                    price_idr: true,
-                    price_usd: true,
-                    category: {
-                      select: {
-                        name_en: true,
-                      },
-                    },
-                    subcategory: {
-                      select: {
-                        name_en: true,
-                      },
-                    },
-                  },
-                }
-              },
-            },
-            addonTransactions: {
-              include: {
-                addon: {
-                  select: {
-                    name_en: true,
-                    price_idr: true,
-                    price_usd: true,
-                    category: {
-                      select: {
-                        name_en: true,
-                      },
-                    },
-                  },
-                }
-              },
             },
             whatsappTransaction: {
               include: {
                 whatsappPackage: {
                   select: {
                     name: true,
-                    priceMonth_idr: true,
-                    priceMonth_usd: true,
-                    priceYear_idr: true,
-                    priceYear_usd: true,
+                    priceMonth: true,
+                    priceYear: true,
                   },
                 },
               },
@@ -232,13 +192,12 @@ export async function GET(
     const isManualPayment = ['manual_bank_transfer', 'bank_transfer'].includes(payment.method?.toLowerCase() || '');
     if (isManualPayment && payment.transaction?.currency) {
       bankDetails = await getBankDetailsForPayment(payment.method || '', payment.transaction.currency);
-    }    // Get service fee configuration with payment instructions
+    }    // Get service fee configuration with payment instructions (no currency field)
     let serviceFeeInfo = null;
-    if (payment.method && payment.transaction?.currency) {
+    if (payment.method) {
       const paymentMethod = await prisma.paymentMethod.findFirst({
         where: {
           code: payment.method,
-          currency: payment.transaction.currency,
           isActive: true
         },
         select: {
@@ -276,12 +235,12 @@ export async function GET(
     let uniqueCode = null;
     if (isManualPayment) {
       const totalPayment = Number(payment.amount);
-      const productCost = payment.transaction?.originalAmount ? Number(payment.transaction.originalAmount) : 0;
+      const serviceCost = payment.transaction?.originalAmount ? Number(payment.transaction.originalAmount) : 0;
       const discountAmount = payment.transaction?.discountAmount ? Number(payment.transaction.discountAmount) : 0;
       const serviceFeeAmount = payment.serviceFee ? Number(payment.serviceFee) : 0;
       
-      // uniqueCode = totalPayment - (productCost - discountAmount + serviceFeeAmount)
-      uniqueCode = totalPayment - (productCost - discountAmount + serviceFeeAmount);
+      // uniqueCode = totalPayment - (serviceCost - discountAmount + serviceFeeAmount)
+      uniqueCode = totalPayment - (serviceCost - discountAmount + serviceFeeAmount);
       
       // Ensure uniqueCode is a positive 3-digit number
       if (uniqueCode <= 0 || uniqueCode > 999) {
@@ -289,110 +248,48 @@ export async function GET(
         const paymentIdNum = parseInt(payment.id.replace(/\D/g, '').slice(-3)) || 123;
         uniqueCode = 100 + (paymentIdNum % 900);
       }
-    }    // Determine transaction type based on what's included
+    }    // Determine transaction type (WhatsApp only now)
     let transactionType = 'unknown';
-    const hasProduct = payment.transaction?.productTransactions && payment.transaction.productTransactions.length > 0;
-    const hasAddons = payment.transaction?.addonTransactions && payment.transaction.addonTransactions.length > 0;
     const hasWhatsapp = payment.transaction?.whatsappTransaction?.whatsappPackage;
     
-    // Determine transaction type based on all possible combinations
-    if (hasProduct && hasAddons && hasWhatsapp) {
-      transactionType = 'package_addon_whatsapp';
-    } else if (hasProduct && hasAddons && !hasWhatsapp) {
-      transactionType = 'package_and_addon';
-    } else if (hasProduct && !hasAddons && hasWhatsapp) {
-      transactionType = 'package_and_whatsapp';
-    } else if (!hasProduct && hasAddons && hasWhatsapp) {
-      transactionType = 'addon_and_whatsapp';
-    } else if (hasProduct && !hasAddons && !hasWhatsapp) {
-      transactionType = 'package';
-    } else if (!hasProduct && hasAddons && !hasWhatsapp) {
-      transactionType = 'addon';
-    } else if (!hasProduct && !hasAddons && hasWhatsapp) {
+    if (hasWhatsapp) {
       transactionType = 'whatsapp_service';
-    }// Format transaction items with prices
-    const calculatePrice = (priceIdr: any, priceUsd: any, currency: string) => {
-      if (currency === 'usd') {
-        return Number(priceUsd || 0);
-      }
-      return Number(priceIdr || 0);
-    };    const items = [];
-    
-    // Add product packages
-    if (payment.transaction?.productTransactions && payment.transaction.productTransactions.length > 0) {
-      payment.transaction.productTransactions.forEach(productTx => {
-        if (productTx.package) {
-          const price = calculatePrice(productTx.package.price_idr, productTx.package.price_usd, payment.transaction!.currency || 'idr');
-          
-          items.push({
-            type: 'package',
-            name: productTx.package.name_en,
-            price: price,
-            category: productTx.package.category?.name_en,
-            subcategory: productTx.package.subcategory?.name_en,
-            quantity: productTx.quantity || 1,
-          });
-        }
-      });
     }
-    
-    // Add product addons
-    if (payment.transaction?.addonTransactions && payment.transaction.addonTransactions.length > 0) {
-      payment.transaction.addonTransactions.forEach(addonTx => {
-        if (addonTx.addon) {
-          const price = calculatePrice(addonTx.addon.price_idr, addonTx.addon.price_usd, payment.transaction!.currency || 'idr');
-          
-          items.push({
-            type: 'addon',
-            name: addonTx.addon.name_en,
-            price: price,
-            category: addonTx.addon.category?.name_en,
-            quantity: addonTx.quantity,
-          });
-        }
-      });
-    }
+
+    // Format transaction items (WhatsApp only)
+    const items = [];
     
     // Add WhatsApp services
     if (payment.transaction?.whatsappTransaction?.whatsappPackage) {
       const whatsappPkg = payment.transaction.whatsappTransaction.whatsappPackage;
       const duration = payment.transaction.whatsappTransaction.duration;
       
-      // Use detected currency for pricing
-      const currency = detectCurrencySync(request);
-      const priceMonth = currency === 'idr' ? whatsappPkg.priceMonth_idr : whatsappPkg.priceMonth_usd;
-      const priceYear = currency === 'idr' ? whatsappPkg.priceYear_idr : whatsappPkg.priceYear_usd;
-      const price = duration === 'year' ? priceYear : priceMonth;
+      // WhatsApp is IDR only now
+      const price = duration === 'year' ? whatsappPkg.priceYear : whatsappPkg.priceMonth;
       
       items.push({
         type: 'whatsapp_service',
         name: whatsappPkg.name,
         duration: duration,
         price: price,
-        priceMonth_idr: whatsappPkg.priceMonth_idr,
-        priceMonth_usd: whatsappPkg.priceMonth_usd,
-        priceYear_idr: whatsappPkg.priceYear_idr,
-        priceYear_usd: whatsappPkg.priceYear_usd,
-        currency: currency,
-      });    }
+        priceMonth: whatsappPkg.priceMonth,
+        priceYear: whatsappPkg.priceYear,
+        currency: 'IDR',
+      });
+    }
 
     // NEW ACTIVATION LOGIC: Auto-activate services when payment is paid and transaction is in-progress
     let servicesActivated = false;
     
     if (payment.status === 'paid' && payment.transaction?.status === 'in_progress') {
       try {
-        // Get full transaction details for activation
+        // Get full transaction details for activation (WhatsApp only)
         const fullTransaction = await prisma.transaction.findUnique({
-          where: { id: payment.transaction.id },          include: {
+          where: { id: payment.transaction.id },
+          include: {
             whatsappTransaction: {
               include: { whatsappPackage: true }
             },
-            productTransactions: {
-              include: { package: true }
-            },
-            addonTransactions: {
-              include: { addon: true }
-            }
           }
         });
 
@@ -485,14 +382,8 @@ export async function GET(
           canCancel: payment.status === 'pending',
           nextAction: payment.status === 'pending' ? 'Complete payment using the instructions above' : null
         },
-          // Add service activation info for relevant transaction types
-        ...(transactionType === 'whatsapp_service' || 
-            transactionType === 'package_and_whatsapp' || 
-            transactionType === 'addon_and_whatsapp' || 
-            transactionType === 'package_addon_whatsapp' ||
-            transactionType === 'package' ||
-            transactionType === 'addon' ||
-            transactionType === 'package_and_addon' ? {
+          // Add service activation info (WhatsApp only)
+        ...(transactionType === 'whatsapp_service' ? {
           activationInfo: {
             activated: servicesActivated,
             message: servicesActivated 

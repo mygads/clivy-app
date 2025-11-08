@@ -93,7 +93,7 @@ const technicalSpecs = [
 
 export default function WhatsAppAPIOverview() {
     return (
-        <section className="py-12 sm:py-16 md:py-20 bg-white sm:bg-gradient-to-br sm:from-white sm:via-green-50/30 sm:to-white dark:bg-gray-800 dark:sm:from-gray-900 dark:sm:via-gray-800 dark:sm:to-green-900/20">
+        <section id="what-is-whatsapp-api" className="py-12 sm:py-16 md:py-20 bg-white sm:bg-gradient-to-br sm:from-white sm:via-green-50/30 sm:to-white dark:bg-gray-800 dark:sm:from-gray-900 dark:sm:via-gray-800 dark:sm:to-green-900/20">
             <div className="max-w-7xl mx-auto px-4">
                 {/* Header */}
                 <motion.div

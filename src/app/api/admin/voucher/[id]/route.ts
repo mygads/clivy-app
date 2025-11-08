@@ -14,14 +14,13 @@ const updateVoucherSchema = z.object({
   code: z.string().min(1, 'Code is required').optional(),
   name: z.string().min(1, 'Name is required').optional(),
   description: z.string().optional(),
-  type: z.enum(['total', 'products', 'addons', 'whatsapp']).optional(),
+  type: z.enum(['total', 'whatsapp']).optional(),
   discountType: z.enum(['percentage', 'fixed_amount']).optional(),
   value: z.union([z.number(), z.string()]).pipe(z.coerce.number().positive('Value must be positive')).optional(),
   minAmount: z.union([z.number(), z.string(), z.null()]).optional().transform(val => val === null || val === '' ? undefined : Number(val)),
   maxDiscount: z.union([z.number(), z.string(), z.null()]).optional().transform(val => val === null || val === '' ? undefined : Number(val)),
   maxUses: z.union([z.number(), z.string(), z.null()]).optional().transform(val => val === null || val === '' ? undefined : Number(val)),
   allowMultipleUsePerUser: z.boolean().optional(),
-  currency: z.enum(['idr', 'usd']).optional(),
   isActive: z.boolean().optional(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
@@ -156,7 +155,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       updateData.maxDiscount = validatedData.maxDiscount ? new Decimal(validatedData.maxDiscount) : null;
     }    if (validatedData.maxUses !== undefined) updateData.maxUses = validatedData.maxUses;
     if (validatedData.allowMultipleUsePerUser !== undefined) updateData.allowMultipleUsePerUser = validatedData.allowMultipleUsePerUser;
-    if (validatedData.currency) updateData.currency = validatedData.currency;
     if (validatedData.isActive !== undefined) updateData.isActive = validatedData.isActive;
     if (validatedData.startDate) updateData.startDate = new Date(validatedData.startDate);
     if (validatedData.endDate !== undefined) {

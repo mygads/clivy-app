@@ -6,16 +6,8 @@ import { PaymentExpirationService } from "@/lib/payment-expiration";
 import { z } from "zod";
 import { detectCurrencySync } from "@/lib/currency-detection";
 
-const createTransactionSchema = z.object({
-  packageId: z.string().cuid().optional(),
-  addonId: z.string().cuid().optional(),
-  startDate: z.string().datetime(),
-  endDate: z.string().datetime(),
-  referenceLink: z.string().url().optional(),
-  notes: z.string().max(1000).optional(),
-}).refine(data => data.packageId || data.addonId, {
-  message: "Either packageId or addonId must be provided",
-});
+// Schema no longer used - WhatsApp transactions handled differently
+// Keeping for backward compatibility but validation removed
 
 export async function OPTIONS() {
   return corsOptionsResponse();
@@ -51,47 +43,14 @@ export async function GET(request: NextRequest) {
       prisma.transaction.findMany({
         where: whereClause,
         include: {
-          productTransactions: {
-            include: {
-              package: {
-                select: {
-                  id: true,
-                  name_en: true,
-                  name_id: true,
-                  price_idr: true,
-                  price_usd: true,
-                  image: true,
-                  category: true,
-                  subcategory: true,
-                },
-              },
-            },
-          },
-          addonTransactions: {
-            include: {
-              addon: {
-                select: {
-                  id: true,
-                  name_en: true,
-                  name_id: true,
-                  price_idr: true,
-                  price_usd: true,
-                  image: true,
-                  category: true,
-                },
-              },
-            },
-          },
           whatsappTransaction: {
             include: {
               whatsappPackage: {
                 select: {
                   id: true,
                   name: true,
-                  priceMonth_idr: true,
-                  priceMonth_usd: true,
-                  priceYear_idr: true,
-                  priceYear_usd: true,
+                  priceMonth: true,
+                  priceYear: true,
                   description: true,
                 },
               },
@@ -149,35 +108,6 @@ export async function GET(request: NextRequest) {
         createdAt: transaction.payment.createdAt.toISOString(),
         expiresAt: transaction.payment.expiresAt?.toISOString(),
       } : null,
-      productTransactions: transaction.productTransactions?.map(pt => ({
-        id: pt.id,
-        quantity: pt.quantity,
-        status: pt.status,
-        package: pt.package ? {
-          id: pt.package.id,
-          name_en: pt.package.name_en,
-          name_id: pt.package.name_id,
-          price_idr: Number(pt.package.price_idr),
-          price_usd: Number(pt.package.price_usd),
-          image: pt.package.image,
-          category: pt.package.category,
-          subcategory: pt.package.subcategory,
-        } : null,
-      })) || [],
-      addonTransactions: transaction.addonTransactions?.map(at => ({
-        id: at.id,
-        quantity: at.quantity,
-        status: at.status,
-        addon: at.addon ? {
-          id: at.addon.id,
-          name_en: at.addon.name_en,
-          name_id: at.addon.name_id,
-          price_idr: Number(at.addon.price_idr),
-          price_usd: Number(at.addon.price_usd),
-          image: at.addon.image,
-          category: at.addon.category,
-        } : null,
-      })) || [],
       whatsappTransaction: transaction.whatsappTransaction ? {
         id: transaction.whatsappTransaction.id,
         duration: transaction.whatsappTransaction.duration,
@@ -185,10 +115,8 @@ export async function GET(request: NextRequest) {
         whatsappPackage: transaction.whatsappTransaction.whatsappPackage ? {
           id: transaction.whatsappTransaction.whatsappPackage.id,
           name: transaction.whatsappTransaction.whatsappPackage.name,
-          priceMonth_idr: Number(transaction.whatsappTransaction.whatsappPackage.priceMonth_idr),
-          priceMonth_usd: Number(transaction.whatsappTransaction.whatsappPackage.priceMonth_usd),
-          priceYear_idr: Number(transaction.whatsappTransaction.whatsappPackage.priceYear_idr),
-          priceYear_usd: Number(transaction.whatsappTransaction.whatsappPackage.priceYear_usd),
+          priceMonth: Number(transaction.whatsappTransaction.whatsappPackage.priceMonth),
+          priceYear: Number(transaction.whatsappTransaction.whatsappPackage.priceYear),
           description: transaction.whatsappTransaction.whatsappPackage.description,
         } : null,
       } : null,
@@ -244,107 +172,13 @@ export async function POST(request: NextRequest) {
       ));
     }
 
-    const body = await request.json();
-    const validation = createTransactionSchema.safeParse(body);
-
-    if (!validation.success) {
-      return withCORS(NextResponse.json(
-        { success: false, error: validation.error.errors },
-        { status: 400 }
-      ));
-    }
-
-    const { packageId, addonId, startDate, endDate, referenceLink, notes } = validation.data;
-
-    // Verify the package or addon exists and get pricing
-    let item = null;
-    let amount = 0;
-
-    if (packageId) {
-      item = await prisma.package.findUnique({
-        where: { id: packageId },
-        select: { id: true, name_en: true, price_idr: true, price_usd: true },
-      });
-      if (!item) {
-        return withCORS(NextResponse.json(
-          { success: false, error: "Package not found" },
-          { status: 404 }
-        ));
-      }
-      amount = Number(item.price_idr);
-    } else if (addonId) {
-      item = await prisma.addon.findUnique({
-        where: { id: addonId },
-        select: { id: true, name_en: true, price_idr: true, price_usd: true },
-      });
-      if (!item) {
-        return withCORS(NextResponse.json(
-          { success: false, error: "Addon not found" },
-          { status: 404 }
-        ));
-      }
-      amount = Number(item.price_idr);
-    }    // Create transaction with payment record
-    const transaction = await prisma.transaction.create({
-      data: {
-        userId: userAuth.id,
-        amount,
-        status: 'created', // Use consolidated status system
-        type: 'product',
-        notes: notes || null,
-        payment: {
-          create: {
-            amount,
-            method: 'pending', // Will be updated when payment method is chosen
-            status: 'pending',
-          },
-        },        productTransactions: {
-          create: {
-            packageId,
-            startDate: new Date(startDate),
-            endDate: new Date(endDate),
-            referenceLink,
-            quantity: 1,
-          },
-        },
-      },
-      include: {        productTransactions: {
-          include: {
-            package: {
-              select: {
-                id: true,
-                name_en: true,
-                name_id: true,
-                price_idr: true,
-                price_usd: true,
-              },
-            },
-          },
-        },
-        addonTransactions: {
-          include: {
-            addon: {
-              select: {
-                id: true,
-                name_en: true,
-                name_id: true,
-                price_idr: true,
-                price_usd: true,
-              },
-            },
-          },
-        },
-        payment: true,
-      },
-    });
-
-    return withCORS(NextResponse.json({
-      success: true,
-      data: transaction,
-      message: "Transaction created successfully",
-    }));
+    // This endpoint is no longer supported
+    return withCORS(NextResponse.json(
+      { success: false, error: "This transaction type is no longer supported. Please use WhatsApp services." },
+      { status: 410 }
+    ));
   } catch (error) {
-    console.error("[CUSTOMER_TRANSACTIONS_POST]", error);
+    console.error("Transaction creation error:", error);
     return withCORS(NextResponse.json(
       { success: false, error: "Failed to create transaction" },
       { status: 500 }

@@ -823,193 +823,12 @@ export class PaymentExpirationService {
       
       return { success: false, error: error.message };
     }
-  }  /**
-   * Create ServicesProductCustomers records for multiple products (manual delivery required)
-   * Creates separate record for each product type with aggregated quantity
-   * @deprecated - Products/Packages/Addons removed. WhatsApp API only.
-   */
-  private static async createProductPackageRecords(transaction: any) {
-    console.warn('[DEPRECATED] createProductPackageRecords - Products removed from system');
-    return { success: false, reason: 'Products feature removed - WhatsApp API only' };
   }
-
-  /* COMMENTED OUT - PRODUCT FEATURE REMOVED
-  private static async createProductPackageRecords(transaction: any) {
-    if (!transaction.productTransactions || transaction.productTransactions.length === 0) {
-      return { success: false, reason: 'No product transactions found' };
-    }
-
-    try {
-      let totalRecordsCreated = 0;
-
-      // Group by packageId and sum quantities (requirement: 2 different products with qty 3 each = 2 records)
-      for (const productTransaction of transaction.productTransactions) {
-        if (!productTransaction.packageId) {
-          console.warn(`[PRODUCT_SERVICE] Product transaction ${productTransaction.id} has no packageId, skipping`);
-          continue;
-        }
-
-        // Check if ServicesProductCustomers already exists for this transaction and package
-        const existingProductCustomer = await prisma.servicesProductCustomers.findFirst({
-          where: { 
-            transactionId: transaction.id,
-            packageId: productTransaction.packageId
-          }
-        });
-
-        if (existingProductCustomer) {
-          console.log(`[PRODUCT_SERVICE] Record already exists for transaction ${transaction.id} and package ${productTransaction.packageId}, skipping`);
-          continue;
-        }
-
-        // Get quantity from TransactionProduct (default to 1 if not available)
-        const quantity = productTransaction.quantity || 1;
-
-        // Create ONE ServicesProductCustomers record per product type with total quantity
-        await prisma.servicesProductCustomers.create({
-          data: {
-            transactionId: transaction.id,
-            customerId: transaction.userId,
-            packageId: productTransaction.packageId,
-            quantity: quantity, // Store total quantity for this product type
-            status: 'pending',
-            deliveredAt: null,
-            createdAt: new Date(),
-            updatedAt: new Date()
-          }
-        });
-        totalRecordsCreated++;
-      }
-
-      console.log(`[PRODUCT_SERVICE] Created ${totalRecordsCreated} product delivery record(s) for transaction ${transaction.id} - awaiting manual delivery`);
-      return { success: true, recordsCreated: totalRecordsCreated };
-    } catch (error: any) {
-      console.error('[PRODUCT_SERVICE] Error:', error);
-      return { success: false, error: error.message };
-    }
-  }
-  END COMMENTED OUT */
-
-  /**
-   * Create ServicesProductCustomers record for product (manual delivery required)
-   * @deprecated Use createProductPackageRecords for multiple products support
-   */
-  private static async createProductPackageRecord(transaction: any) {
-    console.warn('[DEPRECATED] createProductPackageRecord - Products removed from system');
-    return { success: false, reason: 'Products feature removed - WhatsApp API only' };
-  }
-
-  /* COMMENTED OUT - PRODUCT FEATURE REMOVED
-  private static async createProductPackageRecord(transaction: any) {
-    if (!transaction.productTransaction?.packageId) {
-      return { success: false, reason: 'No product package found in transaction' };
-    }
-
-    try {
-      // Check if ServicesProductCustomers already exists for this transaction and package
-      const existingProductCustomer = await prisma.servicesProductCustomers.findFirst({
-        where: { 
-          transactionId: transaction.id,
-          packageId: transaction.productTransaction.packageId
-        }
-      });
-
-      if (existingProductCustomer) {
-        console.log(`[PRODUCT_SERVICE] Record already exists for transaction ${transaction.id}, skipping duplicate creation`);
-        return { success: true, reason: 'Record already exists' };
-      }
-
-      // Get quantity from TransactionProduct (default to 1 if not available)
-      const quantity = transaction.productTransaction.quantity || 1;
-
-      // Create ServicesProductCustomers records based on quantity
-      const records = [];
-      for (let i = 0; i < quantity; i++) {
-        const record = await prisma.servicesProductCustomers.create({
-          data: {
-            transactionId: transaction.id,
-            customerId: transaction.userId,
-            packageId: transaction.productTransaction.packageId,
-            status: 'pending',
-            deliveredAt: null,
-            createdAt: new Date(),
-            updatedAt: new Date()
-          }
-        });
-        records.push(record);
-      }
-
-      console.log(`[PRODUCT_SERVICE] Created ${records.length} product delivery record(s) for transaction ${transaction.id} - awaiting manual delivery`);
-      return { success: true, recordsCreated: records.length };
-    } catch (error: any) {
-      console.error('[PRODUCT_SERVICE] Error:', error);
-      return { success: false, error: error.message };
-    }
-  }
-  END COMMENTED OUT */
-
-  /**
-   * Create ServicesAddonsCustomers record for add-ons (manual delivery required)
-   * Creates ONE record with all addons combined with their quantities
-   */
-  private static async createAddonDeliveryRecord(transaction: any) {
-    console.warn('[DEPRECATED] createAddonDeliveryRecord - Addons removed from system');
-    return { success: false, reason: 'Addons feature removed - WhatsApp API only' };
-  }
-
-  /* COMMENTED OUT - ADDON FEATURE REMOVED
-  private static async createAddonDeliveryRecord(transaction: any) {
-    if (!transaction.addonTransactions || transaction.addonTransactions.length === 0) {
-      return { success: false, reason: 'No addon transactions found' };
-    }
-
-    try {
-      // Check if ServicesAddonsCustomers already exists for this transaction
-      const existingAddonCustomer = await prisma.servicesAddonsCustomers.findFirst({
-        where: { transactionId: transaction.id }
-      });
-
-      if (existingAddonCustomer) {
-        console.log(`[ADDON_SERVICE] Record already exists for transaction ${transaction.id}, skipping duplicate creation`);
-        return { success: true, reason: 'Record already exists' };
-      }      // Collect addon details with quantities (addon IDs will be retrieved from TransactionAddons via transactionId)
-      const addonDetails = transaction.addonTransactions.map((at: any) => ({
-        addonId: at.addonId,
-        quantity: at.quantity || 1,
-        addon: {
-          id: at.addon?.id,
-          name_en: at.addon?.name_en,
-          name_id: at.addon?.name_id,
-          price_idr: at.addon?.price_idr,
-          price_usd: at.addon?.price_usd,
-        }
-      }));
-
-      // Create ONE ServicesAddonsCustomers record with all addons combined
-      const record = await prisma.servicesAddonsCustomers.create({
-        data: {
-          transactionId: transaction.id,
-          customerId: transaction.userId,
-          addonDetails: JSON.stringify(addonDetails),
-          status: 'pending',
-          deliveredAt: null,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      });
-
-      console.log(`[ADDON_SERVICE] Created ONE addon delivery record for transaction ${transaction.id} with ${transaction.addonTransactions.length} add-on types combined - awaiting manual delivery`);
-      return { success: true, recordCreated: !!record };
-    } catch (error: any) {
-      console.error('[ADDON_SERVICE] Error:', error);
-      return { success: false, error: error.message };
-    }
-  }
-  END COMMENTED OUT */
 
   /**
    * Manual activation check for transactions that are in-progress with paid payment
-   */  static async checkAndActivateTransaction(transactionId: string, userId: string) {
+   */
+  static async checkAndActivateTransaction(transactionId: string, userId: string) {
     const transaction = await prisma.transaction.findFirst({
       where: { 
         id: transactionId,
@@ -1141,28 +960,6 @@ export class PaymentExpirationService {
   }
 
   /**
-   * Check if product is delivered for a transaction
-   */
-  private static async isProductDelivered(transactionId: string): Promise<boolean> {
-    console.warn('[DEPRECATED] isProductDelivered - Products removed from system');
-    return true; // Always return true since products are removed
-  }
-
-  /* COMMENTED OUT - PRODUCT FEATURE REMOVED
-  private static async isProductDelivered(transactionId: string): Promise<boolean> {
-    // Check if ALL products for this transaction are delivered
-    const productCustomers = await prisma.servicesProductCustomers.findMany({
-      where: { transactionId: transactionId }
-    });
-
-    if (productCustomers.length === 0) return true; // No products to deliver
-
-    // All product records must have status 'delivered'
-    return productCustomers.every(pc => pc.status === 'delivered');
-  }
-  END COMMENTED OUT */
-
-  /**
    * Check if WhatsApp service is activated for a user and package
    */
   private static async isWhatsAppActivated(userId: string, packageId?: string): Promise<boolean> {
@@ -1179,116 +976,12 @@ export class PaymentExpirationService {
   }
 
   /**
-   * Check if add-ons are delivered for a transaction
-   */
-  private static async isAddonsDelivered(transactionId: string): Promise<boolean> {
-    console.warn('[DEPRECATED] isAddonsDelivered - Addons removed from system');
-    return true; // Always return true since addons are removed
-  }
-
-  /* COMMENTED OUT - ADDON FEATURE REMOVED
-  private static async isAddonsDelivered(transactionId: string): Promise<boolean> {
-    const addonCustomer = await prisma.servicesAddonsCustomers.findFirst({
-      where: { 
-        transactionId: transactionId,
-        status: 'delivered'
-      }
-    });
-    return !!addonCustomer;
-  }
-  END COMMENTED OUT */
-
-  /**
-   * Manual trigger for product delivery completion (called by admin)
-   */  
-  static async completeProductDelivery(transactionId: string, adminUserId?: string) {
-    console.warn('[DEPRECATED] completeProductDelivery - Products removed from system');
-    return { success: false, error: 'Products feature removed - WhatsApp API only' };
-  }
-
-  /* COMMENTED OUT - PRODUCT FEATURE REMOVED
-  static async completeProductDelivery(transactionId: string, adminUserId?: string) {
-    try {
-      // Update ServicesProductCustomers status to delivered
-      const productCustomer = await prisma.servicesProductCustomers.findFirst({
-        where: { transactionId: transactionId }
-      });
-
-      if (!productCustomer) {
-        throw new Error('ServicesProductCustomers record not found');
-      }
-
-      await prisma.servicesProductCustomers.update({
-        where: { id: productCustomer.id },
-        data: {
-          status: 'delivered',
-          deliveredAt: new Date(),
-          updatedAt: new Date()
-        }
-      });
-
-      // Check if transaction should be completed
-      const completionResult = await this.checkTransactionCompletion(transactionId);
-      
-      console.log(`[PRODUCT_DELIVERY_COMPLETION] Product delivered for transaction ${transactionId}, completed: ${completionResult.completed}`);
-      
-      return { 
-        success: true, 
-        delivered: true, 
-        transactionCompleted: completionResult.completed 
-      };    } catch (error: any) {
-      console.error('[PRODUCT_DELIVERY_COMPLETION] Error:', error);
-      return { success: false, error: error.message };
-    }
-  }
-  END COMMENTED OUT */
-
-  /**
    * Manual trigger for add-ons delivery completion (called by admin)
    */
   static async completeAddonsDelivery(transactionId: string, adminUserId?: string) {
     console.warn('[DEPRECATED] completeAddonsDelivery - Addons removed from system');
     return { success: false, error: 'Addons feature removed - WhatsApp API only' };
   }
-
-  /* COMMENTED OUT - ADDON FEATURE REMOVED
-  static async completeAddonsDelivery(transactionId: string, adminUserId?: string) {
-    try {
-      // Update ServicesAddonsCustomers status to delivered
-      const addonCustomer = await prisma.servicesAddonsCustomers.findFirst({
-        where: { transactionId: transactionId }
-      });
-
-      if (!addonCustomer) {
-        throw new Error('ServicesAddonsCustomers record not found');
-      }
-
-      await prisma.servicesAddonsCustomers.update({
-        where: { id: addonCustomer.id },
-        data: {
-          status: 'delivered',
-          deliveredAt: new Date(),
-          updatedAt: new Date()
-        }
-      });
-
-      // Check if transaction should be completed
-      const completionResult = await this.checkTransactionCompletion(transactionId);
-      
-      console.log(`[ADDONS_DELIVERY_COMPLETION] Add-ons delivered for transaction ${transactionId}, completed: ${completionResult.completed}`);
-      
-      return { 
-        success: true, 
-        delivered: true, 
-        transactionCompleted: completionResult.completed 
-      };
-
-    } catch (error: any) {
-      console.error('[ADDONS_DELIVERY_COMPLETION] Error:', error);
-      return { success: false, error: error.message };
-    }
-  }
-  END COMMENTED OUT */
 
   /**
    * Update child transaction statuses (TransactionProduct and TransactionAddons)
@@ -1301,28 +994,4 @@ export class PaymentExpirationService {
     // No-op since child transactions (products/addons) are removed
   }
 
-  /* COMMENTED OUT - PRODUCT/ADDON FEATURE REMOVED
-  static async updateChildTransactionStatuses(
-    transactionId: string, 
-    status: 'created' | 'pending' | 'in_progress' | 'success' | 'cancelled'
-  ) {
-    try {
-      // Update all TransactionProduct statuses
-      await prisma.transactionProduct.updateMany({
-        where: { transactionId },
-        data: { status }
-      });
-
-      // Update all TransactionAddons statuses
-      await prisma.transactionAddons.updateMany({
-        where: { transactionId },
-        data: { status }
-      });
-
-      console.log(`[CHILD_STATUS_UPDATE] Updated child transaction statuses to ${status} for transaction ${transactionId}`);
-    } catch (error) {
-      console.error(`[CHILD_STATUS_UPDATE] Error updating child transaction statuses:`, error);
-    }
-  }
-  END COMMENTED OUT */
 }

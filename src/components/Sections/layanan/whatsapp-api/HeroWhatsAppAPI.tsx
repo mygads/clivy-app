@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowRight, MessageSquare, Users, Zap } from "lucide-react"
 
 const stats = [
@@ -69,22 +70,26 @@ export default function HeroWhatsAppAPI() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-4">
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="group inline-flex items-center justify-center rounded-full bg-green-600 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white shadow-lg transition-all hover:bg-green-700 hover:shadow-xl"
-                            >
-                                Start Integration
-                                <ArrowRight className="ml-1.5 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
-                            </motion.button>
+                            <Link href="/#pricing">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="group inline-flex items-center justify-center rounded-full bg-green-600 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white shadow-lg transition-all hover:bg-green-700 hover:shadow-xl"
+                                >
+                                    Start Integration
+                                    <ArrowRight className="ml-1.5 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
+                                </motion.button>
+                            </Link>
 
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="group inline-flex items-center justify-center rounded-full border-2 border-green-600 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-green-600 transition-all hover:bg-green-600 hover:text-white dark:border-green-400"
-                            >
-                                View Documentation
-                            </motion.button>
+                            <Link href="/whatsapp/documentation">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="group inline-flex items-center justify-center rounded-full border-2 border-green-600 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-green-600 transition-all hover:bg-green-600 hover:text-white dark:border-green-400 dark:text-green-400"
+                                >
+                                    View Documentation
+                                </motion.button>
+                            </Link>
                         </div>
 
                     </motion.div>

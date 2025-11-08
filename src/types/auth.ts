@@ -51,7 +51,6 @@ export interface User {
     email: string
     phone: string
     packages?: string[]
-    addons?: string[]
     totalAmount?: number
     createdAt?: Date
     expiresAt?: Date

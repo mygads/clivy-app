@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = new URL(request.url);
-    const type = searchParams.get('type'); // 'product' | 'whatsapp_service' | null (all)
+    const type = searchParams.get('type'); // 'whatsapp_service' | null (all)
     const status = searchParams.get('status');
     const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 10;
     const offset = searchParams.get('offset') ? parseInt(searchParams.get('offset')!) : 0;

@@ -59,26 +59,6 @@ export async function GET(
     const transaction = await prisma.transaction.findFirst({
       where: whereCondition,
       include: {
-        productTransactions: {
-          include: {
-            package: {
-              include: {
-                category: true,
-                subcategory: true,
-                features: true,
-              },
-            },
-          },
-        },
-        addonTransactions: {
-          include: {
-            addon: {
-              include: {
-                category: true,
-              },
-            },
-          },
-        },
         whatsappTransaction: {
           include: {
             whatsappPackage: true,
@@ -112,22 +92,16 @@ export async function GET(
       ));
     }
 
-    const productNames = transaction.productTransactions?.map(pt => pt.package?.name_en).filter(Boolean) || [];
-    const addonNames = transaction.addonTransactions?.map(at => at.addon?.name_en).filter(Boolean) || [];
-    const allNames = [...productNames, ...addonNames];
-
     const transactionWithInfo = {
       ...transaction,
       amount: Number(transaction.amount),
-      item_name: transaction.type === 'whatsapp_service'
-        ? transaction.whatsappTransaction?.whatsappPackage?.name
-        : allNames.length > 0 ? allNames.join(', ') : 'No items',
+      item_name: transaction.whatsappTransaction?.whatsappPackage?.name || 'No items',
       item_type: transaction.type,
       transactionStatusText: getTransactionStatusText(transaction.status),
       paymentStatusText: getPaymentStatusText(transaction.payment?.status || 'pending'),
       canRetryPayment: transaction.status === 'created' || transaction.status === 'pending' || transaction.status === 'expired',
-      canConfirmTransaction: transaction.type === 'product' && transaction.status === 'in-progress',
-      durationText: transaction.type === 'whatsapp_service' && transaction.whatsappTransaction?.duration
+      canConfirmTransaction: false,
+      durationText: transaction.whatsappTransaction?.duration
         ? (transaction.whatsappTransaction.duration === 'year' ? '1 Year' : '1 Month')
         : null,
       paymentInfo: transaction.payment ? {

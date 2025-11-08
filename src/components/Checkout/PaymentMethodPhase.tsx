@@ -32,6 +32,18 @@ export function PaymentMethodPhase({
   const router = useRouter()
   const { addToast } = useToast()
 
+  const formatPrice = (price: number) => {
+    if (isNaN(price) || price === null || price === undefined) {
+      return 'Rp 0'
+    }
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price)
+  }
+
   // Function to handle payment method selection
   const handlePaymentMethodSelect = (paymentMethod: string) => {
     setSelectedPaymentMethod(paymentMethod)
@@ -549,11 +561,11 @@ export function PaymentMethodPhase({
                               {serviceFee && (
                                 <div className="text-right flex-shrink-0">
                                   <p className="text-xs sm:text-sm lg:text-base font-medium text-gray-900 dark:text-white break-words">
-                                    Rp {Number(serviceFee.totalWithFee).toLocaleString('id-ID')}
+                                    {formatPrice(Number(serviceFee.totalWithFee))}
                                   </p>
                                   {Number(serviceFee.feeAmount) > 0 ? (
                                     <p className="text-xs lg:text-sm text-red-500 break-words">
-                                      +Rp {Number(serviceFee.feeAmount).toLocaleString('id-ID')} biaya
+                                      +{formatPrice(Number(serviceFee.feeAmount))} biaya
                                     </p>
                                   ) : (
                                     <p className="text-xs lg:text-sm text-green-600 break-words">
@@ -595,15 +607,15 @@ export function PaymentMethodPhase({
                 </h4>                <div className="space-y-2 text-sm">
                   <div className="flex justify-between text-blue-700 dark:text-blue-400">
                     <span>Subtotal setelah diskon:</span>
-                    <span className="font-medium">Rp {Number(checkoutResponse.data.totalAfterDiscount).toLocaleString('id-ID')}</span>
+                    <span className="font-medium">{formatPrice(Number(checkoutResponse.data.totalAfterDiscount))}</span>
                   </div>
                   <div className="flex justify-between text-blue-700 dark:text-blue-400">
                     <span>Biaya layanan:</span>
-                    <span className="font-medium">Rp {Number(serviceFee?.feeAmount || 0).toLocaleString('id-ID')}</span>
+                    <span className="font-medium">{formatPrice(Number(serviceFee?.feeAmount || 0))}</span>
                   </div>
                   <div className="border-t border-blue-200 dark:border-blue-800 pt-2 flex justify-between font-bold text-blue-800 dark:text-blue-300 text-base">
                     <span>Total Akhir:</span>
-                    <span>Rp {Number(serviceFee?.totalWithFee || 0).toLocaleString('id-ID')}</span>
+                    <span>{formatPrice(Number(serviceFee?.totalWithFee || 0))}</span>
                   </div>
                 </div>
               </div>

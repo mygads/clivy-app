@@ -19,7 +19,7 @@ export interface PaymentMethodConfig {
 export interface PaymentRequest {
   transactionId: string
   amount: number
-  currency: 'idr' | 'usd'
+  currency: 'idr'
   paymentMethodCode: string
   customerInfo: {
     id: string

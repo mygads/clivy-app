@@ -37,14 +37,13 @@ interface Voucher {
   code: string
   name: string
   description: string
-  type: "total" | "products" | "addons" | "whatsapp"
+  type: "total" | "whatsapp"
   discountType: "percentage" | "fixed_amount"
   value: number
   minAmount: number | null
   maxDiscount: number | null
   maxUses: number | null
   usedCount: number
-  currency: "idr" | "usd"
   isActive: boolean
   allowMultipleUsePerUser: boolean
   startDate: string
@@ -58,8 +57,6 @@ interface VoucherStats {
   activeVouchers: number
   totalUsages: number
   totalDiscountGiven: number
-  totalDiscountGivenIDR: number
-  totalDiscountGivenUSD: number
 }
 
 export default function VouchersPage() {
@@ -69,8 +66,6 @@ export default function VouchersPage() {
     activeVouchers: 0,
     totalUsages: 0,
     totalDiscountGiven: 0,
-    totalDiscountGivenIDR: 0,
-    totalDiscountGivenUSD: 0
   })
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState("")
@@ -168,8 +163,6 @@ export default function VouchersPage() {
             activeVouchers: activeVouchersCount,
             totalUsages: data.totalUsage?.count || 0,
             totalDiscountGiven: data.totalUsage?.totalDiscount || 0,
-            totalDiscountGivenIDR: data.totalUsageIDR?.totalDiscount || 0,
-            totalDiscountGivenUSD: data.totalUsageUSD?.totalDiscount || 0
           })
         } else {
           console.error("Stats API response error:", result)
@@ -233,8 +226,6 @@ export default function VouchersPage() {
   const getTypeColor = (type: string) => {
     switch (type) {
       case "total": return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
-      case "products": return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-      case "addons": return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300"
       case "whatsapp": return "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300"
       default: return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300"
     }
@@ -244,8 +235,7 @@ export default function VouchersPage() {
     if (voucher.discountType === "percentage") {
       return `${voucher.value}%`
     } else {
-      const currencySymbol = voucher.currency === "idr" ? "Rp" : "$"
-      return `${currencySymbol} ${voucher.value.toLocaleString()}`
+      return `Rp ${voucher.value.toLocaleString()}`
     }
   }
 
@@ -264,7 +254,7 @@ export default function VouchersPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Voucher Management</h1>
           <p className="text-muted-foreground">
-            Create and manage discount vouchers for your products and services
+            Create and manage discount vouchers for WhatsApp services
           </p>
         </div>
         <Button onClick={() => setCreateDialogOpen(true)} className="w-full sm:w-auto">
@@ -304,29 +294,15 @@ export default function VouchersPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Discount Given (IDR)</CardTitle>
+            <CardTitle className="text-sm font-medium">Discount Given</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              Rp {Number(stats.totalDiscountGivenIDR).toLocaleString()}
+              Rp {Number(stats.totalDiscountGiven).toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">
-              Indonesian Rupiah
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Discount Given (USD)</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              $ {Number(stats.totalDiscountGivenUSD).toLocaleString()}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              US Dollar
+              Total discount amount
             </p>
           </CardContent>
         </Card>
@@ -360,8 +336,6 @@ export default function VouchersPage() {
           <SelectContent>
             <SelectItem value="all">All Types</SelectItem>
             <SelectItem value="total">Total Discount</SelectItem>
-            <SelectItem value="products">Product Discount</SelectItem>
-            <SelectItem value="addons">Addon Discount</SelectItem>
             <SelectItem value="whatsapp">WhatsApp Service</SelectItem>
           </SelectContent>
         </Select>
@@ -415,11 +389,6 @@ export default function VouchersPage() {
                   </TableCell>
                   <TableCell className="font-medium">
                     {getDiscountText(voucher)}
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant="outline" className="uppercase text-xs">
-                      {voucher.currency}
-                    </Badge>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">

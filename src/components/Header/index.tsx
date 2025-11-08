@@ -569,7 +569,7 @@ const Header = () => {
                 >
                   <IoCartOutline className="w-6 h-6" />
                   {totalQty > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-dark text-white text-xs rounded-full px-1.5 py-0.5 min-w-[20px] text-center">
+                    <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full px-1.5 py-0.5 min-w-[20px] text-center font-semibold shadow-lg">
                       {totalQty}
                     </span>
                   )}

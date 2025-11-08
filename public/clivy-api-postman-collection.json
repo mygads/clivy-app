@@ -1,0 +1,1357 @@
+{
+	"info": {
+		"_postman_id": "clivy-api-collection-2025",
+		"name": "Clivy API - Complete Collection",
+		"description": "Complete API documentation for Clivy application.\n\n**Authentication:**\n- Most endpoints require Bearer token in Authorization header\n- Get token from /api/auth/signin or /api/auth/signup\n\n**Base URL:**\n- Development: http://localhost:3000\n- Production: https://your-domain.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearer_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "bearer_token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Sign In",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"identifier\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/signin",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "signin"]
+						},
+						"description": "Login with email/phone and password. Returns user object and JWT token."
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"phone\": \"+6281234567890\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/signup",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "signup"]
+						},
+						"description": "Register new user. Phone is REQUIRED, email and password are optional. OTP will be sent via WhatsApp."
+					},
+					"response": []
+				},
+				{
+					"name": "Send OTP",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"identifier\": \"+6281234567890\",\n  \"purpose\": \"signup\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/send-otp",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "send-otp"]
+						},
+						"description": "Send OTP code. Purpose can be: signup, email-verification, or password-reset. OTP is 4-digit and valid for 60 minutes."
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"identifier\": \"+6281234567890\",\n  \"otp\": \"1234\",\n  \"purpose\": \"signup\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/verify-otp",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "verify-otp"]
+						},
+						"description": "Verify the 4-digit OTP code sent to user."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Password Reset OTP",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"identifier\": \"user@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/send-password-reset-otp",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "send-password-reset-otp"]
+						},
+						"description": "Send OTP for password reset. Has 10 minute cooldown rate limit."
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Password Reset OTP",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"identifier\": \"user@example.com\",\n  \"otp\": \"1234\",\n  \"newPassword\": \"newPassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/verify-password-reset-otp",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "verify-password-reset-otp"]
+						},
+						"description": "Verify OTP and set new password. Password must be minimum 6 characters."
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication endpoints for user sign in, sign up, and password management."
+		},
+		{
+			"name": "Account Management",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/account/profile",
+							"host": ["{{base_url}}"],
+							"path": ["api", "account", "profile"]
+						},
+						"description": "Get authenticated user's profile information."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe Updated\",\n  \"email\": \"john.updated@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/account/profile",
+							"host": ["{{base_url}}"],
+							"path": ["api", "account", "profile"]
+						},
+						"description": "Update user profile information."
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/account/logout",
+							"host": ["{{base_url}}"],
+							"path": ["api", "account", "logout"]
+						},
+						"description": "Logout user and invalidate the session token."
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"currentPassword\": \"oldPassword123\",\n  \"newPassword\": \"newPassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/account/change-password",
+							"host": ["{{base_url}}"],
+							"path": ["api", "account", "change-password"]
+						},
+						"description": "Change user password. Requires current password. Minimum 6 characters for new password."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sessions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/account/session",
+							"host": ["{{base_url}}"],
+							"path": ["api", "account", "session"]
+						},
+						"description": "List all active sessions for authenticated user."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Profile Image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/account/profile/image",
+							"host": ["{{base_url}}"],
+							"path": ["api", "account", "profile", "image"]
+						},
+						"description": "Upload or update user profile picture."
+					},
+					"response": []
+				}
+			],
+			"description": "Account management endpoints for profile, password, and session management."
+		},
+		{
+			"name": "Customer - Checkout",
+			"item": [
+				{
+					"name": "Create Checkout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"whatsapp\": {\n    \"packageId\": \"clxxxxxxxxxxxxxxx\",\n    \"duration\": \"month\"\n  },\n  \"voucherCode\": \"PROMO123\",\n  \"notes\": \"Special request\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customer/checkout",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "checkout"]
+						},
+						"description": "Create checkout transaction for WhatsApp service. Duration can be 'month' or 'year'."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer - Payment",
+			"item": [
+				{
+					"name": "Create Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transactionId\": \"clxxxxxxxxxxxxxxx\",\n  \"paymentMethod\": \"BCA\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customer/payment/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "payment", "create"]
+						},
+						"description": "Create payment for a transaction. Includes service fee calculation."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/payment/:paymentId",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "payment", ":paymentId"],
+							"variable": [
+								{
+									"key": "paymentId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get payment information by payment ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/payment/:paymentId/status",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "payment", ":paymentId", "status"],
+							"variable": [
+								{
+									"key": "paymentId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Check current payment status."
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/payment/:paymentId/cancel",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "payment", ":paymentId", "cancel"],
+							"variable": [
+								{
+									"key": "paymentId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Cancel a pending payment."
+					},
+					"response": []
+				},
+				{
+					"name": "Download Receipt",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/payment/:paymentId/receipt",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "payment", ":paymentId", "receipt"],
+							"variable": [
+								{
+									"key": "paymentId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Download payment receipt/invoice."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment Methods",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/payment/methods",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "payment", "methods"]
+						},
+						"description": "Get list of available payment methods."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer - Transaction",
+			"item": [
+				{
+					"name": "List Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/transactions?status=all&limit=10&offset=0",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "transactions"],
+							"query": [
+								{
+									"key": "status",
+									"value": "all",
+									"description": "created, pending, processing, completed, failed, expired, all"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						},
+						"description": "List all transactions with pagination and status filter."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/transactions/:transactionId",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "transactions", ":transactionId"],
+							"variable": [
+								{
+									"key": "transactionId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get detailed transaction information."
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Transaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/transactions/:transactionId/cancel",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "transactions", ":transactionId", "cancel"],
+							"variable": [
+								{
+									"key": "transactionId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Cancel a pending transaction."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/transactions/active",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "transactions", "active"]
+						},
+						"description": "Get list of active (non-completed) transactions."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dashboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/dashboard",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "dashboard"]
+						},
+						"description": "Get customer dashboard statistics and overview."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer - WhatsApp",
+			"item": [
+				{
+					"name": "List WhatsApp Sessions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/whatsapp/sessions?limit=20&offset=0",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "whatsapp", "sessions"],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "status",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all WhatsApp sessions for authenticated user."
+					},
+					"response": []
+				},
+				{
+					"name": "Create WhatsApp Session",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"My WhatsApp Session\",\n  \"webhook\": \"https://your-webhook-url.com/webhook\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customer/whatsapp/sessions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "whatsapp", "sessions"]
+						},
+						"description": "Create a new WhatsApp session/instance."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Session Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/whatsapp/sessions/:sessionId",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "whatsapp", "sessions", ":sessionId"],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get WhatsApp session information."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Session",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/whatsapp/sessions/:sessionId",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "whatsapp", "sessions", ":sessionId"],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Delete a WhatsApp session."
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/whatsapp/sessions/:sessionId/logout",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "whatsapp", "sessions", ":sessionId", "logout"],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Logout from WhatsApp on this session."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Subscriptions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/whatsapp/subscriptions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "whatsapp", "subscriptions"]
+						},
+						"description": "Get user's WhatsApp service subscriptions."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dashboard Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/customer/whatsapp/dashboard-stats",
+							"host": ["{{base_url}}"],
+							"path": ["api", "customer", "whatsapp", "dashboard-stats"]
+						},
+						"description": "Get WhatsApp service statistics for customer."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin - Users",
+			"item": [
+				{
+					"name": "List All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/users?page=1&limit=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "users"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all users (Admin only). Supports pagination and filtering."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/users/stats",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "users", "stats"]
+						},
+						"description": "Get user statistics overview (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/users/:userId",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "users", ":userId"],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get detailed user information (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Name\",\n  \"email\": \"updated@example.com\",\n  \"role\": \"customer\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/users/:userId",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "users", ":userId"],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Update user information (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/users/:userId",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "users", ":userId"],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Delete a user (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle User Active Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/users/:userId/toggle-active",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "users", ":userId", "toggle-active"],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Activate or deactivate a user account (Admin only)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin - Transactions",
+			"item": [
+				{
+					"name": "List All Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/transactions?page=1&limit=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "transactions"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						},
+						"description": "Get all transactions (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Transaction Manually",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"clxxxxxxxxxxxxxxx\",\n  \"amount\": 100000,\n  \"description\": \"Manual transaction\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/transactions/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "transactions", "create"]
+						},
+						"description": "Manually create a transaction (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/transactions/:transactionId",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "transactions", ":transactionId"],
+							"variable": [
+								{
+									"key": "transactionId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get detailed transaction information (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Transaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/transactions/:transactionId/cancel",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "transactions", ":transactionId", "cancel"],
+							"variable": [
+								{
+									"key": "transactionId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Cancel a pending transaction (Admin only)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin - WhatsApp Service",
+			"item": [
+				{
+					"name": "List All WhatsApp Sessions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/whatsapp/sessions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "whatsapp", "sessions"]
+						},
+						"description": "Get all WhatsApp sessions in the system (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Session Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/whatsapp/sessions/:id",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "whatsapp", "sessions", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get WhatsApp session information (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Session",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/whatsapp/sessions/:id",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "whatsapp", "sessions", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Delete a WhatsApp session (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get WhatsApp Dashboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/whatsapp/dashboard",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "whatsapp", "dashboard"]
+						},
+						"description": "Get WhatsApp service overview and statistics (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "List All Subscriptions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/whatsapp/subscriptions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "whatsapp", "subscriptions"]
+						},
+						"description": "Get all WhatsApp service subscriptions (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "List WhatsApp Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/whatsapp/transactions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "whatsapp", "transactions"]
+						},
+						"description": "Get all WhatsApp service transactions (Admin only)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin - Voucher",
+			"item": [
+				{
+					"name": "List All Vouchers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/voucher",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "voucher"]
+						},
+						"description": "Get all vouchers (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Voucher",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\": \"PROMO2025\",\n  \"name\": \"New Year Promo\",\n  \"type\": \"percentage\",\n  \"value\": 20,\n  \"maxUses\": 100,\n  \"minAmount\": 50000,\n  \"startDate\": \"2025-01-01T00:00:00Z\",\n  \"endDate\": \"2025-01-31T23:59:59Z\",\n  \"isActive\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/voucher",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "voucher"]
+						},
+						"description": "Create a new voucher (Admin only). Type can be 'percentage' or 'fixed_amount'."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Voucher Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/voucher/stats",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "voucher", "stats"]
+						},
+						"description": "Get voucher statistics (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Voucher Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/voucher/:id",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "voucher", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get voucher information (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Voucher",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Voucher Name\",\n  \"value\": 25,\n  \"isActive\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/voucher/:id",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "voucher", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Update voucher information (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Voucher",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/voucher/:id",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "voucher", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Delete a voucher (Admin only)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Voucher Usage History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/voucher/:id/usage",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "voucher", ":id", "usage"],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get voucher usage history (Admin only)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "Get WhatsApp Packages",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/public/whatsapp-packages",
+							"host": ["{{base_url}}"],
+							"path": ["api", "public", "whatsapp-packages"]
+						},
+						"description": "Get available WhatsApp service packages (public endpoint)."
+					},
+					"response": []
+				},
+				{
+					"name": "Check Voucher",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\": \"PROMO123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/public/check-voucher",
+							"host": ["{{base_url}}"],
+							"path": ["api", "public", "check-voucher"]
+						},
+						"description": "Validate voucher code (public endpoint)."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Contact Message",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"message\": \"I have a question about your service.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/public/contact",
+							"host": ["{{base_url}}"],
+							"path": ["api", "public", "contact"]
+						},
+						"description": "Submit contact form message (public endpoint)."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Appointment",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"phone\": \"+6281234567890\",\n  \"message\": \"I'd like to schedule a meeting.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/public/appointment",
+							"host": ["{{base_url}}"],
+							"path": ["api", "public", "appointment"]
+						},
+						"description": "Submit appointment request (public endpoint)."
+					},
+					"response": []
+				},
+				{
+					"name": "Check Payment Status (Public)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/public/payment/:paymentId/status",
+							"host": ["{{base_url}}"],
+							"path": ["api", "public", "payment", ":paymentId", "status"],
+							"variable": [
+								{
+									"key": "paymentId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get payment status without authentication (public endpoint)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment Receipt (Public)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/public/payment/:paymentId/receipt",
+							"host": ["{{base_url}}"],
+							"path": ["api", "public", "payment", ":paymentId", "receipt"],
+							"variable": [
+								{
+									"key": "paymentId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Download payment receipt without authentication (public endpoint)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/health",
+							"host": ["{{base_url}}"],
+							"path": ["api", "health"]
+						},
+						"description": "Check if API is running and healthy."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

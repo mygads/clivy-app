@@ -9,6 +9,60 @@ export async function OPTIONS() {
   return corsOptionsResponse();
 }
 
+/**
+ * @swagger
+ * /api/auth/signin:
+ *   post:
+ *     summary: User sign in
+ *     description: Authenticate user with email/phone and password
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - identifier
+ *               - password
+ *             properties:
+ *               identifier:
+ *                 type: string
+ *                 description: Email address or WhatsApp number
+ *                 example: "user@example.com"
+ *               password:
+ *                 type: string
+ *                 description: User password
+ *                 example: "password123"
+ *     responses:
+ *       200:
+ *         description: Sign in successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Sign in successful"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     user:
+ *                       $ref: '#/components/schemas/User'
+ *                     token:
+ *                       type: string
+ *                       description: JWT authentication token
+ *       400:
+ *         description: Bad request - missing or invalid credentials
+ *       401:
+ *         description: Unauthorized - invalid password
+ *       404:
+ *         description: User not found
+ */
 export async function POST(request: Request) {
     try {
         const { identifier, password, role } = await request.json();

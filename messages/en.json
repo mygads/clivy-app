@@ -10,14 +10,20 @@
   "Header": {
     "explore": "Explore",
     "services": "Services",
+    "about": "About Us",
+    "documentation": "WhatsApp Documentation",
+    "apiDocumentation": "API Documentation",
     "pricing": "Pricing",
     "portfolio": "Portfolio",
     "howToOrder": "How to Order",
-    "contact": "Contact Us",    "signUp": "Sign Up",
+    "contact": "Contact Us",
+    "signUp": "Sign Up",
     "signIn": "Sign In",
     "cart": "Cart",
     "aboutClivy": "About Clivy",
     "faq": "FAQ",
+    "whatIsWhatsappApi": "What is Clivy",
+    "whyClivy": "Why Clivy",
     "blog": "Blog (Coming Soon)",
     "career": "Career (Coming Soon)",
     "mainServices": "Main Services",
@@ -409,10 +415,29 @@
       "or": "or",
       "showPassword": "Show password",
       "hidePassword": "Hide password"
-    },
-    "dashboard": {
-      "whatsapp": {
-        "bulk": {
+    }
+  },
+  "dashboard": {
+    "whatsapp": {
+      "subscriptionGuard": {
+        "loading": "Loading subscription data...",
+        "error": "Error loading subscription data",
+        "refresh": "Refresh",
+        "noSubscription": {
+          "title": "No Active WhatsApp Subscription",
+          "description": "You need an active WhatsApp subscription to access this feature.",
+          "features": {
+            "title": "With WhatsApp subscription you can:",
+            "sendMessages": "Send messages via API",
+            "manageContacts": "Manage contact lists",
+            "bulkCampaigns": "Create bulk campaigns",
+            "apiAccess": "Full API access"
+          },
+          "buySubscription": "Buy Subscription",
+          "note": "Your subscription may be processing. Try refresh if you just purchased."
+        }
+      },
+      "bulk": {
           "title": "Campaign",
           "subtitle": "Send promotional messages to multiple contacts",
           "contactSources": {
@@ -556,9 +581,8 @@
           "subscribeNow": "Subscribe now"
         }
       }
-    }
-  },
-  "appointment": {
+    },
+    "appointment": {
     "meta": {
       "title": "Book Appointment - Clivy",
       "description": "Schedule a consultation with our experts to discuss your digital needs and get personalized solutions."
@@ -762,6 +786,67 @@
       "description": "Join us in creating a more sustainable digital future. Whether you're a client, partner, or fellow developer, we invite you to be part of our sustainability journey.",
       "cta": "Learn More About Our Green Solutions",
       "contact": "Contact us to discuss how we can make your next project more environmentally friendly."
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About Us - Clivy",
+      "description": "Learn about Clivy, the WhatsApp API platform developed by Information Systems students at Telkom University."
+    },
+    "hero": {
+      "badge": "About Us",
+      "title": "About Clivy",
+      "description": "WhatsApp API platform developed by Information Systems students at Telkom University to help businesses communicate with customers."
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "Clivy is a WhatsApp Business API platform born from a collaborative project of Information Systems students at Telkom University. We understand that effective communication between businesses and customers is the key to success in the digital era.",
+      "paragraph2": "By leveraging modern technologies such as Next.js, TypeScript, and WhatsApp Business API, we present a solution that is not only powerful, but also easy to use. Our platform is designed to help businesses of various scales, from SMEs to enterprises, in managing their WhatsApp communications professionally.",
+      "paragraph3": "This project is a manifestation of our dedication to applying knowledge gained in college into real solutions that benefit the wider community."
+    },
+    "values": {
+      "title": "Our Values",
+      "subtitle": "Principles that are the foundation of every step in developing Clivy",
+      "innovation": {
+        "title": "Innovation",
+        "description": "Delivering the latest technology solutions to facilitate business communication through WhatsApp API."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "Working together as a solid team to create the best products for users."
+      },
+      "creativity": {
+        "title": "Creativity",
+        "description": "Applying creative ideas in every aspect of application development."
+      },
+      "quality": {
+        "title": "Quality",
+        "description": "Committed to providing high-quality services and products to customers."
+      }
+    },
+    "team": {
+      "title": "Our Team",
+      "subtitle": "Dedicated Information Systems students at Telkom University to create innovative technology solutions",
+      "university": "Telkom University - Information Systems",
+      "nim": "NIM",
+      "members": {
+        "yoga": {
+          "role": "Project Leader",
+          "description": "Leading the project and coordinating the team to ensure successful delivery of the Clivy platform."
+        },
+        "fadli": {
+          "role": "Full Stack Developer",
+          "description": "Developing both backend and frontend systems with modern technologies like Next.js and Prisma."
+        },
+        "riyana": {
+          "role": "Frontend Developer",
+          "description": "Creating engaging and intuitive user interface components with modern web technologies."
+        },
+        "delita": {
+          "role": "Documentation & QA Engineer",
+          "description": "Documenting the project and ensuring application quality through comprehensive testing."
+        }
+      }
     }
   },
   "customerService": {

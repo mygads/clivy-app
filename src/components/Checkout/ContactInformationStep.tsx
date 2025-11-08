@@ -146,7 +146,7 @@ export function ContactInformationStep({
 
       <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-800">
         <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-0">
-          <Link href="/products">
+          <Link href="/#pricing">
             <button className="flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors w-full sm:w-auto">
               <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Kembali Belanja

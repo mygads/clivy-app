@@ -68,8 +68,7 @@ interface PaymentDetails {
       type: string
       name: string
       category: string
-      price_idr?: number
-      price_usd?: number
+      price?: number
       quantity?: number
       duration?: string
     }>
@@ -165,12 +164,6 @@ export default function PaymentDetailPage() {
   }
 
   const formatCurrency = (amount: number, currency: string = 'idr') => {
-    if (currency === 'usd') {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD"
-      }).format(amount)
-    }
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR"
@@ -247,11 +240,6 @@ export default function PaymentDetailPage() {
 
   const getItemIcon = (type: string) => {
     switch (type) {
-      case 'package':
-      case 'product':
-        return <Package className="w-4 h-4" />
-      case 'addon':
-        return <Zap className="w-4 h-4" />
       case 'whatsapp_service':
         return <MessageSquare className="w-4 h-4" />
       default:
@@ -260,11 +248,6 @@ export default function PaymentDetailPage() {
   }
   const getItemTypeColor = (type: string) => {
     switch (type) {
-      case 'package':
-      case 'product':
-        return 'bg-blue-100 text-blue-800 border-blue-200'
-      case 'addon':
-        return 'bg-orange-100 text-orange-800 border-orange-200'
       case 'whatsapp_service':
         return 'bg-green-100 text-green-800 border-green-200'
       default:
@@ -274,14 +257,6 @@ export default function PaymentDetailPage() {
 
   const getTransactionTypeDescription = (type: string) => {
     switch (type) {
-      case 'mixed_purchase':
-        return 'Products/Services + WhatsApp API'
-      case 'product_with_addons':
-        return 'Products with Add-ons'
-      case 'product_only':
-        return 'Products Only'
-      case 'addon_only':
-        return 'Add-ons Only'
       case 'whatsapp_service':
         return 'WhatsApp API Service'
       default:
@@ -573,20 +548,10 @@ export default function PaymentDetailPage() {
                           Qty: {item.quantity || 1}
                         </div>
                         <div className="text-sm text-gray-600 mb-1">
-                          Unit: {formatCurrency(
-                            payment.transaction?.currency === 'usd' 
-                              ? (item.price_usd || 0)
-                              : (item.price_idr || 0), 
-                            payment.transaction?.currency
-                          )}
+                          Unit: {formatCurrency(item.price || 0, 'idr')}
                         </div>
                         <p className="font-semibold">
-                          Total: {formatCurrency(
-                            (payment.transaction?.currency === 'usd' 
-                              ? (item.price_usd || 0)
-                              : (item.price_idr || 0)) * (item.quantity || 1), 
-                            payment.transaction?.currency
-                          )}
+                          Total: {formatCurrency((item.price || 0) * (item.quantity || 1), 'idr')}
                         </p>
                       </div>
                     </div>

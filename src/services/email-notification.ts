@@ -9,7 +9,7 @@ interface PaymentItem {
   name: string;
   quantity: number;
   price: number;
-  type: 'package' | 'addon' | 'whatsapp_service';
+  type: 'whatsapp_service';
   category?: string;
   duration?: string;
 }

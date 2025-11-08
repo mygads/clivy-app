@@ -12,26 +12,16 @@ async function main() {
   // Delete in proper order to respect foreign key constraints
   await prisma.whatsAppMessageStats.deleteMany();
   await prisma.servicesWhatsappCustomers.deleteMany();
-  await prisma.servicesProductCustomers.deleteMany();
-  await prisma.servicesAddonsCustomers.deleteMany();
   await prisma.voucherUsage.deleteMany();
   await prisma.payment.deleteMany();
   await prisma.transactionWhatsappService.deleteMany();
-  await prisma.transactionAddons.deleteMany();
-  await prisma.transactionProduct.deleteMany();
   await prisma.transaction.deleteMany();
   await prisma.whatsAppSession.deleteMany();
   await prisma.userSession.deleteMany();
   await prisma.user.deleteMany();
-  await prisma.feature.deleteMany();
   await prisma.paymentMethod.deleteMany();
   await prisma.bankDetail.deleteMany();
-  await prisma.server.deleteMany();
   await prisma.voucher.deleteMany();
-  await prisma.addon.deleteMany();
-  await prisma.package.deleteMany();
-  await prisma.subcategory.deleteMany();
-  await prisma.category.deleteMany();
   await prisma.whatsappApiPackage.deleteMany();
 
   // 1. Create Categories

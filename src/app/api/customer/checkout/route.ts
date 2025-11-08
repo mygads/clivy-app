@@ -89,7 +89,7 @@ function calculateServiceFeePreview(amount: number, paymentMethods: any[]): any[
     .filter(preview => preview.isValid); // Only return valid payment methods
 }
 
-// POST /api/customer/checkout - Unified checkout for all product types
+// POST /api/customer/checkout - Unified checkout (WhatsApp service only)
 export async function POST(request: NextRequest) {
   try {
     const userAuth = await authenticateCustomerRequest(request);

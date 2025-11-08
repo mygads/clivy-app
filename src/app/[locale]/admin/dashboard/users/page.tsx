@@ -57,8 +57,6 @@ import { SessionManager } from "@/lib/storage";
 interface UserStats {
   activeWhatsAppSessions: number;
   whatsappServices: number;
-  productTransactions: number;
-  addonTransactions: number;
   whatsappTransactions: number;
 }
 
@@ -654,7 +652,7 @@ export default function UsersPage() {
   };
   const exportUsers = () => {
     const csvContent = [
-      ["ID", "Name", "Email", "Phone", "Role", "Active", "Email Verified", "Phone Verified", "Created", "Product Transactions", "WhatsApp Transactions"],
+      ["ID", "Name", "Email", "Phone", "Role", "Active", "Email Verified", "Phone Verified", "Created", "WhatsApp Transactions"],
       ...sortedUsers.map(u => [
         u.id,
         u.name,
@@ -665,7 +663,6 @@ export default function UsersPage() {
         u.emailVerified ? "Yes" : "No",
         u.phoneVerified ? "Yes" : "No", 
         formatDate(u.createdAt),
-        u.stats.productTransactions?.toString() || "0",
         u.stats.whatsappTransactions?.toString() || "0",
       ])
     ].map(row => row.join(",")).join("\n");
@@ -968,8 +965,6 @@ export default function UsersPage() {
                       </td>
                       <td className="p-4">
                         <div className="text-sm space-y-1">
-                          <div>Packages: {user.stats.productTransactions || 0}</div>
-                          <div>Addons: {user.stats.addonTransactions || 0}</div>
                           <div>WhatsApp: {user.stats.whatsappTransactions || 0}</div>
                         </div>
                       </td>

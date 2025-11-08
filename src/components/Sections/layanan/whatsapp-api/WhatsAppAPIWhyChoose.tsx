@@ -176,7 +176,7 @@ const clientLogos = [
 
 export default function WhatsAppAPIWhyChoose() {
     return (
-        <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-dark">
+        <section id="why-clivy" className="py-12 sm:py-16 md:py-20 bg-white dark:bg-dark">
             <div className="container mx-auto px-4">
                 {/* Header */}
                 <motion.div

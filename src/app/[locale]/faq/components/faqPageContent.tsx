@@ -443,6 +443,8 @@ export default function FaqPageContent() {
                   <Button asChild variant="outline" size="default" className="w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base font-semibold border-gray-300 dark:border-gray-600 dark:text-gray-200">
                     <Link href="/products">
                       Lihat Paket WhatsApp API
+                    <Link href="/#pricing">
+                      Lihat Paket Layanan
                     </Link>
                   </Button>
                 </div>

@@ -83,8 +83,7 @@ export default function WhatsAppPackageSelector() {
       name_en: `${pkg.name} - ${duration === 'month' ? 'Monthly' : 'Yearly'}`,
       name_id: `${pkg.name} - ${duration === 'month' ? 'Bulanan' : 'Tahunan'}`,
       price: price,
-      price_idr: price,  // IDR only now
-      price_usd: 0,      // USD removed
+      price_idr: price,  // IDR only
       image: '/images/whatsapp-icon.png',
       qty: 1,
       duration: duration,

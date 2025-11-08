@@ -73,6 +73,18 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
     const paymentStatusRef = useRef<string | null>(null)
     const shouldStopPollingRef = useRef(false)
     const attemptsRef = useRef(0)
+
+    const formatPrice = (price: number) => {
+        if (isNaN(price) || price === null || price === undefined) {
+            return 'Rp 0'
+        }
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        }).format(price)
+    }
     
     // Helper function to check if payment method should show the continue payment button
     const shouldShowPaymentButton = (method: string): boolean => {
@@ -201,7 +213,7 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                     stopPolling()
                     
                     // Clear selected items from cart after successful payment
-                    clearSelectedItemsFromCart()
+                    clearSelectedItemsFromCart?.()
                     // console.log("[PaymentStatus] Payment successful - cleared selected items from cart")
                     
                     // Check notification status for debugging but don't block redirect
@@ -508,47 +520,21 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
     
     // Group items by category with prioritized order: Products -> Add-ons -> WhatsApp Services
     const groupItemsByCategory = () => {
-        const packages = items.filter((item: any) => item.type === 'package')
-        const addons = items.filter((item: any) => item.type === 'addon')
         const whatsappServices = items.filter((item: any) => item.type === 'whatsapp_service')
         
-        // Create separate categories for better organization
-        const productGroups = packages.map((packageItem: any) => ({
-            package: packageItem,
-            addons: addons.filter((addon: any) => addon.category === packageItem.category),
-            categoryType: 'product'
-        }))
         
         const whatsappGroups = whatsappServices.map((whatsappItem: any) => ({
             package: whatsappItem,
-            addons: [],
             categoryType: 'whatsapp'
         }))
         
-        // Handle standalone add-ons (add-ons without matching package category)
-        const usedAddonCategories = new Set(productGroups.flatMap((group: any) => group.addons.map((addon: any) => addon.category)))
-        const standaloneAddons = addons.filter((addon: any) => !usedAddonCategories.has(addon.category))
-        
-        // Group standalone add-ons by category
-        const standaloneGroups = standaloneAddons.reduce((acc: any, addon: any) => {
-        if (!acc[addon.category]) {
-            acc[addon.category] = []
-        }
-        acc[addon.category].push(addon)
-        return acc
-        }, {} as Record<string, any[]>)
         
         return {
-        // Ordered: Products first, then WhatsApp services
-        packageGroups: [...productGroups, ...whatsappGroups],
-        standaloneGroups: Object.entries(standaloneGroups).map(([category, addons]) => ({
-            category,
-            addons
-        }))
+        packageGroups: [...whatsappGroups],
         }
     }
     
-    const { packageGroups, standaloneGroups } = groupItemsByCategory()
+    const { packageGroups } = groupItemsByCategory()
     
     // Status configuration
     const getStatusConfig = () => {
@@ -705,7 +691,7 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                                     <div className="text-center">
                                         <p className="text-xs md:text-sm text-primary font-medium mb-0.5 sm:mb-1">Payment Amount</p>
                                         <p className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-primary break-words">
-                                            Rp {payment.amount.toLocaleString('id-ID')}
+                                            {formatPrice(payment.amount)}
                                         </p>
                                     </div>
                                 </div>
@@ -857,7 +843,7 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                                             <span className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm">Payment Amount:</span>
                                             <div className="flex items-center gap-2">
                                                 <span className="font-mono font-bold text-base sm:text-lg lg:text-xl text-primary break-all">
-                                                    Rp {payment.amount.toLocaleString('id-ID')}
+                                                    {formatPrice(payment.amount)}
                                                 </span>
                                                 <button
                                                     onClick={() => handleCopy(payment.amount.toString(), 'totalPayment')}
@@ -963,7 +949,7 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                                                 <span className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm">Payment Amount:</span>
                                                 <div className="flex items-center gap-2">
                                                     <span className="font-mono font-bold text-base sm:text-lg lg:text-xl text-primary break-all">
-                                                            Rp {payment.amount.toLocaleString('id-ID')}
+                                                            {formatPrice(payment.amount)}
                                                     </span>
                                                     <button
                                                         onClick={() => handleCopy(payment.amount.toString(), 'amount')}
@@ -1022,7 +1008,7 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                                         <span className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm">Payment Amount:</span>
                                         <div className="flex items-center gap-2">
                                             <span className="font-mono font-bold text-base sm:text-lg lg:text-xl text-primary break-all">
-                                                    Rp {payment.amount.toLocaleString('id-ID')}
+                                                    {formatPrice(payment.amount)}
                                             </span>
                                             <button
                                                 onClick={() => handleCopy(payment.amount.toString(), 'amount')}
@@ -1180,62 +1166,22 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                                                     Qty: {(group.package as any).quantity || 1}
                                                     </p>
                                                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                    Harga satuan: Rp {(group.package.price / ((group.package as any).quantity || 1)).toLocaleString('id-ID')}
+                                                    Harga satuan: {formatPrice(group.package.price / ((group.package as any).quantity || 1))}
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-sm font-medium">
-                                                    Rp {((group.package as any).totalPrice || group.package.price).toLocaleString('id-ID')}
+                                                    {formatPrice((group.package as any).totalPrice || group.package.price)}
                                                 </p>
                                                 {group.package.originalPriceIdr && group.package.originalPriceIdr !== group.package.price && (
                                                     <p className="text-xs text-gray-500 line-through">
-                                                    Rp {group.package.originalPriceIdr.toLocaleString('id-ID')}
+                                                    {formatPrice(group.package.originalPriceIdr)}
                                                     </p>
                                                 )}
                                             </div>
                                         </div>
                                     </div>
-
-                                    {(group as any).addons.length > 0 && (
-                                        <div className="ml-4 space-y-2">
-                                            {(group as any).addons.map((addon: any, addonIndex: number) => (
-                                                <div key={addonIndex} className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-300 dark:border-blue-600">
-                                                    <div className="flex justify-between items-start">
-                                                        <div className="flex-1">
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="text-blue-600 dark:text-blue-400 text-sm">+ Add-on:</span>
-                                                                <p className="font-medium text-gray-900 dark:text-white">
-                                                                    {addon.name}
-                                                                </p>
-                                                            </div>
-                                                            <p className="text-sm text-gray-600 dark:text-gray-400 capitalize">
-                                                            {addon.type.replace('_', ' ')} - {addon.category}
-                                                            </p>
-                                                            <div className="flex items-center gap-4 mt-1">
-                                                                <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                                    Qty: {(addon as any).quantity || 1}
-                                                                </p>
-                                                                <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                                    Harga satuan: Rp {(addon.price / ((addon as any).quantity || 1)).toLocaleString('id-ID')}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-right">
-                                                            <p className="text-sm font-medium">
-                                                            Rp {((addon as any).totalPrice || addon.price).toLocaleString('id-ID')}
-                                                            </p>
-                                                            {addon.originalPriceIdr && addon.originalPriceIdr !== addon.price && (
-                                                            <p className="text-xs text-gray-500 line-through">
-                                                                Rp {addon.originalPriceIdr.toLocaleString('id-ID')}
-                                                            </p>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
                                 </div>
                             ))}
 
@@ -1246,43 +1192,6 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                                             {group.category} Add-ons
                                         </p>
                                     </div>
-                                    <div className="space-y-2">
-                                    {(group as any).addons.map((addon: any, addonIndex: number) => (
-                                        <div key={addonIndex} className="p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-300 dark:border-yellow-600">
-                                            <div className="flex justify-between items-start">
-                                                <div className="flex-1">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-yellow-600 dark:text-yellow-400 text-sm">Add-on:</span>
-                                                        <p className="font-medium text-gray-900 dark:text-white">
-                                                        {addon.name}
-                                                        </p>
-                                                    </div>
-                                                    <p className="text-sm text-gray-600 dark:text-gray-400 capitalize">
-                                                        {addon.type.replace('_', ' ')} - {addon.category}
-                                                    </p>
-                                                    <div className="flex items-center gap-4 mt-1">
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                        Qty: {(addon as any).quantity || 1}
-                                                        </p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                        Harga satuan: Rp {(addon.price / ((addon as any).quantity || 1)).toLocaleString('id-ID')}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="text-right">
-                                                    <p className="text-sm font-medium">
-                                                        Rp {((addon as any).totalPrice || addon.price).toLocaleString('id-ID')}
-                                                    </p>
-                                                    {addon.originalPriceIdr && addon.originalPriceIdr !== addon.price && (
-                                                        <p className="text-xs text-gray-500 line-through">
-                                                        Rp {addon.originalPriceIdr.toLocaleString('id-ID')}
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -1290,19 +1199,19 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                         <div className="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-2">
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
-                                <span>Rp {pricing.subtotal.toLocaleString('id-ID')}</span>
+                                <span>{formatPrice(pricing.subtotal)}</span>
                             </div>
                             
                             {voucher && pricing.discountAmount > 0 && (
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-600 dark:text-gray-400">Diskon ({voucher.code}):</span>
-                                <span className="text-green-600">-Rp {pricing.discountAmount.toLocaleString('id-ID')}</span>
+                                <span className="text-green-600">-{formatPrice(pricing.discountAmount)}</span>
                             </div>
                             )}
 
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-600 dark:text-gray-400">Total setelah diskon:</span>
-                                <span>Rp {pricing.totalAfterDiscount.toLocaleString('id-ID')}</span>
+                                <span>{formatPrice(pricing.totalAfterDiscount)}</span>
                             </div>
                             
                             {pricing.serviceFee && pricing.serviceFee.amount > 0 && (
@@ -1314,14 +1223,14 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                                     )}
                                     :
                                 </span>
-                                <span>Rp {pricing.serviceFee.amount.toLocaleString('id-ID')}</span>
+                                <span>{formatPrice(pricing.serviceFee.amount)}</span>
                             </div>
                             )}
 
                             {payment.uniqueCode && payment.uniqueCode > 0 && (
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-600 dark:text-gray-400">Kode Unik:</span>
-                                <span>Rp {payment.uniqueCode.toLocaleString('id-ID')}</span>
+                                <span>{formatPrice(payment.uniqueCode)}</span>
                             </div>
                             )}
                             
@@ -1329,7 +1238,7 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                             
                             <div className="flex justify-between font-bold text-lg">
                                 <span>Total Bayar:</span>
-                                <span className="text-primary">Rp {payment.amount.toLocaleString('id-ID')}</span>
+                                <span className="text-primary">{formatPrice(payment.amount)}</span>
                             </div>
                         </div>
                     </motion.div>
@@ -1369,7 +1278,7 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                         <Building className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4 text-gray-400 flex-shrink-0" />
                         <div className="flex-1 min-w-0">
                         <p className="text-xs text-gray-500 dark:text-gray-400">Total Amount</p>
-                        <p className="text-xs md:text-sm font-medium break-all">Rp {payment.amount.toLocaleString('id-ID')}</p>
+                        <p className="text-xs md:text-sm font-medium break-all">{formatPrice(payment.amount)}</p>
                         </div>
                     </div>
                     
@@ -1412,103 +1321,6 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
 
                     {/* Categorized Items Display */}
                     <div className="space-y-6">
-                    {/* Products Section */}
-                    {packageGroups.filter((group: any) => group.categoryType === 'product').length > 0 && (
-                        <div className="space-y-3">
-                        <div className="flex items-center gap-2 mb-3">
-                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                            <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Products</h4>
-                        </div>
-                        {packageGroups
-                            .filter((group: any) => group.categoryType === 'product')
-                            .map((group, groupIndex) => (
-                            <div key={`product-${groupIndex}`} className="space-y-2 ml-4">
-                                {/* Package Item */}
-                                <div className="flex justify-between items-start">
-                                <div className="flex-1">
-                                    <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                    {group.package.name}
-                                    </p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-                                    {group.package.type.replace('_', ' ')} - {group.package.category}
-                                    </p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                                    Qty: {(group.package as any).quantity || 1} × Rp {(group.package.price / ((group.package as any).quantity || 1)).toLocaleString('id-ID')}
-                                    </p>
-                                </div>
-                                <div className="text-right">
-                                    <p className="text-sm">Rp {((group.package as any).totalPrice || group.package.price).toLocaleString('id-ID')}</p>
-                                </div>
-                                </div>
-
-                                {/* Related Add-ons */}
-                                {(group as any).addons.length > 0 && (
-                                <div className="ml-4 space-y-2">
-                                    {(group as any).addons.map((addon: any, addonIndex: number) => (
-                                    <div key={addonIndex} className="flex justify-between items-start pl-2 border-l-2 border-blue-300 dark:border-blue-600">
-                                        <div className="flex-1">
-                                        <div className="flex items-center gap-1">
-                                            <span className="text-blue-600 dark:text-blue-400 text-xs">+</span>
-                                            <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                            {addon.name}
-                                            </p>
-                                        </div>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-                                            {addon.type.replace('_', ' ')} - {addon.category}
-                                        </p>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                                            Qty: {(addon as any).quantity || 1} × Rp {(addon.price / ((addon as any).quantity || 1)).toLocaleString('id-ID')}
-                                        </p>
-                                        </div>
-                                        <div className="text-right">
-                                        <p className="text-sm">Rp {((addon as any).totalPrice || addon.price).toLocaleString('id-ID')}</p>
-                                        </div>
-                                    </div>
-                                    ))}
-                                </div>
-                                )}
-                            </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Standalone Add-ons Section */}
-                    {standaloneGroups.length > 0 && (
-                        <div className="space-y-3">
-                        <div className="flex items-center gap-2 mb-3">
-                            <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                            <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Add-on Services</h4>
-                        </div>
-                        {standaloneGroups.map((group, groupIndex) => (
-                            <div key={`addon-${groupIndex}`} className="ml-4 space-y-2">
-                            <div className="space-y-2">
-                                {(group as any).addons.map((addon: any, addonIndex: number) => (
-                                <div key={addonIndex} className="flex justify-between items-start pl-2 border-l-2 border-yellow-300 dark:border-yellow-600">
-                                    <div className="flex-1">
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-yellow-600 dark:text-yellow-400 text-xs">•</span>
-                                        <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                        {addon.name}
-                                        </p>
-                                    </div>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-                                        {addon.type.replace('_', ' ')} - {addon.category}
-                                    </p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                                        Qty: {(addon as any).quantity || 1} × Rp {(addon.price / ((addon as any).quantity || 1)).toLocaleString('id-ID')}
-                                    </p>
-                                    </div>
-                                    <div className="text-right">
-                                    <p className="text-sm">Rp {((addon as any).totalPrice || addon.price).toLocaleString('id-ID')}</p>
-                                    </div>
-                                </div>
-                                ))}
-                            </div>
-                            </div>
-                        ))}
-                        </div>
-                    )}
-
                     {/* WhatsApp Services Section */}
                     {packageGroups.filter((group: any) => group.categoryType === 'whatsapp').length > 0 && (
                         <div className="space-y-3">
@@ -1534,11 +1346,11 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                                     </p>
                                     )}
                                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                                    Qty: {(group.package as any).quantity || 1} × Rp {(group.package.price / ((group.package as any).quantity || 1)).toLocaleString('id-ID')}
+                                    Qty: {(group.package as any).quantity || 1} × {formatPrice(group.package.price / ((group.package as any).quantity || 1))}
                                     </p>
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-sm">Rp {((group.package as any).totalPrice || group.package.price).toLocaleString('id-ID')}</p>
+                                    <p className="text-sm">{ formatPrice((group.package as any).totalPrice || group.package.price)}</p>
                                 </div>
                                 </div>
                             </div>
@@ -1550,7 +1362,7 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                     <div className="pt-3 mt-3 border-t border-gray-200 dark:border-gray-700">
                     <div className="flex justify-between items-center">
                         <span className="text-sm text-gray-600 dark:text-gray-400">Subtotal</span>
-                        <span className="font-semibold">Rp {pricing.subtotal.toLocaleString('id-ID')}</span>
+                        <span className="font-semibold">{formatPrice(pricing.subtotal)}</span>
                     </div>
                     {voucher && pricing.discountAmount > 0 && (
                         <div className="flex justify-between items-center mt-1">
@@ -1558,7 +1370,7 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                             Discount ({voucher.code})
                             {voucher.type === 'percentage' && ` - ${voucher.value}%`}
                         </span>
-                        <span className="text-xs text-green-600">-Rp {pricing.discountAmount.toLocaleString('id-ID')}</span>
+                        <span className="text-xs text-green-600">-{formatPrice(pricing.discountAmount)}</span>
                         </div>
                     )}
                     {pricing.serviceFee && pricing.serviceFee.amount > 0 && (
@@ -1567,19 +1379,19 @@ export default function PaymentStatusPage({ paymentId }: PaymentStatusPageProps)
                             Service Fee
                             {pricing.serviceFee.type === 'percentage' && ` (${pricing.serviceFee.value}%)`}
                         </span>
-                        <span className="text-xs">Rp {pricing.serviceFee.amount.toLocaleString('id-ID')}</span>
+                        <span className="text-xs">{formatPrice(pricing.serviceFee.amount)}</span>
                         </div>
                     )}
                     {payment.uniqueCode && payment.uniqueCode > 0 && (
                         <div className="flex justify-between items-center mt-1">
                         <span className="text-xs text-gray-500 dark:text-gray-400">Unique Code</span>
-                        <span className="text-xs">Rp {payment.uniqueCode.toLocaleString('id-ID')}</span>
+                        <span className="text-xs">{formatPrice(payment.uniqueCode)}</span>
                         </div>
                     )}
                     <hr className="my-2" />
                     <div className="flex justify-between items-center">
                         <span className="text-sm font-semibold">Total Payment</span>
-                        <span className="font-bold">Rp {payment.amount.toLocaleString('id-ID')}</span>
+                        <span className="font-bold">{formatPrice(payment.amount)}</span>
                     </div>
                     </div>
                 </motion.div>

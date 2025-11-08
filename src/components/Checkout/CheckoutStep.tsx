@@ -16,7 +16,6 @@ interface CheckoutStepProps {
   }
   selectedItems: any[]
   whatsappItems: any[]
-  // Removed: regularItems and addOns (WhatsApp only)
   voucherApplied: boolean
   selectedItemsTotal: number
   voucherDiscount: number
@@ -31,7 +30,6 @@ export function CheckoutStep({
   formData,
   selectedItems,
   whatsappItems,
-  // Removed: regularItems and addOns
   voucherApplied,
   selectedItemsTotal,
   voucherDiscount,
