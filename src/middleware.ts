@@ -217,6 +217,7 @@ export async function middleware(req: NextRequest) {
             '/api/health',
             '/api/cron/',
             '/api/og',        // Open Graph image generation
+            '/api/docs',      // API documentation (Swagger)
         ];
 
         if (publicRoutes.some(route => pathname.startsWith(route))) {
