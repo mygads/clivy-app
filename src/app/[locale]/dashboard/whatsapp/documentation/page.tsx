@@ -62,7 +62,7 @@ const apiEndpoints: APIEndpoint[] = [
     category: 'Session',
     icon: <Wifi className="w-4 h-4" />,
     requestBody: {
-      Subscribe: ["Message", "ChatPresence"],
+      Subscribe: ["Message", "ReadReceipt"],
       Immediate: true
     },
     responseExample: {
@@ -123,24 +123,6 @@ const apiEndpoints: APIEndpoint[] = [
     }
   },
   {
-    method: 'POST',
-    path: '/session/pairphone',
-    title: 'Pair by Phone',
-    description: 'Gets pairing code for phone number instead of QR code.',
-    category: 'Session',
-    icon: <Phone className="w-4 h-4" />,
-    requestBody: {
-      Phone: "5491155553934"
-    },
-    responseExample: {
-      code: 200,
-      data: {
-        LinkingCode: "9H3J-H3J8"
-      },
-      success: true
-    }
-  },
-  {
     method: 'GET',
     path: '/session/qr',
     title: 'Get QR Code',
@@ -151,6 +133,24 @@ const apiEndpoints: APIEndpoint[] = [
       code: 200,
       data: {
         QRCode: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX..."
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/session/pairphone',
+    title: 'Pair by Phone',
+    description: 'Gets pairing code for phone number instead of QR code.',
+    category: 'Session',
+    icon: <Phone className="w-4 h-4" />,
+    requestBody: {
+      Phone: "5591155553934"
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        LinkingCode: "9H3J-H3J8"
       },
       success: true
     }
@@ -186,7 +186,7 @@ const apiEndpoints: APIEndpoint[] = [
       access_key: "AKIAIOSFODNN7EXAMPLE",
       secret_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
       path_style: false,
-      public_url: "https://cdn.example.com",
+      public_url: "",
       media_delivery: "both",
       retention_days: 30
     },
@@ -199,121 +199,217 @@ const apiEndpoints: APIEndpoint[] = [
       success: true
     }
   },
-  
-  // User endpoints
   {
-    method: 'POST',
-    path: '/user/info',
-    title: 'Get User Information',
-    description: 'Gets extra information about users on WhatsApp.',
-    category: 'User',
-    icon: <User className="w-4 h-4" />,
-    requestBody: {
-      Phone: ["5491155553934", "5491155553935"]
-    },
+    method: 'GET',
+    path: '/session/s3/config',
+    title: 'Get S3 Configuration',
+    description: 'Get current S3 configuration',
+    category: 'Session',
+    icon: <Database className="w-4 h-4" />,
     responseExample: {
       code: 200,
       data: {
-        Users: {
-          "5491155553935@s.whatsapp.net": {
-            Devices: [],
-            PictureID: "",
-            Status: "",
-            VerifiedName: null
-          },
-          "5491155553934@s.whatsapp.net": {
-            Devices: ["5491155553934.0:0@s.whatsapp.net"],
-            PictureID: "1582328807",
-            Status: "🇦🇷",
-            VerifiedName: null
-          }
-        }
+        enabled: true,
+        endpoint: "https://s3.amazonaws.com",
+        region: "us-east-1",
+        bucket: "my-whatsapp-media",
+        access_key: "AKIAIOSFODNN7EXAMPLE",
+        secret_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+        path_style: false,
+        public_url: "",
+        media_delivery: "both",
+        retention_days: 30
       },
       success: true
     }
   },
   {
     method: 'POST',
-    path: '/user/check',
-    title: 'Check WhatsApp User',
-    description: 'Checks if users have an account with WhatsApp.',
-    category: 'User',
-    icon: <User className="w-4 h-4" />,
-    requestBody: {
-      Phone: ["5491155553934", "5491155553935"]
-    },
+    path: '/session/s3/test',
+    title: 'Test S3 Connection',
+    description: 'Test S3 connection',
+    category: 'Session',
+    icon: <Database className="w-4 h-4" />,
     responseExample: {
       code: 200,
       data: {
-        Users: [
-          {
-            IsInWhatsapp: true,
-            JID: "5491155553934@s.whatsapp.net",
-            Query: "5491155553934",
-            VerifiedName: "Company Name"
-          }
-        ]
+        Details: "S3 connection test successful"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'DELETE',
+    path: '/session/s3/config',
+    title: 'Delete S3 Configuration',
+    description: 'Remove S3 configuration',
+    category: 'Session',
+    icon: <Database className="w-4 h-4" />,
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "S3 configuration deleted successfully"
       },
       success: true
     }
   },
   {
     method: 'POST',
-    path: '/user/presence',
-    title: 'Set User Presence',
-    description: 'Sends user presence Available or Unavailable.',
-    category: 'User',
-    icon: <User className="w-4 h-4" />,
+    path: '/session/hmac/config',
+    title: 'Configure HMAC Key',
+    description: 'Configure HMAC key for webhook signing',
+    category: 'Session',
+    icon: <Key className="w-4 h-4" />,
     requestBody: {
-      type: "available"
+      hmac_key: "your_hmac_key_minimum_32_characters_long_here"
     },
     responseExample: {
       code: 200,
       data: {
-        Details: "Presence set successfuly"
+        Details: "HMAC key configured successfully"
       },
       success: true
-    }
-  },
-  {
-    method: 'POST',
-    path: '/user/avatar',
-    title: 'Get Profile Picture',
-    description: 'Gets profile picture information, either thumbnail or full picture.',
-    category: 'User',
-    icon: <ImageIcon className="w-4 h-4" />,
-    requestBody: {
-      Phone: "5491155553934",
-      Preview: true
-    },
-    responseExample: {
-      URL: "https://pps.whatsapp.net/v/t61.24694-24/227295214_112447507729487_4643695328050510566_n.jpg",
-      ID: "1645308319",
-      Type: "preview",
-      DirectPath: "/v/t61.24694-24/227295214_112447507729487_4643695328050510566_n.jpg"
     }
   },
   {
     method: 'GET',
-    path: '/user/contacts',
-    title: 'Get All Contacts',
-    description: 'Gets complete list of contacts for the connected account.',
-    category: 'User',
-    icon: <Users className="w-4 h-4" />,
+    path: '/session/hmac/config',
+    title: 'Get HMAC Configuration',
+    description: 'Get HMAC configuration status',
+    category: 'Session',
+    icon: <Key className="w-4 h-4" />,
     responseExample: {
       code: 200,
       data: {
-        "5491122223333@s.whatsapp.net": {
-          BusinessName: "",
-          FirstName: "",
-          Found: true,
-          FullName: "",
-          PushName: "Contact Name"
-        }
-      }
+        hmac_configured: true
+      },
+      success: true
     }
   },
-
+  {
+    method: 'DELETE',
+    path: '/session/hmac/config',
+    title: 'Delete HMAC Configuration',
+    description: 'Delete HMAC configuration',
+    category: 'Session',
+    icon: <Key className="w-4 h-4" />,
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "HMAC configuration deleted successfully"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/session/history',
+    title: 'Set History Configuration',
+    description: 'Configure message history storage. Set history to 0 to disable, or any positive number to enable with that limit. Example: 500 will store last 500 messages per chat.',
+    category: 'Session',
+    icon: <Database className="w-4 h-4" />,
+    requestBody: {
+      history: 500
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "History configuration updated"
+      },
+      success: true
+    }
+  },
+  // Webhook endpoints
+  {
+    method: 'GET',
+    path: '/webhook',
+    title: 'Get Webhook',
+    description: 'Get webhook',
+    category: 'Webhook',
+    icon: <Server className="w-4 h-4" />,
+    responseExample: {
+      code: 200,
+      data: {
+        WebhookURL: "https://example.net/webhook",
+        Events: ["Message", "ReadReceipt"]
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/webhook',
+    title: 'Set Webhook',
+    description: 'Set webhook',
+    category: 'Webhook',
+    icon: <Server className="w-4 h-4" />,
+    requestBody: {
+      WebhookURL: "https://example.net/webhook",
+      Events: ["Message", "ReadReceipt"]
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        WebhookURL: "https://example.net/webhook",
+        Events: ["Message", "ReadReceipt"]
+      },
+      success: true
+    }
+  },
+  {
+    method: 'DELETE',
+    path: '/webhook',
+    title: 'Delete Webhook',
+    description: 'Delete webhook',
+    category: 'Webhook',
+    icon: <Server className="w-4 h-4" />,
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Webhook deleted successfully"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'PUT',
+    path: '/webhook/update',
+    title: 'Update Webhook',
+    description: 'Update webhook',
+    category: 'Webhook',
+    icon: <Server className="w-4 h-4" />,
+    requestBody: {
+      WebhookURL: "https://example.net/webhook",
+      Events: ["Message", "ReadReceipt"],
+      active: true
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        WebhookURL: "https://example.net/webhook",
+        Events: ["Message", "ReadReceipt"],
+        active: true
+      },
+      success: true
+    }
+  },
+  {
+    method: 'GET',
+    path: '/webhook/events',
+    title: 'Get Webhook Events',
+    description: 'Get list of available webhook events',
+    category: 'Webhook',
+    icon: <Database className="w-4 h-4" />,
+    responseExample: {
+      code: 200,
+      data: {
+        active_events: ["Message", "Receipt"],
+        all_supported_events: ["Message", "Receipt", "Presence", "ChatPresence"],
+        not_implemented_events: []
+      },
+      success: true
+    }
+  },
   // Chat endpoints
   {
     method: 'POST',
@@ -324,10 +420,54 @@ const apiEndpoints: APIEndpoint[] = [
     icon: <MessageSquare className="w-4 h-4" />,
     requestBody: {
       Phone: "5491155553935",
-      Body: "How you doin",
-      Id: "ABCDABCD1234",
+      Body: "Hello, how are you?"
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Sent",
+        Id: "90B2F8B13FAC8A9CF6B06E99C7834DC5",
+        Timestamp: "2022-04-20T12:49:08-03:00"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/chat/send/text',
+    title: 'Send Text Message with link preview',
+    description: 'Send text',
+    category: 'Chat',
+    icon: <MessageSquare className="w-4 h-4" />,
+    requestBody: {
+      Phone: "5491155553935",
+      Body: "Check my site? https://example.com",
+      LinkPreview: true
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Sent",
+        Id: "90B2F8B13FAC8A9CF6B06E99C7834DC5",
+        Timestamp: "2022-04-20T12:49:08-03:00"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/chat/send/text',
+    title: 'Send Text Message Reply',
+    description: 'Send text message as a reply with quoted text preview',
+    category: 'Chat',
+    icon: <MessageSquare className="w-4 h-4" />,
+    requestBody: {
+      Phone: "5491155553935",
+      Body: "This is my reply",
+      Id: "ABCDABCD1234-reply",
+      QuotedText: "Original message text",
       ContextInfo: {
-        StanzaId: "3EB06F9067F80BAB89FF",
+        StanzaId: "ABCDABCD1234",
         Participant: "5491155553935@s.whatsapp.net"
       }
     },
@@ -343,16 +483,58 @@ const apiEndpoints: APIEndpoint[] = [
   },
   {
     method: 'POST',
+    path: '/chat/send/edit',
+    title: 'Edit Message',
+    description: 'Edit an existing message',
+    category: 'Chat',
+    icon: <MessageSquare className="w-4 h-4" />,
+    requestBody: {
+      Phone: "5491155553934",
+      Id: "AABBCC11223344",
+      Body: "New edited message body"
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Sent",
+        Id: "AABBCC11223344",
+        Timestamp: "2022-04-20T12:49:08-03:00"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
     path: '/chat/send/image',
-    title: 'Send Image Message',
+    title: 'Send Image',
     description: 'Sends an image message (base64 encoded in PNG or JPEG format).',
     category: 'Chat',
     icon: <ImageIcon className="w-4 h-4" />,
     requestBody: {
       Phone: "5491155553935",
-      Image: "data:image/jpeg;base64,iVBORw0",
-      Caption: "Image Description",
-      Id: "ABCDABCD1234"
+      Image: "data:image/jpeg;base64,/9j/",
+      Caption: "Image"
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Sent",
+        Id: "90B2F8B13FAC8A9CF6B06E99C7834DC5",
+        Timestamp: "2022-04-20T12:49:08-03:00"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/chat/send/audio',
+    title: 'Send Audio',
+    description: 'Send audio',
+    category: 'Chat',
+    icon: <FileText className="w-4 h-4" />,
+    requestBody: {
+      Phone: "5491155553935",
+      Audio: "data:audio/ogg;base64,/9j/"
     },
     responseExample: {
       code: 200,
@@ -373,9 +555,8 @@ const apiEndpoints: APIEndpoint[] = [
     icon: <FileText className="w-4 h-4" />,
     requestBody: {
       Phone: "5491155553935",
-      Document: "data:application/octet-stream;base64,aG9sYSBxdWUKdGFsCmNvbW8KZXN0YXMK",
-      FileName: "file.txt",
-      Id: "ABCDABCD1234"
+      Document: "data:application/octet-stream;base64,/9j/",
+      FileName: "doc.pdf"
     },
     responseExample: {
       code: 200,
@@ -390,16 +571,35 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'POST',
     path: '/chat/send/video',
-    title: 'Send Video Message',
+    title: 'Send Video',
     description: 'Sends a video message (base64 encoded in MP4 or 3GPP format).',
     category: 'Chat',
     icon: <Video className="w-4 h-4" />,
     requestBody: {
       Phone: "5491155553935",
-      Video: "data:video/mp4;base64,iVBORw0",
-      Caption: "my video",
-      Id: "ABCDABCD1234",
-      JpegThumbnail: "AA00D010"
+      Video: "data:video/mp4;base64,/9j/",
+      Caption: "Video"
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Sent",
+        Id: "90B2F8B13FAC8A9CF6B06E99C7834DC5",
+        Timestamp: "2022-04-20T12:49:08-03:00"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/chat/send/sticker',
+    title: 'Send Sticker',
+    description: 'Send sticker',
+    category: 'Chat',
+    icon: <ImageIcon className="w-4 h-4" />,
+    requestBody: {
+      Phone: "5491155553935",
+      Sticker: "data:image/webp;base64,/9j/"
     },
     responseExample: {
       code: 200,
@@ -420,10 +620,57 @@ const apiEndpoints: APIEndpoint[] = [
     icon: <MapPin className="w-4 h-4" />,
     requestBody: {
       Phone: "5491155553935",
-      Name: "Party",
-      Id: "ABCDABCD1234",
-      Latitude: 48.85837,
-      Longitude: 2.294481
+      Name: "Location",
+      Latitude: 48.858,
+      Longitude: 2.294
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Sent",
+        Id: "90B2F8B13FAC8A9CF6B06E99C7834DC5",
+        Timestamp: "2022-04-20T12:49:08-03:00"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/chat/send/contact',
+    title: 'Send Contact',
+    description: 'Send contact',
+    category: 'Chat',
+    icon: <User className="w-4 h-4" />,
+    requestBody: {
+      Phone: "5491155553935",
+      Name: "John",
+      Vcard: "BEGIN:VCARD\nVERSION:3.0\nFN:John Doe\nTEL:+16175551212\nEND:VCARD"
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Sent",
+        Id: "90B2F8B13FAC8A9CF6B06E99C7834DC5",
+        Timestamp: "2022-04-20T12:49:08-03:00"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/chat/send/template',
+    title: 'Send Template',
+    description: 'Send template',
+    category: 'Chat',
+    icon: <MessageSquare className="w-4 h-4" />,
+    requestBody: {
+      Phone: "5491155553935",
+      Content: "Title",
+      Footer: "Footer",
+      Buttons: [{
+        DisplayText: "Yes",
+        Type: "quickreply"
+      }]
     },
     responseExample: {
       code: 200,
@@ -443,9 +690,8 @@ const apiEndpoints: APIEndpoint[] = [
     category: 'Chat',
     icon: <CheckCircle className="w-4 h-4" />,
     requestBody: {
-      Id: ["AABBCC11223344", "DDEEFF55667788"],
-      Chat: "5491155553934.0:1@s.whatsapp.net",
-      Sender: "5491155553111.0:1@s.whatsapp.net"
+      Id: ["AABBCC11223344"],
+      ChatPhone: "5491155553934"
     },
     responseExample: {
       code: 200,
@@ -457,72 +703,257 @@ const apiEndpoints: APIEndpoint[] = [
   },
   {
     method: 'POST',
-    path: '/chat/downloadimage',
-    title: 'Download Image',
-    description: 'Downloads an image from a message and returns it base64 encoded.',
+    path: '/chat/react',
+    title: 'React to Message',
+    description: 'React to message',
     category: 'Chat',
-    icon: <Download className="w-4 h-4" />,
+    icon: <MessageSquare className="w-4 h-4" />,
     requestBody: {
-      Url: "string",
-      DirectPath: "string",
-      MediaKey: "string",
-      Mimetype: "string",
-      FileEncSHA256: "string",
-      FileSHA256: "string",
-      FileLength: 0
+      Phone: "5491155553935",
+      Body: "❤️",
+      Id: "me:3EB06F9067F80BAB89FF"
     },
     responseExample: {
       code: 200,
       data: {
-        Data: "data:image/jpeg;base64,iVBORw0KGgoA5CYII...=",
-        Mimetype: "image/jpeg"
+        Details: "Sent",
+        Id: "90B2F8B13FAC8A9CF6B06E99C7834DC5",
+        Timestamp: "2022-04-20T12:49:08-03:00"
       },
       success: true
     }
   },
-
-  // Group endpoints
   {
     method: 'POST',
-    path: '/group/create',
-    title: 'Create a new WhatsApp group',
-    description: 'Creates a new WhatsApp group with the specified name and participants.',
-    category: 'Group',
-    icon: <Users className="w-4 h-4" />,
+    path: '/chat/presence',
+    title: 'Chat Presence',
+    description: 'Set presence',
+    category: 'Chat',
+    icon: <MessageSquare className="w-4 h-4" />,
     requestBody: {
-      Name: "My New Group",
-      Participants: [
-        "5491112345678",
-        "5491123456789"
-      ]
+      Phone: "5491155553935",
+      State: "composing"
     },
     responseExample: {
       code: 200,
       data: {
-        AnnounceVersionID: "1234567890",
-        DisappearingTimer: 0,
-        GroupCreated: "2023-12-01T10:00:00Z",
-        IsAnnounce: false,
-        IsEphemeral: false,
-        IsLocked: false,
-        JID: "120363123456789@g.us",
-        Name: "My New Group",
-        NameSetAt: "2023-12-01T10:00:00Z",
-        NameSetBy: "5491155554444@s.whatsapp.net",
-        OwnerJID: "5491155554444@s.whatsapp.net",
-        ParticipantVersionID: "1234567890",
-        Participants: [
-          {
-            IsAdmin: true,
-            IsSuperAdmin: true,
-            JID: "5491155554444@s.whatsapp.net"
-          },
-          {
-            IsAdmin: false,
-            IsSuperAdmin: false,
-            JID: "5491155553333@s.whatsapp.net"
+        Details: "Presence set successfully"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/chat/delete',
+    title: 'Delete Message',
+    description: 'Delete a message from a chat.',
+    category: 'Chat',
+    icon: <MessageSquare className="w-4 h-4" />,
+    requestBody: {
+      Phone: "5491155553934",
+      Id: "AABBCC11223344"
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Message deleted successfully"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'GET',
+    path: '/chat/history',
+    title: 'Get Message History',
+    description: 'Retrieve message history for a specific chat. Requires history to be enabled via POST /session/history. Use chat_jid=index to get mapping of all user instances and their chats.',
+    category: 'Chat',
+    icon: <MessageSquare className="w-4 h-4" />,
+    responseExample: {
+      code: 200,
+      data: {
+        History: []
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/chat/send/poll',
+    title: 'Send Poll',
+    description: 'Send a poll to a group. Minimum 2 options required. Maximum 1 selection allowed.',
+    category: 'Chat',
+    icon: <MessageSquare className="w-4 h-4" />,
+    requestBody: {
+      group: "120363313346913103@g.us",
+      header: "What is your favorite color?",
+      options: ["Red", "Blue", "Green", "Yellow"],
+      Id: ""
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Sent",
+        Id: "90B2F8B13FAC8A9CF6B06E99C7834DC5",
+        Timestamp: "2022-04-20T12:49:08-03:00"
+      },
+      success: true
+    }
+  },
+  // User endpoints
+  {
+    method: 'POST',
+    path: '/user/check',
+    title: 'Check Users',
+    description: 'Check users',
+    category: 'User',
+    icon: <User className="w-4 h-4" />,
+    requestBody: {
+      Phone: ["5491155553934", "5491155553935"]
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Users: [{
+          IsInWhatsapp: true,
+          JID: "5491155553934@s.whatsapp.net",
+          Query: "5491155553934",
+          VerifiedName: "Company Name"
+        }]
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/user/info',
+    title: 'Get User Info',
+    description: 'Get user information',
+    category: 'User',
+    icon: <User className="w-4 h-4" />,
+    requestBody: {
+      Phone: ["5491155553934", "5491155553935"]
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Users: {
+          "5491155553935@s.whatsapp.net": {
+            Devices: [],
+            PictureID: "",
+            Status: "",
+            VerifiedName: null
           }
-        ]
+        }
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/user/presence',
+    title: 'User Presence',
+    description: 'Global presence',
+    category: 'User',
+    icon: <User className="w-4 h-4" />,
+    requestBody: {
+      type: "available"
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Presence set successfully"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'POST',
+    path: '/user/avatar',
+    title: 'Get User Avatar',
+    description: 'Get avatar',
+    category: 'User',
+    icon: <ImageIcon className="w-4 h-4" />,
+    requestBody: {
+      Phone: "5491155553934",
+      Preview: true
+    },
+    responseExample: {
+      URL: "https://pps.whatsapp.net/v/t61.24694-24/227295214_112447507729487_4643695328050510566_n.jpg",
+      ID: "1645308319",
+      Type: "preview",
+      DirectPath: "/v/t61.24694-24/227295214_112447507729487_4643695328050510566_n.jpg"
+    }
+  },
+  {
+    method: 'GET',
+    path: '/user/contacts',
+    title: 'Get User Contacts',
+    description: 'List contacts',
+    category: 'User',
+    icon: <Users className="w-4 h-4" />,
+    responseExample: {
+      code: 200,
+      data: {
+        "5491122223333@s.whatsapp.net": {
+          BusinessName: "",
+          FirstName: "",
+          Found: true,
+          FullName: "",
+          PushName: "Contact Name"
+        }
+      }
+    }
+  },
+  {
+    method: 'POST',
+    path: '/status/set/text',
+    title: 'Set Status Text',
+    description: 'Set WhatsApp profile status message.',
+    category: 'User',
+    icon: <FileText className="w-4 h-4" />,
+    requestBody: {
+      Body: "Available - Powered by Genfity WA"
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        Details: "Status set successfully"
+      },
+      success: true
+    }
+  },
+  {
+    method: 'GET',
+    path: '/user/lid/628123456789@s.whatsapp.net',
+    title: 'Get User LID',
+    description: 'Get User Linked ID (LID) for a specific JID.',
+    category: 'User',
+    icon: <User className="w-4 h-4" />,
+    responseExample: {
+      code: 200,
+      data: {
+        LID: "some-lid"
+      },
+      success: true
+    }
+  },
+  // Group endpoints
+  {
+    method: 'POST',
+    path: '/group/create',
+    title: 'Create Group',
+    description: 'Create a new WhatsApp group with specified name and participants',
+    category: 'Group',
+    icon: <Users className="w-4 h-4" />,
+    requestBody: {
+      Name: "My New Group",
+      Participants: ["5491155553934", "5491155553935"]
+    },
+    responseExample: {
+      code: 200,
+      data: {
+        JID: "120363123456789@g.us",
+        Name: "My New Group"
       },
       success: true
     }
@@ -530,12 +961,12 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'POST',
     path: '/group/locked',
-    title: 'Set group locked status',
-    description: 'Configures whether only admins can modify group info (locked) or all participants can modify (unlocked).',
+    title: 'Set Group Locked',
+    description: 'Configure group as locked (only admins can alter info) or unlocked',
     category: 'Group',
     icon: <Settings className="w-4 h-4" />,
     requestBody: {
-      GroupJID: "120363312246943103@g.us",
+      GroupJID: "120362023605733675@g.us",
       Locked: true
     },
     responseExample: {
@@ -549,12 +980,12 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'POST',
     path: '/group/ephemeral',
-    title: 'Set disappearing timer for group messages',
-    description: 'Configures ephemeral/disappearing messages for the group. Messages will automatically disappear after the specified duration.',
+    title: 'Set Disappearing Timer',
+    description: 'Configure disappearing messages. Use \'24h\', \'7d\', \'90d\', or \'off\'',
     category: 'Group',
     icon: <Settings className="w-4 h-4" />,
     requestBody: {
-      GroupJID: "120363312246943103@g.us",
+      GroupJID: "120362023605733675@g.us",
       Duration: "24h"
     },
     responseExample: {
@@ -568,12 +999,12 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'POST',
     path: '/group/photo/remove',
-    title: 'Remove group photo',
-    description: 'Removes the current photo/image from the specified WhatsApp group.',
+    title: 'Remove Group Photo',
+    description: 'Remove the current photo from a WhatsApp group',
     category: 'Group',
     icon: <ImageIcon className="w-4 h-4" />,
     requestBody: {
-      GroupJID: "120363312246943103@g.us"
+      GroupJID: "120362023605733675@g.us"
     },
     responseExample: {
       code: 200,
@@ -586,50 +1017,33 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'GET',
     path: '/group/list',
-    title: 'List subscribed groups',
-    description: 'Returns complete list of subscribed groups',
+    title: 'List Groups',
+    description: 'List groups',
     category: 'Group',
     icon: <Users className="w-4 h-4" />,
     responseExample: {
       code: 200,
       data: {
-        Groups: [
-          {
-            AnnounceVersionID: "1650572126123738",
-            DisappearingTimer: 0,
-            GroupCreated: "2022-04-21T17:15:26-03:00",
-            IsAnnounce: false,
-            IsEphemeral: false,
-            IsLocked: false,
-            JID: "120362023605733675@g.us",
-            Name: "Super Group",
-            NameSetAt: "2022-04-21T17:15:26-03:00",
-            NameSetBy: "5491155554444@s.whatsapp.net",
-            OwnerJID: "5491155554444@s.whatsapp.net",
-            ParticipantVersionID: "1650234126145738",
-            Participants: [
-              {
-                IsAdmin: true,
-                IsSuperAdmin: true,
-                JID: "5491155554444@s.whatsapp.net"
-              },
-              {
-                IsAdmin: false,
-                IsSuperAdmin: false,
-                JID: "5491155553333@s.whatsapp.net"
-              },
-              {
-                IsAdmin: false,
-                IsSuperAdmin: false,
-                JID: "5491155552222@s.whatsapp.net"
-              }
-            ],
-            Topic: "",
-            TopicID: "",
-            TopicSetAt: "0001-01-01T00:00:00Z",
-            TopicSetBy: ""
-          }
-        ]
+        Groups: [{
+          JID: "120362023605733675@g.us",
+          Name: "Super Group"
+        }]
+      },
+      success: true
+    }
+  },
+  {
+    method: 'GET',
+    path: '/group/info',
+    title: 'Get Group Info',
+    description: 'Get group information',
+    category: 'Group',
+    icon: <Users className="w-4 h-4" />,
+    responseExample: {
+      code: 200,
+      data: {
+        JID: "120362023605733675@g.us",
+        Name: "Super Group"
       },
       success: true
     }
@@ -638,7 +1052,7 @@ const apiEndpoints: APIEndpoint[] = [
     method: 'GET',
     path: '/group/invitelink',
     title: 'Get Group Invite Link',
-    description: 'Gets the invite link for a group, optionally resetting it to create a new/different one',
+    description: 'Get invite link',
     category: 'Group',
     icon: <LinkIcon className="w-4 h-4" />,
     responseExample: {
@@ -650,48 +1064,20 @@ const apiEndpoints: APIEndpoint[] = [
     }
   },
   {
-    method: 'GET',
-    path: '/group/info',
-    title: 'Gets group information',
-    description: 'Retrieves information about a specific group',
+    method: 'POST',
+    path: '/group/name',
+    title: 'Change Group Name',
+    description: 'Change name',
     category: 'Group',
-    icon: <Users className="w-4 h-4" />,
+    icon: <FileText className="w-4 h-4" />,
+    requestBody: {
+      GroupJID: "120362023605733675@g.us",
+      Name: "New Name"
+    },
     responseExample: {
       code: 200,
       data: {
-        AnnounceVersionID: "1650572126123738",
-        DisappearingTimer: 0,
-        GroupCreated: "2022-04-21T17:15:26-03:00",
-        IsAnnounce: false,
-        IsEphemeral: false,
-        IsLocked: false,
-        JID: "120362023605733675@g.us",
-        Name: "Super Group",
-        NameSetAt: "2022-04-21T17:15:26-03:00",
-        NameSetBy: "5491155554444@s.whatsapp.net",
-        OwnerJID: "5491155554444@s.whatsapp.net",
-        ParticipantVersionID: "1650234126145738",
-        Participants: [
-          {
-            IsAdmin: true,
-            IsSuperAdmin: true,
-            JID: "5491155554444@s.whatsapp.net"
-          },
-          {
-            IsAdmin: false,
-            IsSuperAdmin: false,
-            JID: "5491155553333@s.whatsapp.net"
-          },
-          {
-            IsAdmin: false,
-            IsSuperAdmin: false,
-            JID: "5491155552222@s.whatsapp.net"
-          }
-        ],
-        Topic: "",
-        TopicID: "",
-        TopicSetAt: "0001-01-01T00:00:00Z",
-        TopicSetBy: ""
+        Details: "Group Name set successfully"
       },
       success: true
     }
@@ -699,13 +1085,13 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'POST',
     path: '/group/photo',
-    title: 'Changes group photo',
-    description: 'Allows you to change a group photo/image. Returns the Picture ID number',
+    title: 'Change Group Photo',
+    description: 'Change photo',
     category: 'Group',
     icon: <ImageIcon className="w-4 h-4" />,
     requestBody: {
       GroupJID: "120362023605733675@g.us",
-      Image: "data:image/jpeg;base64,Akd9300..."
+      Image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
     },
     responseExample: {
       code: 200,
@@ -718,51 +1104,14 @@ const apiEndpoints: APIEndpoint[] = [
   },
   {
     method: 'POST',
-    path: '/group/leave',
-    title: 'Leave a WhatsApp group',
-    description: 'Removes the authenticated user from the specified group.',
-    category: 'Group',
-    icon: <ArrowUp className="w-4 h-4" />,
-    requestBody: {
-      GroupJID: "120363312246943103@g.us"
-    },
-    responseExample: {
-      code: 200,
-      data: {
-        Details: "Left group successfully"
-      },
-      success: true
-    }
-  },
-  {
-    method: 'POST',
-    path: '/group/name',
-    title: 'Change group name',
-    description: 'Updates the name of the specified WhatsApp group.',
-    category: 'Group',
-    icon: <FileText className="w-4 h-4" />,
-    requestBody: {
-      GroupJID: "120363312246943103@g.us",
-      Name: "My New Group Name"
-    },
-    responseExample: {
-      code: 200,
-      data: {
-        Details: "Group Name set successfully"
-      },
-      success: true
-    }
-  },
-  {
-    method: 'POST',
     path: '/group/topic',
-    title: 'Set group topic/description',
-    description: 'Updates the topic or description of the specified WhatsApp group.',
+    title: 'Set Group Topic',
+    description: 'Change the group topic/description',
     category: 'Group',
     icon: <FileText className="w-4 h-4" />,
     requestBody: {
-      GroupJID: "120363312246943103@g.us",
-      Topic: "Welcome to our project group!"
+      GroupJID: "120362023605733675@g.us",
+      Topic: "New group topic here"
     },
     responseExample: {
       code: 200,
@@ -775,12 +1124,12 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'POST',
     path: '/group/announce',
-    title: 'Set group announce mode',
-    description: 'Enables or disables "announce" mode (admin-only messages) for the specified group.',
+    title: 'Set Group Announce',
+    description: 'Set group to announcement-only (admins only can send messages)',
     category: 'Group',
     icon: <Settings className="w-4 h-4" />,
     requestBody: {
-      GroupJID: "120363312246943103@g.us",
+      GroupJID: "120362023605733675@g.us",
       Announce: true
     },
     responseExample: {
@@ -794,12 +1143,12 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'POST',
     path: '/group/join',
-    title: 'Join a WhatsApp group via invite code',
-    description: 'Joins the WhatsApp group using the given invite code.',
+    title: 'Group Join',
+    description: 'Join a group using an invite code',
     category: 'Group',
     icon: <Users className="w-4 h-4" />,
     requestBody: {
-      Code: "HffXhYmzzyJGec61oqMXiz"
+      InviteCode: "AbCdEfGhIjKlMnOp"
     },
     responseExample: {
       code: 200,
@@ -812,12 +1161,12 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'POST',
     path: '/group/inviteinfo',
-    title: 'Get information about a group invite code',
-    description: 'Returns details about a WhatsApp group given an invite code.',
+    title: 'Get Group Invite Info',
+    description: 'Get info about a group invite code',
     category: 'Group',
     icon: <LinkIcon className="w-4 h-4" />,
     requestBody: {
-      Code: "HffXhYmzzyJGec61oqMXiz"
+      InviteCode: "AbCdEfGhIjKlMnOp"
     },
     responseExample: {
       code: 200,
@@ -833,17 +1182,14 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'POST',
     path: '/group/updateparticipants',
-    title: 'Add, remove, promote or demote participants from a group',
-    description: 'Adds or removes participants from the specified WhatsApp group.',
+    title: 'Update Group Participants',
+    description: 'Add, remove, promote or demote participants from a group. Action can be \'add\', \'remove\', \'promote\',\'demote\'.',
     category: 'Group',
     icon: <Users className="w-4 h-4" />,
     requestBody: {
-      GroupJID: "120363312246943103@g.us",
+      GroupJID: "120362023605733675@g.us",
       Action: "add",
-      Phone: [
-        "5491112345678",
-        "5491123456789@s.whatsapp.net"
-      ]
+      Phone: ["5491155553934@s.whatsapp.net", "5491155553935@s.whatsapp.net"]
     },
     responseExample: {
       code: 200,
@@ -857,263 +1203,17 @@ const apiEndpoints: APIEndpoint[] = [
   {
     method: 'GET',
     path: '/newsletter/list',
-    title: 'List Subscribed Newsletters',
-    description: 'Returns complete list of subscribed newsletters',
+    title: 'List Newsletters',
+    description: 'List newsletters',
     category: 'Newsletter',
     icon: <BookOpen className="w-4 h-4" />,
     responseExample: {
       code: 200,
       data: {
-        Newsletter: [
-          {
-            id: "120363144038483540@newsletter",
-            state: {
-              type: "active"
-            },
-            thread_metadata: {
-              creation_time: "1688746895",
-              description: {
-                id: "1689653839450668",
-                text: "WhatsApp's official channel. Follow for our latest feature launches, updates, exclusive drops and more.",
-                update_time: "1689653839450668"
-              },
-              invite: "0029Va4K0PZ5a245NkngBA2M",
-              name: {
-                id: "1688746895480511",
-                text: "WhatsApp",
-                update_time: "1688746895480511"
-              },
-              picture: {
-                direct_path: "/v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?ccb=11-4&oh=01_Q5AaIRyTfP806JEGJDm0XWU5E-D4LcA-Wj3csSwh1jJTVanC&oe=67D550F1&_nc_sid=5e03e0&_nc_cat=110",
-                id: "1707950960975554",
-                type: "IMAGE",
-                url: ""
-              },
-              preview: {
-                direct_path: "/v/t61.24694-24/416962407_970228831134395_8869146381947923973_n.jpg?stp=dst-jpg_s192x192_tt6&ccb=11-4&oh=01_Q5AaIawuPXJUw9grRFJZtAJEc6QNm0XpqJq4X1Ssi9xNI0Qf&oe=67D550F1&_nc_sid=5e03e0&_nc_cat=110",
-                id: "1707950960975554",
-                type: "PREVIEW",
-                url: ""
-              },
-              settings: {
-                reaction_codes: {
-                  value: "ALL"
-                }
-              },
-              subscribers_count: "0",
-              verification: "verified"
-            },
-            viewer_metadata: {
-              mute: "on",
-              role: "subscriber"
-            }
-          }
-        ]
-      },
-      success: true
-    }
-  },
-  // Webhook endpoints
-  {
-    method: 'GET',
-    path: '/webhook',
-    title: 'Get Webhook Configuration',
-    description: 'Gets the configured webhook and subscribed events. Available event types: Message, ReadReceipt, Presence, HistorySync, ChatPresence, All (subscribes to all event types)',
-    category: 'Webhook',
-    icon: <Server className="w-4 h-4" />,
-    responseExample: {
-      code: 200,
-      data: {
-        subscribe: [
-          "Message",
-          "ReadReceipt"
-        ],
-        webhook: "https://example.net/webhook"
-      },
-      success: true
-    }
-  },
-  {
-    method: 'POST',
-    path: '/webhook',
-    title: 'Set Webhook Configuration',
-    description: 'Sets the webhook that will be used to POST information when messages are received and configures the events to subscribe to.',
-    category: 'Webhook',
-    icon: <Server className="w-4 h-4" />,
-    requestBody: {
-      webhook: "https://example.net/webhook",
-      events: [
-        "Message",
-        "ReadReceipt"
-      ]
-    },
-    responseExample: {
-      code: 200,
-      data: {
-        WebhookURL: "https://example.net/webhook",
-        Events: [
-          "Message",
-          "ReadReceipt"
-        ]
-      },
-      success: true
-    }
-  },
-  {
-    method: 'DELETE',
-    path: '/webhook',
-    title: 'Delete Webhook Configuration',
-    description: 'Removes the configured webhook and clears events for the user',
-    category: 'Webhook',
-    icon: <Server className="w-4 h-4" />,
-    responseExample: {
-      code: 200,
-      data: {
-        Details: "Webhook and events deleted successfully"
-      },
-      success: true
-    }
-  },
-  {
-    method: 'PUT',
-    path: '/webhook',
-    title: 'Update Webhook Configuration',
-    description: 'Updates the webhook URL, events, and activation status.',
-    category: 'Webhook',
-    icon: <Server className="w-4 h-4" />,
-    requestBody: {
-      webhook: "https://example.net/webhook",
-      events: [
-        "Message",
-        "ReadReceipt"
-      ],
-      Active: true
-    },
-    responseExample: {
-      code: 200,
-      data: {
-        WebhookURL: "https://example.net/webhook",
-        Events: [
-          "Message",
-          "ReadReceipt"
-        ],
-        active: true
-      },
-      success: true
-    }
-  },
-  {
-    method: 'GET',
-    path: '/webhook/events',
-    title: 'Get Available Webhook Events',
-    description: 'Returns the list of available webhook events that can be subscribed to. Query parameter "active" (boolean) can be set to true to return only active events.',
-    category: 'Webhook',
-    icon: <Database className="w-4 h-4" />,
-    responseExample: {
-      code: 200,
-      data: {
-        active_events: [
-          "Message",
-          "MessageSent",
-          "Receipt",
-          "Connected",
-          "Disconnected",
-          "ConnectFailure",
-          "LoggedOut",
-          "StreamReplaced",
-          "PairSuccess",
-          "QR",
-          "PushNameSetting",
-          "AppState",
-          "AppStateSyncComplete",
-          "HistorySync",
-          "CallOffer",
-          "CallAccept",
-          "CallTerminate",
-          "CallOfferNotice",
-          "CallRelayLatency",
-          "Presence",
-          "ChatPresence",
-          "All"
-        ],
-        all_supported_events: [
-          "Message",
-          "MessageSent",
-          "UndecryptableMessage",
-          "Receipt",
-          "MediaRetry",
-          "ReadReceipt",
-          "GroupInfo",
-          "JoinedGroup",
-          "Picture",
-          "BlocklistChange",
-          "Blocklist",
-          "Connected",
-          "Disconnected",
-          "ConnectFailure",
-          "KeepAliveRestored",
-          "KeepAliveTimeout",
-          "LoggedOut",
-          "ClientOutdated",
-          "TemporaryBan",
-          "StreamError",
-          "StreamReplaced",
-          "PairSuccess",
-          "PairError",
-          "QR",
-          "QRScannedWithoutMultidevice",
-          "PrivacySettings",
-          "PushNameSetting",
-          "UserAbout",
-          "AppState",
-          "AppStateSyncComplete",
-          "HistorySync",
-          "OfflineSyncCompleted",
-          "OfflineSyncPreview",
-          "CallOffer",
-          "CallAccept",
-          "CallTerminate",
-          "CallOfferNotice",
-          "CallRelayLatency",
-          "Presence",
-          "ChatPresence",
-          "IdentityChange",
-          "CATRefreshError",
-          "NewsletterJoin",
-          "NewsletterLeave",
-          "NewsletterMuteChange",
-          "NewsletterLiveUpdate",
-          "FBMessage",
-          "All"
-        ],
-        not_implemented_events: [
-          "UndecryptableMessage",
-          "MediaRetry",
-          "ReadReceipt",
-          "GroupInfo",
-          "JoinedGroup",
-          "Picture",
-          "BlocklistChange",
-          "Blocklist",
-          "KeepAliveRestored",
-          "KeepAliveTimeout",
-          "ClientOutdated",
-          "TemporaryBan",
-          "StreamError",
-          "PairError",
-          "QRScannedWithoutMultidevice",
-          "PrivacySettings",
-          "UserAbout",
-          "OfflineSyncCompleted",
-          "OfflineSyncPreview",
-          "IdentityChange",
-          "CATRefreshError",
-          "NewsletterJoin",
-          "NewsletterLeave",
-          "NewsletterMuteChange",
-          "NewsletterLiveUpdate",
-          "FBMessage"
-        ]
+        Newsletter: [{
+          id: "120363144038483540@newsletter",
+          name: "WhatsApp"
+        }]
       },
       success: true
     }
@@ -1126,15 +1226,20 @@ const categoryMeta: Record<string, { title: string; description: string; icon: R
     description: 'Create, connect, authenticate and configure your WhatsApp runtime environment.',
     icon: <Wifi className="w-4 h-4" />
   },
-  User: {
-    title: 'User Operations',
-    description: 'Lookup, presence and profile utilities for WhatsApp users.',
-    icon: <User className="w-4 h-4" />
+  Webhook: {
+    title: 'Webhook Management',
+    description: 'Configure webhooks for receiving events and notifications from WhatsApp.',
+    icon: <Server className="w-4 h-4" />
   },
   Chat: {
     title: 'Chat & Messaging',
     description: 'Messaging primitives: send, edit, react, media & interaction messages.',
     icon: <MessageSquare className="w-4 h-4" />
+  },
+  User: {
+    title: 'User Operations',
+    description: 'Lookup, presence and profile utilities for WhatsApp users.',
+    icon: <User className="w-4 h-4" />
   },
   Group: {
     title: 'Group Management',
@@ -1145,19 +1250,14 @@ const categoryMeta: Record<string, { title: string; description: string; icon: R
     title: 'Newsletter Management',
     description: 'Manage and interact with WhatsApp newsletters and subscriptions.',
     icon: <BookOpen className="w-4 h-4" />
-  },
-  Webhook: {
-    title: 'Webhook Management',
-    description: 'Configure webhooks for receiving events and notifications from WhatsApp.',
-    icon: <Server className="w-4 h-4" />
   }
 };
 
 // Ordered category list
-const categoryOrder = ['Session', 'User', 'Chat', 'Group', 'Newsletter', 'Webhook'];
+const categoryOrder = ['Session', 'Webhook', 'Chat', 'User', 'Group', 'Newsletter'];
 
 // Utility to build anchor ids
-const buildId = (e: APIEndpoint) => `${e.method}-${e.path.replace(/[^a-zA-Z0-9]+/g, '-')}`.toLowerCase();
+const buildId = (e: APIEndpoint) => `${e.method}-${e.path.replace(/[^a-zA-Z0-9]+/g, '-')}-${e.title.replace(/[^a-zA-Z0-9]+/g, '-')}`.toLowerCase();
 
 // Method color map with enhanced gradients and better contrast
 const methodColor: Record<string, string> = {
@@ -1594,7 +1694,7 @@ export default function APIDocsPage() {
             <div className="space-y-2 sm:space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 md:gap-4">
                 <div className="h-6 sm:h-7 md:h-8 lg:h-10 w-6 sm:w-7 md:w-8 lg:w-10 rounded-md sm:rounded-lg md:rounded-xl bg-gradient-to-br from-amber-100 to-amber-50 border border-amber-200/50 flex items-center justify-center dark:from-amber-500/20 dark:to-amber-500/10 dark:border-amber-500/30">
-                  <BookOpen className="h-3 sm:h-3.5 md:h-4 lg:h-5 w-3 sm:w-3.5 md:w-4 lg:w-5 text-amber-600 dark:text-amber-400" />
+                  <BookOpen className="h-3 sm:h-3.5 md:h-4 lg:h-5 w-3 sm:w-3.5 md:w-4 lg:w-4.5 xl:w-5 text-amber-600 dark:text-amber-400" />
                 </div>
                 <div className="space-y-1 min-w-0">
                   <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight">Usage Notes</h2>
