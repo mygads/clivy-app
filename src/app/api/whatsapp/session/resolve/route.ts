@@ -1,9 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { isInternalRequest } from "@/lib/internal-api";
 
 // GET - Resolve session token to userId and check bot/subscription status
+// This endpoint is called by Go worker, optionally protected by INTERNAL_API_KEY
 export async function GET(request: NextRequest) {
   try {
+    // Optional: Validate internal API key if set
+    if (!isInternalRequest(request)) {
+      return NextResponse.json(
+        { error: "Unauthorized - Invalid API key" },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const token = searchParams.get("token");
 
@@ -62,16 +72,18 @@ export async function GET(request: NextRequest) {
     const subscriptionActive = !!subscription;
 
     return NextResponse.json({
-      userId: session.userId,
-      sessionId: session.sessionId,
-      botActive,
-      subscriptionActive,
-      connected: session.connected,
+      success: true,
+      data: {
+        userId: session.userId,
+        sessionToken: token,
+        botActive,
+        subscriptionActive,
+      },
     });
   } catch (error) {
     console.error("Failed to resolve session:", error);
     return NextResponse.json(
-      { error: "Failed to resolve session" },
+      { success: false, error: "Failed to resolve session" },
       { status: 500 }
     );
   }

@@ -68,8 +68,21 @@ export async function POST(request: NextRequest) {
     const apiKey = request.headers.get("x-api-key");
     const internalKey = process.env.INTERNAL_API_KEY;
 
-    if (!apiKey || !internalKey || apiKey !== internalKey) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // Require INTERNAL_API_KEY for worker logging
+    if (!internalKey) {
+      console.error("❌ INTERNAL_API_KEY not configured - worker cannot log usage");
+      return NextResponse.json(
+        { error: "Internal API key not configured" },
+        { status: 500 }
+      );
+    }
+
+    if (!apiKey || apiKey !== internalKey) {
+      console.warn("⚠️  Unauthorized usage log attempt with invalid API key");
+      return NextResponse.json(
+        { error: "Unauthorized - Invalid or missing API key" },
+        { status: 401 }
+      );
     }
 
     const body = await request.json();

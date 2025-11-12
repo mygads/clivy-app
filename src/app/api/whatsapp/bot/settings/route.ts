@@ -1,9 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { isInternalRequest } from "@/lib/internal-api";
 
 // GET - Get bot settings for AI worker
+// This endpoint is called by Go worker, optionally protected by INTERNAL_API_KEY
 export async function GET(request: NextRequest) {
   try {
+    // Optional: Validate internal API key if set
+    if (!isInternalRequest(request)) {
+      return NextResponse.json(
+        { error: "Unauthorized - Invalid API key" },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId");
     const sessionToken = searchParams.get("sessionToken");
@@ -70,14 +80,17 @@ export async function GET(request: NextRequest) {
       "Maaf, saya tidak dapat memproses permintaan Anda saat ini.";
 
     return NextResponse.json({
-      systemPrompt,
-      fallbackText,
-      documents,
+      success: true,
+      data: {
+        systemPrompt,
+        fallbackText,
+        documents,
+      },
     });
   } catch (error) {
     console.error("Failed to fetch bot settings:", error);
     return NextResponse.json(
-      { error: "Failed to fetch bot settings" },
+      { success: false, error: "Failed to fetch bot settings" },
       { status: 500 }
     );
   }
