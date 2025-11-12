@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Bot, Plus, Settings, Link as LinkIcon } from "lucide-react";
 import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
+import { SessionManager } from "@/lib/storage";
 
 interface Bot {
   id: string;
@@ -40,7 +41,18 @@ export default function BotManagementPage() {
 
   const fetchBots = useCallback(async () => {
     try {
-      const res = await fetch("/api/customer/ai/bot");
+      const token = SessionManager.getToken();
+      if (!token) {
+        alert("Authentication required");
+        return;
+      }
+
+      const res = await fetch("/api/customer/ai/bot", {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       const json = await res.json();
       if (json.success) {
         setBots(json.data);
@@ -58,9 +70,18 @@ export default function BotManagementPage() {
 
   const handleCreate = async () => {
     try {
+      const token = SessionManager.getToken();
+      if (!token) {
+        alert("Authentication required");
+        return;
+      }
+
       const res = await fetch("/api/customer/ai/bot", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
       const json = await res.json();
@@ -79,9 +100,18 @@ export default function BotManagementPage() {
 
   const handleUpdate = async (bot: Bot) => {
     try {
+      const token = SessionManager.getToken();
+      if (!token) {
+        alert("Authentication required");
+        return;
+      }
+
       const res = await fetch("/api/customer/ai/bot", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           id: bot.id,
           name: bot.name,
@@ -105,9 +135,18 @@ export default function BotManagementPage() {
 
   const toggleActive = async (botId: string, isActive: boolean) => {
     try {
+      const token = SessionManager.getToken();
+      if (!token) {
+        alert("Authentication required");
+        return;
+      }
+
       const res = await fetch(`/api/customer/ai/bot/${botId}/activate`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ isActive }),
       });
       const json = await res.json();

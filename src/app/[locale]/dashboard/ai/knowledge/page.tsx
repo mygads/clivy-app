@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FileText, Plus, Trash2 } from "lucide-react";
 import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
+import { SessionManager } from "@/lib/storage";
 
 interface Document {
   id: string;
@@ -34,7 +35,18 @@ export default function KnowledgeBasePage() {
 
   const fetchDocuments = useCallback(async () => {
     try {
-      const res = await fetch("/api/customer/ai/docs");
+      const token = SessionManager.getToken();
+      if (!token) {
+        alert("Authentication required");
+        return;
+      }
+
+      const res = await fetch("/api/customer/ai/docs", {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       const json = await res.json();
       if (json.success) {
         setDocuments(json.data);
@@ -57,9 +69,18 @@ export default function KnowledgeBasePage() {
     }
 
     try {
+      const token = SessionManager.getToken();
+      if (!token) {
+        alert("Authentication required");
+        return;
+      }
+
       const res = await fetch("/api/customer/ai/docs", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
       const json = await res.json();
@@ -80,8 +101,18 @@ export default function KnowledgeBasePage() {
     if (!confirm("Are you sure you want to delete this document?")) return;
 
     try {
+      const token = SessionManager.getToken();
+      if (!token) {
+        alert("Authentication required");
+        return;
+      }
+
       const res = await fetch(`/api/customer/ai/docs?id=${id}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
       const json = await res.json();
       if (json.success) {

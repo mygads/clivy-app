@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3, MessageSquare, Zap, Clock } from "lucide-react";
 import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
+import { SessionManager } from "@/lib/storage";
 
 interface UsageStats {
   totalRequests: number;
@@ -21,7 +22,18 @@ export default function UsagePage() {
 
   const fetchUsage = useCallback(async () => {
     try {
-      const res = await fetch("/api/customer/ai/usage");
+      const token = SessionManager.getToken();
+      if (!token) {
+        alert("Authentication required");
+        return;
+      }
+
+      const res = await fetch("/api/customer/ai/usage", {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       const json = await res.json();
       if (json.success) {
         setStats(json.data.statistics);
