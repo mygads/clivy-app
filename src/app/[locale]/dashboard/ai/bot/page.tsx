@@ -3,11 +3,13 @@
 import { useEffect, useState, useCallback } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Bot, Plus, Settings, Link as LinkIcon } from "lucide-react";
+import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
 
 interface Bot {
   id: string;
@@ -125,50 +127,61 @@ export default function BotManagementPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Bot Management</h1>
-          <p className="text-muted-foreground mt-2">
-            Create and configure AI bots for your WhatsApp sessions
-          </p>
+    <SubscriptionGuard featureName="AI Configuration" showRefreshButton={true}>
+    <div className="flex-1 space-y-3 sm:space-y-4 md:space-y-6 p-2 sm:p-4 md:p-8 pt-3 sm:pt-4 md:pt-6 bg-background">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4">
+        <div className="flex items-start sm:items-center gap-2 sm:gap-3">
+          <div>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Bot Management</h1>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">
+              Create and configure AI bots for your WhatsApp sessions
+            </p>
+          </div>
         </div>
-        <Button onClick={() => setShowCreateForm(!showCreateForm)}>
-          <Plus className="mr-2 h-4 w-4" />
-          Create Bot
-        </Button>
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <Badge variant="outline" className="flex items-center space-x-1 sm:space-x-2">
+            <Bot className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="text-[10px] sm:text-xs">{bots.length} bots</span>
+          </Badge>
+          <Button onClick={() => setShowCreateForm(!showCreateForm)} size="sm" className="flex-1 sm:flex-initial">
+            <Plus className="mr-2 h-4 w-4" />
+            Create Bot
+          </Button>
+        </div>
       </div>
 
       {/* Create Form */}
       {showCreateForm && (
         <Card>
-          <CardHeader>
-            <CardTitle>Create New Bot</CardTitle>
+          <CardHeader className="p-3 sm:p-4 md:p-6">
+            <CardTitle className="text-sm sm:text-base md:text-lg">Create New Bot</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4 md:p-6 pt-0">
             <div>
-              <Label htmlFor="name">Bot Name</Label>
+              <Label htmlFor="name" className="text-xs sm:text-sm">Bot Name</Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="e.g. Customer Service Bot"
+                className="text-xs sm:text-sm"
               />
             </div>
 
             <div>
-              <Label htmlFor="systemPrompt">System Prompt</Label>
+              <Label htmlFor="systemPrompt" className="text-xs sm:text-sm">System Prompt</Label>
               <Textarea
                 id="systemPrompt"
                 value={formData.systemPrompt}
                 onChange={(e) => setFormData({ ...formData, systemPrompt: e.target.value })}
                 placeholder="You are a helpful customer service assistant..."
                 rows={5}
+                className="text-xs sm:text-sm"
               />
             </div>
 
             <div>
-              <Label htmlFor="fallbackText">Fallback Message</Label>
+              <Label htmlFor="fallbackText" className="text-xs sm:text-sm">Fallback Message</Label>
               <Textarea
                 id="fallbackText"
                 value={formData.fallbackText}
@@ -273,5 +286,6 @@ export default function BotManagementPage() {
         )}
       </div>
     </div>
+    </SubscriptionGuard>
   );
 }

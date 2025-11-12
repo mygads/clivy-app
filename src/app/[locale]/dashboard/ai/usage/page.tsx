@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3, MessageSquare, Zap, Clock } from "lucide-react";
+import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
 
 interface UsageStats {
   totalRequests: number;
@@ -41,10 +42,11 @@ export default function UsagePage() {
   }
 
   return (
-    <div className="space-y-6">
+    <SubscriptionGuard featureName="AI Configuration" showRefreshButton={true}>
+    <div className="flex-1 space-y-3 sm:space-y-4 md:space-y-6 p-2 sm:p-4 md:p-8 pt-3 sm:pt-4 md:pt-6 bg-background">
       <div>
-        <h1 className="text-3xl font-bold">AI Usage Analytics</h1>
-        <p className="text-muted-foreground mt-2">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">AI Usage Analytics</h1>
+        <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">
           Monitor your AI bot performance and token consumption
         </p>
       </div>
@@ -115,5 +117,6 @@ export default function UsagePage() {
         </CardContent>
       </Card>
     </div>
+    </SubscriptionGuard>
   );
 }
