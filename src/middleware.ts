@@ -218,6 +218,7 @@ export async function middleware(req: NextRequest) {
             '/api/cron/',
             '/api/og',        // Open Graph image generation
             '/api/docs',      // API documentation (Swagger)
+            '/api/whatsapp/', // WhatsApp internal APIs (protected by INTERNAL_API_KEY)
         ];
 
         if (publicRoutes.some(route => pathname.startsWith(route))) {
