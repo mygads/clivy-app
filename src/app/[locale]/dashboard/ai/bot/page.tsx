@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Bot, Plus, Settings, Link as LinkIcon } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Bot, Plus, Settings, Link as LinkIcon, Smartphone, CheckCircle } from "lucide-react";
 import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
 import { SessionManager } from "@/lib/storage";
 
@@ -26,11 +27,30 @@ interface Bot {
   }>;
 }
 
+interface WhatsAppSession {
+  id: string;
+  sessionId: string;
+  sessionName: string;
+  token: string;
+  connected: boolean;
+  loggedIn: boolean;
+  jid: string | null;
+  status: string;
+}
+
 export default function BotManagementPage() {
   const [bots, setBots] = useState<Bot[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingBot, setEditingBot] = useState<Bot | null>(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  
+  // Bind session dialog state
+  const [bindDialogOpen, setBindDialogOpen] = useState(false);
+  const [selectedBotForBinding, setSelectedBotForBinding] = useState<Bot | null>(null);
+  const [whatsappSessions, setWhatsappSessions] = useState<WhatsAppSession[]>([]);
+  const [loadingSessions, setLoadingSessions] = useState(false);
+  const [selectedSessionId, setSelectedSessionId] = useState<string>("");
+  const [binding, setBinding] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -114,16 +134,18 @@ export default function BotManagementPage() {
         },
         body: JSON.stringify({
           id: bot.id,
-          name: bot.name,
-          systemPrompt: bot.systemPrompt,
-          fallbackText: bot.fallbackText,
-          isActive: bot.isActive,
+          name: formData.name,
+          systemPrompt: formData.systemPrompt,
+          fallbackText: formData.fallbackText,
+          isActive: formData.isActive,
         }),
       });
       const json = await res.json();
       if (json.success) {
         alert("Bot updated successfully");
         setEditingBot(null);
+        setShowCreateForm(false);
+        setFormData({ name: "", systemPrompt: "", fallbackText: "", isActive: false });
         fetchBots();
       } else {
         alert(json.error || "Failed to update bot");
@@ -161,6 +183,78 @@ export default function BotManagementPage() {
     }
   };
 
+  const fetchWhatsAppSessions = async () => {
+    try {
+      setLoadingSessions(true);
+      const token = SessionManager.getToken();
+      if (!token) {
+        alert("Authentication required");
+        return;
+      }
+
+      const res = await fetch("/api/customer/whatsapp/sessions", {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await res.json();
+      if (json.success) {
+        setWhatsappSessions(json.data || []);
+      } else {
+        alert(json.error || "Failed to fetch WhatsApp sessions");
+      }
+    } catch (error) {
+      alert("Failed to fetch WhatsApp sessions");
+    } finally {
+      setLoadingSessions(false);
+    }
+  };
+
+  const handleBindSession = async () => {
+    if (!selectedBotForBinding || !selectedSessionId) {
+      alert("Please select a WhatsApp session");
+      return;
+    }
+
+    try {
+      setBinding(true);
+      const token = SessionManager.getToken();
+      if (!token) {
+        alert("Authentication required");
+        return;
+      }
+
+      const res = await fetch(`/api/customer/ai/bot/${selectedBotForBinding.id}/bind`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sessionId: selectedSessionId }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        alert("Session bound successfully");
+        setBindDialogOpen(false);
+        setSelectedSessionId("");
+        fetchBots();
+      } else {
+        alert(json.error || "Failed to bind session");
+      }
+    } catch (error) {
+      alert("Failed to bind session");
+    } finally {
+      setBinding(false);
+    }
+  };
+
+  const openBindDialog = (bot: Bot) => {
+    setSelectedBotForBinding(bot);
+    setBindDialogOpen(true);
+    fetchWhatsAppSessions();
+  };
+
   if (loading) {
     return <div className="flex items-center justify-center h-96">Loading...</div>;
   }
@@ -182,18 +276,28 @@ export default function BotManagementPage() {
             <Bot className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="text-[10px] sm:text-xs">{bots.length} bots</span>
           </Badge>
-          <Button onClick={() => setShowCreateForm(!showCreateForm)} size="sm" className="flex-1 sm:flex-initial">
+          <Button 
+            onClick={() => {
+              setEditingBot(null);
+              setFormData({ name: "", systemPrompt: "", fallbackText: "", isActive: false });
+              setShowCreateForm(!showCreateForm);
+            }} 
+            size="sm" 
+            className="flex-1 sm:flex-initial"
+          >
             <Plus className="mr-2 h-4 w-4" />
             Create Bot
           </Button>
         </div>
       </div>
 
-      {/* Create Form */}
+      {/* Create/Edit Form */}
       {showCreateForm && (
         <Card>
           <CardHeader className="p-3 sm:p-4 md:p-6">
-            <CardTitle className="text-sm sm:text-base md:text-lg">Create New Bot</CardTitle>
+            <CardTitle className="text-sm sm:text-base md:text-lg">
+              {editingBot ? "Edit Bot" : "Create New Bot"}
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4 md:p-6 pt-0">
             <div>
@@ -236,12 +340,25 @@ export default function BotManagementPage() {
                 checked={formData.isActive}
                 onCheckedChange={(checked) => setFormData({ ...formData, isActive: checked })}
               />
-              <Label htmlFor="isActive">Activate immediately</Label>
+              <Label htmlFor="isActive">
+                {editingBot ? "Keep active" : "Activate immediately"}
+              </Label>
             </div>
 
             <div className="flex gap-2">
-              <Button onClick={handleCreate}>Create Bot</Button>
-              <Button variant="outline" onClick={() => setShowCreateForm(false)}>
+              <Button 
+                onClick={editingBot ? () => handleUpdate(editingBot) : handleCreate}
+              >
+                {editingBot ? "Update Bot" : "Create Bot"}
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  setShowCreateForm(false);
+                  setEditingBot(null);
+                  setFormData({ name: "", systemPrompt: "", fallbackText: "", isActive: false });
+                }}
+              >
                 Cancel
               </Button>
             </div>
@@ -310,11 +427,28 @@ export default function BotManagementPage() {
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline">
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => {
+                      setEditingBot(bot);
+                      setFormData({
+                        name: bot.name,
+                        systemPrompt: bot.systemPrompt || "",
+                        fallbackText: bot.fallbackText || "",
+                        isActive: bot.isActive,
+                      });
+                      setShowCreateForm(true);
+                    }}
+                  >
                     <Settings className="mr-2 h-4 w-4" />
                     Edit
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => openBindDialog(bot)}
+                  >
                     <LinkIcon className="mr-2 h-4 w-4" />
                     Bind Session
                   </Button>
@@ -324,6 +458,119 @@ export default function BotManagementPage() {
           ))
         )}
       </div>
+
+      {/* Bind Session Dialog */}
+      <Dialog open={bindDialogOpen} onOpenChange={setBindDialogOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>Bind WhatsApp Session</DialogTitle>
+            <DialogDescription>
+              Select a WhatsApp session to bind to <strong>{selectedBotForBinding?.name}</strong>
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            {loadingSessions ? (
+              <div className="flex items-center justify-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              </div>
+            ) : whatsappSessions.length === 0 ? (
+              <div className="text-center py-8">
+                <Smartphone className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+                <p className="text-sm text-muted-foreground mb-4">
+                  No WhatsApp sessions found. Please create a session first.
+                </p>
+                <Button variant="outline" onClick={() => window.location.href = '/dashboard/whatsapp/devices'}>
+                  Go to Sessions
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <Label>Select WhatsApp Session</Label>
+                <div className="space-y-2 max-h-[300px] overflow-y-auto">
+                  {whatsappSessions.map((session) => {
+                    const isAlreadyBound = selectedBotForBinding?.aiBotSessionBindings.some(
+                      (binding) => binding.sessionId === session.id && binding.isActive
+                    );
+                    
+                    return (
+                      <div
+                        key={session.id}
+                        className={`border rounded-lg p-3 cursor-pointer transition-all ${
+                          selectedSessionId === session.id
+                            ? "border-primary bg-primary/5"
+                            : "border-border hover:border-primary/50"
+                        } ${!session.loggedIn ? "opacity-50" : ""}`}
+                        onClick={() => session.loggedIn && setSelectedSessionId(session.id)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <input
+                              type="radio"
+                              checked={selectedSessionId === session.id}
+                              onChange={() => setSelectedSessionId(session.id)}
+                              disabled={!session.loggedIn}
+                              className="h-4 w-4 text-primary focus:ring-primary"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2">
+                                <Smartphone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                                <p className="font-medium text-sm truncate">
+                                  {session.sessionName || session.sessionId}
+                                </p>
+                              </div>
+                              {session.jid && (
+                                <p className="text-xs text-muted-foreground truncate">
+                                  {session.jid.split('@')[0]}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 flex-shrink-0">
+                            {isAlreadyBound && (
+                              <Badge variant="secondary" className="text-xs">
+                                <CheckCircle className="h-3 w-3 mr-1" />
+                                Bound
+                              </Badge>
+                            )}
+                            {session.loggedIn ? (
+                              <Badge variant="default" className="bg-green-500 text-xs">
+                                Active
+                              </Badge>
+                            ) : (
+                              <Badge variant="secondary" className="text-xs">
+                                Offline
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setBindDialogOpen(false);
+                setSelectedSessionId("");
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleBindSession}
+              disabled={!selectedSessionId || binding || loadingSessions}
+            >
+              {binding ? "Binding..." : "Bind Session"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
     </SubscriptionGuard>
   );

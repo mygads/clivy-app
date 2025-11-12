@@ -83,6 +83,7 @@ model WhatsAppSession {
   webhook         String?
   user            User?    @relation(fields: [userId], references: [id], map: "WhatsAppSession_user_fkey")
   whatsAppMessageStats WhatsAppMessageStats[] @relation("SessionMessageStats")
+  aiBotSessionBindings AIBotSessionBinding[]
 
   @@index([userId])
   @@index([token])
@@ -507,8 +508,9 @@ model AIBotSessionBinding {
   createdAt DateTime @default(now()) @db.Timestamptz(6)
   updatedAt DateTime @updatedAt
 
-  bot  WhatsAppAIBot @relation(fields: [botId], references: [id], onDelete: Cascade)
-  user User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bot     WhatsAppAIBot   @relation(fields: [botId], references: [id], onDelete: Cascade)
+  user    User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session WhatsAppSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([botId])

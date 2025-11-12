@@ -2821,10 +2821,12 @@ export namespace Prisma {
 
   export type WhatsAppSessionCountOutputType = {
     whatsAppMessageStats: number
+    aiBotSessionBindings: number
   }
 
   export type WhatsAppSessionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     whatsAppMessageStats?: boolean | WhatsAppSessionCountOutputTypeCountWhatsAppMessageStatsArgs
+    aiBotSessionBindings?: boolean | WhatsAppSessionCountOutputTypeCountAiBotSessionBindingsArgs
   }
 
   // Custom InputTypes
@@ -2843,6 +2845,13 @@ export namespace Prisma {
    */
   export type WhatsAppSessionCountOutputTypeCountWhatsAppMessageStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WhatsAppMessageStatsWhereInput
+  }
+
+  /**
+   * WhatsAppSessionCountOutputType without action
+   */
+  export type WhatsAppSessionCountOutputTypeCountAiBotSessionBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIBotSessionBindingWhereInput
   }
 
 
@@ -5160,6 +5169,7 @@ export namespace Prisma {
     webhook?: boolean
     user?: boolean | WhatsAppSession$userArgs<ExtArgs>
     whatsAppMessageStats?: boolean | WhatsAppSession$whatsAppMessageStatsArgs<ExtArgs>
+    aiBotSessionBindings?: boolean | WhatsAppSession$aiBotSessionBindingsArgs<ExtArgs>
     _count?: boolean | WhatsAppSessionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["whatsAppSession"]>
 
@@ -5265,6 +5275,7 @@ export namespace Prisma {
   export type WhatsAppSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | WhatsAppSession$userArgs<ExtArgs>
     whatsAppMessageStats?: boolean | WhatsAppSession$whatsAppMessageStatsArgs<ExtArgs>
+    aiBotSessionBindings?: boolean | WhatsAppSession$aiBotSessionBindingsArgs<ExtArgs>
     _count?: boolean | WhatsAppSessionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type WhatsAppSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5279,6 +5290,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
       whatsAppMessageStats: Prisma.$WhatsAppMessageStatsPayload<ExtArgs>[]
+      aiBotSessionBindings: Prisma.$AIBotSessionBindingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5706,6 +5718,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends WhatsAppSession$userArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppSession$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     whatsAppMessageStats<T extends WhatsAppSession$whatsAppMessageStatsArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppSession$whatsAppMessageStatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppMessageStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aiBotSessionBindings<T extends WhatsAppSession$aiBotSessionBindingsArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppSession$aiBotSessionBindingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6200,6 +6213,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: WhatsAppMessageStatsScalarFieldEnum | WhatsAppMessageStatsScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppSession.aiBotSessionBindings
+   */
+  export type WhatsAppSession$aiBotSessionBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    where?: AIBotSessionBindingWhereInput
+    orderBy?: AIBotSessionBindingOrderByWithRelationInput | AIBotSessionBindingOrderByWithRelationInput[]
+    cursor?: AIBotSessionBindingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIBotSessionBindingScalarFieldEnum | AIBotSessionBindingScalarFieldEnum[]
   }
 
   /**
@@ -28283,6 +28320,7 @@ export namespace Prisma {
     updatedAt?: boolean
     bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    session?: boolean | WhatsAppSessionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aIBotSessionBinding"]>
 
   export type AIBotSessionBindingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -28295,6 +28333,7 @@ export namespace Prisma {
     updatedAt?: boolean
     bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    session?: boolean | WhatsAppSessionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aIBotSessionBinding"]>
 
   export type AIBotSessionBindingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -28307,6 +28346,7 @@ export namespace Prisma {
     updatedAt?: boolean
     bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    session?: boolean | WhatsAppSessionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aIBotSessionBinding"]>
 
   export type AIBotSessionBindingSelectScalar = {
@@ -28323,14 +28363,17 @@ export namespace Prisma {
   export type AIBotSessionBindingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    session?: boolean | WhatsAppSessionDefaultArgs<ExtArgs>
   }
   export type AIBotSessionBindingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    session?: boolean | WhatsAppSessionDefaultArgs<ExtArgs>
   }
   export type AIBotSessionBindingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    session?: boolean | WhatsAppSessionDefaultArgs<ExtArgs>
   }
 
   export type $AIBotSessionBindingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28338,6 +28381,7 @@ export namespace Prisma {
     objects: {
       bot: Prisma.$WhatsAppAIBotPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
+      session: Prisma.$WhatsAppSessionPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -28743,6 +28787,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     bot<T extends WhatsAppAIBotDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppAIBotDefaultArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    session<T extends WhatsAppSessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppSessionDefaultArgs<ExtArgs>>): Prisma__WhatsAppSessionClient<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30013,6 +30058,7 @@ export namespace Prisma {
     webhook?: StringNullableFilter<"WhatsAppSession"> | string | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     whatsAppMessageStats?: WhatsAppMessageStatsListRelationFilter
+    aiBotSessionBindings?: AIBotSessionBindingListRelationFilter
   }
 
   export type WhatsAppSessionOrderByWithRelationInput = {
@@ -30047,6 +30093,7 @@ export namespace Prisma {
     webhook?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     whatsAppMessageStats?: WhatsAppMessageStatsOrderByRelationAggregateInput
+    aiBotSessionBindings?: AIBotSessionBindingOrderByRelationAggregateInput
   }
 
   export type WhatsAppSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -30084,6 +30131,7 @@ export namespace Prisma {
     webhook?: StringNullableFilter<"WhatsAppSession"> | string | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     whatsAppMessageStats?: WhatsAppMessageStatsListRelationFilter
+    aiBotSessionBindings?: AIBotSessionBindingListRelationFilter
   }, "id" | "sessionId" | "token">
 
   export type WhatsAppSessionOrderByWithAggregationInput = {
@@ -31947,6 +31995,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"AIBotSessionBinding"> | Date | string
     bot?: XOR<WhatsAppAIBotScalarRelationFilter, WhatsAppAIBotWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    session?: XOR<WhatsAppSessionScalarRelationFilter, WhatsAppSessionWhereInput>
   }
 
   export type AIBotSessionBindingOrderByWithRelationInput = {
@@ -31959,6 +32008,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     bot?: WhatsAppAIBotOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
+    session?: WhatsAppSessionOrderByWithRelationInput
   }
 
   export type AIBotSessionBindingWhereUniqueInput = Prisma.AtLeast<{
@@ -31974,6 +32024,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"AIBotSessionBinding"> | Date | string
     bot?: XOR<WhatsAppAIBotScalarRelationFilter, WhatsAppAIBotWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    session?: XOR<WhatsAppSessionScalarRelationFilter, WhatsAppSessionWhereInput>
   }, "id" | "sessionId">
 
   export type AIBotSessionBindingOrderByWithAggregationInput = {
@@ -32288,6 +32339,7 @@ export namespace Prisma {
     webhook?: string | null
     user?: UserCreateNestedOneWithoutWhatsAppSessionsInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutSessionInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutSessionInput
   }
 
   export type WhatsAppSessionUncheckedCreateInput = {
@@ -32321,6 +32373,7 @@ export namespace Prisma {
     token: string
     webhook?: string | null
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutSessionInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type WhatsAppSessionUpdateInput = {
@@ -32354,6 +32407,7 @@ export namespace Prisma {
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneWithoutWhatsAppSessionsNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutSessionNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutSessionNestedInput
   }
 
   export type WhatsAppSessionUncheckedUpdateInput = {
@@ -32387,6 +32441,7 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutSessionNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type WhatsAppSessionCreateManyInput = {
@@ -34517,12 +34572,12 @@ export namespace Prisma {
 
   export type AIBotSessionBindingCreateInput = {
     id?: string
-    sessionId: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     bot: WhatsAppAIBotCreateNestedOneWithoutAiBotSessionBindingsInput
     user: UserCreateNestedOneWithoutAiBotSessionBindingsInput
+    session: WhatsAppSessionCreateNestedOneWithoutAiBotSessionBindingsInput
   }
 
   export type AIBotSessionBindingUncheckedCreateInput = {
@@ -34537,12 +34592,12 @@ export namespace Prisma {
 
   export type AIBotSessionBindingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sessionId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bot?: WhatsAppAIBotUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
     user?: UserUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
+    session?: WhatsAppSessionUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
   }
 
   export type AIBotSessionBindingUncheckedUpdateInput = {
@@ -34567,7 +34622,6 @@ export namespace Prisma {
 
   export type AIBotSessionBindingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sessionId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37016,11 +37070,25 @@ export namespace Prisma {
     connect?: WhatsAppMessageStatsWhereUniqueInput | WhatsAppMessageStatsWhereUniqueInput[]
   }
 
+  export type AIBotSessionBindingCreateNestedManyWithoutSessionInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutSessionInput, AIBotSessionBindingUncheckedCreateWithoutSessionInput> | AIBotSessionBindingCreateWithoutSessionInput[] | AIBotSessionBindingUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutSessionInput | AIBotSessionBindingCreateOrConnectWithoutSessionInput[]
+    createMany?: AIBotSessionBindingCreateManySessionInputEnvelope
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+  }
+
   export type WhatsAppMessageStatsUncheckedCreateNestedManyWithoutSessionInput = {
     create?: XOR<WhatsAppMessageStatsCreateWithoutSessionInput, WhatsAppMessageStatsUncheckedCreateWithoutSessionInput> | WhatsAppMessageStatsCreateWithoutSessionInput[] | WhatsAppMessageStatsUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: WhatsAppMessageStatsCreateOrConnectWithoutSessionInput | WhatsAppMessageStatsCreateOrConnectWithoutSessionInput[]
     createMany?: WhatsAppMessageStatsCreateManySessionInputEnvelope
     connect?: WhatsAppMessageStatsWhereUniqueInput | WhatsAppMessageStatsWhereUniqueInput[]
+  }
+
+  export type AIBotSessionBindingUncheckedCreateNestedManyWithoutSessionInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutSessionInput, AIBotSessionBindingUncheckedCreateWithoutSessionInput> | AIBotSessionBindingCreateWithoutSessionInput[] | AIBotSessionBindingUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutSessionInput | AIBotSessionBindingCreateOrConnectWithoutSessionInput[]
+    createMany?: AIBotSessionBindingCreateManySessionInputEnvelope
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -37059,6 +37127,20 @@ export namespace Prisma {
     deleteMany?: WhatsAppMessageStatsScalarWhereInput | WhatsAppMessageStatsScalarWhereInput[]
   }
 
+  export type AIBotSessionBindingUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutSessionInput, AIBotSessionBindingUncheckedCreateWithoutSessionInput> | AIBotSessionBindingCreateWithoutSessionInput[] | AIBotSessionBindingUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutSessionInput | AIBotSessionBindingCreateOrConnectWithoutSessionInput[]
+    upsert?: AIBotSessionBindingUpsertWithWhereUniqueWithoutSessionInput | AIBotSessionBindingUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: AIBotSessionBindingCreateManySessionInputEnvelope
+    set?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    disconnect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    delete?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    update?: AIBotSessionBindingUpdateWithWhereUniqueWithoutSessionInput | AIBotSessionBindingUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: AIBotSessionBindingUpdateManyWithWhereWithoutSessionInput | AIBotSessionBindingUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: AIBotSessionBindingScalarWhereInput | AIBotSessionBindingScalarWhereInput[]
+  }
+
   export type WhatsAppMessageStatsUncheckedUpdateManyWithoutSessionNestedInput = {
     create?: XOR<WhatsAppMessageStatsCreateWithoutSessionInput, WhatsAppMessageStatsUncheckedCreateWithoutSessionInput> | WhatsAppMessageStatsCreateWithoutSessionInput[] | WhatsAppMessageStatsUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: WhatsAppMessageStatsCreateOrConnectWithoutSessionInput | WhatsAppMessageStatsCreateOrConnectWithoutSessionInput[]
@@ -37071,6 +37153,20 @@ export namespace Prisma {
     update?: WhatsAppMessageStatsUpdateWithWhereUniqueWithoutSessionInput | WhatsAppMessageStatsUpdateWithWhereUniqueWithoutSessionInput[]
     updateMany?: WhatsAppMessageStatsUpdateManyWithWhereWithoutSessionInput | WhatsAppMessageStatsUpdateManyWithWhereWithoutSessionInput[]
     deleteMany?: WhatsAppMessageStatsScalarWhereInput | WhatsAppMessageStatsScalarWhereInput[]
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutSessionInput, AIBotSessionBindingUncheckedCreateWithoutSessionInput> | AIBotSessionBindingCreateWithoutSessionInput[] | AIBotSessionBindingUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutSessionInput | AIBotSessionBindingCreateOrConnectWithoutSessionInput[]
+    upsert?: AIBotSessionBindingUpsertWithWhereUniqueWithoutSessionInput | AIBotSessionBindingUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: AIBotSessionBindingCreateManySessionInputEnvelope
+    set?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    disconnect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    delete?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    update?: AIBotSessionBindingUpdateWithWhereUniqueWithoutSessionInput | AIBotSessionBindingUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: AIBotSessionBindingUpdateManyWithWhereWithoutSessionInput | AIBotSessionBindingUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: AIBotSessionBindingScalarWhereInput | AIBotSessionBindingScalarWhereInput[]
   }
 
   export type PaymentCreateNestedOneWithoutTransactionInput = {
@@ -37889,6 +37985,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type WhatsAppSessionCreateNestedOneWithoutAiBotSessionBindingsInput = {
+    create?: XOR<WhatsAppSessionCreateWithoutAiBotSessionBindingsInput, WhatsAppSessionUncheckedCreateWithoutAiBotSessionBindingsInput>
+    connectOrCreate?: WhatsAppSessionCreateOrConnectWithoutAiBotSessionBindingsInput
+    connect?: WhatsAppSessionWhereUniqueInput
+  }
+
   export type WhatsAppAIBotUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput = {
     create?: XOR<WhatsAppAIBotCreateWithoutAiBotSessionBindingsInput, WhatsAppAIBotUncheckedCreateWithoutAiBotSessionBindingsInput>
     connectOrCreate?: WhatsAppAIBotCreateOrConnectWithoutAiBotSessionBindingsInput
@@ -37903,6 +38005,14 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAiBotSessionBindingsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiBotSessionBindingsInput, UserUpdateWithoutAiBotSessionBindingsInput>, UserUncheckedUpdateWithoutAiBotSessionBindingsInput>
+  }
+
+  export type WhatsAppSessionUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput = {
+    create?: XOR<WhatsAppSessionCreateWithoutAiBotSessionBindingsInput, WhatsAppSessionUncheckedCreateWithoutAiBotSessionBindingsInput>
+    connectOrCreate?: WhatsAppSessionCreateOrConnectWithoutAiBotSessionBindingsInput
+    upsert?: WhatsAppSessionUpsertWithoutAiBotSessionBindingsInput
+    connect?: WhatsAppSessionWhereUniqueInput
+    update?: XOR<XOR<WhatsAppSessionUpdateToOneWithWhereWithoutAiBotSessionBindingsInput, WhatsAppSessionUpdateWithoutAiBotSessionBindingsInput>, WhatsAppSessionUncheckedUpdateWithoutAiBotSessionBindingsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -38566,6 +38676,7 @@ export namespace Prisma {
     token: string
     webhook?: string | null
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutSessionInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutSessionInput
   }
 
   export type WhatsAppSessionUncheckedCreateWithoutUserInput = {
@@ -38598,6 +38709,7 @@ export namespace Prisma {
     token: string
     webhook?: string | null
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutSessionInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type WhatsAppSessionCreateOrConnectWithoutUserInput = {
@@ -38778,11 +38890,11 @@ export namespace Prisma {
 
   export type AIBotSessionBindingCreateWithoutUserInput = {
     id?: string
-    sessionId: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     bot: WhatsAppAIBotCreateNestedOneWithoutAiBotSessionBindingsInput
+    session: WhatsAppSessionCreateNestedOneWithoutAiBotSessionBindingsInput
   }
 
   export type AIBotSessionBindingUncheckedCreateWithoutUserInput = {
@@ -39424,6 +39536,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AIBotSessionBindingCreateWithoutSessionInput = {
+    id?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bot: WhatsAppAIBotCreateNestedOneWithoutAiBotSessionBindingsInput
+    user: UserCreateNestedOneWithoutAiBotSessionBindingsInput
+  }
+
+  export type AIBotSessionBindingUncheckedCreateWithoutSessionInput = {
+    id?: string
+    userId: string
+    botId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIBotSessionBindingCreateOrConnectWithoutSessionInput = {
+    where: AIBotSessionBindingWhereUniqueInput
+    create: XOR<AIBotSessionBindingCreateWithoutSessionInput, AIBotSessionBindingUncheckedCreateWithoutSessionInput>
+  }
+
+  export type AIBotSessionBindingCreateManySessionInputEnvelope = {
+    data: AIBotSessionBindingCreateManySessionInput | AIBotSessionBindingCreateManySessionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutWhatsAppSessionsInput = {
     update: XOR<UserUpdateWithoutWhatsAppSessionsInput, UserUncheckedUpdateWithoutWhatsAppSessionsInput>
     create: XOR<UserCreateWithoutWhatsAppSessionsInput, UserUncheckedCreateWithoutWhatsAppSessionsInput>
@@ -39531,6 +39671,22 @@ export namespace Prisma {
   export type WhatsAppMessageStatsUpdateManyWithWhereWithoutSessionInput = {
     where: WhatsAppMessageStatsScalarWhereInput
     data: XOR<WhatsAppMessageStatsUpdateManyMutationInput, WhatsAppMessageStatsUncheckedUpdateManyWithoutSessionInput>
+  }
+
+  export type AIBotSessionBindingUpsertWithWhereUniqueWithoutSessionInput = {
+    where: AIBotSessionBindingWhereUniqueInput
+    update: XOR<AIBotSessionBindingUpdateWithoutSessionInput, AIBotSessionBindingUncheckedUpdateWithoutSessionInput>
+    create: XOR<AIBotSessionBindingCreateWithoutSessionInput, AIBotSessionBindingUncheckedCreateWithoutSessionInput>
+  }
+
+  export type AIBotSessionBindingUpdateWithWhereUniqueWithoutSessionInput = {
+    where: AIBotSessionBindingWhereUniqueInput
+    data: XOR<AIBotSessionBindingUpdateWithoutSessionInput, AIBotSessionBindingUncheckedUpdateWithoutSessionInput>
+  }
+
+  export type AIBotSessionBindingUpdateManyWithWhereWithoutSessionInput = {
+    where: AIBotSessionBindingScalarWhereInput
+    data: XOR<AIBotSessionBindingUpdateManyMutationInput, AIBotSessionBindingUncheckedUpdateManyWithoutSessionInput>
   }
 
   export type PaymentCreateWithoutTransactionInput = {
@@ -42445,6 +42601,7 @@ export namespace Prisma {
     token: string
     webhook?: string | null
     user?: UserCreateNestedOneWithoutWhatsAppSessionsInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutSessionInput
   }
 
   export type WhatsAppSessionUncheckedCreateWithoutWhatsAppMessageStatsInput = {
@@ -42477,6 +42634,7 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type WhatsAppSessionCreateOrConnectWithoutWhatsAppMessageStatsInput = {
@@ -42618,6 +42776,7 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneWithoutWhatsAppSessionsNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutSessionNestedInput
   }
 
   export type WhatsAppSessionUncheckedUpdateWithoutWhatsAppMessageStatsInput = {
@@ -42650,6 +42809,7 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type UserCreateWithoutWhatsAppAIBotsInput = {
@@ -42741,11 +42901,11 @@ export namespace Prisma {
 
   export type AIBotSessionBindingCreateWithoutBotInput = {
     id?: string
-    sessionId: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAiBotSessionBindingsInput
+    session: WhatsAppSessionCreateNestedOneWithoutAiBotSessionBindingsInput
   }
 
   export type AIBotSessionBindingUncheckedCreateWithoutBotInput = {
@@ -43350,6 +43510,77 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutAiBotSessionBindingsInput, UserUncheckedCreateWithoutAiBotSessionBindingsInput>
   }
 
+  export type WhatsAppSessionCreateWithoutAiBotSessionBindingsInput = {
+    id?: string
+    sessionId: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    message?: string | null
+    sessionName: string
+    connected?: boolean
+    events?: string | null
+    expiration?: number
+    isSystemSession?: boolean
+    jid?: string | null
+    loggedIn?: boolean
+    proxyEnabled?: boolean
+    proxyUrl?: string | null
+    qrcode?: string | null
+    s3AccessKey?: string | null
+    s3Bucket?: string | null
+    s3Enabled?: boolean
+    s3Endpoint?: string | null
+    s3MediaDelivery?: string | null
+    s3PathStyle?: boolean
+    s3PublicUrl?: string | null
+    s3Region?: string | null
+    s3RetentionDays?: number
+    s3SecretKey?: string | null
+    token: string
+    webhook?: string | null
+    user?: UserCreateNestedOneWithoutWhatsAppSessionsInput
+    whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutSessionInput
+  }
+
+  export type WhatsAppSessionUncheckedCreateWithoutAiBotSessionBindingsInput = {
+    id?: string
+    sessionId: string
+    userId?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    message?: string | null
+    sessionName: string
+    connected?: boolean
+    events?: string | null
+    expiration?: number
+    isSystemSession?: boolean
+    jid?: string | null
+    loggedIn?: boolean
+    proxyEnabled?: boolean
+    proxyUrl?: string | null
+    qrcode?: string | null
+    s3AccessKey?: string | null
+    s3Bucket?: string | null
+    s3Enabled?: boolean
+    s3Endpoint?: string | null
+    s3MediaDelivery?: string | null
+    s3PathStyle?: boolean
+    s3PublicUrl?: string | null
+    s3Region?: string | null
+    s3RetentionDays?: number
+    s3SecretKey?: string | null
+    token: string
+    webhook?: string | null
+    whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutSessionInput
+  }
+
+  export type WhatsAppSessionCreateOrConnectWithoutAiBotSessionBindingsInput = {
+    where: WhatsAppSessionWhereUniqueInput
+    create: XOR<WhatsAppSessionCreateWithoutAiBotSessionBindingsInput, WhatsAppSessionUncheckedCreateWithoutAiBotSessionBindingsInput>
+  }
+
   export type WhatsAppAIBotUpsertWithoutAiBotSessionBindingsInput = {
     update: XOR<WhatsAppAIBotUpdateWithoutAiBotSessionBindingsInput, WhatsAppAIBotUncheckedUpdateWithoutAiBotSessionBindingsInput>
     create: XOR<WhatsAppAIBotCreateWithoutAiBotSessionBindingsInput, WhatsAppAIBotUncheckedCreateWithoutAiBotSessionBindingsInput>
@@ -43474,6 +43705,83 @@ export namespace Prisma {
     whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
     aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
     aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type WhatsAppSessionUpsertWithoutAiBotSessionBindingsInput = {
+    update: XOR<WhatsAppSessionUpdateWithoutAiBotSessionBindingsInput, WhatsAppSessionUncheckedUpdateWithoutAiBotSessionBindingsInput>
+    create: XOR<WhatsAppSessionCreateWithoutAiBotSessionBindingsInput, WhatsAppSessionUncheckedCreateWithoutAiBotSessionBindingsInput>
+    where?: WhatsAppSessionWhereInput
+  }
+
+  export type WhatsAppSessionUpdateToOneWithWhereWithoutAiBotSessionBindingsInput = {
+    where?: WhatsAppSessionWhereInput
+    data: XOR<WhatsAppSessionUpdateWithoutAiBotSessionBindingsInput, WhatsAppSessionUncheckedUpdateWithoutAiBotSessionBindingsInput>
+  }
+
+  export type WhatsAppSessionUpdateWithoutAiBotSessionBindingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionName?: StringFieldUpdateOperationsInput | string
+    connected?: BoolFieldUpdateOperationsInput | boolean
+    events?: NullableStringFieldUpdateOperationsInput | string | null
+    expiration?: IntFieldUpdateOperationsInput | number
+    isSystemSession?: BoolFieldUpdateOperationsInput | boolean
+    jid?: NullableStringFieldUpdateOperationsInput | string | null
+    loggedIn?: BoolFieldUpdateOperationsInput | boolean
+    proxyEnabled?: BoolFieldUpdateOperationsInput | boolean
+    proxyUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    qrcode?: NullableStringFieldUpdateOperationsInput | string | null
+    s3AccessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    s3Bucket?: NullableStringFieldUpdateOperationsInput | string | null
+    s3Enabled?: BoolFieldUpdateOperationsInput | boolean
+    s3Endpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    s3MediaDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    s3PathStyle?: BoolFieldUpdateOperationsInput | boolean
+    s3PublicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    s3Region?: NullableStringFieldUpdateOperationsInput | string | null
+    s3RetentionDays?: IntFieldUpdateOperationsInput | number
+    s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
+    token?: StringFieldUpdateOperationsInput | string
+    webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneWithoutWhatsAppSessionsNestedInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutSessionNestedInput
+  }
+
+  export type WhatsAppSessionUncheckedUpdateWithoutAiBotSessionBindingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionName?: StringFieldUpdateOperationsInput | string
+    connected?: BoolFieldUpdateOperationsInput | boolean
+    events?: NullableStringFieldUpdateOperationsInput | string | null
+    expiration?: IntFieldUpdateOperationsInput | number
+    isSystemSession?: BoolFieldUpdateOperationsInput | boolean
+    jid?: NullableStringFieldUpdateOperationsInput | string | null
+    loggedIn?: BoolFieldUpdateOperationsInput | boolean
+    proxyEnabled?: BoolFieldUpdateOperationsInput | boolean
+    proxyUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    qrcode?: NullableStringFieldUpdateOperationsInput | string | null
+    s3AccessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    s3Bucket?: NullableStringFieldUpdateOperationsInput | string | null
+    s3Enabled?: BoolFieldUpdateOperationsInput | boolean
+    s3Endpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    s3MediaDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    s3PathStyle?: BoolFieldUpdateOperationsInput | boolean
+    s3PublicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    s3Region?: NullableStringFieldUpdateOperationsInput | string | null
+    s3RetentionDays?: IntFieldUpdateOperationsInput | number
+    s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
+    token?: StringFieldUpdateOperationsInput | string
+    webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type ServicesWhatsappCustomersCreateManyCustomerInput = {
@@ -44030,6 +44338,7 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutSessionNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutSessionNestedInput
   }
 
   export type WhatsAppSessionUncheckedUpdateWithoutUserInput = {
@@ -44062,6 +44371,7 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutSessionNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type WhatsAppSessionUncheckedUpdateManyWithoutUserInput = {
@@ -44285,11 +44595,11 @@ export namespace Prisma {
 
   export type AIBotSessionBindingUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sessionId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bot?: WhatsAppAIBotUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
+    session?: WhatsAppSessionUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
   }
 
   export type AIBotSessionBindingUncheckedUpdateWithoutUserInput = {
@@ -44335,6 +44645,15 @@ export namespace Prisma {
     templateMessagesFailed?: number
     lastMessageSentAt?: Date | string | null
     lastMessageFailedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIBotSessionBindingCreateManySessionInput = {
+    id?: string
+    userId: string
+    botId: string
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -44422,6 +44741,33 @@ export namespace Prisma {
     templateMessagesFailed?: IntFieldUpdateOperationsInput | number
     lastMessageSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastMessageFailedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIBotSessionBindingUpdateWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bot?: WhatsAppAIBotUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
+    user?: UserUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    botId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateManyWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    botId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44897,11 +45243,11 @@ export namespace Prisma {
 
   export type AIBotSessionBindingUpdateWithoutBotInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sessionId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
+    session?: WhatsAppSessionUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
   }
 
   export type AIBotSessionBindingUncheckedUpdateWithoutBotInput = {

@@ -4,7 +4,7 @@ import { getCustomerAuth } from "@/lib/auth-helpers";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const user = await getCustomerAuth(request);
@@ -12,7 +12,7 @@ export async function POST(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id: botId } = params;
+    const { id: botId } = await params;
     const body = await request.json();
     const { sessionId, isActive } = body;
 
@@ -28,12 +28,46 @@ export async function POST(
       return NextResponse.json({ error: "Bot not found" }, { status: 404 });
     }
 
+    // Find session by ID (not sessionId field)
     const waSession = await prisma.whatsAppSession.findFirst({
-      where: { sessionId, userId: user.id },
+      where: { id: sessionId, userId: user.id },
     });
 
     if (!waSession) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    }
+
+    // Update webhook URL to AI endpoint using the same pattern as webhook route
+    const webhookUrl = `${process.env.NEXT_PUBLIC_WHATSAPP_SERVER_API}/webhook/ai`;
+    try {
+      const updateWebhookRes = await fetch(
+        `${process.env.WHATSAPP_SERVER_API}/webhook`,
+        {
+          method: "POST",
+          headers: {
+            "token": waSession.token, // Use session's own token
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            session: waSession.sessionId, // Use sessionId field for the session parameter
+            WebhookURL: webhookUrl,
+            Events: ["All"]
+          }),
+        }
+      );
+      
+      if (!updateWebhookRes.ok) {
+        const errorData = await updateWebhookRes.json().catch(() => ({}));
+        console.error("Failed to update webhook URL:", errorData);
+      } else {
+        const webhookData = await updateWebhookRes.json();
+        if (!webhookData.success) {
+          console.error("Webhook service returned error:", webhookData);
+        }
+      }
+    } catch (webhookError) {
+      console.error("Error updating webhook:", webhookError);
+      // Continue even if webhook update fails
     }
 
     const existingBinding = await prisma.aIBotSessionBinding.findUnique({
@@ -73,7 +107,7 @@ export async function POST(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const user = await getCustomerAuth(request);
@@ -81,6 +115,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    await params; // Await params
     const { searchParams } = new URL(request.url);
     const sessionId = searchParams.get("sessionId");
 
