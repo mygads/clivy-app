@@ -13,6 +13,12 @@ export function validateInternalApiKey(request: NextRequest): boolean {
   const apiKey = request.headers.get("x-api-key");
   const expectedKey = process.env.INTERNAL_API_KEY;
 
+  // Debug logging
+  console.log("🔑 API Key Validation:");
+  console.log("  - Received key:", apiKey ? `${apiKey.substring(0, 10)}...` : "null");
+  console.log("  - Expected key:", expectedKey ? `${expectedKey.substring(0, 10)}...` : "null");
+  console.log("  - Match:", apiKey === expectedKey);
+
   // If INTERNAL_API_KEY not set, allow (backward compatibility)
   if (!expectedKey) {
     console.warn("⚠️  INTERNAL_API_KEY not set - internal endpoints are unprotected!");
@@ -21,10 +27,18 @@ export function validateInternalApiKey(request: NextRequest): boolean {
 
   // If key provided, must match
   if (!apiKey) {
+    console.error("❌ No x-api-key header provided");
     return false;
   }
 
-  return apiKey === expectedKey;
+  const match = apiKey === expectedKey;
+  if (!match) {
+    console.error("❌ API key mismatch!");
+    console.error("  Received length:", apiKey.length);
+    console.error("  Expected length:", expectedKey.length);
+  }
+
+  return match;
 }
 
 /**
