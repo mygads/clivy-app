@@ -433,6 +433,52 @@ exports.Prisma.WhatsAppMessageStatsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.WhatsAppAIBotScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  isActive: 'isActive',
+  systemPrompt: 'systemPrompt',
+  fallbackText: 'fallbackText',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AIDocumentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  kind: 'kind',
+  content: 'content',
+  embeddingId: 'embeddingId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AIUsageLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  sessionId: 'sessionId',
+  inputTokens: 'inputTokens',
+  outputTokens: 'outputTokens',
+  totalTokens: 'totalTokens',
+  latencyMs: 'latencyMs',
+  status: 'status',
+  errorReason: 'errorReason',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AIBotSessionBindingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  botId: 'botId',
+  sessionId: 'sessionId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -477,7 +523,11 @@ exports.Prisma.ModelName = {
   WhatsAppBulkCampaign: 'WhatsAppBulkCampaign',
   WhatsAppBulkCampaignItem: 'WhatsAppBulkCampaignItem',
   WhatsAppContact: 'WhatsAppContact',
-  WhatsAppMessageStats: 'WhatsAppMessageStats'
+  WhatsAppMessageStats: 'WhatsAppMessageStats',
+  WhatsAppAIBot: 'WhatsAppAIBot',
+  AIDocument: 'AIDocument',
+  AIUsageLog: 'AIUsageLog',
+  AIBotSessionBinding: 'AIBotSessionBinding'
 };
 
 /**

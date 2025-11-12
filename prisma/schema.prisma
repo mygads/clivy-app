@@ -45,6 +45,10 @@ model User {
   WhatsAppContact               WhatsAppContact[]
   whatsAppSessions              WhatsAppSession[]
   whatsAppMessageStats          WhatsAppMessageStats[] @relation("UserMessageStats")
+  whatsAppAIBots                WhatsAppAIBot[]
+  aiDocuments                   AIDocument[]
+  aiUsageLogs                   AIUsageLog[]
+  aiBotSessionBindings          AIBotSessionBinding[]
 }
 
 model WhatsAppSession {
@@ -436,4 +440,77 @@ model WhatsAppMessageStats {
   @@index([userId])
   @@index([sessionId])
   @@index([lastMessageSentAt])
+}
+
+// ============================================
+// AI BOT MODELS
+// ============================================
+
+model WhatsAppAIBot {
+  id           String   @id @default(cuid())
+  userId       String
+  name         String   @default("Default Bot")
+  isActive     Boolean  @default(false)
+  systemPrompt String?  @db.Text
+  fallbackText String?  @db.Text
+  createdAt    DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime @updatedAt
+
+  user                 User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  aiBotSessionBindings AIBotSessionBinding[]
+
+  @@index([userId])
+  @@index([isActive])
+}
+
+model AIDocument {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  kind        String   @default("faq") // faq|policy|product|pricing|doc
+  content     String   @db.Text
+  embeddingId String?  // kalau nanti pakai tabel embedding (pgvector)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([kind, isActive])
+}
+
+model AIUsageLog {
+  id           String   @id @default(cuid())
+  userId       String
+  sessionId    String?
+  inputTokens  Int      @default(0)
+  outputTokens Int      @default(0)
+  totalTokens  Int      @default(0)
+  latencyMs    Int      @default(0)
+  status       String   @default("ok") // ok|timeout|error
+  errorReason  String?  @db.Text
+  createdAt    DateTime @default(now()) @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([status])
+}
+
+model AIBotSessionBinding {
+  id        String   @id @default(cuid())
+  userId    String
+  botId     String
+  sessionId String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt
+
+  bot  WhatsAppAIBot @relation(fields: [botId], references: [id], onDelete: Cascade)
+  user User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([botId])
+  @@index([isActive])
 }

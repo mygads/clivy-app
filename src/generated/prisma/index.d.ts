@@ -98,6 +98,26 @@ export type WhatsAppContact = $Result.DefaultSelection<Prisma.$WhatsAppContactPa
  * 
  */
 export type WhatsAppMessageStats = $Result.DefaultSelection<Prisma.$WhatsAppMessageStatsPayload>
+/**
+ * Model WhatsAppAIBot
+ * 
+ */
+export type WhatsAppAIBot = $Result.DefaultSelection<Prisma.$WhatsAppAIBotPayload>
+/**
+ * Model AIDocument
+ * 
+ */
+export type AIDocument = $Result.DefaultSelection<Prisma.$AIDocumentPayload>
+/**
+ * Model AIUsageLog
+ * 
+ */
+export type AIUsageLog = $Result.DefaultSelection<Prisma.$AIUsageLogPayload>
+/**
+ * Model AIBotSessionBinding
+ * 
+ */
+export type AIBotSessionBinding = $Result.DefaultSelection<Prisma.$AIBotSessionBindingPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -386,6 +406,46 @@ export class PrismaClient<
     * ```
     */
   get whatsAppMessageStats(): Prisma.WhatsAppMessageStatsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.whatsAppAIBot`: Exposes CRUD operations for the **WhatsAppAIBot** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WhatsAppAIBots
+    * const whatsAppAIBots = await prisma.whatsAppAIBot.findMany()
+    * ```
+    */
+  get whatsAppAIBot(): Prisma.WhatsAppAIBotDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aIDocument`: Exposes CRUD operations for the **AIDocument** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AIDocuments
+    * const aIDocuments = await prisma.aIDocument.findMany()
+    * ```
+    */
+  get aIDocument(): Prisma.AIDocumentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aIUsageLog`: Exposes CRUD operations for the **AIUsageLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AIUsageLogs
+    * const aIUsageLogs = await prisma.aIUsageLog.findMany()
+    * ```
+    */
+  get aIUsageLog(): Prisma.AIUsageLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aIBotSessionBinding`: Exposes CRUD operations for the **AIBotSessionBinding** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AIBotSessionBindings
+    * const aIBotSessionBindings = await prisma.aIBotSessionBinding.findMany()
+    * ```
+    */
+  get aIBotSessionBinding(): Prisma.AIBotSessionBindingDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -843,7 +903,11 @@ export namespace Prisma {
     WhatsAppBulkCampaign: 'WhatsAppBulkCampaign',
     WhatsAppBulkCampaignItem: 'WhatsAppBulkCampaignItem',
     WhatsAppContact: 'WhatsAppContact',
-    WhatsAppMessageStats: 'WhatsAppMessageStats'
+    WhatsAppMessageStats: 'WhatsAppMessageStats',
+    WhatsAppAIBot: 'WhatsAppAIBot',
+    AIDocument: 'AIDocument',
+    AIUsageLog: 'AIUsageLog',
+    AIBotSessionBinding: 'AIBotSessionBinding'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -862,7 +926,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "whatsAppSession" | "transaction" | "transactionWhatsappService" | "payment" | "whatsappApiPackage" | "servicesWhatsappCustomers" | "userSession" | "voucher" | "voucherUsage" | "paymentMethod" | "bankDetail" | "whatsAppCampaign" | "whatsAppBulkCampaign" | "whatsAppBulkCampaignItem" | "whatsAppContact" | "whatsAppMessageStats"
+      modelProps: "user" | "whatsAppSession" | "transaction" | "transactionWhatsappService" | "payment" | "whatsappApiPackage" | "servicesWhatsappCustomers" | "userSession" | "voucher" | "voucherUsage" | "paymentMethod" | "bankDetail" | "whatsAppCampaign" | "whatsAppBulkCampaign" | "whatsAppBulkCampaignItem" | "whatsAppContact" | "whatsAppMessageStats" | "whatsAppAIBot" | "aIDocument" | "aIUsageLog" | "aIBotSessionBinding"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2124,6 +2188,302 @@ export namespace Prisma {
           }
         }
       }
+      WhatsAppAIBot: {
+        payload: Prisma.$WhatsAppAIBotPayload<ExtArgs>
+        fields: Prisma.WhatsAppAIBotFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WhatsAppAIBotFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WhatsAppAIBotFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload>
+          }
+          findFirst: {
+            args: Prisma.WhatsAppAIBotFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WhatsAppAIBotFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload>
+          }
+          findMany: {
+            args: Prisma.WhatsAppAIBotFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload>[]
+          }
+          create: {
+            args: Prisma.WhatsAppAIBotCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload>
+          }
+          createMany: {
+            args: Prisma.WhatsAppAIBotCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WhatsAppAIBotCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload>[]
+          }
+          delete: {
+            args: Prisma.WhatsAppAIBotDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload>
+          }
+          update: {
+            args: Prisma.WhatsAppAIBotUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload>
+          }
+          deleteMany: {
+            args: Prisma.WhatsAppAIBotDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WhatsAppAIBotUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WhatsAppAIBotUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload>[]
+          }
+          upsert: {
+            args: Prisma.WhatsAppAIBotUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppAIBotPayload>
+          }
+          aggregate: {
+            args: Prisma.WhatsAppAIBotAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWhatsAppAIBot>
+          }
+          groupBy: {
+            args: Prisma.WhatsAppAIBotGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WhatsAppAIBotGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WhatsAppAIBotCountArgs<ExtArgs>
+            result: $Utils.Optional<WhatsAppAIBotCountAggregateOutputType> | number
+          }
+        }
+      }
+      AIDocument: {
+        payload: Prisma.$AIDocumentPayload<ExtArgs>
+        fields: Prisma.AIDocumentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AIDocumentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AIDocumentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload>
+          }
+          findFirst: {
+            args: Prisma.AIDocumentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AIDocumentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload>
+          }
+          findMany: {
+            args: Prisma.AIDocumentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload>[]
+          }
+          create: {
+            args: Prisma.AIDocumentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload>
+          }
+          createMany: {
+            args: Prisma.AIDocumentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AIDocumentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload>[]
+          }
+          delete: {
+            args: Prisma.AIDocumentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload>
+          }
+          update: {
+            args: Prisma.AIDocumentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload>
+          }
+          deleteMany: {
+            args: Prisma.AIDocumentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AIDocumentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AIDocumentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload>[]
+          }
+          upsert: {
+            args: Prisma.AIDocumentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIDocumentPayload>
+          }
+          aggregate: {
+            args: Prisma.AIDocumentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAIDocument>
+          }
+          groupBy: {
+            args: Prisma.AIDocumentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AIDocumentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AIDocumentCountArgs<ExtArgs>
+            result: $Utils.Optional<AIDocumentCountAggregateOutputType> | number
+          }
+        }
+      }
+      AIUsageLog: {
+        payload: Prisma.$AIUsageLogPayload<ExtArgs>
+        fields: Prisma.AIUsageLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AIUsageLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AIUsageLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload>
+          }
+          findFirst: {
+            args: Prisma.AIUsageLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AIUsageLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload>
+          }
+          findMany: {
+            args: Prisma.AIUsageLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload>[]
+          }
+          create: {
+            args: Prisma.AIUsageLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload>
+          }
+          createMany: {
+            args: Prisma.AIUsageLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AIUsageLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload>[]
+          }
+          delete: {
+            args: Prisma.AIUsageLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload>
+          }
+          update: {
+            args: Prisma.AIUsageLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.AIUsageLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AIUsageLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AIUsageLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.AIUsageLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIUsageLogPayload>
+          }
+          aggregate: {
+            args: Prisma.AIUsageLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAIUsageLog>
+          }
+          groupBy: {
+            args: Prisma.AIUsageLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AIUsageLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AIUsageLogCountArgs<ExtArgs>
+            result: $Utils.Optional<AIUsageLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      AIBotSessionBinding: {
+        payload: Prisma.$AIBotSessionBindingPayload<ExtArgs>
+        fields: Prisma.AIBotSessionBindingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AIBotSessionBindingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AIBotSessionBindingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload>
+          }
+          findFirst: {
+            args: Prisma.AIBotSessionBindingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AIBotSessionBindingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload>
+          }
+          findMany: {
+            args: Prisma.AIBotSessionBindingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload>[]
+          }
+          create: {
+            args: Prisma.AIBotSessionBindingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload>
+          }
+          createMany: {
+            args: Prisma.AIBotSessionBindingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AIBotSessionBindingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload>[]
+          }
+          delete: {
+            args: Prisma.AIBotSessionBindingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload>
+          }
+          update: {
+            args: Prisma.AIBotSessionBindingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload>
+          }
+          deleteMany: {
+            args: Prisma.AIBotSessionBindingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AIBotSessionBindingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AIBotSessionBindingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload>[]
+          }
+          upsert: {
+            args: Prisma.AIBotSessionBindingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIBotSessionBindingPayload>
+          }
+          aggregate: {
+            args: Prisma.AIBotSessionBindingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAIBotSessionBinding>
+          }
+          groupBy: {
+            args: Prisma.AIBotSessionBindingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AIBotSessionBindingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AIBotSessionBindingCountArgs<ExtArgs>
+            result: $Utils.Optional<AIBotSessionBindingCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2237,6 +2597,10 @@ export namespace Prisma {
     whatsAppBulkCampaignItem?: WhatsAppBulkCampaignItemOmit
     whatsAppContact?: WhatsAppContactOmit
     whatsAppMessageStats?: WhatsAppMessageStatsOmit
+    whatsAppAIBot?: WhatsAppAIBotOmit
+    aIDocument?: AIDocumentOmit
+    aIUsageLog?: AIUsageLogOmit
+    aIBotSessionBinding?: AIBotSessionBindingOmit
   }
 
   /* Types for Logging */
@@ -2326,6 +2690,10 @@ export namespace Prisma {
     WhatsAppContact: number
     whatsAppSessions: number
     whatsAppMessageStats: number
+    whatsAppAIBots: number
+    aiDocuments: number
+    aiUsageLogs: number
+    aiBotSessionBindings: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2338,6 +2706,10 @@ export namespace Prisma {
     WhatsAppContact?: boolean | UserCountOutputTypeCountWhatsAppContactArgs
     whatsAppSessions?: boolean | UserCountOutputTypeCountWhatsAppSessionsArgs
     whatsAppMessageStats?: boolean | UserCountOutputTypeCountWhatsAppMessageStatsArgs
+    whatsAppAIBots?: boolean | UserCountOutputTypeCountWhatsAppAIBotsArgs
+    aiDocuments?: boolean | UserCountOutputTypeCountAiDocumentsArgs
+    aiUsageLogs?: boolean | UserCountOutputTypeCountAiUsageLogsArgs
+    aiBotSessionBindings?: boolean | UserCountOutputTypeCountAiBotSessionBindingsArgs
   }
 
   // Custom InputTypes
@@ -2412,6 +2784,34 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountWhatsAppMessageStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WhatsAppMessageStatsWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWhatsAppAIBotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsAppAIBotWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAiDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIDocumentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAiUsageLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIUsageLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAiBotSessionBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIBotSessionBindingWhereInput
   }
 
 
@@ -2647,6 +3047,37 @@ export namespace Prisma {
    */
   export type WhatsAppBulkCampaignCountOutputTypeCountWhatsAppBulkCampaignItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WhatsAppBulkCampaignItemWhereInput
+  }
+
+
+  /**
+   * Count Type WhatsAppAIBotCountOutputType
+   */
+
+  export type WhatsAppAIBotCountOutputType = {
+    aiBotSessionBindings: number
+  }
+
+  export type WhatsAppAIBotCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    aiBotSessionBindings?: boolean | WhatsAppAIBotCountOutputTypeCountAiBotSessionBindingsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * WhatsAppAIBotCountOutputType without action
+   */
+  export type WhatsAppAIBotCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBotCountOutputType
+     */
+    select?: WhatsAppAIBotCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * WhatsAppAIBotCountOutputType without action
+   */
+  export type WhatsAppAIBotCountOutputTypeCountAiBotSessionBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIBotSessionBindingWhereInput
   }
 
 
@@ -2995,6 +3426,10 @@ export namespace Prisma {
     WhatsAppContact?: boolean | User$WhatsAppContactArgs<ExtArgs>
     whatsAppSessions?: boolean | User$whatsAppSessionsArgs<ExtArgs>
     whatsAppMessageStats?: boolean | User$whatsAppMessageStatsArgs<ExtArgs>
+    whatsAppAIBots?: boolean | User$whatsAppAIBotsArgs<ExtArgs>
+    aiDocuments?: boolean | User$aiDocumentsArgs<ExtArgs>
+    aiUsageLogs?: boolean | User$aiUsageLogsArgs<ExtArgs>
+    aiBotSessionBindings?: boolean | User$aiBotSessionBindingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3096,6 +3531,10 @@ export namespace Prisma {
     WhatsAppContact?: boolean | User$WhatsAppContactArgs<ExtArgs>
     whatsAppSessions?: boolean | User$whatsAppSessionsArgs<ExtArgs>
     whatsAppMessageStats?: boolean | User$whatsAppMessageStatsArgs<ExtArgs>
+    whatsAppAIBots?: boolean | User$whatsAppAIBotsArgs<ExtArgs>
+    aiDocuments?: boolean | User$aiDocumentsArgs<ExtArgs>
+    aiUsageLogs?: boolean | User$aiUsageLogsArgs<ExtArgs>
+    aiBotSessionBindings?: boolean | User$aiBotSessionBindingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3113,6 +3552,10 @@ export namespace Prisma {
       WhatsAppContact: Prisma.$WhatsAppContactPayload<ExtArgs>[]
       whatsAppSessions: Prisma.$WhatsAppSessionPayload<ExtArgs>[]
       whatsAppMessageStats: Prisma.$WhatsAppMessageStatsPayload<ExtArgs>[]
+      whatsAppAIBots: Prisma.$WhatsAppAIBotPayload<ExtArgs>[]
+      aiDocuments: Prisma.$AIDocumentPayload<ExtArgs>[]
+      aiUsageLogs: Prisma.$AIUsageLogPayload<ExtArgs>[]
+      aiBotSessionBindings: Prisma.$AIBotSessionBindingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3544,6 +3987,10 @@ export namespace Prisma {
     WhatsAppContact<T extends User$WhatsAppContactArgs<ExtArgs> = {}>(args?: Subset<T, User$WhatsAppContactArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     whatsAppSessions<T extends User$whatsAppSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$whatsAppSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     whatsAppMessageStats<T extends User$whatsAppMessageStatsArgs<ExtArgs> = {}>(args?: Subset<T, User$whatsAppMessageStatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppMessageStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    whatsAppAIBots<T extends User$whatsAppAIBotsArgs<ExtArgs> = {}>(args?: Subset<T, User$whatsAppAIBotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aiDocuments<T extends User$aiDocumentsArgs<ExtArgs> = {}>(args?: Subset<T, User$aiDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aiUsageLogs<T extends User$aiUsageLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$aiUsageLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aiBotSessionBindings<T extends User$aiBotSessionBindingsArgs<ExtArgs> = {}>(args?: Subset<T, User$aiBotSessionBindingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4200,6 +4647,102 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: WhatsAppMessageStatsScalarFieldEnum | WhatsAppMessageStatsScalarFieldEnum[]
+  }
+
+  /**
+   * User.whatsAppAIBots
+   */
+  export type User$whatsAppAIBotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+    where?: WhatsAppAIBotWhereInput
+    orderBy?: WhatsAppAIBotOrderByWithRelationInput | WhatsAppAIBotOrderByWithRelationInput[]
+    cursor?: WhatsAppAIBotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WhatsAppAIBotScalarFieldEnum | WhatsAppAIBotScalarFieldEnum[]
+  }
+
+  /**
+   * User.aiDocuments
+   */
+  export type User$aiDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+    where?: AIDocumentWhereInput
+    orderBy?: AIDocumentOrderByWithRelationInput | AIDocumentOrderByWithRelationInput[]
+    cursor?: AIDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIDocumentScalarFieldEnum | AIDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * User.aiUsageLogs
+   */
+  export type User$aiUsageLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+    where?: AIUsageLogWhereInput
+    orderBy?: AIUsageLogOrderByWithRelationInput | AIUsageLogOrderByWithRelationInput[]
+    cursor?: AIUsageLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIUsageLogScalarFieldEnum | AIUsageLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.aiBotSessionBindings
+   */
+  export type User$aiBotSessionBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    where?: AIBotSessionBindingWhereInput
+    orderBy?: AIBotSessionBindingOrderByWithRelationInput | AIBotSessionBindingOrderByWithRelationInput[]
+    cursor?: AIBotSessionBindingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIBotSessionBindingScalarFieldEnum | AIBotSessionBindingScalarFieldEnum[]
   }
 
   /**
@@ -24153,6 +24696,4504 @@ export namespace Prisma {
 
 
   /**
+   * Model WhatsAppAIBot
+   */
+
+  export type AggregateWhatsAppAIBot = {
+    _count: WhatsAppAIBotCountAggregateOutputType | null
+    _min: WhatsAppAIBotMinAggregateOutputType | null
+    _max: WhatsAppAIBotMaxAggregateOutputType | null
+  }
+
+  export type WhatsAppAIBotMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    isActive: boolean | null
+    systemPrompt: string | null
+    fallbackText: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WhatsAppAIBotMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    isActive: boolean | null
+    systemPrompt: string | null
+    fallbackText: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WhatsAppAIBotCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    isActive: number
+    systemPrompt: number
+    fallbackText: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WhatsAppAIBotMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    isActive?: true
+    systemPrompt?: true
+    fallbackText?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WhatsAppAIBotMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    isActive?: true
+    systemPrompt?: true
+    fallbackText?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WhatsAppAIBotCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    isActive?: true
+    systemPrompt?: true
+    fallbackText?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WhatsAppAIBotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsAppAIBot to aggregate.
+     */
+    where?: WhatsAppAIBotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppAIBots to fetch.
+     */
+    orderBy?: WhatsAppAIBotOrderByWithRelationInput | WhatsAppAIBotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WhatsAppAIBotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppAIBots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppAIBots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WhatsAppAIBots
+    **/
+    _count?: true | WhatsAppAIBotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WhatsAppAIBotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WhatsAppAIBotMaxAggregateInputType
+  }
+
+  export type GetWhatsAppAIBotAggregateType<T extends WhatsAppAIBotAggregateArgs> = {
+        [P in keyof T & keyof AggregateWhatsAppAIBot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWhatsAppAIBot[P]>
+      : GetScalarType<T[P], AggregateWhatsAppAIBot[P]>
+  }
+
+
+
+
+  export type WhatsAppAIBotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsAppAIBotWhereInput
+    orderBy?: WhatsAppAIBotOrderByWithAggregationInput | WhatsAppAIBotOrderByWithAggregationInput[]
+    by: WhatsAppAIBotScalarFieldEnum[] | WhatsAppAIBotScalarFieldEnum
+    having?: WhatsAppAIBotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WhatsAppAIBotCountAggregateInputType | true
+    _min?: WhatsAppAIBotMinAggregateInputType
+    _max?: WhatsAppAIBotMaxAggregateInputType
+  }
+
+  export type WhatsAppAIBotGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    isActive: boolean
+    systemPrompt: string | null
+    fallbackText: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: WhatsAppAIBotCountAggregateOutputType | null
+    _min: WhatsAppAIBotMinAggregateOutputType | null
+    _max: WhatsAppAIBotMaxAggregateOutputType | null
+  }
+
+  type GetWhatsAppAIBotGroupByPayload<T extends WhatsAppAIBotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WhatsAppAIBotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WhatsAppAIBotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WhatsAppAIBotGroupByOutputType[P]>
+            : GetScalarType<T[P], WhatsAppAIBotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WhatsAppAIBotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    isActive?: boolean
+    systemPrompt?: boolean
+    fallbackText?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    aiBotSessionBindings?: boolean | WhatsAppAIBot$aiBotSessionBindingsArgs<ExtArgs>
+    _count?: boolean | WhatsAppAIBotCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["whatsAppAIBot"]>
+
+  export type WhatsAppAIBotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    isActive?: boolean
+    systemPrompt?: boolean
+    fallbackText?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["whatsAppAIBot"]>
+
+  export type WhatsAppAIBotSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    isActive?: boolean
+    systemPrompt?: boolean
+    fallbackText?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["whatsAppAIBot"]>
+
+  export type WhatsAppAIBotSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    isActive?: boolean
+    systemPrompt?: boolean
+    fallbackText?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type WhatsAppAIBotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "isActive" | "systemPrompt" | "fallbackText" | "createdAt" | "updatedAt", ExtArgs["result"]["whatsAppAIBot"]>
+  export type WhatsAppAIBotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    aiBotSessionBindings?: boolean | WhatsAppAIBot$aiBotSessionBindingsArgs<ExtArgs>
+    _count?: boolean | WhatsAppAIBotCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type WhatsAppAIBotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type WhatsAppAIBotIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $WhatsAppAIBotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WhatsAppAIBot"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      aiBotSessionBindings: Prisma.$AIBotSessionBindingPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+      isActive: boolean
+      systemPrompt: string | null
+      fallbackText: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["whatsAppAIBot"]>
+    composites: {}
+  }
+
+  type WhatsAppAIBotGetPayload<S extends boolean | null | undefined | WhatsAppAIBotDefaultArgs> = $Result.GetResult<Prisma.$WhatsAppAIBotPayload, S>
+
+  type WhatsAppAIBotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WhatsAppAIBotFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WhatsAppAIBotCountAggregateInputType | true
+    }
+
+  export interface WhatsAppAIBotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WhatsAppAIBot'], meta: { name: 'WhatsAppAIBot' } }
+    /**
+     * Find zero or one WhatsAppAIBot that matches the filter.
+     * @param {WhatsAppAIBotFindUniqueArgs} args - Arguments to find a WhatsAppAIBot
+     * @example
+     * // Get one WhatsAppAIBot
+     * const whatsAppAIBot = await prisma.whatsAppAIBot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WhatsAppAIBotFindUniqueArgs>(args: SelectSubset<T, WhatsAppAIBotFindUniqueArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WhatsAppAIBot that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WhatsAppAIBotFindUniqueOrThrowArgs} args - Arguments to find a WhatsAppAIBot
+     * @example
+     * // Get one WhatsAppAIBot
+     * const whatsAppAIBot = await prisma.whatsAppAIBot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WhatsAppAIBotFindUniqueOrThrowArgs>(args: SelectSubset<T, WhatsAppAIBotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsAppAIBot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppAIBotFindFirstArgs} args - Arguments to find a WhatsAppAIBot
+     * @example
+     * // Get one WhatsAppAIBot
+     * const whatsAppAIBot = await prisma.whatsAppAIBot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WhatsAppAIBotFindFirstArgs>(args?: SelectSubset<T, WhatsAppAIBotFindFirstArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsAppAIBot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppAIBotFindFirstOrThrowArgs} args - Arguments to find a WhatsAppAIBot
+     * @example
+     * // Get one WhatsAppAIBot
+     * const whatsAppAIBot = await prisma.whatsAppAIBot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WhatsAppAIBotFindFirstOrThrowArgs>(args?: SelectSubset<T, WhatsAppAIBotFindFirstOrThrowArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WhatsAppAIBots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppAIBotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WhatsAppAIBots
+     * const whatsAppAIBots = await prisma.whatsAppAIBot.findMany()
+     * 
+     * // Get first 10 WhatsAppAIBots
+     * const whatsAppAIBots = await prisma.whatsAppAIBot.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const whatsAppAIBotWithIdOnly = await prisma.whatsAppAIBot.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WhatsAppAIBotFindManyArgs>(args?: SelectSubset<T, WhatsAppAIBotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WhatsAppAIBot.
+     * @param {WhatsAppAIBotCreateArgs} args - Arguments to create a WhatsAppAIBot.
+     * @example
+     * // Create one WhatsAppAIBot
+     * const WhatsAppAIBot = await prisma.whatsAppAIBot.create({
+     *   data: {
+     *     // ... data to create a WhatsAppAIBot
+     *   }
+     * })
+     * 
+     */
+    create<T extends WhatsAppAIBotCreateArgs>(args: SelectSubset<T, WhatsAppAIBotCreateArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WhatsAppAIBots.
+     * @param {WhatsAppAIBotCreateManyArgs} args - Arguments to create many WhatsAppAIBots.
+     * @example
+     * // Create many WhatsAppAIBots
+     * const whatsAppAIBot = await prisma.whatsAppAIBot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WhatsAppAIBotCreateManyArgs>(args?: SelectSubset<T, WhatsAppAIBotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WhatsAppAIBots and returns the data saved in the database.
+     * @param {WhatsAppAIBotCreateManyAndReturnArgs} args - Arguments to create many WhatsAppAIBots.
+     * @example
+     * // Create many WhatsAppAIBots
+     * const whatsAppAIBot = await prisma.whatsAppAIBot.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WhatsAppAIBots and only return the `id`
+     * const whatsAppAIBotWithIdOnly = await prisma.whatsAppAIBot.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WhatsAppAIBotCreateManyAndReturnArgs>(args?: SelectSubset<T, WhatsAppAIBotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WhatsAppAIBot.
+     * @param {WhatsAppAIBotDeleteArgs} args - Arguments to delete one WhatsAppAIBot.
+     * @example
+     * // Delete one WhatsAppAIBot
+     * const WhatsAppAIBot = await prisma.whatsAppAIBot.delete({
+     *   where: {
+     *     // ... filter to delete one WhatsAppAIBot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WhatsAppAIBotDeleteArgs>(args: SelectSubset<T, WhatsAppAIBotDeleteArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WhatsAppAIBot.
+     * @param {WhatsAppAIBotUpdateArgs} args - Arguments to update one WhatsAppAIBot.
+     * @example
+     * // Update one WhatsAppAIBot
+     * const whatsAppAIBot = await prisma.whatsAppAIBot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WhatsAppAIBotUpdateArgs>(args: SelectSubset<T, WhatsAppAIBotUpdateArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WhatsAppAIBots.
+     * @param {WhatsAppAIBotDeleteManyArgs} args - Arguments to filter WhatsAppAIBots to delete.
+     * @example
+     * // Delete a few WhatsAppAIBots
+     * const { count } = await prisma.whatsAppAIBot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WhatsAppAIBotDeleteManyArgs>(args?: SelectSubset<T, WhatsAppAIBotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsAppAIBots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppAIBotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WhatsAppAIBots
+     * const whatsAppAIBot = await prisma.whatsAppAIBot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WhatsAppAIBotUpdateManyArgs>(args: SelectSubset<T, WhatsAppAIBotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsAppAIBots and returns the data updated in the database.
+     * @param {WhatsAppAIBotUpdateManyAndReturnArgs} args - Arguments to update many WhatsAppAIBots.
+     * @example
+     * // Update many WhatsAppAIBots
+     * const whatsAppAIBot = await prisma.whatsAppAIBot.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WhatsAppAIBots and only return the `id`
+     * const whatsAppAIBotWithIdOnly = await prisma.whatsAppAIBot.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WhatsAppAIBotUpdateManyAndReturnArgs>(args: SelectSubset<T, WhatsAppAIBotUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WhatsAppAIBot.
+     * @param {WhatsAppAIBotUpsertArgs} args - Arguments to update or create a WhatsAppAIBot.
+     * @example
+     * // Update or create a WhatsAppAIBot
+     * const whatsAppAIBot = await prisma.whatsAppAIBot.upsert({
+     *   create: {
+     *     // ... data to create a WhatsAppAIBot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WhatsAppAIBot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WhatsAppAIBotUpsertArgs>(args: SelectSubset<T, WhatsAppAIBotUpsertArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WhatsAppAIBots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppAIBotCountArgs} args - Arguments to filter WhatsAppAIBots to count.
+     * @example
+     * // Count the number of WhatsAppAIBots
+     * const count = await prisma.whatsAppAIBot.count({
+     *   where: {
+     *     // ... the filter for the WhatsAppAIBots we want to count
+     *   }
+     * })
+    **/
+    count<T extends WhatsAppAIBotCountArgs>(
+      args?: Subset<T, WhatsAppAIBotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WhatsAppAIBotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WhatsAppAIBot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppAIBotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WhatsAppAIBotAggregateArgs>(args: Subset<T, WhatsAppAIBotAggregateArgs>): Prisma.PrismaPromise<GetWhatsAppAIBotAggregateType<T>>
+
+    /**
+     * Group by WhatsAppAIBot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppAIBotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WhatsAppAIBotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WhatsAppAIBotGroupByArgs['orderBy'] }
+        : { orderBy?: WhatsAppAIBotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WhatsAppAIBotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWhatsAppAIBotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WhatsAppAIBot model
+   */
+  readonly fields: WhatsAppAIBotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WhatsAppAIBot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WhatsAppAIBotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    aiBotSessionBindings<T extends WhatsAppAIBot$aiBotSessionBindingsArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppAIBot$aiBotSessionBindingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WhatsAppAIBot model
+   */
+  interface WhatsAppAIBotFieldRefs {
+    readonly id: FieldRef<"WhatsAppAIBot", 'String'>
+    readonly userId: FieldRef<"WhatsAppAIBot", 'String'>
+    readonly name: FieldRef<"WhatsAppAIBot", 'String'>
+    readonly isActive: FieldRef<"WhatsAppAIBot", 'Boolean'>
+    readonly systemPrompt: FieldRef<"WhatsAppAIBot", 'String'>
+    readonly fallbackText: FieldRef<"WhatsAppAIBot", 'String'>
+    readonly createdAt: FieldRef<"WhatsAppAIBot", 'DateTime'>
+    readonly updatedAt: FieldRef<"WhatsAppAIBot", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WhatsAppAIBot findUnique
+   */
+  export type WhatsAppAIBotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppAIBot to fetch.
+     */
+    where: WhatsAppAIBotWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppAIBot findUniqueOrThrow
+   */
+  export type WhatsAppAIBotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppAIBot to fetch.
+     */
+    where: WhatsAppAIBotWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppAIBot findFirst
+   */
+  export type WhatsAppAIBotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppAIBot to fetch.
+     */
+    where?: WhatsAppAIBotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppAIBots to fetch.
+     */
+    orderBy?: WhatsAppAIBotOrderByWithRelationInput | WhatsAppAIBotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsAppAIBots.
+     */
+    cursor?: WhatsAppAIBotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppAIBots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppAIBots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppAIBots.
+     */
+    distinct?: WhatsAppAIBotScalarFieldEnum | WhatsAppAIBotScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppAIBot findFirstOrThrow
+   */
+  export type WhatsAppAIBotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppAIBot to fetch.
+     */
+    where?: WhatsAppAIBotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppAIBots to fetch.
+     */
+    orderBy?: WhatsAppAIBotOrderByWithRelationInput | WhatsAppAIBotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsAppAIBots.
+     */
+    cursor?: WhatsAppAIBotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppAIBots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppAIBots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppAIBots.
+     */
+    distinct?: WhatsAppAIBotScalarFieldEnum | WhatsAppAIBotScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppAIBot findMany
+   */
+  export type WhatsAppAIBotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppAIBots to fetch.
+     */
+    where?: WhatsAppAIBotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppAIBots to fetch.
+     */
+    orderBy?: WhatsAppAIBotOrderByWithRelationInput | WhatsAppAIBotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WhatsAppAIBots.
+     */
+    cursor?: WhatsAppAIBotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppAIBots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppAIBots.
+     */
+    skip?: number
+    distinct?: WhatsAppAIBotScalarFieldEnum | WhatsAppAIBotScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppAIBot create
+   */
+  export type WhatsAppAIBotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WhatsAppAIBot.
+     */
+    data: XOR<WhatsAppAIBotCreateInput, WhatsAppAIBotUncheckedCreateInput>
+  }
+
+  /**
+   * WhatsAppAIBot createMany
+   */
+  export type WhatsAppAIBotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WhatsAppAIBots.
+     */
+    data: WhatsAppAIBotCreateManyInput | WhatsAppAIBotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WhatsAppAIBot createManyAndReturn
+   */
+  export type WhatsAppAIBotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * The data used to create many WhatsAppAIBots.
+     */
+    data: WhatsAppAIBotCreateManyInput | WhatsAppAIBotCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WhatsAppAIBot update
+   */
+  export type WhatsAppAIBotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WhatsAppAIBot.
+     */
+    data: XOR<WhatsAppAIBotUpdateInput, WhatsAppAIBotUncheckedUpdateInput>
+    /**
+     * Choose, which WhatsAppAIBot to update.
+     */
+    where: WhatsAppAIBotWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppAIBot updateMany
+   */
+  export type WhatsAppAIBotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WhatsAppAIBots.
+     */
+    data: XOR<WhatsAppAIBotUpdateManyMutationInput, WhatsAppAIBotUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsAppAIBots to update
+     */
+    where?: WhatsAppAIBotWhereInput
+    /**
+     * Limit how many WhatsAppAIBots to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsAppAIBot updateManyAndReturn
+   */
+  export type WhatsAppAIBotUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * The data used to update WhatsAppAIBots.
+     */
+    data: XOR<WhatsAppAIBotUpdateManyMutationInput, WhatsAppAIBotUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsAppAIBots to update
+     */
+    where?: WhatsAppAIBotWhereInput
+    /**
+     * Limit how many WhatsAppAIBots to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WhatsAppAIBot upsert
+   */
+  export type WhatsAppAIBotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WhatsAppAIBot to update in case it exists.
+     */
+    where: WhatsAppAIBotWhereUniqueInput
+    /**
+     * In case the WhatsAppAIBot found by the `where` argument doesn't exist, create a new WhatsAppAIBot with this data.
+     */
+    create: XOR<WhatsAppAIBotCreateInput, WhatsAppAIBotUncheckedCreateInput>
+    /**
+     * In case the WhatsAppAIBot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WhatsAppAIBotUpdateInput, WhatsAppAIBotUncheckedUpdateInput>
+  }
+
+  /**
+   * WhatsAppAIBot delete
+   */
+  export type WhatsAppAIBotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+    /**
+     * Filter which WhatsAppAIBot to delete.
+     */
+    where: WhatsAppAIBotWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppAIBot deleteMany
+   */
+  export type WhatsAppAIBotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsAppAIBots to delete
+     */
+    where?: WhatsAppAIBotWhereInput
+    /**
+     * Limit how many WhatsAppAIBots to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsAppAIBot.aiBotSessionBindings
+   */
+  export type WhatsAppAIBot$aiBotSessionBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    where?: AIBotSessionBindingWhereInput
+    orderBy?: AIBotSessionBindingOrderByWithRelationInput | AIBotSessionBindingOrderByWithRelationInput[]
+    cursor?: AIBotSessionBindingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIBotSessionBindingScalarFieldEnum | AIBotSessionBindingScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppAIBot without action
+   */
+  export type WhatsAppAIBotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppAIBot
+     */
+    select?: WhatsAppAIBotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppAIBot
+     */
+    omit?: WhatsAppAIBotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppAIBotInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AIDocument
+   */
+
+  export type AggregateAIDocument = {
+    _count: AIDocumentCountAggregateOutputType | null
+    _min: AIDocumentMinAggregateOutputType | null
+    _max: AIDocumentMaxAggregateOutputType | null
+  }
+
+  export type AIDocumentMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    kind: string | null
+    content: string | null
+    embeddingId: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AIDocumentMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    kind: string | null
+    content: string | null
+    embeddingId: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AIDocumentCountAggregateOutputType = {
+    id: number
+    userId: number
+    title: number
+    kind: number
+    content: number
+    embeddingId: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AIDocumentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    kind?: true
+    content?: true
+    embeddingId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AIDocumentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    kind?: true
+    content?: true
+    embeddingId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AIDocumentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    kind?: true
+    content?: true
+    embeddingId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AIDocumentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIDocument to aggregate.
+     */
+    where?: AIDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIDocuments to fetch.
+     */
+    orderBy?: AIDocumentOrderByWithRelationInput | AIDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AIDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AIDocuments
+    **/
+    _count?: true | AIDocumentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AIDocumentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AIDocumentMaxAggregateInputType
+  }
+
+  export type GetAIDocumentAggregateType<T extends AIDocumentAggregateArgs> = {
+        [P in keyof T & keyof AggregateAIDocument]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAIDocument[P]>
+      : GetScalarType<T[P], AggregateAIDocument[P]>
+  }
+
+
+
+
+  export type AIDocumentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIDocumentWhereInput
+    orderBy?: AIDocumentOrderByWithAggregationInput | AIDocumentOrderByWithAggregationInput[]
+    by: AIDocumentScalarFieldEnum[] | AIDocumentScalarFieldEnum
+    having?: AIDocumentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AIDocumentCountAggregateInputType | true
+    _min?: AIDocumentMinAggregateInputType
+    _max?: AIDocumentMaxAggregateInputType
+  }
+
+  export type AIDocumentGroupByOutputType = {
+    id: string
+    userId: string
+    title: string
+    kind: string
+    content: string
+    embeddingId: string | null
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: AIDocumentCountAggregateOutputType | null
+    _min: AIDocumentMinAggregateOutputType | null
+    _max: AIDocumentMaxAggregateOutputType | null
+  }
+
+  type GetAIDocumentGroupByPayload<T extends AIDocumentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AIDocumentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AIDocumentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AIDocumentGroupByOutputType[P]>
+            : GetScalarType<T[P], AIDocumentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AIDocumentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    kind?: boolean
+    content?: boolean
+    embeddingId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIDocument"]>
+
+  export type AIDocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    kind?: boolean
+    content?: boolean
+    embeddingId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIDocument"]>
+
+  export type AIDocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    kind?: boolean
+    content?: boolean
+    embeddingId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIDocument"]>
+
+  export type AIDocumentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    kind?: boolean
+    content?: boolean
+    embeddingId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AIDocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "kind" | "content" | "embeddingId" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["aIDocument"]>
+  export type AIDocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AIDocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AIDocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AIDocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AIDocument"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      title: string
+      kind: string
+      content: string
+      embeddingId: string | null
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["aIDocument"]>
+    composites: {}
+  }
+
+  type AIDocumentGetPayload<S extends boolean | null | undefined | AIDocumentDefaultArgs> = $Result.GetResult<Prisma.$AIDocumentPayload, S>
+
+  type AIDocumentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AIDocumentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AIDocumentCountAggregateInputType | true
+    }
+
+  export interface AIDocumentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AIDocument'], meta: { name: 'AIDocument' } }
+    /**
+     * Find zero or one AIDocument that matches the filter.
+     * @param {AIDocumentFindUniqueArgs} args - Arguments to find a AIDocument
+     * @example
+     * // Get one AIDocument
+     * const aIDocument = await prisma.aIDocument.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AIDocumentFindUniqueArgs>(args: SelectSubset<T, AIDocumentFindUniqueArgs<ExtArgs>>): Prisma__AIDocumentClient<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AIDocument that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AIDocumentFindUniqueOrThrowArgs} args - Arguments to find a AIDocument
+     * @example
+     * // Get one AIDocument
+     * const aIDocument = await prisma.aIDocument.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AIDocumentFindUniqueOrThrowArgs>(args: SelectSubset<T, AIDocumentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AIDocumentClient<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AIDocument that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIDocumentFindFirstArgs} args - Arguments to find a AIDocument
+     * @example
+     * // Get one AIDocument
+     * const aIDocument = await prisma.aIDocument.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AIDocumentFindFirstArgs>(args?: SelectSubset<T, AIDocumentFindFirstArgs<ExtArgs>>): Prisma__AIDocumentClient<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AIDocument that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIDocumentFindFirstOrThrowArgs} args - Arguments to find a AIDocument
+     * @example
+     * // Get one AIDocument
+     * const aIDocument = await prisma.aIDocument.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AIDocumentFindFirstOrThrowArgs>(args?: SelectSubset<T, AIDocumentFindFirstOrThrowArgs<ExtArgs>>): Prisma__AIDocumentClient<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AIDocuments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIDocumentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AIDocuments
+     * const aIDocuments = await prisma.aIDocument.findMany()
+     * 
+     * // Get first 10 AIDocuments
+     * const aIDocuments = await prisma.aIDocument.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aIDocumentWithIdOnly = await prisma.aIDocument.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AIDocumentFindManyArgs>(args?: SelectSubset<T, AIDocumentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AIDocument.
+     * @param {AIDocumentCreateArgs} args - Arguments to create a AIDocument.
+     * @example
+     * // Create one AIDocument
+     * const AIDocument = await prisma.aIDocument.create({
+     *   data: {
+     *     // ... data to create a AIDocument
+     *   }
+     * })
+     * 
+     */
+    create<T extends AIDocumentCreateArgs>(args: SelectSubset<T, AIDocumentCreateArgs<ExtArgs>>): Prisma__AIDocumentClient<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AIDocuments.
+     * @param {AIDocumentCreateManyArgs} args - Arguments to create many AIDocuments.
+     * @example
+     * // Create many AIDocuments
+     * const aIDocument = await prisma.aIDocument.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AIDocumentCreateManyArgs>(args?: SelectSubset<T, AIDocumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AIDocuments and returns the data saved in the database.
+     * @param {AIDocumentCreateManyAndReturnArgs} args - Arguments to create many AIDocuments.
+     * @example
+     * // Create many AIDocuments
+     * const aIDocument = await prisma.aIDocument.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AIDocuments and only return the `id`
+     * const aIDocumentWithIdOnly = await prisma.aIDocument.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AIDocumentCreateManyAndReturnArgs>(args?: SelectSubset<T, AIDocumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AIDocument.
+     * @param {AIDocumentDeleteArgs} args - Arguments to delete one AIDocument.
+     * @example
+     * // Delete one AIDocument
+     * const AIDocument = await prisma.aIDocument.delete({
+     *   where: {
+     *     // ... filter to delete one AIDocument
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AIDocumentDeleteArgs>(args: SelectSubset<T, AIDocumentDeleteArgs<ExtArgs>>): Prisma__AIDocumentClient<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AIDocument.
+     * @param {AIDocumentUpdateArgs} args - Arguments to update one AIDocument.
+     * @example
+     * // Update one AIDocument
+     * const aIDocument = await prisma.aIDocument.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AIDocumentUpdateArgs>(args: SelectSubset<T, AIDocumentUpdateArgs<ExtArgs>>): Prisma__AIDocumentClient<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AIDocuments.
+     * @param {AIDocumentDeleteManyArgs} args - Arguments to filter AIDocuments to delete.
+     * @example
+     * // Delete a few AIDocuments
+     * const { count } = await prisma.aIDocument.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AIDocumentDeleteManyArgs>(args?: SelectSubset<T, AIDocumentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIDocumentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AIDocuments
+     * const aIDocument = await prisma.aIDocument.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AIDocumentUpdateManyArgs>(args: SelectSubset<T, AIDocumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIDocuments and returns the data updated in the database.
+     * @param {AIDocumentUpdateManyAndReturnArgs} args - Arguments to update many AIDocuments.
+     * @example
+     * // Update many AIDocuments
+     * const aIDocument = await prisma.aIDocument.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AIDocuments and only return the `id`
+     * const aIDocumentWithIdOnly = await prisma.aIDocument.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AIDocumentUpdateManyAndReturnArgs>(args: SelectSubset<T, AIDocumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AIDocument.
+     * @param {AIDocumentUpsertArgs} args - Arguments to update or create a AIDocument.
+     * @example
+     * // Update or create a AIDocument
+     * const aIDocument = await prisma.aIDocument.upsert({
+     *   create: {
+     *     // ... data to create a AIDocument
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AIDocument we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AIDocumentUpsertArgs>(args: SelectSubset<T, AIDocumentUpsertArgs<ExtArgs>>): Prisma__AIDocumentClient<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AIDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIDocumentCountArgs} args - Arguments to filter AIDocuments to count.
+     * @example
+     * // Count the number of AIDocuments
+     * const count = await prisma.aIDocument.count({
+     *   where: {
+     *     // ... the filter for the AIDocuments we want to count
+     *   }
+     * })
+    **/
+    count<T extends AIDocumentCountArgs>(
+      args?: Subset<T, AIDocumentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AIDocumentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AIDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIDocumentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AIDocumentAggregateArgs>(args: Subset<T, AIDocumentAggregateArgs>): Prisma.PrismaPromise<GetAIDocumentAggregateType<T>>
+
+    /**
+     * Group by AIDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIDocumentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AIDocumentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AIDocumentGroupByArgs['orderBy'] }
+        : { orderBy?: AIDocumentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AIDocumentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAIDocumentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AIDocument model
+   */
+  readonly fields: AIDocumentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AIDocument.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AIDocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AIDocument model
+   */
+  interface AIDocumentFieldRefs {
+    readonly id: FieldRef<"AIDocument", 'String'>
+    readonly userId: FieldRef<"AIDocument", 'String'>
+    readonly title: FieldRef<"AIDocument", 'String'>
+    readonly kind: FieldRef<"AIDocument", 'String'>
+    readonly content: FieldRef<"AIDocument", 'String'>
+    readonly embeddingId: FieldRef<"AIDocument", 'String'>
+    readonly isActive: FieldRef<"AIDocument", 'Boolean'>
+    readonly createdAt: FieldRef<"AIDocument", 'DateTime'>
+    readonly updatedAt: FieldRef<"AIDocument", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AIDocument findUnique
+   */
+  export type AIDocumentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which AIDocument to fetch.
+     */
+    where: AIDocumentWhereUniqueInput
+  }
+
+  /**
+   * AIDocument findUniqueOrThrow
+   */
+  export type AIDocumentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which AIDocument to fetch.
+     */
+    where: AIDocumentWhereUniqueInput
+  }
+
+  /**
+   * AIDocument findFirst
+   */
+  export type AIDocumentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which AIDocument to fetch.
+     */
+    where?: AIDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIDocuments to fetch.
+     */
+    orderBy?: AIDocumentOrderByWithRelationInput | AIDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIDocuments.
+     */
+    cursor?: AIDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIDocuments.
+     */
+    distinct?: AIDocumentScalarFieldEnum | AIDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * AIDocument findFirstOrThrow
+   */
+  export type AIDocumentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which AIDocument to fetch.
+     */
+    where?: AIDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIDocuments to fetch.
+     */
+    orderBy?: AIDocumentOrderByWithRelationInput | AIDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIDocuments.
+     */
+    cursor?: AIDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIDocuments.
+     */
+    distinct?: AIDocumentScalarFieldEnum | AIDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * AIDocument findMany
+   */
+  export type AIDocumentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which AIDocuments to fetch.
+     */
+    where?: AIDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIDocuments to fetch.
+     */
+    orderBy?: AIDocumentOrderByWithRelationInput | AIDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AIDocuments.
+     */
+    cursor?: AIDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIDocuments.
+     */
+    skip?: number
+    distinct?: AIDocumentScalarFieldEnum | AIDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * AIDocument create
+   */
+  export type AIDocumentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AIDocument.
+     */
+    data: XOR<AIDocumentCreateInput, AIDocumentUncheckedCreateInput>
+  }
+
+  /**
+   * AIDocument createMany
+   */
+  export type AIDocumentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AIDocuments.
+     */
+    data: AIDocumentCreateManyInput | AIDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AIDocument createManyAndReturn
+   */
+  export type AIDocumentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to create many AIDocuments.
+     */
+    data: AIDocumentCreateManyInput | AIDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIDocument update
+   */
+  export type AIDocumentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AIDocument.
+     */
+    data: XOR<AIDocumentUpdateInput, AIDocumentUncheckedUpdateInput>
+    /**
+     * Choose, which AIDocument to update.
+     */
+    where: AIDocumentWhereUniqueInput
+  }
+
+  /**
+   * AIDocument updateMany
+   */
+  export type AIDocumentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AIDocuments.
+     */
+    data: XOR<AIDocumentUpdateManyMutationInput, AIDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which AIDocuments to update
+     */
+    where?: AIDocumentWhereInput
+    /**
+     * Limit how many AIDocuments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AIDocument updateManyAndReturn
+   */
+  export type AIDocumentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to update AIDocuments.
+     */
+    data: XOR<AIDocumentUpdateManyMutationInput, AIDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which AIDocuments to update
+     */
+    where?: AIDocumentWhereInput
+    /**
+     * Limit how many AIDocuments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIDocument upsert
+   */
+  export type AIDocumentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AIDocument to update in case it exists.
+     */
+    where: AIDocumentWhereUniqueInput
+    /**
+     * In case the AIDocument found by the `where` argument doesn't exist, create a new AIDocument with this data.
+     */
+    create: XOR<AIDocumentCreateInput, AIDocumentUncheckedCreateInput>
+    /**
+     * In case the AIDocument was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AIDocumentUpdateInput, AIDocumentUncheckedUpdateInput>
+  }
+
+  /**
+   * AIDocument delete
+   */
+  export type AIDocumentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+    /**
+     * Filter which AIDocument to delete.
+     */
+    where: AIDocumentWhereUniqueInput
+  }
+
+  /**
+   * AIDocument deleteMany
+   */
+  export type AIDocumentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIDocuments to delete
+     */
+    where?: AIDocumentWhereInput
+    /**
+     * Limit how many AIDocuments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AIDocument without action
+   */
+  export type AIDocumentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocument
+     */
+    select?: AIDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIDocument
+     */
+    omit?: AIDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIDocumentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AIUsageLog
+   */
+
+  export type AggregateAIUsageLog = {
+    _count: AIUsageLogCountAggregateOutputType | null
+    _avg: AIUsageLogAvgAggregateOutputType | null
+    _sum: AIUsageLogSumAggregateOutputType | null
+    _min: AIUsageLogMinAggregateOutputType | null
+    _max: AIUsageLogMaxAggregateOutputType | null
+  }
+
+  export type AIUsageLogAvgAggregateOutputType = {
+    inputTokens: number | null
+    outputTokens: number | null
+    totalTokens: number | null
+    latencyMs: number | null
+  }
+
+  export type AIUsageLogSumAggregateOutputType = {
+    inputTokens: number | null
+    outputTokens: number | null
+    totalTokens: number | null
+    latencyMs: number | null
+  }
+
+  export type AIUsageLogMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    sessionId: string | null
+    inputTokens: number | null
+    outputTokens: number | null
+    totalTokens: number | null
+    latencyMs: number | null
+    status: string | null
+    errorReason: string | null
+    createdAt: Date | null
+  }
+
+  export type AIUsageLogMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    sessionId: string | null
+    inputTokens: number | null
+    outputTokens: number | null
+    totalTokens: number | null
+    latencyMs: number | null
+    status: string | null
+    errorReason: string | null
+    createdAt: Date | null
+  }
+
+  export type AIUsageLogCountAggregateOutputType = {
+    id: number
+    userId: number
+    sessionId: number
+    inputTokens: number
+    outputTokens: number
+    totalTokens: number
+    latencyMs: number
+    status: number
+    errorReason: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AIUsageLogAvgAggregateInputType = {
+    inputTokens?: true
+    outputTokens?: true
+    totalTokens?: true
+    latencyMs?: true
+  }
+
+  export type AIUsageLogSumAggregateInputType = {
+    inputTokens?: true
+    outputTokens?: true
+    totalTokens?: true
+    latencyMs?: true
+  }
+
+  export type AIUsageLogMinAggregateInputType = {
+    id?: true
+    userId?: true
+    sessionId?: true
+    inputTokens?: true
+    outputTokens?: true
+    totalTokens?: true
+    latencyMs?: true
+    status?: true
+    errorReason?: true
+    createdAt?: true
+  }
+
+  export type AIUsageLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    sessionId?: true
+    inputTokens?: true
+    outputTokens?: true
+    totalTokens?: true
+    latencyMs?: true
+    status?: true
+    errorReason?: true
+    createdAt?: true
+  }
+
+  export type AIUsageLogCountAggregateInputType = {
+    id?: true
+    userId?: true
+    sessionId?: true
+    inputTokens?: true
+    outputTokens?: true
+    totalTokens?: true
+    latencyMs?: true
+    status?: true
+    errorReason?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AIUsageLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIUsageLog to aggregate.
+     */
+    where?: AIUsageLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIUsageLogs to fetch.
+     */
+    orderBy?: AIUsageLogOrderByWithRelationInput | AIUsageLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AIUsageLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIUsageLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIUsageLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AIUsageLogs
+    **/
+    _count?: true | AIUsageLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AIUsageLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AIUsageLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AIUsageLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AIUsageLogMaxAggregateInputType
+  }
+
+  export type GetAIUsageLogAggregateType<T extends AIUsageLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateAIUsageLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAIUsageLog[P]>
+      : GetScalarType<T[P], AggregateAIUsageLog[P]>
+  }
+
+
+
+
+  export type AIUsageLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIUsageLogWhereInput
+    orderBy?: AIUsageLogOrderByWithAggregationInput | AIUsageLogOrderByWithAggregationInput[]
+    by: AIUsageLogScalarFieldEnum[] | AIUsageLogScalarFieldEnum
+    having?: AIUsageLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AIUsageLogCountAggregateInputType | true
+    _avg?: AIUsageLogAvgAggregateInputType
+    _sum?: AIUsageLogSumAggregateInputType
+    _min?: AIUsageLogMinAggregateInputType
+    _max?: AIUsageLogMaxAggregateInputType
+  }
+
+  export type AIUsageLogGroupByOutputType = {
+    id: string
+    userId: string
+    sessionId: string | null
+    inputTokens: number
+    outputTokens: number
+    totalTokens: number
+    latencyMs: number
+    status: string
+    errorReason: string | null
+    createdAt: Date
+    _count: AIUsageLogCountAggregateOutputType | null
+    _avg: AIUsageLogAvgAggregateOutputType | null
+    _sum: AIUsageLogSumAggregateOutputType | null
+    _min: AIUsageLogMinAggregateOutputType | null
+    _max: AIUsageLogMaxAggregateOutputType | null
+  }
+
+  type GetAIUsageLogGroupByPayload<T extends AIUsageLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AIUsageLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AIUsageLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AIUsageLogGroupByOutputType[P]>
+            : GetScalarType<T[P], AIUsageLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AIUsageLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    sessionId?: boolean
+    inputTokens?: boolean
+    outputTokens?: boolean
+    totalTokens?: boolean
+    latencyMs?: boolean
+    status?: boolean
+    errorReason?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIUsageLog"]>
+
+  export type AIUsageLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    sessionId?: boolean
+    inputTokens?: boolean
+    outputTokens?: boolean
+    totalTokens?: boolean
+    latencyMs?: boolean
+    status?: boolean
+    errorReason?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIUsageLog"]>
+
+  export type AIUsageLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    sessionId?: boolean
+    inputTokens?: boolean
+    outputTokens?: boolean
+    totalTokens?: boolean
+    latencyMs?: boolean
+    status?: boolean
+    errorReason?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIUsageLog"]>
+
+  export type AIUsageLogSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    sessionId?: boolean
+    inputTokens?: boolean
+    outputTokens?: boolean
+    totalTokens?: boolean
+    latencyMs?: boolean
+    status?: boolean
+    errorReason?: boolean
+    createdAt?: boolean
+  }
+
+  export type AIUsageLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "sessionId" | "inputTokens" | "outputTokens" | "totalTokens" | "latencyMs" | "status" | "errorReason" | "createdAt", ExtArgs["result"]["aIUsageLog"]>
+  export type AIUsageLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AIUsageLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AIUsageLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AIUsageLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AIUsageLog"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      sessionId: string | null
+      inputTokens: number
+      outputTokens: number
+      totalTokens: number
+      latencyMs: number
+      status: string
+      errorReason: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["aIUsageLog"]>
+    composites: {}
+  }
+
+  type AIUsageLogGetPayload<S extends boolean | null | undefined | AIUsageLogDefaultArgs> = $Result.GetResult<Prisma.$AIUsageLogPayload, S>
+
+  type AIUsageLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AIUsageLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AIUsageLogCountAggregateInputType | true
+    }
+
+  export interface AIUsageLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AIUsageLog'], meta: { name: 'AIUsageLog' } }
+    /**
+     * Find zero or one AIUsageLog that matches the filter.
+     * @param {AIUsageLogFindUniqueArgs} args - Arguments to find a AIUsageLog
+     * @example
+     * // Get one AIUsageLog
+     * const aIUsageLog = await prisma.aIUsageLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AIUsageLogFindUniqueArgs>(args: SelectSubset<T, AIUsageLogFindUniqueArgs<ExtArgs>>): Prisma__AIUsageLogClient<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AIUsageLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AIUsageLogFindUniqueOrThrowArgs} args - Arguments to find a AIUsageLog
+     * @example
+     * // Get one AIUsageLog
+     * const aIUsageLog = await prisma.aIUsageLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AIUsageLogFindUniqueOrThrowArgs>(args: SelectSubset<T, AIUsageLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AIUsageLogClient<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AIUsageLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIUsageLogFindFirstArgs} args - Arguments to find a AIUsageLog
+     * @example
+     * // Get one AIUsageLog
+     * const aIUsageLog = await prisma.aIUsageLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AIUsageLogFindFirstArgs>(args?: SelectSubset<T, AIUsageLogFindFirstArgs<ExtArgs>>): Prisma__AIUsageLogClient<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AIUsageLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIUsageLogFindFirstOrThrowArgs} args - Arguments to find a AIUsageLog
+     * @example
+     * // Get one AIUsageLog
+     * const aIUsageLog = await prisma.aIUsageLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AIUsageLogFindFirstOrThrowArgs>(args?: SelectSubset<T, AIUsageLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__AIUsageLogClient<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AIUsageLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIUsageLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AIUsageLogs
+     * const aIUsageLogs = await prisma.aIUsageLog.findMany()
+     * 
+     * // Get first 10 AIUsageLogs
+     * const aIUsageLogs = await prisma.aIUsageLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aIUsageLogWithIdOnly = await prisma.aIUsageLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AIUsageLogFindManyArgs>(args?: SelectSubset<T, AIUsageLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AIUsageLog.
+     * @param {AIUsageLogCreateArgs} args - Arguments to create a AIUsageLog.
+     * @example
+     * // Create one AIUsageLog
+     * const AIUsageLog = await prisma.aIUsageLog.create({
+     *   data: {
+     *     // ... data to create a AIUsageLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends AIUsageLogCreateArgs>(args: SelectSubset<T, AIUsageLogCreateArgs<ExtArgs>>): Prisma__AIUsageLogClient<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AIUsageLogs.
+     * @param {AIUsageLogCreateManyArgs} args - Arguments to create many AIUsageLogs.
+     * @example
+     * // Create many AIUsageLogs
+     * const aIUsageLog = await prisma.aIUsageLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AIUsageLogCreateManyArgs>(args?: SelectSubset<T, AIUsageLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AIUsageLogs and returns the data saved in the database.
+     * @param {AIUsageLogCreateManyAndReturnArgs} args - Arguments to create many AIUsageLogs.
+     * @example
+     * // Create many AIUsageLogs
+     * const aIUsageLog = await prisma.aIUsageLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AIUsageLogs and only return the `id`
+     * const aIUsageLogWithIdOnly = await prisma.aIUsageLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AIUsageLogCreateManyAndReturnArgs>(args?: SelectSubset<T, AIUsageLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AIUsageLog.
+     * @param {AIUsageLogDeleteArgs} args - Arguments to delete one AIUsageLog.
+     * @example
+     * // Delete one AIUsageLog
+     * const AIUsageLog = await prisma.aIUsageLog.delete({
+     *   where: {
+     *     // ... filter to delete one AIUsageLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AIUsageLogDeleteArgs>(args: SelectSubset<T, AIUsageLogDeleteArgs<ExtArgs>>): Prisma__AIUsageLogClient<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AIUsageLog.
+     * @param {AIUsageLogUpdateArgs} args - Arguments to update one AIUsageLog.
+     * @example
+     * // Update one AIUsageLog
+     * const aIUsageLog = await prisma.aIUsageLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AIUsageLogUpdateArgs>(args: SelectSubset<T, AIUsageLogUpdateArgs<ExtArgs>>): Prisma__AIUsageLogClient<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AIUsageLogs.
+     * @param {AIUsageLogDeleteManyArgs} args - Arguments to filter AIUsageLogs to delete.
+     * @example
+     * // Delete a few AIUsageLogs
+     * const { count } = await prisma.aIUsageLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AIUsageLogDeleteManyArgs>(args?: SelectSubset<T, AIUsageLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIUsageLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIUsageLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AIUsageLogs
+     * const aIUsageLog = await prisma.aIUsageLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AIUsageLogUpdateManyArgs>(args: SelectSubset<T, AIUsageLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIUsageLogs and returns the data updated in the database.
+     * @param {AIUsageLogUpdateManyAndReturnArgs} args - Arguments to update many AIUsageLogs.
+     * @example
+     * // Update many AIUsageLogs
+     * const aIUsageLog = await prisma.aIUsageLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AIUsageLogs and only return the `id`
+     * const aIUsageLogWithIdOnly = await prisma.aIUsageLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AIUsageLogUpdateManyAndReturnArgs>(args: SelectSubset<T, AIUsageLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AIUsageLog.
+     * @param {AIUsageLogUpsertArgs} args - Arguments to update or create a AIUsageLog.
+     * @example
+     * // Update or create a AIUsageLog
+     * const aIUsageLog = await prisma.aIUsageLog.upsert({
+     *   create: {
+     *     // ... data to create a AIUsageLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AIUsageLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AIUsageLogUpsertArgs>(args: SelectSubset<T, AIUsageLogUpsertArgs<ExtArgs>>): Prisma__AIUsageLogClient<$Result.GetResult<Prisma.$AIUsageLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AIUsageLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIUsageLogCountArgs} args - Arguments to filter AIUsageLogs to count.
+     * @example
+     * // Count the number of AIUsageLogs
+     * const count = await prisma.aIUsageLog.count({
+     *   where: {
+     *     // ... the filter for the AIUsageLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends AIUsageLogCountArgs>(
+      args?: Subset<T, AIUsageLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AIUsageLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AIUsageLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIUsageLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AIUsageLogAggregateArgs>(args: Subset<T, AIUsageLogAggregateArgs>): Prisma.PrismaPromise<GetAIUsageLogAggregateType<T>>
+
+    /**
+     * Group by AIUsageLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIUsageLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AIUsageLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AIUsageLogGroupByArgs['orderBy'] }
+        : { orderBy?: AIUsageLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AIUsageLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAIUsageLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AIUsageLog model
+   */
+  readonly fields: AIUsageLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AIUsageLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AIUsageLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AIUsageLog model
+   */
+  interface AIUsageLogFieldRefs {
+    readonly id: FieldRef<"AIUsageLog", 'String'>
+    readonly userId: FieldRef<"AIUsageLog", 'String'>
+    readonly sessionId: FieldRef<"AIUsageLog", 'String'>
+    readonly inputTokens: FieldRef<"AIUsageLog", 'Int'>
+    readonly outputTokens: FieldRef<"AIUsageLog", 'Int'>
+    readonly totalTokens: FieldRef<"AIUsageLog", 'Int'>
+    readonly latencyMs: FieldRef<"AIUsageLog", 'Int'>
+    readonly status: FieldRef<"AIUsageLog", 'String'>
+    readonly errorReason: FieldRef<"AIUsageLog", 'String'>
+    readonly createdAt: FieldRef<"AIUsageLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AIUsageLog findUnique
+   */
+  export type AIUsageLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+    /**
+     * Filter, which AIUsageLog to fetch.
+     */
+    where: AIUsageLogWhereUniqueInput
+  }
+
+  /**
+   * AIUsageLog findUniqueOrThrow
+   */
+  export type AIUsageLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+    /**
+     * Filter, which AIUsageLog to fetch.
+     */
+    where: AIUsageLogWhereUniqueInput
+  }
+
+  /**
+   * AIUsageLog findFirst
+   */
+  export type AIUsageLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+    /**
+     * Filter, which AIUsageLog to fetch.
+     */
+    where?: AIUsageLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIUsageLogs to fetch.
+     */
+    orderBy?: AIUsageLogOrderByWithRelationInput | AIUsageLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIUsageLogs.
+     */
+    cursor?: AIUsageLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIUsageLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIUsageLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIUsageLogs.
+     */
+    distinct?: AIUsageLogScalarFieldEnum | AIUsageLogScalarFieldEnum[]
+  }
+
+  /**
+   * AIUsageLog findFirstOrThrow
+   */
+  export type AIUsageLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+    /**
+     * Filter, which AIUsageLog to fetch.
+     */
+    where?: AIUsageLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIUsageLogs to fetch.
+     */
+    orderBy?: AIUsageLogOrderByWithRelationInput | AIUsageLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIUsageLogs.
+     */
+    cursor?: AIUsageLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIUsageLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIUsageLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIUsageLogs.
+     */
+    distinct?: AIUsageLogScalarFieldEnum | AIUsageLogScalarFieldEnum[]
+  }
+
+  /**
+   * AIUsageLog findMany
+   */
+  export type AIUsageLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+    /**
+     * Filter, which AIUsageLogs to fetch.
+     */
+    where?: AIUsageLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIUsageLogs to fetch.
+     */
+    orderBy?: AIUsageLogOrderByWithRelationInput | AIUsageLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AIUsageLogs.
+     */
+    cursor?: AIUsageLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIUsageLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIUsageLogs.
+     */
+    skip?: number
+    distinct?: AIUsageLogScalarFieldEnum | AIUsageLogScalarFieldEnum[]
+  }
+
+  /**
+   * AIUsageLog create
+   */
+  export type AIUsageLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AIUsageLog.
+     */
+    data: XOR<AIUsageLogCreateInput, AIUsageLogUncheckedCreateInput>
+  }
+
+  /**
+   * AIUsageLog createMany
+   */
+  export type AIUsageLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AIUsageLogs.
+     */
+    data: AIUsageLogCreateManyInput | AIUsageLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AIUsageLog createManyAndReturn
+   */
+  export type AIUsageLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many AIUsageLogs.
+     */
+    data: AIUsageLogCreateManyInput | AIUsageLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIUsageLog update
+   */
+  export type AIUsageLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AIUsageLog.
+     */
+    data: XOR<AIUsageLogUpdateInput, AIUsageLogUncheckedUpdateInput>
+    /**
+     * Choose, which AIUsageLog to update.
+     */
+    where: AIUsageLogWhereUniqueInput
+  }
+
+  /**
+   * AIUsageLog updateMany
+   */
+  export type AIUsageLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AIUsageLogs.
+     */
+    data: XOR<AIUsageLogUpdateManyMutationInput, AIUsageLogUncheckedUpdateManyInput>
+    /**
+     * Filter which AIUsageLogs to update
+     */
+    where?: AIUsageLogWhereInput
+    /**
+     * Limit how many AIUsageLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AIUsageLog updateManyAndReturn
+   */
+  export type AIUsageLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * The data used to update AIUsageLogs.
+     */
+    data: XOR<AIUsageLogUpdateManyMutationInput, AIUsageLogUncheckedUpdateManyInput>
+    /**
+     * Filter which AIUsageLogs to update
+     */
+    where?: AIUsageLogWhereInput
+    /**
+     * Limit how many AIUsageLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIUsageLog upsert
+   */
+  export type AIUsageLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AIUsageLog to update in case it exists.
+     */
+    where: AIUsageLogWhereUniqueInput
+    /**
+     * In case the AIUsageLog found by the `where` argument doesn't exist, create a new AIUsageLog with this data.
+     */
+    create: XOR<AIUsageLogCreateInput, AIUsageLogUncheckedCreateInput>
+    /**
+     * In case the AIUsageLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AIUsageLogUpdateInput, AIUsageLogUncheckedUpdateInput>
+  }
+
+  /**
+   * AIUsageLog delete
+   */
+  export type AIUsageLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+    /**
+     * Filter which AIUsageLog to delete.
+     */
+    where: AIUsageLogWhereUniqueInput
+  }
+
+  /**
+   * AIUsageLog deleteMany
+   */
+  export type AIUsageLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIUsageLogs to delete
+     */
+    where?: AIUsageLogWhereInput
+    /**
+     * Limit how many AIUsageLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AIUsageLog without action
+   */
+  export type AIUsageLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIUsageLog
+     */
+    select?: AIUsageLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIUsageLog
+     */
+    omit?: AIUsageLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIUsageLogInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AIBotSessionBinding
+   */
+
+  export type AggregateAIBotSessionBinding = {
+    _count: AIBotSessionBindingCountAggregateOutputType | null
+    _min: AIBotSessionBindingMinAggregateOutputType | null
+    _max: AIBotSessionBindingMaxAggregateOutputType | null
+  }
+
+  export type AIBotSessionBindingMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    botId: string | null
+    sessionId: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AIBotSessionBindingMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    botId: string | null
+    sessionId: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AIBotSessionBindingCountAggregateOutputType = {
+    id: number
+    userId: number
+    botId: number
+    sessionId: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AIBotSessionBindingMinAggregateInputType = {
+    id?: true
+    userId?: true
+    botId?: true
+    sessionId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AIBotSessionBindingMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    botId?: true
+    sessionId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AIBotSessionBindingCountAggregateInputType = {
+    id?: true
+    userId?: true
+    botId?: true
+    sessionId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AIBotSessionBindingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIBotSessionBinding to aggregate.
+     */
+    where?: AIBotSessionBindingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIBotSessionBindings to fetch.
+     */
+    orderBy?: AIBotSessionBindingOrderByWithRelationInput | AIBotSessionBindingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AIBotSessionBindingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIBotSessionBindings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIBotSessionBindings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AIBotSessionBindings
+    **/
+    _count?: true | AIBotSessionBindingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AIBotSessionBindingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AIBotSessionBindingMaxAggregateInputType
+  }
+
+  export type GetAIBotSessionBindingAggregateType<T extends AIBotSessionBindingAggregateArgs> = {
+        [P in keyof T & keyof AggregateAIBotSessionBinding]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAIBotSessionBinding[P]>
+      : GetScalarType<T[P], AggregateAIBotSessionBinding[P]>
+  }
+
+
+
+
+  export type AIBotSessionBindingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIBotSessionBindingWhereInput
+    orderBy?: AIBotSessionBindingOrderByWithAggregationInput | AIBotSessionBindingOrderByWithAggregationInput[]
+    by: AIBotSessionBindingScalarFieldEnum[] | AIBotSessionBindingScalarFieldEnum
+    having?: AIBotSessionBindingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AIBotSessionBindingCountAggregateInputType | true
+    _min?: AIBotSessionBindingMinAggregateInputType
+    _max?: AIBotSessionBindingMaxAggregateInputType
+  }
+
+  export type AIBotSessionBindingGroupByOutputType = {
+    id: string
+    userId: string
+    botId: string
+    sessionId: string
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: AIBotSessionBindingCountAggregateOutputType | null
+    _min: AIBotSessionBindingMinAggregateOutputType | null
+    _max: AIBotSessionBindingMaxAggregateOutputType | null
+  }
+
+  type GetAIBotSessionBindingGroupByPayload<T extends AIBotSessionBindingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AIBotSessionBindingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AIBotSessionBindingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AIBotSessionBindingGroupByOutputType[P]>
+            : GetScalarType<T[P], AIBotSessionBindingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AIBotSessionBindingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    botId?: boolean
+    sessionId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIBotSessionBinding"]>
+
+  export type AIBotSessionBindingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    botId?: boolean
+    sessionId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIBotSessionBinding"]>
+
+  export type AIBotSessionBindingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    botId?: boolean
+    sessionId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIBotSessionBinding"]>
+
+  export type AIBotSessionBindingSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    botId?: boolean
+    sessionId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AIBotSessionBindingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "botId" | "sessionId" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["aIBotSessionBinding"]>
+  export type AIBotSessionBindingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AIBotSessionBindingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AIBotSessionBindingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AIBotSessionBindingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AIBotSessionBinding"
+    objects: {
+      bot: Prisma.$WhatsAppAIBotPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      botId: string
+      sessionId: string
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["aIBotSessionBinding"]>
+    composites: {}
+  }
+
+  type AIBotSessionBindingGetPayload<S extends boolean | null | undefined | AIBotSessionBindingDefaultArgs> = $Result.GetResult<Prisma.$AIBotSessionBindingPayload, S>
+
+  type AIBotSessionBindingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AIBotSessionBindingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AIBotSessionBindingCountAggregateInputType | true
+    }
+
+  export interface AIBotSessionBindingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AIBotSessionBinding'], meta: { name: 'AIBotSessionBinding' } }
+    /**
+     * Find zero or one AIBotSessionBinding that matches the filter.
+     * @param {AIBotSessionBindingFindUniqueArgs} args - Arguments to find a AIBotSessionBinding
+     * @example
+     * // Get one AIBotSessionBinding
+     * const aIBotSessionBinding = await prisma.aIBotSessionBinding.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AIBotSessionBindingFindUniqueArgs>(args: SelectSubset<T, AIBotSessionBindingFindUniqueArgs<ExtArgs>>): Prisma__AIBotSessionBindingClient<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AIBotSessionBinding that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AIBotSessionBindingFindUniqueOrThrowArgs} args - Arguments to find a AIBotSessionBinding
+     * @example
+     * // Get one AIBotSessionBinding
+     * const aIBotSessionBinding = await prisma.aIBotSessionBinding.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AIBotSessionBindingFindUniqueOrThrowArgs>(args: SelectSubset<T, AIBotSessionBindingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AIBotSessionBindingClient<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AIBotSessionBinding that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIBotSessionBindingFindFirstArgs} args - Arguments to find a AIBotSessionBinding
+     * @example
+     * // Get one AIBotSessionBinding
+     * const aIBotSessionBinding = await prisma.aIBotSessionBinding.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AIBotSessionBindingFindFirstArgs>(args?: SelectSubset<T, AIBotSessionBindingFindFirstArgs<ExtArgs>>): Prisma__AIBotSessionBindingClient<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AIBotSessionBinding that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIBotSessionBindingFindFirstOrThrowArgs} args - Arguments to find a AIBotSessionBinding
+     * @example
+     * // Get one AIBotSessionBinding
+     * const aIBotSessionBinding = await prisma.aIBotSessionBinding.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AIBotSessionBindingFindFirstOrThrowArgs>(args?: SelectSubset<T, AIBotSessionBindingFindFirstOrThrowArgs<ExtArgs>>): Prisma__AIBotSessionBindingClient<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AIBotSessionBindings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIBotSessionBindingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AIBotSessionBindings
+     * const aIBotSessionBindings = await prisma.aIBotSessionBinding.findMany()
+     * 
+     * // Get first 10 AIBotSessionBindings
+     * const aIBotSessionBindings = await prisma.aIBotSessionBinding.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aIBotSessionBindingWithIdOnly = await prisma.aIBotSessionBinding.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AIBotSessionBindingFindManyArgs>(args?: SelectSubset<T, AIBotSessionBindingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AIBotSessionBinding.
+     * @param {AIBotSessionBindingCreateArgs} args - Arguments to create a AIBotSessionBinding.
+     * @example
+     * // Create one AIBotSessionBinding
+     * const AIBotSessionBinding = await prisma.aIBotSessionBinding.create({
+     *   data: {
+     *     // ... data to create a AIBotSessionBinding
+     *   }
+     * })
+     * 
+     */
+    create<T extends AIBotSessionBindingCreateArgs>(args: SelectSubset<T, AIBotSessionBindingCreateArgs<ExtArgs>>): Prisma__AIBotSessionBindingClient<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AIBotSessionBindings.
+     * @param {AIBotSessionBindingCreateManyArgs} args - Arguments to create many AIBotSessionBindings.
+     * @example
+     * // Create many AIBotSessionBindings
+     * const aIBotSessionBinding = await prisma.aIBotSessionBinding.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AIBotSessionBindingCreateManyArgs>(args?: SelectSubset<T, AIBotSessionBindingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AIBotSessionBindings and returns the data saved in the database.
+     * @param {AIBotSessionBindingCreateManyAndReturnArgs} args - Arguments to create many AIBotSessionBindings.
+     * @example
+     * // Create many AIBotSessionBindings
+     * const aIBotSessionBinding = await prisma.aIBotSessionBinding.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AIBotSessionBindings and only return the `id`
+     * const aIBotSessionBindingWithIdOnly = await prisma.aIBotSessionBinding.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AIBotSessionBindingCreateManyAndReturnArgs>(args?: SelectSubset<T, AIBotSessionBindingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AIBotSessionBinding.
+     * @param {AIBotSessionBindingDeleteArgs} args - Arguments to delete one AIBotSessionBinding.
+     * @example
+     * // Delete one AIBotSessionBinding
+     * const AIBotSessionBinding = await prisma.aIBotSessionBinding.delete({
+     *   where: {
+     *     // ... filter to delete one AIBotSessionBinding
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AIBotSessionBindingDeleteArgs>(args: SelectSubset<T, AIBotSessionBindingDeleteArgs<ExtArgs>>): Prisma__AIBotSessionBindingClient<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AIBotSessionBinding.
+     * @param {AIBotSessionBindingUpdateArgs} args - Arguments to update one AIBotSessionBinding.
+     * @example
+     * // Update one AIBotSessionBinding
+     * const aIBotSessionBinding = await prisma.aIBotSessionBinding.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AIBotSessionBindingUpdateArgs>(args: SelectSubset<T, AIBotSessionBindingUpdateArgs<ExtArgs>>): Prisma__AIBotSessionBindingClient<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AIBotSessionBindings.
+     * @param {AIBotSessionBindingDeleteManyArgs} args - Arguments to filter AIBotSessionBindings to delete.
+     * @example
+     * // Delete a few AIBotSessionBindings
+     * const { count } = await prisma.aIBotSessionBinding.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AIBotSessionBindingDeleteManyArgs>(args?: SelectSubset<T, AIBotSessionBindingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIBotSessionBindings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIBotSessionBindingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AIBotSessionBindings
+     * const aIBotSessionBinding = await prisma.aIBotSessionBinding.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AIBotSessionBindingUpdateManyArgs>(args: SelectSubset<T, AIBotSessionBindingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIBotSessionBindings and returns the data updated in the database.
+     * @param {AIBotSessionBindingUpdateManyAndReturnArgs} args - Arguments to update many AIBotSessionBindings.
+     * @example
+     * // Update many AIBotSessionBindings
+     * const aIBotSessionBinding = await prisma.aIBotSessionBinding.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AIBotSessionBindings and only return the `id`
+     * const aIBotSessionBindingWithIdOnly = await prisma.aIBotSessionBinding.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AIBotSessionBindingUpdateManyAndReturnArgs>(args: SelectSubset<T, AIBotSessionBindingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AIBotSessionBinding.
+     * @param {AIBotSessionBindingUpsertArgs} args - Arguments to update or create a AIBotSessionBinding.
+     * @example
+     * // Update or create a AIBotSessionBinding
+     * const aIBotSessionBinding = await prisma.aIBotSessionBinding.upsert({
+     *   create: {
+     *     // ... data to create a AIBotSessionBinding
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AIBotSessionBinding we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AIBotSessionBindingUpsertArgs>(args: SelectSubset<T, AIBotSessionBindingUpsertArgs<ExtArgs>>): Prisma__AIBotSessionBindingClient<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AIBotSessionBindings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIBotSessionBindingCountArgs} args - Arguments to filter AIBotSessionBindings to count.
+     * @example
+     * // Count the number of AIBotSessionBindings
+     * const count = await prisma.aIBotSessionBinding.count({
+     *   where: {
+     *     // ... the filter for the AIBotSessionBindings we want to count
+     *   }
+     * })
+    **/
+    count<T extends AIBotSessionBindingCountArgs>(
+      args?: Subset<T, AIBotSessionBindingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AIBotSessionBindingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AIBotSessionBinding.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIBotSessionBindingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AIBotSessionBindingAggregateArgs>(args: Subset<T, AIBotSessionBindingAggregateArgs>): Prisma.PrismaPromise<GetAIBotSessionBindingAggregateType<T>>
+
+    /**
+     * Group by AIBotSessionBinding.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIBotSessionBindingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AIBotSessionBindingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AIBotSessionBindingGroupByArgs['orderBy'] }
+        : { orderBy?: AIBotSessionBindingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AIBotSessionBindingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAIBotSessionBindingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AIBotSessionBinding model
+   */
+  readonly fields: AIBotSessionBindingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AIBotSessionBinding.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AIBotSessionBindingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    bot<T extends WhatsAppAIBotDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppAIBotDefaultArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AIBotSessionBinding model
+   */
+  interface AIBotSessionBindingFieldRefs {
+    readonly id: FieldRef<"AIBotSessionBinding", 'String'>
+    readonly userId: FieldRef<"AIBotSessionBinding", 'String'>
+    readonly botId: FieldRef<"AIBotSessionBinding", 'String'>
+    readonly sessionId: FieldRef<"AIBotSessionBinding", 'String'>
+    readonly isActive: FieldRef<"AIBotSessionBinding", 'Boolean'>
+    readonly createdAt: FieldRef<"AIBotSessionBinding", 'DateTime'>
+    readonly updatedAt: FieldRef<"AIBotSessionBinding", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AIBotSessionBinding findUnique
+   */
+  export type AIBotSessionBindingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    /**
+     * Filter, which AIBotSessionBinding to fetch.
+     */
+    where: AIBotSessionBindingWhereUniqueInput
+  }
+
+  /**
+   * AIBotSessionBinding findUniqueOrThrow
+   */
+  export type AIBotSessionBindingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    /**
+     * Filter, which AIBotSessionBinding to fetch.
+     */
+    where: AIBotSessionBindingWhereUniqueInput
+  }
+
+  /**
+   * AIBotSessionBinding findFirst
+   */
+  export type AIBotSessionBindingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    /**
+     * Filter, which AIBotSessionBinding to fetch.
+     */
+    where?: AIBotSessionBindingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIBotSessionBindings to fetch.
+     */
+    orderBy?: AIBotSessionBindingOrderByWithRelationInput | AIBotSessionBindingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIBotSessionBindings.
+     */
+    cursor?: AIBotSessionBindingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIBotSessionBindings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIBotSessionBindings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIBotSessionBindings.
+     */
+    distinct?: AIBotSessionBindingScalarFieldEnum | AIBotSessionBindingScalarFieldEnum[]
+  }
+
+  /**
+   * AIBotSessionBinding findFirstOrThrow
+   */
+  export type AIBotSessionBindingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    /**
+     * Filter, which AIBotSessionBinding to fetch.
+     */
+    where?: AIBotSessionBindingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIBotSessionBindings to fetch.
+     */
+    orderBy?: AIBotSessionBindingOrderByWithRelationInput | AIBotSessionBindingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIBotSessionBindings.
+     */
+    cursor?: AIBotSessionBindingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIBotSessionBindings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIBotSessionBindings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIBotSessionBindings.
+     */
+    distinct?: AIBotSessionBindingScalarFieldEnum | AIBotSessionBindingScalarFieldEnum[]
+  }
+
+  /**
+   * AIBotSessionBinding findMany
+   */
+  export type AIBotSessionBindingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    /**
+     * Filter, which AIBotSessionBindings to fetch.
+     */
+    where?: AIBotSessionBindingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIBotSessionBindings to fetch.
+     */
+    orderBy?: AIBotSessionBindingOrderByWithRelationInput | AIBotSessionBindingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AIBotSessionBindings.
+     */
+    cursor?: AIBotSessionBindingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIBotSessionBindings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIBotSessionBindings.
+     */
+    skip?: number
+    distinct?: AIBotSessionBindingScalarFieldEnum | AIBotSessionBindingScalarFieldEnum[]
+  }
+
+  /**
+   * AIBotSessionBinding create
+   */
+  export type AIBotSessionBindingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AIBotSessionBinding.
+     */
+    data: XOR<AIBotSessionBindingCreateInput, AIBotSessionBindingUncheckedCreateInput>
+  }
+
+  /**
+   * AIBotSessionBinding createMany
+   */
+  export type AIBotSessionBindingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AIBotSessionBindings.
+     */
+    data: AIBotSessionBindingCreateManyInput | AIBotSessionBindingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AIBotSessionBinding createManyAndReturn
+   */
+  export type AIBotSessionBindingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * The data used to create many AIBotSessionBindings.
+     */
+    data: AIBotSessionBindingCreateManyInput | AIBotSessionBindingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIBotSessionBinding update
+   */
+  export type AIBotSessionBindingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AIBotSessionBinding.
+     */
+    data: XOR<AIBotSessionBindingUpdateInput, AIBotSessionBindingUncheckedUpdateInput>
+    /**
+     * Choose, which AIBotSessionBinding to update.
+     */
+    where: AIBotSessionBindingWhereUniqueInput
+  }
+
+  /**
+   * AIBotSessionBinding updateMany
+   */
+  export type AIBotSessionBindingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AIBotSessionBindings.
+     */
+    data: XOR<AIBotSessionBindingUpdateManyMutationInput, AIBotSessionBindingUncheckedUpdateManyInput>
+    /**
+     * Filter which AIBotSessionBindings to update
+     */
+    where?: AIBotSessionBindingWhereInput
+    /**
+     * Limit how many AIBotSessionBindings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AIBotSessionBinding updateManyAndReturn
+   */
+  export type AIBotSessionBindingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * The data used to update AIBotSessionBindings.
+     */
+    data: XOR<AIBotSessionBindingUpdateManyMutationInput, AIBotSessionBindingUncheckedUpdateManyInput>
+    /**
+     * Filter which AIBotSessionBindings to update
+     */
+    where?: AIBotSessionBindingWhereInput
+    /**
+     * Limit how many AIBotSessionBindings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIBotSessionBinding upsert
+   */
+  export type AIBotSessionBindingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AIBotSessionBinding to update in case it exists.
+     */
+    where: AIBotSessionBindingWhereUniqueInput
+    /**
+     * In case the AIBotSessionBinding found by the `where` argument doesn't exist, create a new AIBotSessionBinding with this data.
+     */
+    create: XOR<AIBotSessionBindingCreateInput, AIBotSessionBindingUncheckedCreateInput>
+    /**
+     * In case the AIBotSessionBinding was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AIBotSessionBindingUpdateInput, AIBotSessionBindingUncheckedUpdateInput>
+  }
+
+  /**
+   * AIBotSessionBinding delete
+   */
+  export type AIBotSessionBindingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+    /**
+     * Filter which AIBotSessionBinding to delete.
+     */
+    where: AIBotSessionBindingWhereUniqueInput
+  }
+
+  /**
+   * AIBotSessionBinding deleteMany
+   */
+  export type AIBotSessionBindingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIBotSessionBindings to delete
+     */
+    where?: AIBotSessionBindingWhereInput
+    /**
+     * Limit how many AIBotSessionBindings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AIBotSessionBinding without action
+   */
+  export type AIBotSessionBindingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIBotSessionBinding
+     */
+    select?: AIBotSessionBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIBotSessionBinding
+     */
+    omit?: AIBotSessionBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIBotSessionBindingInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -24529,6 +29570,64 @@ export namespace Prisma {
   export type WhatsAppMessageStatsScalarFieldEnum = (typeof WhatsAppMessageStatsScalarFieldEnum)[keyof typeof WhatsAppMessageStatsScalarFieldEnum]
 
 
+  export const WhatsAppAIBotScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    isActive: 'isActive',
+    systemPrompt: 'systemPrompt',
+    fallbackText: 'fallbackText',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WhatsAppAIBotScalarFieldEnum = (typeof WhatsAppAIBotScalarFieldEnum)[keyof typeof WhatsAppAIBotScalarFieldEnum]
+
+
+  export const AIDocumentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    kind: 'kind',
+    content: 'content',
+    embeddingId: 'embeddingId',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AIDocumentScalarFieldEnum = (typeof AIDocumentScalarFieldEnum)[keyof typeof AIDocumentScalarFieldEnum]
+
+
+  export const AIUsageLogScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    sessionId: 'sessionId',
+    inputTokens: 'inputTokens',
+    outputTokens: 'outputTokens',
+    totalTokens: 'totalTokens',
+    latencyMs: 'latencyMs',
+    status: 'status',
+    errorReason: 'errorReason',
+    createdAt: 'createdAt'
+  };
+
+  export type AIUsageLogScalarFieldEnum = (typeof AIUsageLogScalarFieldEnum)[keyof typeof AIUsageLogScalarFieldEnum]
+
+
+  export const AIBotSessionBindingScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    botId: 'botId',
+    sessionId: 'sessionId',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AIBotSessionBindingScalarFieldEnum = (typeof AIBotSessionBindingScalarFieldEnum)[keyof typeof AIBotSessionBindingScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -24722,6 +29821,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactListRelationFilter
     whatsAppSessions?: WhatsAppSessionListRelationFilter
     whatsAppMessageStats?: WhatsAppMessageStatsListRelationFilter
+    whatsAppAIBots?: WhatsAppAIBotListRelationFilter
+    aiDocuments?: AIDocumentListRelationFilter
+    aiUsageLogs?: AIUsageLogListRelationFilter
+    aiBotSessionBindings?: AIBotSessionBindingListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -24760,6 +29863,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactOrderByRelationAggregateInput
     whatsAppSessions?: WhatsAppSessionOrderByRelationAggregateInput
     whatsAppMessageStats?: WhatsAppMessageStatsOrderByRelationAggregateInput
+    whatsAppAIBots?: WhatsAppAIBotOrderByRelationAggregateInput
+    aiDocuments?: AIDocumentOrderByRelationAggregateInput
+    aiUsageLogs?: AIUsageLogOrderByRelationAggregateInput
+    aiBotSessionBindings?: AIBotSessionBindingOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -24801,6 +29908,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactListRelationFilter
     whatsAppSessions?: WhatsAppSessionListRelationFilter
     whatsAppMessageStats?: WhatsAppMessageStatsListRelationFilter
+    whatsAppAIBots?: WhatsAppAIBotListRelationFilter
+    aiDocuments?: AIDocumentListRelationFilter
+    aiUsageLogs?: AIUsageLogListRelationFilter
+    aiBotSessionBindings?: AIBotSessionBindingListRelationFilter
   }, "id" | "email" | "phone" | "emailVerificationToken" | "apiKey">
 
   export type UserOrderByWithAggregationInput = {
@@ -26593,6 +31704,304 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"WhatsAppMessageStats"> | Date | string
   }
 
+  export type WhatsAppAIBotWhereInput = {
+    AND?: WhatsAppAIBotWhereInput | WhatsAppAIBotWhereInput[]
+    OR?: WhatsAppAIBotWhereInput[]
+    NOT?: WhatsAppAIBotWhereInput | WhatsAppAIBotWhereInput[]
+    id?: StringFilter<"WhatsAppAIBot"> | string
+    userId?: StringFilter<"WhatsAppAIBot"> | string
+    name?: StringFilter<"WhatsAppAIBot"> | string
+    isActive?: BoolFilter<"WhatsAppAIBot"> | boolean
+    systemPrompt?: StringNullableFilter<"WhatsAppAIBot"> | string | null
+    fallbackText?: StringNullableFilter<"WhatsAppAIBot"> | string | null
+    createdAt?: DateTimeFilter<"WhatsAppAIBot"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsAppAIBot"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    aiBotSessionBindings?: AIBotSessionBindingListRelationFilter
+  }
+
+  export type WhatsAppAIBotOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    systemPrompt?: SortOrderInput | SortOrder
+    fallbackText?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    aiBotSessionBindings?: AIBotSessionBindingOrderByRelationAggregateInput
+  }
+
+  export type WhatsAppAIBotWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WhatsAppAIBotWhereInput | WhatsAppAIBotWhereInput[]
+    OR?: WhatsAppAIBotWhereInput[]
+    NOT?: WhatsAppAIBotWhereInput | WhatsAppAIBotWhereInput[]
+    userId?: StringFilter<"WhatsAppAIBot"> | string
+    name?: StringFilter<"WhatsAppAIBot"> | string
+    isActive?: BoolFilter<"WhatsAppAIBot"> | boolean
+    systemPrompt?: StringNullableFilter<"WhatsAppAIBot"> | string | null
+    fallbackText?: StringNullableFilter<"WhatsAppAIBot"> | string | null
+    createdAt?: DateTimeFilter<"WhatsAppAIBot"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsAppAIBot"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    aiBotSessionBindings?: AIBotSessionBindingListRelationFilter
+  }, "id">
+
+  export type WhatsAppAIBotOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    systemPrompt?: SortOrderInput | SortOrder
+    fallbackText?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WhatsAppAIBotCountOrderByAggregateInput
+    _max?: WhatsAppAIBotMaxOrderByAggregateInput
+    _min?: WhatsAppAIBotMinOrderByAggregateInput
+  }
+
+  export type WhatsAppAIBotScalarWhereWithAggregatesInput = {
+    AND?: WhatsAppAIBotScalarWhereWithAggregatesInput | WhatsAppAIBotScalarWhereWithAggregatesInput[]
+    OR?: WhatsAppAIBotScalarWhereWithAggregatesInput[]
+    NOT?: WhatsAppAIBotScalarWhereWithAggregatesInput | WhatsAppAIBotScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WhatsAppAIBot"> | string
+    userId?: StringWithAggregatesFilter<"WhatsAppAIBot"> | string
+    name?: StringWithAggregatesFilter<"WhatsAppAIBot"> | string
+    isActive?: BoolWithAggregatesFilter<"WhatsAppAIBot"> | boolean
+    systemPrompt?: StringNullableWithAggregatesFilter<"WhatsAppAIBot"> | string | null
+    fallbackText?: StringNullableWithAggregatesFilter<"WhatsAppAIBot"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"WhatsAppAIBot"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WhatsAppAIBot"> | Date | string
+  }
+
+  export type AIDocumentWhereInput = {
+    AND?: AIDocumentWhereInput | AIDocumentWhereInput[]
+    OR?: AIDocumentWhereInput[]
+    NOT?: AIDocumentWhereInput | AIDocumentWhereInput[]
+    id?: StringFilter<"AIDocument"> | string
+    userId?: StringFilter<"AIDocument"> | string
+    title?: StringFilter<"AIDocument"> | string
+    kind?: StringFilter<"AIDocument"> | string
+    content?: StringFilter<"AIDocument"> | string
+    embeddingId?: StringNullableFilter<"AIDocument"> | string | null
+    isActive?: BoolFilter<"AIDocument"> | boolean
+    createdAt?: DateTimeFilter<"AIDocument"> | Date | string
+    updatedAt?: DateTimeFilter<"AIDocument"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AIDocumentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    kind?: SortOrder
+    content?: SortOrder
+    embeddingId?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AIDocumentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AIDocumentWhereInput | AIDocumentWhereInput[]
+    OR?: AIDocumentWhereInput[]
+    NOT?: AIDocumentWhereInput | AIDocumentWhereInput[]
+    userId?: StringFilter<"AIDocument"> | string
+    title?: StringFilter<"AIDocument"> | string
+    kind?: StringFilter<"AIDocument"> | string
+    content?: StringFilter<"AIDocument"> | string
+    embeddingId?: StringNullableFilter<"AIDocument"> | string | null
+    isActive?: BoolFilter<"AIDocument"> | boolean
+    createdAt?: DateTimeFilter<"AIDocument"> | Date | string
+    updatedAt?: DateTimeFilter<"AIDocument"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type AIDocumentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    kind?: SortOrder
+    content?: SortOrder
+    embeddingId?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AIDocumentCountOrderByAggregateInput
+    _max?: AIDocumentMaxOrderByAggregateInput
+    _min?: AIDocumentMinOrderByAggregateInput
+  }
+
+  export type AIDocumentScalarWhereWithAggregatesInput = {
+    AND?: AIDocumentScalarWhereWithAggregatesInput | AIDocumentScalarWhereWithAggregatesInput[]
+    OR?: AIDocumentScalarWhereWithAggregatesInput[]
+    NOT?: AIDocumentScalarWhereWithAggregatesInput | AIDocumentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AIDocument"> | string
+    userId?: StringWithAggregatesFilter<"AIDocument"> | string
+    title?: StringWithAggregatesFilter<"AIDocument"> | string
+    kind?: StringWithAggregatesFilter<"AIDocument"> | string
+    content?: StringWithAggregatesFilter<"AIDocument"> | string
+    embeddingId?: StringNullableWithAggregatesFilter<"AIDocument"> | string | null
+    isActive?: BoolWithAggregatesFilter<"AIDocument"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"AIDocument"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AIDocument"> | Date | string
+  }
+
+  export type AIUsageLogWhereInput = {
+    AND?: AIUsageLogWhereInput | AIUsageLogWhereInput[]
+    OR?: AIUsageLogWhereInput[]
+    NOT?: AIUsageLogWhereInput | AIUsageLogWhereInput[]
+    id?: StringFilter<"AIUsageLog"> | string
+    userId?: StringFilter<"AIUsageLog"> | string
+    sessionId?: StringNullableFilter<"AIUsageLog"> | string | null
+    inputTokens?: IntFilter<"AIUsageLog"> | number
+    outputTokens?: IntFilter<"AIUsageLog"> | number
+    totalTokens?: IntFilter<"AIUsageLog"> | number
+    latencyMs?: IntFilter<"AIUsageLog"> | number
+    status?: StringFilter<"AIUsageLog"> | string
+    errorReason?: StringNullableFilter<"AIUsageLog"> | string | null
+    createdAt?: DateTimeFilter<"AIUsageLog"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AIUsageLogOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    sessionId?: SortOrderInput | SortOrder
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+    status?: SortOrder
+    errorReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AIUsageLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AIUsageLogWhereInput | AIUsageLogWhereInput[]
+    OR?: AIUsageLogWhereInput[]
+    NOT?: AIUsageLogWhereInput | AIUsageLogWhereInput[]
+    userId?: StringFilter<"AIUsageLog"> | string
+    sessionId?: StringNullableFilter<"AIUsageLog"> | string | null
+    inputTokens?: IntFilter<"AIUsageLog"> | number
+    outputTokens?: IntFilter<"AIUsageLog"> | number
+    totalTokens?: IntFilter<"AIUsageLog"> | number
+    latencyMs?: IntFilter<"AIUsageLog"> | number
+    status?: StringFilter<"AIUsageLog"> | string
+    errorReason?: StringNullableFilter<"AIUsageLog"> | string | null
+    createdAt?: DateTimeFilter<"AIUsageLog"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type AIUsageLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    sessionId?: SortOrderInput | SortOrder
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+    status?: SortOrder
+    errorReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: AIUsageLogCountOrderByAggregateInput
+    _avg?: AIUsageLogAvgOrderByAggregateInput
+    _max?: AIUsageLogMaxOrderByAggregateInput
+    _min?: AIUsageLogMinOrderByAggregateInput
+    _sum?: AIUsageLogSumOrderByAggregateInput
+  }
+
+  export type AIUsageLogScalarWhereWithAggregatesInput = {
+    AND?: AIUsageLogScalarWhereWithAggregatesInput | AIUsageLogScalarWhereWithAggregatesInput[]
+    OR?: AIUsageLogScalarWhereWithAggregatesInput[]
+    NOT?: AIUsageLogScalarWhereWithAggregatesInput | AIUsageLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AIUsageLog"> | string
+    userId?: StringWithAggregatesFilter<"AIUsageLog"> | string
+    sessionId?: StringNullableWithAggregatesFilter<"AIUsageLog"> | string | null
+    inputTokens?: IntWithAggregatesFilter<"AIUsageLog"> | number
+    outputTokens?: IntWithAggregatesFilter<"AIUsageLog"> | number
+    totalTokens?: IntWithAggregatesFilter<"AIUsageLog"> | number
+    latencyMs?: IntWithAggregatesFilter<"AIUsageLog"> | number
+    status?: StringWithAggregatesFilter<"AIUsageLog"> | string
+    errorReason?: StringNullableWithAggregatesFilter<"AIUsageLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AIUsageLog"> | Date | string
+  }
+
+  export type AIBotSessionBindingWhereInput = {
+    AND?: AIBotSessionBindingWhereInput | AIBotSessionBindingWhereInput[]
+    OR?: AIBotSessionBindingWhereInput[]
+    NOT?: AIBotSessionBindingWhereInput | AIBotSessionBindingWhereInput[]
+    id?: StringFilter<"AIBotSessionBinding"> | string
+    userId?: StringFilter<"AIBotSessionBinding"> | string
+    botId?: StringFilter<"AIBotSessionBinding"> | string
+    sessionId?: StringFilter<"AIBotSessionBinding"> | string
+    isActive?: BoolFilter<"AIBotSessionBinding"> | boolean
+    createdAt?: DateTimeFilter<"AIBotSessionBinding"> | Date | string
+    updatedAt?: DateTimeFilter<"AIBotSessionBinding"> | Date | string
+    bot?: XOR<WhatsAppAIBotScalarRelationFilter, WhatsAppAIBotWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AIBotSessionBindingOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    botId?: SortOrder
+    sessionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    bot?: WhatsAppAIBotOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AIBotSessionBindingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    sessionId?: string
+    AND?: AIBotSessionBindingWhereInput | AIBotSessionBindingWhereInput[]
+    OR?: AIBotSessionBindingWhereInput[]
+    NOT?: AIBotSessionBindingWhereInput | AIBotSessionBindingWhereInput[]
+    userId?: StringFilter<"AIBotSessionBinding"> | string
+    botId?: StringFilter<"AIBotSessionBinding"> | string
+    isActive?: BoolFilter<"AIBotSessionBinding"> | boolean
+    createdAt?: DateTimeFilter<"AIBotSessionBinding"> | Date | string
+    updatedAt?: DateTimeFilter<"AIBotSessionBinding"> | Date | string
+    bot?: XOR<WhatsAppAIBotScalarRelationFilter, WhatsAppAIBotWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "sessionId">
+
+  export type AIBotSessionBindingOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    botId?: SortOrder
+    sessionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AIBotSessionBindingCountOrderByAggregateInput
+    _max?: AIBotSessionBindingMaxOrderByAggregateInput
+    _min?: AIBotSessionBindingMinOrderByAggregateInput
+  }
+
+  export type AIBotSessionBindingScalarWhereWithAggregatesInput = {
+    AND?: AIBotSessionBindingScalarWhereWithAggregatesInput | AIBotSessionBindingScalarWhereWithAggregatesInput[]
+    OR?: AIBotSessionBindingScalarWhereWithAggregatesInput[]
+    NOT?: AIBotSessionBindingScalarWhereWithAggregatesInput | AIBotSessionBindingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AIBotSessionBinding"> | string
+    userId?: StringWithAggregatesFilter<"AIBotSessionBinding"> | string
+    botId?: StringWithAggregatesFilter<"AIBotSessionBinding"> | string
+    sessionId?: StringWithAggregatesFilter<"AIBotSessionBinding"> | string
+    isActive?: BoolWithAggregatesFilter<"AIBotSessionBinding"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"AIBotSessionBinding"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AIBotSessionBinding"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -26629,6 +32038,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -26667,6 +32080,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -26705,6 +32122,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -26743,6 +32164,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -28837,6 +34262,327 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type WhatsAppAIBotCreateInput = {
+    id?: string
+    name?: string
+    isActive?: boolean
+    systemPrompt?: string | null
+    fallbackText?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutWhatsAppAIBotsInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutBotInput
+  }
+
+  export type WhatsAppAIBotUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name?: string
+    isActive?: boolean
+    systemPrompt?: string | null
+    fallbackText?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutBotInput
+  }
+
+  export type WhatsAppAIBotUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWhatsAppAIBotsNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutBotNestedInput
+  }
+
+  export type WhatsAppAIBotUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutBotNestedInput
+  }
+
+  export type WhatsAppAIBotCreateManyInput = {
+    id?: string
+    userId: string
+    name?: string
+    isActive?: boolean
+    systemPrompt?: string | null
+    fallbackText?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WhatsAppAIBotUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsAppAIBotUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIDocumentCreateInput = {
+    id?: string
+    title: string
+    kind?: string
+    content: string
+    embeddingId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAiDocumentsInput
+  }
+
+  export type AIDocumentUncheckedCreateInput = {
+    id?: string
+    userId: string
+    title: string
+    kind?: string
+    content: string
+    embeddingId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIDocumentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    embeddingId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiDocumentsNestedInput
+  }
+
+  export type AIDocumentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    embeddingId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIDocumentCreateManyInput = {
+    id?: string
+    userId: string
+    title: string
+    kind?: string
+    content: string
+    embeddingId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIDocumentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    embeddingId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIDocumentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    embeddingId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIUsageLogCreateInput = {
+    id?: string
+    sessionId?: string | null
+    inputTokens?: number
+    outputTokens?: number
+    totalTokens?: number
+    latencyMs?: number
+    status?: string
+    errorReason?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAiUsageLogsInput
+  }
+
+  export type AIUsageLogUncheckedCreateInput = {
+    id?: string
+    userId: string
+    sessionId?: string | null
+    inputTokens?: number
+    outputTokens?: number
+    totalTokens?: number
+    latencyMs?: number
+    status?: string
+    errorReason?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AIUsageLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    errorReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiUsageLogsNestedInput
+  }
+
+  export type AIUsageLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    errorReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIUsageLogCreateManyInput = {
+    id?: string
+    userId: string
+    sessionId?: string | null
+    inputTokens?: number
+    outputTokens?: number
+    totalTokens?: number
+    latencyMs?: number
+    status?: string
+    errorReason?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AIUsageLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    errorReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIUsageLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    errorReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIBotSessionBindingCreateInput = {
+    id?: string
+    sessionId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bot: WhatsAppAIBotCreateNestedOneWithoutAiBotSessionBindingsInput
+    user: UserCreateNestedOneWithoutAiBotSessionBindingsInput
+  }
+
+  export type AIBotSessionBindingUncheckedCreateInput = {
+    id?: string
+    userId: string
+    botId: string
+    sessionId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIBotSessionBindingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bot?: WhatsAppAIBotUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
+    user?: UserUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    botId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIBotSessionBindingCreateManyInput = {
+    id?: string
+    userId: string
+    botId: string
+    sessionId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIBotSessionBindingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    botId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -28937,6 +34683,30 @@ export namespace Prisma {
     none?: WhatsAppMessageStatsWhereInput
   }
 
+  export type WhatsAppAIBotListRelationFilter = {
+    every?: WhatsAppAIBotWhereInput
+    some?: WhatsAppAIBotWhereInput
+    none?: WhatsAppAIBotWhereInput
+  }
+
+  export type AIDocumentListRelationFilter = {
+    every?: AIDocumentWhereInput
+    some?: AIDocumentWhereInput
+    none?: AIDocumentWhereInput
+  }
+
+  export type AIUsageLogListRelationFilter = {
+    every?: AIUsageLogWhereInput
+    some?: AIUsageLogWhereInput
+    none?: AIUsageLogWhereInput
+  }
+
+  export type AIBotSessionBindingListRelationFilter = {
+    every?: AIBotSessionBindingWhereInput
+    some?: AIBotSessionBindingWhereInput
+    none?: AIBotSessionBindingWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -28975,6 +34745,22 @@ export namespace Prisma {
   }
 
   export type WhatsAppMessageStatsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WhatsAppAIBotOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AIDocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AIUsageLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AIBotSessionBindingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -30498,6 +36284,163 @@ export namespace Prisma {
     templateMessagesFailed?: SortOrder
   }
 
+  export type WhatsAppAIBotCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    systemPrompt?: SortOrder
+    fallbackText?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsAppAIBotMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    systemPrompt?: SortOrder
+    fallbackText?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsAppAIBotMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    systemPrompt?: SortOrder
+    fallbackText?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AIDocumentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    kind?: SortOrder
+    content?: SortOrder
+    embeddingId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AIDocumentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    kind?: SortOrder
+    content?: SortOrder
+    embeddingId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AIDocumentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    kind?: SortOrder
+    content?: SortOrder
+    embeddingId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AIUsageLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    sessionId?: SortOrder
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+    status?: SortOrder
+    errorReason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AIUsageLogAvgOrderByAggregateInput = {
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+  }
+
+  export type AIUsageLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    sessionId?: SortOrder
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+    status?: SortOrder
+    errorReason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AIUsageLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    sessionId?: SortOrder
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+    status?: SortOrder
+    errorReason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AIUsageLogSumOrderByAggregateInput = {
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+  }
+
+  export type WhatsAppAIBotScalarRelationFilter = {
+    is?: WhatsAppAIBotWhereInput
+    isNot?: WhatsAppAIBotWhereInput
+  }
+
+  export type AIBotSessionBindingCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    botId?: SortOrder
+    sessionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AIBotSessionBindingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    botId?: SortOrder
+    sessionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AIBotSessionBindingMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    botId?: SortOrder
+    sessionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type ServicesWhatsappCustomersCreateNestedManyWithoutCustomerInput = {
     create?: XOR<ServicesWhatsappCustomersCreateWithoutCustomerInput, ServicesWhatsappCustomersUncheckedCreateWithoutCustomerInput> | ServicesWhatsappCustomersCreateWithoutCustomerInput[] | ServicesWhatsappCustomersUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ServicesWhatsappCustomersCreateOrConnectWithoutCustomerInput | ServicesWhatsappCustomersCreateOrConnectWithoutCustomerInput[]
@@ -30561,6 +36504,34 @@ export namespace Prisma {
     connect?: WhatsAppMessageStatsWhereUniqueInput | WhatsAppMessageStatsWhereUniqueInput[]
   }
 
+  export type WhatsAppAIBotCreateNestedManyWithoutUserInput = {
+    create?: XOR<WhatsAppAIBotCreateWithoutUserInput, WhatsAppAIBotUncheckedCreateWithoutUserInput> | WhatsAppAIBotCreateWithoutUserInput[] | WhatsAppAIBotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsAppAIBotCreateOrConnectWithoutUserInput | WhatsAppAIBotCreateOrConnectWithoutUserInput[]
+    createMany?: WhatsAppAIBotCreateManyUserInputEnvelope
+    connect?: WhatsAppAIBotWhereUniqueInput | WhatsAppAIBotWhereUniqueInput[]
+  }
+
+  export type AIDocumentCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIDocumentCreateWithoutUserInput, AIDocumentUncheckedCreateWithoutUserInput> | AIDocumentCreateWithoutUserInput[] | AIDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIDocumentCreateOrConnectWithoutUserInput | AIDocumentCreateOrConnectWithoutUserInput[]
+    createMany?: AIDocumentCreateManyUserInputEnvelope
+    connect?: AIDocumentWhereUniqueInput | AIDocumentWhereUniqueInput[]
+  }
+
+  export type AIUsageLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIUsageLogCreateWithoutUserInput, AIUsageLogUncheckedCreateWithoutUserInput> | AIUsageLogCreateWithoutUserInput[] | AIUsageLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIUsageLogCreateOrConnectWithoutUserInput | AIUsageLogCreateOrConnectWithoutUserInput[]
+    createMany?: AIUsageLogCreateManyUserInputEnvelope
+    connect?: AIUsageLogWhereUniqueInput | AIUsageLogWhereUniqueInput[]
+  }
+
+  export type AIBotSessionBindingCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutUserInput, AIBotSessionBindingUncheckedCreateWithoutUserInput> | AIBotSessionBindingCreateWithoutUserInput[] | AIBotSessionBindingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutUserInput | AIBotSessionBindingCreateOrConnectWithoutUserInput[]
+    createMany?: AIBotSessionBindingCreateManyUserInputEnvelope
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+  }
+
   export type ServicesWhatsappCustomersUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<ServicesWhatsappCustomersCreateWithoutCustomerInput, ServicesWhatsappCustomersUncheckedCreateWithoutCustomerInput> | ServicesWhatsappCustomersCreateWithoutCustomerInput[] | ServicesWhatsappCustomersUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ServicesWhatsappCustomersCreateOrConnectWithoutCustomerInput | ServicesWhatsappCustomersCreateOrConnectWithoutCustomerInput[]
@@ -30622,6 +36593,34 @@ export namespace Prisma {
     connectOrCreate?: WhatsAppMessageStatsCreateOrConnectWithoutUserInput | WhatsAppMessageStatsCreateOrConnectWithoutUserInput[]
     createMany?: WhatsAppMessageStatsCreateManyUserInputEnvelope
     connect?: WhatsAppMessageStatsWhereUniqueInput | WhatsAppMessageStatsWhereUniqueInput[]
+  }
+
+  export type WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WhatsAppAIBotCreateWithoutUserInput, WhatsAppAIBotUncheckedCreateWithoutUserInput> | WhatsAppAIBotCreateWithoutUserInput[] | WhatsAppAIBotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsAppAIBotCreateOrConnectWithoutUserInput | WhatsAppAIBotCreateOrConnectWithoutUserInput[]
+    createMany?: WhatsAppAIBotCreateManyUserInputEnvelope
+    connect?: WhatsAppAIBotWhereUniqueInput | WhatsAppAIBotWhereUniqueInput[]
+  }
+
+  export type AIDocumentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIDocumentCreateWithoutUserInput, AIDocumentUncheckedCreateWithoutUserInput> | AIDocumentCreateWithoutUserInput[] | AIDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIDocumentCreateOrConnectWithoutUserInput | AIDocumentCreateOrConnectWithoutUserInput[]
+    createMany?: AIDocumentCreateManyUserInputEnvelope
+    connect?: AIDocumentWhereUniqueInput | AIDocumentWhereUniqueInput[]
+  }
+
+  export type AIUsageLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIUsageLogCreateWithoutUserInput, AIUsageLogUncheckedCreateWithoutUserInput> | AIUsageLogCreateWithoutUserInput[] | AIUsageLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIUsageLogCreateOrConnectWithoutUserInput | AIUsageLogCreateOrConnectWithoutUserInput[]
+    createMany?: AIUsageLogCreateManyUserInputEnvelope
+    connect?: AIUsageLogWhereUniqueInput | AIUsageLogWhereUniqueInput[]
+  }
+
+  export type AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutUserInput, AIBotSessionBindingUncheckedCreateWithoutUserInput> | AIBotSessionBindingCreateWithoutUserInput[] | AIBotSessionBindingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutUserInput | AIBotSessionBindingCreateOrConnectWithoutUserInput[]
+    createMany?: AIBotSessionBindingCreateManyUserInputEnvelope
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -30766,6 +36765,62 @@ export namespace Prisma {
     deleteMany?: WhatsAppMessageStatsScalarWhereInput | WhatsAppMessageStatsScalarWhereInput[]
   }
 
+  export type WhatsAppAIBotUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WhatsAppAIBotCreateWithoutUserInput, WhatsAppAIBotUncheckedCreateWithoutUserInput> | WhatsAppAIBotCreateWithoutUserInput[] | WhatsAppAIBotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsAppAIBotCreateOrConnectWithoutUserInput | WhatsAppAIBotCreateOrConnectWithoutUserInput[]
+    upsert?: WhatsAppAIBotUpsertWithWhereUniqueWithoutUserInput | WhatsAppAIBotUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WhatsAppAIBotCreateManyUserInputEnvelope
+    set?: WhatsAppAIBotWhereUniqueInput | WhatsAppAIBotWhereUniqueInput[]
+    disconnect?: WhatsAppAIBotWhereUniqueInput | WhatsAppAIBotWhereUniqueInput[]
+    delete?: WhatsAppAIBotWhereUniqueInput | WhatsAppAIBotWhereUniqueInput[]
+    connect?: WhatsAppAIBotWhereUniqueInput | WhatsAppAIBotWhereUniqueInput[]
+    update?: WhatsAppAIBotUpdateWithWhereUniqueWithoutUserInput | WhatsAppAIBotUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WhatsAppAIBotUpdateManyWithWhereWithoutUserInput | WhatsAppAIBotUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WhatsAppAIBotScalarWhereInput | WhatsAppAIBotScalarWhereInput[]
+  }
+
+  export type AIDocumentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIDocumentCreateWithoutUserInput, AIDocumentUncheckedCreateWithoutUserInput> | AIDocumentCreateWithoutUserInput[] | AIDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIDocumentCreateOrConnectWithoutUserInput | AIDocumentCreateOrConnectWithoutUserInput[]
+    upsert?: AIDocumentUpsertWithWhereUniqueWithoutUserInput | AIDocumentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIDocumentCreateManyUserInputEnvelope
+    set?: AIDocumentWhereUniqueInput | AIDocumentWhereUniqueInput[]
+    disconnect?: AIDocumentWhereUniqueInput | AIDocumentWhereUniqueInput[]
+    delete?: AIDocumentWhereUniqueInput | AIDocumentWhereUniqueInput[]
+    connect?: AIDocumentWhereUniqueInput | AIDocumentWhereUniqueInput[]
+    update?: AIDocumentUpdateWithWhereUniqueWithoutUserInput | AIDocumentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIDocumentUpdateManyWithWhereWithoutUserInput | AIDocumentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIDocumentScalarWhereInput | AIDocumentScalarWhereInput[]
+  }
+
+  export type AIUsageLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIUsageLogCreateWithoutUserInput, AIUsageLogUncheckedCreateWithoutUserInput> | AIUsageLogCreateWithoutUserInput[] | AIUsageLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIUsageLogCreateOrConnectWithoutUserInput | AIUsageLogCreateOrConnectWithoutUserInput[]
+    upsert?: AIUsageLogUpsertWithWhereUniqueWithoutUserInput | AIUsageLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIUsageLogCreateManyUserInputEnvelope
+    set?: AIUsageLogWhereUniqueInput | AIUsageLogWhereUniqueInput[]
+    disconnect?: AIUsageLogWhereUniqueInput | AIUsageLogWhereUniqueInput[]
+    delete?: AIUsageLogWhereUniqueInput | AIUsageLogWhereUniqueInput[]
+    connect?: AIUsageLogWhereUniqueInput | AIUsageLogWhereUniqueInput[]
+    update?: AIUsageLogUpdateWithWhereUniqueWithoutUserInput | AIUsageLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIUsageLogUpdateManyWithWhereWithoutUserInput | AIUsageLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIUsageLogScalarWhereInput | AIUsageLogScalarWhereInput[]
+  }
+
+  export type AIBotSessionBindingUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutUserInput, AIBotSessionBindingUncheckedCreateWithoutUserInput> | AIBotSessionBindingCreateWithoutUserInput[] | AIBotSessionBindingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutUserInput | AIBotSessionBindingCreateOrConnectWithoutUserInput[]
+    upsert?: AIBotSessionBindingUpsertWithWhereUniqueWithoutUserInput | AIBotSessionBindingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIBotSessionBindingCreateManyUserInputEnvelope
+    set?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    disconnect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    delete?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    update?: AIBotSessionBindingUpdateWithWhereUniqueWithoutUserInput | AIBotSessionBindingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIBotSessionBindingUpdateManyWithWhereWithoutUserInput | AIBotSessionBindingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIBotSessionBindingScalarWhereInput | AIBotSessionBindingScalarWhereInput[]
+  }
+
   export type ServicesWhatsappCustomersUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<ServicesWhatsappCustomersCreateWithoutCustomerInput, ServicesWhatsappCustomersUncheckedCreateWithoutCustomerInput> | ServicesWhatsappCustomersCreateWithoutCustomerInput[] | ServicesWhatsappCustomersUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ServicesWhatsappCustomersCreateOrConnectWithoutCustomerInput | ServicesWhatsappCustomersCreateOrConnectWithoutCustomerInput[]
@@ -30890,6 +36945,62 @@ export namespace Prisma {
     update?: WhatsAppMessageStatsUpdateWithWhereUniqueWithoutUserInput | WhatsAppMessageStatsUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: WhatsAppMessageStatsUpdateManyWithWhereWithoutUserInput | WhatsAppMessageStatsUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: WhatsAppMessageStatsScalarWhereInput | WhatsAppMessageStatsScalarWhereInput[]
+  }
+
+  export type WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WhatsAppAIBotCreateWithoutUserInput, WhatsAppAIBotUncheckedCreateWithoutUserInput> | WhatsAppAIBotCreateWithoutUserInput[] | WhatsAppAIBotUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsAppAIBotCreateOrConnectWithoutUserInput | WhatsAppAIBotCreateOrConnectWithoutUserInput[]
+    upsert?: WhatsAppAIBotUpsertWithWhereUniqueWithoutUserInput | WhatsAppAIBotUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WhatsAppAIBotCreateManyUserInputEnvelope
+    set?: WhatsAppAIBotWhereUniqueInput | WhatsAppAIBotWhereUniqueInput[]
+    disconnect?: WhatsAppAIBotWhereUniqueInput | WhatsAppAIBotWhereUniqueInput[]
+    delete?: WhatsAppAIBotWhereUniqueInput | WhatsAppAIBotWhereUniqueInput[]
+    connect?: WhatsAppAIBotWhereUniqueInput | WhatsAppAIBotWhereUniqueInput[]
+    update?: WhatsAppAIBotUpdateWithWhereUniqueWithoutUserInput | WhatsAppAIBotUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WhatsAppAIBotUpdateManyWithWhereWithoutUserInput | WhatsAppAIBotUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WhatsAppAIBotScalarWhereInput | WhatsAppAIBotScalarWhereInput[]
+  }
+
+  export type AIDocumentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIDocumentCreateWithoutUserInput, AIDocumentUncheckedCreateWithoutUserInput> | AIDocumentCreateWithoutUserInput[] | AIDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIDocumentCreateOrConnectWithoutUserInput | AIDocumentCreateOrConnectWithoutUserInput[]
+    upsert?: AIDocumentUpsertWithWhereUniqueWithoutUserInput | AIDocumentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIDocumentCreateManyUserInputEnvelope
+    set?: AIDocumentWhereUniqueInput | AIDocumentWhereUniqueInput[]
+    disconnect?: AIDocumentWhereUniqueInput | AIDocumentWhereUniqueInput[]
+    delete?: AIDocumentWhereUniqueInput | AIDocumentWhereUniqueInput[]
+    connect?: AIDocumentWhereUniqueInput | AIDocumentWhereUniqueInput[]
+    update?: AIDocumentUpdateWithWhereUniqueWithoutUserInput | AIDocumentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIDocumentUpdateManyWithWhereWithoutUserInput | AIDocumentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIDocumentScalarWhereInput | AIDocumentScalarWhereInput[]
+  }
+
+  export type AIUsageLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIUsageLogCreateWithoutUserInput, AIUsageLogUncheckedCreateWithoutUserInput> | AIUsageLogCreateWithoutUserInput[] | AIUsageLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIUsageLogCreateOrConnectWithoutUserInput | AIUsageLogCreateOrConnectWithoutUserInput[]
+    upsert?: AIUsageLogUpsertWithWhereUniqueWithoutUserInput | AIUsageLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIUsageLogCreateManyUserInputEnvelope
+    set?: AIUsageLogWhereUniqueInput | AIUsageLogWhereUniqueInput[]
+    disconnect?: AIUsageLogWhereUniqueInput | AIUsageLogWhereUniqueInput[]
+    delete?: AIUsageLogWhereUniqueInput | AIUsageLogWhereUniqueInput[]
+    connect?: AIUsageLogWhereUniqueInput | AIUsageLogWhereUniqueInput[]
+    update?: AIUsageLogUpdateWithWhereUniqueWithoutUserInput | AIUsageLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIUsageLogUpdateManyWithWhereWithoutUserInput | AIUsageLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIUsageLogScalarWhereInput | AIUsageLogScalarWhereInput[]
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutUserInput, AIBotSessionBindingUncheckedCreateWithoutUserInput> | AIBotSessionBindingCreateWithoutUserInput[] | AIBotSessionBindingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutUserInput | AIBotSessionBindingCreateOrConnectWithoutUserInput[]
+    upsert?: AIBotSessionBindingUpsertWithWhereUniqueWithoutUserInput | AIBotSessionBindingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIBotSessionBindingCreateManyUserInputEnvelope
+    set?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    disconnect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    delete?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    update?: AIBotSessionBindingUpdateWithWhereUniqueWithoutUserInput | AIBotSessionBindingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIBotSessionBindingUpdateManyWithWhereWithoutUserInput | AIBotSessionBindingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIBotSessionBindingScalarWhereInput | AIBotSessionBindingScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutWhatsAppSessionsInput = {
@@ -31682,6 +37793,118 @@ export namespace Prisma {
     update?: XOR<XOR<WhatsAppSessionUpdateToOneWithWhereWithoutWhatsAppMessageStatsInput, WhatsAppSessionUpdateWithoutWhatsAppMessageStatsInput>, WhatsAppSessionUncheckedUpdateWithoutWhatsAppMessageStatsInput>
   }
 
+  export type UserCreateNestedOneWithoutWhatsAppAIBotsInput = {
+    create?: XOR<UserCreateWithoutWhatsAppAIBotsInput, UserUncheckedCreateWithoutWhatsAppAIBotsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWhatsAppAIBotsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AIBotSessionBindingCreateNestedManyWithoutBotInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutBotInput, AIBotSessionBindingUncheckedCreateWithoutBotInput> | AIBotSessionBindingCreateWithoutBotInput[] | AIBotSessionBindingUncheckedCreateWithoutBotInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutBotInput | AIBotSessionBindingCreateOrConnectWithoutBotInput[]
+    createMany?: AIBotSessionBindingCreateManyBotInputEnvelope
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+  }
+
+  export type AIBotSessionBindingUncheckedCreateNestedManyWithoutBotInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutBotInput, AIBotSessionBindingUncheckedCreateWithoutBotInput> | AIBotSessionBindingCreateWithoutBotInput[] | AIBotSessionBindingUncheckedCreateWithoutBotInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutBotInput | AIBotSessionBindingCreateOrConnectWithoutBotInput[]
+    createMany?: AIBotSessionBindingCreateManyBotInputEnvelope
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutWhatsAppAIBotsNestedInput = {
+    create?: XOR<UserCreateWithoutWhatsAppAIBotsInput, UserUncheckedCreateWithoutWhatsAppAIBotsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWhatsAppAIBotsInput
+    upsert?: UserUpsertWithoutWhatsAppAIBotsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWhatsAppAIBotsInput, UserUpdateWithoutWhatsAppAIBotsInput>, UserUncheckedUpdateWithoutWhatsAppAIBotsInput>
+  }
+
+  export type AIBotSessionBindingUpdateManyWithoutBotNestedInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutBotInput, AIBotSessionBindingUncheckedCreateWithoutBotInput> | AIBotSessionBindingCreateWithoutBotInput[] | AIBotSessionBindingUncheckedCreateWithoutBotInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutBotInput | AIBotSessionBindingCreateOrConnectWithoutBotInput[]
+    upsert?: AIBotSessionBindingUpsertWithWhereUniqueWithoutBotInput | AIBotSessionBindingUpsertWithWhereUniqueWithoutBotInput[]
+    createMany?: AIBotSessionBindingCreateManyBotInputEnvelope
+    set?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    disconnect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    delete?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    update?: AIBotSessionBindingUpdateWithWhereUniqueWithoutBotInput | AIBotSessionBindingUpdateWithWhereUniqueWithoutBotInput[]
+    updateMany?: AIBotSessionBindingUpdateManyWithWhereWithoutBotInput | AIBotSessionBindingUpdateManyWithWhereWithoutBotInput[]
+    deleteMany?: AIBotSessionBindingScalarWhereInput | AIBotSessionBindingScalarWhereInput[]
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateManyWithoutBotNestedInput = {
+    create?: XOR<AIBotSessionBindingCreateWithoutBotInput, AIBotSessionBindingUncheckedCreateWithoutBotInput> | AIBotSessionBindingCreateWithoutBotInput[] | AIBotSessionBindingUncheckedCreateWithoutBotInput[]
+    connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutBotInput | AIBotSessionBindingCreateOrConnectWithoutBotInput[]
+    upsert?: AIBotSessionBindingUpsertWithWhereUniqueWithoutBotInput | AIBotSessionBindingUpsertWithWhereUniqueWithoutBotInput[]
+    createMany?: AIBotSessionBindingCreateManyBotInputEnvelope
+    set?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    disconnect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    delete?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+    update?: AIBotSessionBindingUpdateWithWhereUniqueWithoutBotInput | AIBotSessionBindingUpdateWithWhereUniqueWithoutBotInput[]
+    updateMany?: AIBotSessionBindingUpdateManyWithWhereWithoutBotInput | AIBotSessionBindingUpdateManyWithWhereWithoutBotInput[]
+    deleteMany?: AIBotSessionBindingScalarWhereInput | AIBotSessionBindingScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutAiDocumentsInput = {
+    create?: XOR<UserCreateWithoutAiDocumentsInput, UserUncheckedCreateWithoutAiDocumentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiDocumentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutAiDocumentsNestedInput = {
+    create?: XOR<UserCreateWithoutAiDocumentsInput, UserUncheckedCreateWithoutAiDocumentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiDocumentsInput
+    upsert?: UserUpsertWithoutAiDocumentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiDocumentsInput, UserUpdateWithoutAiDocumentsInput>, UserUncheckedUpdateWithoutAiDocumentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutAiUsageLogsInput = {
+    create?: XOR<UserCreateWithoutAiUsageLogsInput, UserUncheckedCreateWithoutAiUsageLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiUsageLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutAiUsageLogsNestedInput = {
+    create?: XOR<UserCreateWithoutAiUsageLogsInput, UserUncheckedCreateWithoutAiUsageLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiUsageLogsInput
+    upsert?: UserUpsertWithoutAiUsageLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiUsageLogsInput, UserUpdateWithoutAiUsageLogsInput>, UserUncheckedUpdateWithoutAiUsageLogsInput>
+  }
+
+  export type WhatsAppAIBotCreateNestedOneWithoutAiBotSessionBindingsInput = {
+    create?: XOR<WhatsAppAIBotCreateWithoutAiBotSessionBindingsInput, WhatsAppAIBotUncheckedCreateWithoutAiBotSessionBindingsInput>
+    connectOrCreate?: WhatsAppAIBotCreateOrConnectWithoutAiBotSessionBindingsInput
+    connect?: WhatsAppAIBotWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAiBotSessionBindingsInput = {
+    create?: XOR<UserCreateWithoutAiBotSessionBindingsInput, UserUncheckedCreateWithoutAiBotSessionBindingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiBotSessionBindingsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type WhatsAppAIBotUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput = {
+    create?: XOR<WhatsAppAIBotCreateWithoutAiBotSessionBindingsInput, WhatsAppAIBotUncheckedCreateWithoutAiBotSessionBindingsInput>
+    connectOrCreate?: WhatsAppAIBotCreateOrConnectWithoutAiBotSessionBindingsInput
+    upsert?: WhatsAppAIBotUpsertWithoutAiBotSessionBindingsInput
+    connect?: WhatsAppAIBotWhereUniqueInput
+    update?: XOR<XOR<WhatsAppAIBotUpdateToOneWithWhereWithoutAiBotSessionBindingsInput, WhatsAppAIBotUpdateWithoutAiBotSessionBindingsInput>, WhatsAppAIBotUncheckedUpdateWithoutAiBotSessionBindingsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput = {
+    create?: XOR<UserCreateWithoutAiBotSessionBindingsInput, UserUncheckedCreateWithoutAiBotSessionBindingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiBotSessionBindingsInput
+    upsert?: UserUpsertWithoutAiBotSessionBindingsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiBotSessionBindingsInput, UserUpdateWithoutAiBotSessionBindingsInput>, UserUncheckedUpdateWithoutAiBotSessionBindingsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -32455,6 +38678,132 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type WhatsAppAIBotCreateWithoutUserInput = {
+    id?: string
+    name?: string
+    isActive?: boolean
+    systemPrompt?: string | null
+    fallbackText?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutBotInput
+  }
+
+  export type WhatsAppAIBotUncheckedCreateWithoutUserInput = {
+    id?: string
+    name?: string
+    isActive?: boolean
+    systemPrompt?: string | null
+    fallbackText?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutBotInput
+  }
+
+  export type WhatsAppAIBotCreateOrConnectWithoutUserInput = {
+    where: WhatsAppAIBotWhereUniqueInput
+    create: XOR<WhatsAppAIBotCreateWithoutUserInput, WhatsAppAIBotUncheckedCreateWithoutUserInput>
+  }
+
+  export type WhatsAppAIBotCreateManyUserInputEnvelope = {
+    data: WhatsAppAIBotCreateManyUserInput | WhatsAppAIBotCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIDocumentCreateWithoutUserInput = {
+    id?: string
+    title: string
+    kind?: string
+    content: string
+    embeddingId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIDocumentUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    kind?: string
+    content: string
+    embeddingId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIDocumentCreateOrConnectWithoutUserInput = {
+    where: AIDocumentWhereUniqueInput
+    create: XOR<AIDocumentCreateWithoutUserInput, AIDocumentUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIDocumentCreateManyUserInputEnvelope = {
+    data: AIDocumentCreateManyUserInput | AIDocumentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIUsageLogCreateWithoutUserInput = {
+    id?: string
+    sessionId?: string | null
+    inputTokens?: number
+    outputTokens?: number
+    totalTokens?: number
+    latencyMs?: number
+    status?: string
+    errorReason?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AIUsageLogUncheckedCreateWithoutUserInput = {
+    id?: string
+    sessionId?: string | null
+    inputTokens?: number
+    outputTokens?: number
+    totalTokens?: number
+    latencyMs?: number
+    status?: string
+    errorReason?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AIUsageLogCreateOrConnectWithoutUserInput = {
+    where: AIUsageLogWhereUniqueInput
+    create: XOR<AIUsageLogCreateWithoutUserInput, AIUsageLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIUsageLogCreateManyUserInputEnvelope = {
+    data: AIUsageLogCreateManyUserInput | AIUsageLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIBotSessionBindingCreateWithoutUserInput = {
+    id?: string
+    sessionId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bot: WhatsAppAIBotCreateNestedOneWithoutAiBotSessionBindingsInput
+  }
+
+  export type AIBotSessionBindingUncheckedCreateWithoutUserInput = {
+    id?: string
+    botId: string
+    sessionId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIBotSessionBindingCreateOrConnectWithoutUserInput = {
+    where: AIBotSessionBindingWhereUniqueInput
+    create: XOR<AIBotSessionBindingCreateWithoutUserInput, AIBotSessionBindingUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIBotSessionBindingCreateManyUserInputEnvelope = {
+    data: AIBotSessionBindingCreateManyUserInput | AIBotSessionBindingCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ServicesWhatsappCustomersUpsertWithWhereUniqueWithoutCustomerInput = {
     where: ServicesWhatsappCustomersWhereUniqueInput
     update: XOR<ServicesWhatsappCustomersUpdateWithoutCustomerInput, ServicesWhatsappCustomersUncheckedUpdateWithoutCustomerInput>
@@ -32798,6 +39147,128 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"WhatsAppMessageStats"> | Date | string
   }
 
+  export type WhatsAppAIBotUpsertWithWhereUniqueWithoutUserInput = {
+    where: WhatsAppAIBotWhereUniqueInput
+    update: XOR<WhatsAppAIBotUpdateWithoutUserInput, WhatsAppAIBotUncheckedUpdateWithoutUserInput>
+    create: XOR<WhatsAppAIBotCreateWithoutUserInput, WhatsAppAIBotUncheckedCreateWithoutUserInput>
+  }
+
+  export type WhatsAppAIBotUpdateWithWhereUniqueWithoutUserInput = {
+    where: WhatsAppAIBotWhereUniqueInput
+    data: XOR<WhatsAppAIBotUpdateWithoutUserInput, WhatsAppAIBotUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WhatsAppAIBotUpdateManyWithWhereWithoutUserInput = {
+    where: WhatsAppAIBotScalarWhereInput
+    data: XOR<WhatsAppAIBotUpdateManyMutationInput, WhatsAppAIBotUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type WhatsAppAIBotScalarWhereInput = {
+    AND?: WhatsAppAIBotScalarWhereInput | WhatsAppAIBotScalarWhereInput[]
+    OR?: WhatsAppAIBotScalarWhereInput[]
+    NOT?: WhatsAppAIBotScalarWhereInput | WhatsAppAIBotScalarWhereInput[]
+    id?: StringFilter<"WhatsAppAIBot"> | string
+    userId?: StringFilter<"WhatsAppAIBot"> | string
+    name?: StringFilter<"WhatsAppAIBot"> | string
+    isActive?: BoolFilter<"WhatsAppAIBot"> | boolean
+    systemPrompt?: StringNullableFilter<"WhatsAppAIBot"> | string | null
+    fallbackText?: StringNullableFilter<"WhatsAppAIBot"> | string | null
+    createdAt?: DateTimeFilter<"WhatsAppAIBot"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsAppAIBot"> | Date | string
+  }
+
+  export type AIDocumentUpsertWithWhereUniqueWithoutUserInput = {
+    where: AIDocumentWhereUniqueInput
+    update: XOR<AIDocumentUpdateWithoutUserInput, AIDocumentUncheckedUpdateWithoutUserInput>
+    create: XOR<AIDocumentCreateWithoutUserInput, AIDocumentUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIDocumentUpdateWithWhereUniqueWithoutUserInput = {
+    where: AIDocumentWhereUniqueInput
+    data: XOR<AIDocumentUpdateWithoutUserInput, AIDocumentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AIDocumentUpdateManyWithWhereWithoutUserInput = {
+    where: AIDocumentScalarWhereInput
+    data: XOR<AIDocumentUpdateManyMutationInput, AIDocumentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AIDocumentScalarWhereInput = {
+    AND?: AIDocumentScalarWhereInput | AIDocumentScalarWhereInput[]
+    OR?: AIDocumentScalarWhereInput[]
+    NOT?: AIDocumentScalarWhereInput | AIDocumentScalarWhereInput[]
+    id?: StringFilter<"AIDocument"> | string
+    userId?: StringFilter<"AIDocument"> | string
+    title?: StringFilter<"AIDocument"> | string
+    kind?: StringFilter<"AIDocument"> | string
+    content?: StringFilter<"AIDocument"> | string
+    embeddingId?: StringNullableFilter<"AIDocument"> | string | null
+    isActive?: BoolFilter<"AIDocument"> | boolean
+    createdAt?: DateTimeFilter<"AIDocument"> | Date | string
+    updatedAt?: DateTimeFilter<"AIDocument"> | Date | string
+  }
+
+  export type AIUsageLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: AIUsageLogWhereUniqueInput
+    update: XOR<AIUsageLogUpdateWithoutUserInput, AIUsageLogUncheckedUpdateWithoutUserInput>
+    create: XOR<AIUsageLogCreateWithoutUserInput, AIUsageLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIUsageLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: AIUsageLogWhereUniqueInput
+    data: XOR<AIUsageLogUpdateWithoutUserInput, AIUsageLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AIUsageLogUpdateManyWithWhereWithoutUserInput = {
+    where: AIUsageLogScalarWhereInput
+    data: XOR<AIUsageLogUpdateManyMutationInput, AIUsageLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AIUsageLogScalarWhereInput = {
+    AND?: AIUsageLogScalarWhereInput | AIUsageLogScalarWhereInput[]
+    OR?: AIUsageLogScalarWhereInput[]
+    NOT?: AIUsageLogScalarWhereInput | AIUsageLogScalarWhereInput[]
+    id?: StringFilter<"AIUsageLog"> | string
+    userId?: StringFilter<"AIUsageLog"> | string
+    sessionId?: StringNullableFilter<"AIUsageLog"> | string | null
+    inputTokens?: IntFilter<"AIUsageLog"> | number
+    outputTokens?: IntFilter<"AIUsageLog"> | number
+    totalTokens?: IntFilter<"AIUsageLog"> | number
+    latencyMs?: IntFilter<"AIUsageLog"> | number
+    status?: StringFilter<"AIUsageLog"> | string
+    errorReason?: StringNullableFilter<"AIUsageLog"> | string | null
+    createdAt?: DateTimeFilter<"AIUsageLog"> | Date | string
+  }
+
+  export type AIBotSessionBindingUpsertWithWhereUniqueWithoutUserInput = {
+    where: AIBotSessionBindingWhereUniqueInput
+    update: XOR<AIBotSessionBindingUpdateWithoutUserInput, AIBotSessionBindingUncheckedUpdateWithoutUserInput>
+    create: XOR<AIBotSessionBindingCreateWithoutUserInput, AIBotSessionBindingUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIBotSessionBindingUpdateWithWhereUniqueWithoutUserInput = {
+    where: AIBotSessionBindingWhereUniqueInput
+    data: XOR<AIBotSessionBindingUpdateWithoutUserInput, AIBotSessionBindingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AIBotSessionBindingUpdateManyWithWhereWithoutUserInput = {
+    where: AIBotSessionBindingScalarWhereInput
+    data: XOR<AIBotSessionBindingUpdateManyMutationInput, AIBotSessionBindingUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AIBotSessionBindingScalarWhereInput = {
+    AND?: AIBotSessionBindingScalarWhereInput | AIBotSessionBindingScalarWhereInput[]
+    OR?: AIBotSessionBindingScalarWhereInput[]
+    NOT?: AIBotSessionBindingScalarWhereInput | AIBotSessionBindingScalarWhereInput[]
+    id?: StringFilter<"AIBotSessionBinding"> | string
+    userId?: StringFilter<"AIBotSessionBinding"> | string
+    botId?: StringFilter<"AIBotSessionBinding"> | string
+    sessionId?: StringFilter<"AIBotSessionBinding"> | string
+    isActive?: BoolFilter<"AIBotSessionBinding"> | boolean
+    createdAt?: DateTimeFilter<"AIBotSessionBinding"> | Date | string
+    updatedAt?: DateTimeFilter<"AIBotSessionBinding"> | Date | string
+  }
+
   export type UserCreateWithoutWhatsAppSessionsInput = {
     id?: string
     name?: string | null
@@ -32833,6 +39304,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignCreateNestedManyWithoutUserInput
     WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWhatsAppSessionsInput = {
@@ -32870,6 +39345,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignUncheckedCreateNestedManyWithoutUserInput
     WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWhatsAppSessionsInput = {
@@ -32991,6 +39470,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignUpdateManyWithoutUserNestedInput
     WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWhatsAppSessionsInput = {
@@ -33028,6 +39511,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignUncheckedUpdateManyWithoutUserNestedInput
     WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WhatsAppMessageStatsUpsertWithWhereUniqueWithoutSessionInput = {
@@ -33126,6 +39613,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -33163,6 +39654,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -33363,6 +39858,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -33400,6 +39899,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VoucherUpsertWithoutTransactionsInput = {
@@ -33910,6 +40413,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWhatsappCustomersInput = {
@@ -33947,6 +40454,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWhatsappCustomersInput = {
@@ -34029,6 +40540,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWhatsappCustomersInput = {
@@ -34066,6 +40581,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WhatsappApiPackageUpsertWithoutWhatsappCustomersInput = {
@@ -34138,6 +40657,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserSessionsInput = {
@@ -34175,6 +40698,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserSessionsInput = {
@@ -34228,6 +40755,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserSessionsInput = {
@@ -34265,6 +40796,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TransactionCreateWithoutVoucherInput = {
@@ -34463,6 +40998,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVoucherUsageInput = {
@@ -34500,6 +41039,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVoucherUsageInput = {
@@ -34655,6 +41198,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVoucherUsageInput = {
@@ -34692,6 +41239,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VoucherUpsertWithoutVoucherUsageInput = {
@@ -35002,6 +41553,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWhatsAppCampaignsInput = {
@@ -35039,6 +41594,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWhatsAppCampaignsInput = {
@@ -35108,6 +41667,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWhatsAppCampaignsInput = {
@@ -35145,6 +41708,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WhatsAppBulkCampaignItemCreateWithoutWhatsAppBulkCampaignsInput = {
@@ -35216,6 +41783,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWhatsAppBulkCampaignsInput = {
@@ -35253,6 +41824,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWhatsAppBulkCampaignsInput = {
@@ -35373,6 +41948,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWhatsAppBulkCampaignsInput = {
@@ -35410,6 +41989,10 @@ export namespace Prisma {
     WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WhatsAppCampaignUpsertWithoutWhatsAppBulkCampaignsInput = {
@@ -35600,6 +42183,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWhatsAppContactInput = {
@@ -35637,6 +42224,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWhatsAppContactInput = {
@@ -35690,6 +42281,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWhatsAppContactInput = {
@@ -35727,6 +42322,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWhatsAppMessageStatsInput = {
@@ -35764,6 +42363,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignCreateNestedManyWithoutUserInput
     WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWhatsAppMessageStatsInput = {
@@ -35801,6 +42404,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignUncheckedCreateNestedManyWithoutUserInput
     WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWhatsAppMessageStatsInput = {
@@ -35923,6 +42530,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignUpdateManyWithoutUserNestedInput
     WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWhatsAppMessageStatsInput = {
@@ -35960,6 +42571,10 @@ export namespace Prisma {
     WhatsAppCampaigns?: WhatsAppCampaignUncheckedUpdateManyWithoutUserNestedInput
     WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WhatsAppSessionUpsertWithoutWhatsAppMessageStatsInput = {
@@ -36035,6 +42650,830 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserCreateWithoutWhatsAppAIBotsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    apiKey?: string | null
+    updatedAt?: Date | string | null
+    emailOtp?: string | null
+    emailOtpExpires?: Date | string | null
+    resetPasswordOtp?: string | null
+    resetPasswordOtpExpires?: Date | string | null
+    resetPasswordLastRequestAt?: Date | string | null
+    ssoOtp?: string | null
+    ssoOtpExpires?: Date | string | null
+    ssoLastRequestAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersCreateNestedManyWithoutCustomerInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    userSessions?: UserSessionCreateNestedManyWithoutUserInput
+    voucherUsage?: VoucherUsageCreateNestedManyWithoutUserInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignCreateNestedManyWithoutUserInput
+    WhatsAppCampaigns?: WhatsAppCampaignCreateNestedManyWithoutUserInput
+    WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWhatsAppAIBotsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    apiKey?: string | null
+    updatedAt?: Date | string | null
+    emailOtp?: string | null
+    emailOtpExpires?: Date | string | null
+    resetPasswordOtp?: string | null
+    resetPasswordOtpExpires?: Date | string | null
+    resetPasswordLastRequestAt?: Date | string | null
+    ssoOtp?: string | null
+    ssoOtpExpires?: Date | string | null
+    ssoLastRequestAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUncheckedCreateNestedManyWithoutCustomerInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    userSessions?: UserSessionUncheckedCreateNestedManyWithoutUserInput
+    voucherUsage?: VoucherUsageUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppCampaigns?: WhatsAppCampaignUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWhatsAppAIBotsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWhatsAppAIBotsInput, UserUncheckedCreateWithoutWhatsAppAIBotsInput>
+  }
+
+  export type AIBotSessionBindingCreateWithoutBotInput = {
+    id?: string
+    sessionId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAiBotSessionBindingsInput
+  }
+
+  export type AIBotSessionBindingUncheckedCreateWithoutBotInput = {
+    id?: string
+    userId: string
+    sessionId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIBotSessionBindingCreateOrConnectWithoutBotInput = {
+    where: AIBotSessionBindingWhereUniqueInput
+    create: XOR<AIBotSessionBindingCreateWithoutBotInput, AIBotSessionBindingUncheckedCreateWithoutBotInput>
+  }
+
+  export type AIBotSessionBindingCreateManyBotInputEnvelope = {
+    data: AIBotSessionBindingCreateManyBotInput | AIBotSessionBindingCreateManyBotInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutWhatsAppAIBotsInput = {
+    update: XOR<UserUpdateWithoutWhatsAppAIBotsInput, UserUncheckedUpdateWithoutWhatsAppAIBotsInput>
+    create: XOR<UserCreateWithoutWhatsAppAIBotsInput, UserUncheckedCreateWithoutWhatsAppAIBotsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWhatsAppAIBotsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWhatsAppAIBotsInput, UserUncheckedUpdateWithoutWhatsAppAIBotsInput>
+  }
+
+  export type UserUpdateWithoutWhatsAppAIBotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    emailOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    ssoOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUpdateManyWithoutCustomerNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
+    userSessions?: UserSessionUpdateManyWithoutUserNestedInput
+    voucherUsage?: VoucherUsageUpdateManyWithoutUserNestedInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUpdateManyWithoutUserNestedInput
+    WhatsAppCampaigns?: WhatsAppCampaignUpdateManyWithoutUserNestedInput
+    WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWhatsAppAIBotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    emailOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    ssoOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUncheckedUpdateManyWithoutCustomerNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    userSessions?: UserSessionUncheckedUpdateManyWithoutUserNestedInput
+    voucherUsage?: VoucherUsageUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppCampaigns?: WhatsAppCampaignUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AIBotSessionBindingUpsertWithWhereUniqueWithoutBotInput = {
+    where: AIBotSessionBindingWhereUniqueInput
+    update: XOR<AIBotSessionBindingUpdateWithoutBotInput, AIBotSessionBindingUncheckedUpdateWithoutBotInput>
+    create: XOR<AIBotSessionBindingCreateWithoutBotInput, AIBotSessionBindingUncheckedCreateWithoutBotInput>
+  }
+
+  export type AIBotSessionBindingUpdateWithWhereUniqueWithoutBotInput = {
+    where: AIBotSessionBindingWhereUniqueInput
+    data: XOR<AIBotSessionBindingUpdateWithoutBotInput, AIBotSessionBindingUncheckedUpdateWithoutBotInput>
+  }
+
+  export type AIBotSessionBindingUpdateManyWithWhereWithoutBotInput = {
+    where: AIBotSessionBindingScalarWhereInput
+    data: XOR<AIBotSessionBindingUpdateManyMutationInput, AIBotSessionBindingUncheckedUpdateManyWithoutBotInput>
+  }
+
+  export type UserCreateWithoutAiDocumentsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    apiKey?: string | null
+    updatedAt?: Date | string | null
+    emailOtp?: string | null
+    emailOtpExpires?: Date | string | null
+    resetPasswordOtp?: string | null
+    resetPasswordOtpExpires?: Date | string | null
+    resetPasswordLastRequestAt?: Date | string | null
+    ssoOtp?: string | null
+    ssoOtpExpires?: Date | string | null
+    ssoLastRequestAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersCreateNestedManyWithoutCustomerInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    userSessions?: UserSessionCreateNestedManyWithoutUserInput
+    voucherUsage?: VoucherUsageCreateNestedManyWithoutUserInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignCreateNestedManyWithoutUserInput
+    WhatsAppCampaigns?: WhatsAppCampaignCreateNestedManyWithoutUserInput
+    WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAiDocumentsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    apiKey?: string | null
+    updatedAt?: Date | string | null
+    emailOtp?: string | null
+    emailOtpExpires?: Date | string | null
+    resetPasswordOtp?: string | null
+    resetPasswordOtpExpires?: Date | string | null
+    resetPasswordLastRequestAt?: Date | string | null
+    ssoOtp?: string | null
+    ssoOtpExpires?: Date | string | null
+    ssoLastRequestAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUncheckedCreateNestedManyWithoutCustomerInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    userSessions?: UserSessionUncheckedCreateNestedManyWithoutUserInput
+    voucherUsage?: VoucherUsageUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppCampaigns?: WhatsAppCampaignUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAiDocumentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAiDocumentsInput, UserUncheckedCreateWithoutAiDocumentsInput>
+  }
+
+  export type UserUpsertWithoutAiDocumentsInput = {
+    update: XOR<UserUpdateWithoutAiDocumentsInput, UserUncheckedUpdateWithoutAiDocumentsInput>
+    create: XOR<UserCreateWithoutAiDocumentsInput, UserUncheckedCreateWithoutAiDocumentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAiDocumentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAiDocumentsInput, UserUncheckedUpdateWithoutAiDocumentsInput>
+  }
+
+  export type UserUpdateWithoutAiDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    emailOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    ssoOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUpdateManyWithoutCustomerNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
+    userSessions?: UserSessionUpdateManyWithoutUserNestedInput
+    voucherUsage?: VoucherUsageUpdateManyWithoutUserNestedInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUpdateManyWithoutUserNestedInput
+    WhatsAppCampaigns?: WhatsAppCampaignUpdateManyWithoutUserNestedInput
+    WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAiDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    emailOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    ssoOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUncheckedUpdateManyWithoutCustomerNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    userSessions?: UserSessionUncheckedUpdateManyWithoutUserNestedInput
+    voucherUsage?: VoucherUsageUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppCampaigns?: WhatsAppCampaignUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutAiUsageLogsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    apiKey?: string | null
+    updatedAt?: Date | string | null
+    emailOtp?: string | null
+    emailOtpExpires?: Date | string | null
+    resetPasswordOtp?: string | null
+    resetPasswordOtpExpires?: Date | string | null
+    resetPasswordLastRequestAt?: Date | string | null
+    ssoOtp?: string | null
+    ssoOtpExpires?: Date | string | null
+    ssoLastRequestAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersCreateNestedManyWithoutCustomerInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    userSessions?: UserSessionCreateNestedManyWithoutUserInput
+    voucherUsage?: VoucherUsageCreateNestedManyWithoutUserInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignCreateNestedManyWithoutUserInput
+    WhatsAppCampaigns?: WhatsAppCampaignCreateNestedManyWithoutUserInput
+    WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAiUsageLogsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    apiKey?: string | null
+    updatedAt?: Date | string | null
+    emailOtp?: string | null
+    emailOtpExpires?: Date | string | null
+    resetPasswordOtp?: string | null
+    resetPasswordOtpExpires?: Date | string | null
+    resetPasswordLastRequestAt?: Date | string | null
+    ssoOtp?: string | null
+    ssoOtpExpires?: Date | string | null
+    ssoLastRequestAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUncheckedCreateNestedManyWithoutCustomerInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    userSessions?: UserSessionUncheckedCreateNestedManyWithoutUserInput
+    voucherUsage?: VoucherUsageUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppCampaigns?: WhatsAppCampaignUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAiUsageLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAiUsageLogsInput, UserUncheckedCreateWithoutAiUsageLogsInput>
+  }
+
+  export type UserUpsertWithoutAiUsageLogsInput = {
+    update: XOR<UserUpdateWithoutAiUsageLogsInput, UserUncheckedUpdateWithoutAiUsageLogsInput>
+    create: XOR<UserCreateWithoutAiUsageLogsInput, UserUncheckedCreateWithoutAiUsageLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAiUsageLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAiUsageLogsInput, UserUncheckedUpdateWithoutAiUsageLogsInput>
+  }
+
+  export type UserUpdateWithoutAiUsageLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    emailOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    ssoOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUpdateManyWithoutCustomerNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
+    userSessions?: UserSessionUpdateManyWithoutUserNestedInput
+    voucherUsage?: VoucherUsageUpdateManyWithoutUserNestedInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUpdateManyWithoutUserNestedInput
+    WhatsAppCampaigns?: WhatsAppCampaignUpdateManyWithoutUserNestedInput
+    WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAiUsageLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    emailOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    ssoOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUncheckedUpdateManyWithoutCustomerNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    userSessions?: UserSessionUncheckedUpdateManyWithoutUserNestedInput
+    voucherUsage?: VoucherUsageUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppCampaigns?: WhatsAppCampaignUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type WhatsAppAIBotCreateWithoutAiBotSessionBindingsInput = {
+    id?: string
+    name?: string
+    isActive?: boolean
+    systemPrompt?: string | null
+    fallbackText?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutWhatsAppAIBotsInput
+  }
+
+  export type WhatsAppAIBotUncheckedCreateWithoutAiBotSessionBindingsInput = {
+    id?: string
+    userId: string
+    name?: string
+    isActive?: boolean
+    systemPrompt?: string | null
+    fallbackText?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WhatsAppAIBotCreateOrConnectWithoutAiBotSessionBindingsInput = {
+    where: WhatsAppAIBotWhereUniqueInput
+    create: XOR<WhatsAppAIBotCreateWithoutAiBotSessionBindingsInput, WhatsAppAIBotUncheckedCreateWithoutAiBotSessionBindingsInput>
+  }
+
+  export type UserCreateWithoutAiBotSessionBindingsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    apiKey?: string | null
+    updatedAt?: Date | string | null
+    emailOtp?: string | null
+    emailOtpExpires?: Date | string | null
+    resetPasswordOtp?: string | null
+    resetPasswordOtpExpires?: Date | string | null
+    resetPasswordLastRequestAt?: Date | string | null
+    ssoOtp?: string | null
+    ssoOtpExpires?: Date | string | null
+    ssoLastRequestAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersCreateNestedManyWithoutCustomerInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    userSessions?: UserSessionCreateNestedManyWithoutUserInput
+    voucherUsage?: VoucherUsageCreateNestedManyWithoutUserInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignCreateNestedManyWithoutUserInput
+    WhatsAppCampaigns?: WhatsAppCampaignCreateNestedManyWithoutUserInput
+    WhatsAppContact?: WhatsAppContactCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAiBotSessionBindingsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    apiKey?: string | null
+    updatedAt?: Date | string | null
+    emailOtp?: string | null
+    emailOtpExpires?: Date | string | null
+    resetPasswordOtp?: string | null
+    resetPasswordOtpExpires?: Date | string | null
+    resetPasswordLastRequestAt?: Date | string | null
+    ssoOtp?: string | null
+    ssoOtpExpires?: Date | string | null
+    ssoLastRequestAt?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUncheckedCreateNestedManyWithoutCustomerInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    userSessions?: UserSessionUncheckedCreateNestedManyWithoutUserInput
+    voucherUsage?: VoucherUsageUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppCampaigns?: WhatsAppCampaignUncheckedCreateNestedManyWithoutUserInput
+    WhatsAppContact?: WhatsAppContactUncheckedCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutUserInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedCreateNestedManyWithoutUserInput
+    aiDocuments?: AIDocumentUncheckedCreateNestedManyWithoutUserInput
+    aiUsageLogs?: AIUsageLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAiBotSessionBindingsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAiBotSessionBindingsInput, UserUncheckedCreateWithoutAiBotSessionBindingsInput>
+  }
+
+  export type WhatsAppAIBotUpsertWithoutAiBotSessionBindingsInput = {
+    update: XOR<WhatsAppAIBotUpdateWithoutAiBotSessionBindingsInput, WhatsAppAIBotUncheckedUpdateWithoutAiBotSessionBindingsInput>
+    create: XOR<WhatsAppAIBotCreateWithoutAiBotSessionBindingsInput, WhatsAppAIBotUncheckedCreateWithoutAiBotSessionBindingsInput>
+    where?: WhatsAppAIBotWhereInput
+  }
+
+  export type WhatsAppAIBotUpdateToOneWithWhereWithoutAiBotSessionBindingsInput = {
+    where?: WhatsAppAIBotWhereInput
+    data: XOR<WhatsAppAIBotUpdateWithoutAiBotSessionBindingsInput, WhatsAppAIBotUncheckedUpdateWithoutAiBotSessionBindingsInput>
+  }
+
+  export type WhatsAppAIBotUpdateWithoutAiBotSessionBindingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWhatsAppAIBotsNestedInput
+  }
+
+  export type WhatsAppAIBotUncheckedUpdateWithoutAiBotSessionBindingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutAiBotSessionBindingsInput = {
+    update: XOR<UserUpdateWithoutAiBotSessionBindingsInput, UserUncheckedUpdateWithoutAiBotSessionBindingsInput>
+    create: XOR<UserCreateWithoutAiBotSessionBindingsInput, UserUncheckedCreateWithoutAiBotSessionBindingsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAiBotSessionBindingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAiBotSessionBindingsInput, UserUncheckedUpdateWithoutAiBotSessionBindingsInput>
+  }
+
+  export type UserUpdateWithoutAiBotSessionBindingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    emailOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    ssoOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUpdateManyWithoutCustomerNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
+    userSessions?: UserSessionUpdateManyWithoutUserNestedInput
+    voucherUsage?: VoucherUsageUpdateManyWithoutUserNestedInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUpdateManyWithoutUserNestedInput
+    WhatsAppCampaigns?: WhatsAppCampaignUpdateManyWithoutUserNestedInput
+    WhatsAppContact?: WhatsAppContactUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAiBotSessionBindingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    apiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    emailOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    ssoOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ssoLastRequestAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    whatsappCustomers?: ServicesWhatsappCustomersUncheckedUpdateManyWithoutCustomerNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    userSessions?: UserSessionUncheckedUpdateManyWithoutUserNestedInput
+    voucherUsage?: VoucherUsageUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppBulkCampaigns?: WhatsAppBulkCampaignUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppCampaigns?: WhatsAppCampaignUncheckedUpdateManyWithoutUserNestedInput
+    WhatsAppContact?: WhatsAppContactUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
+    aiDocuments?: AIDocumentUncheckedUpdateManyWithoutUserNestedInput
+    aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ServicesWhatsappCustomersCreateManyCustomerInput = {
@@ -36196,6 +43635,48 @@ export namespace Prisma {
     templateMessagesFailed?: number
     lastMessageSentAt?: Date | string | null
     lastMessageFailedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WhatsAppAIBotCreateManyUserInput = {
+    id?: string
+    name?: string
+    isActive?: boolean
+    systemPrompt?: string | null
+    fallbackText?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIDocumentCreateManyUserInput = {
+    id?: string
+    title: string
+    kind?: string
+    content: string
+    embeddingId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIUsageLogCreateManyUserInput = {
+    id?: string
+    sessionId?: string | null
+    inputTokens?: number
+    outputTokens?: number
+    totalTokens?: number
+    latencyMs?: number
+    status?: string
+    errorReason?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AIBotSessionBindingCreateManyUserInput = {
+    id?: string
+    botId: string
+    sessionId: string
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -36697,6 +44178,134 @@ export namespace Prisma {
     templateMessagesFailed?: IntFieldUpdateOperationsInput | number
     lastMessageSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastMessageFailedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsAppAIBotUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutBotNestedInput
+  }
+
+  export type WhatsAppAIBotUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutBotNestedInput
+  }
+
+  export type WhatsAppAIBotUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIDocumentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    embeddingId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIDocumentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    embeddingId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIDocumentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    embeddingId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIUsageLogUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    errorReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIUsageLogUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    errorReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIUsageLogUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    errorReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIBotSessionBindingUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bot?: WhatsAppAIBotUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    botId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    botId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -37275,6 +44884,42 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AIBotSessionBindingCreateManyBotInput = {
+    id?: string
+    userId: string
+    sessionId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIBotSessionBindingUpdateWithoutBotInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiBotSessionBindingsNestedInput
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateWithoutBotInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIBotSessionBindingUncheckedUpdateManyWithoutBotInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
