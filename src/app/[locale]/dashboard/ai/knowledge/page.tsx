@@ -184,10 +184,6 @@ export default function KnowledgeBasePage() {
     }
   };
 
-  if (loading) {
-    return <div className="flex items-center justify-center h-96">Loading...</div>;
-  }
-
   return (
     <SubscriptionGuard featureName="AI Configuration" showRefreshButton={true}>
     <div className="flex-1 space-y-3 sm:space-y-4 md:space-y-6 p-2 sm:p-4 md:p-8 pt-3 sm:pt-4 md:pt-6 bg-background">

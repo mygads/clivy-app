@@ -102,6 +102,33 @@ export default function BotManagementPage() {
     }
   }, [toast]);
 
+  const fetchWhatsAppSessions = useCallback(async () => {
+    try {
+      setLoadingSessions(true);
+      const token = SessionManager.getToken();
+      if (!token) {
+        return;
+      }
+
+      const res = await fetch("/api/customer/whatsapp/sessions", {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await res.json();
+      if (json.success) {
+        setWhatsappSessions(json.data || []);
+      }
+      // Silent fail - don't show error toast for service unavailable
+    } catch (error) {
+      // Silent fail - WhatsApp service might be offline
+      console.warn("WhatsApp service unavailable:", error);
+    } finally {
+      setLoadingSessions(false);
+    }
+  }, []);
+
   useEffect(() => {
     fetchBots();
   }, [fetchBots]);
@@ -110,7 +137,11 @@ export default function BotManagementPage() {
     try {
       const token = SessionManager.getToken();
       if (!token) {
-        alert("Authentication required");
+        toast({
+          title: "Authentication Required",
+          description: "Please login to continue",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -124,15 +155,26 @@ export default function BotManagementPage() {
       });
       const json = await res.json();
       if (json.success) {
-        alert("Bot created successfully");
+        toast({
+          title: "Success",
+          description: "Bot created successfully",
+        });
         setShowCreateForm(false);
         setFormData({ name: "", systemPrompt: "", fallbackText: "", isActive: false });
         fetchBots();
       } else {
-        alert(json.error || "Failed to create bot");
+        toast({
+          title: "Error",
+          description: json.error || "Failed to create bot",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      alert("Failed to create bot");
+      toast({
+        title: "Error",
+        description: "Failed to create bot",
+        variant: "destructive",
+      });
     }
   };
 
@@ -140,7 +182,11 @@ export default function BotManagementPage() {
     try {
       const token = SessionManager.getToken();
       if (!token) {
-        alert("Authentication required");
+        toast({
+          title: "Authentication Required",
+          description: "Please login to continue",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -160,16 +206,27 @@ export default function BotManagementPage() {
       });
       const json = await res.json();
       if (json.success) {
-        alert("Bot updated successfully");
+        toast({
+          title: "Success",
+          description: "Bot updated successfully",
+        });
         setEditingBot(null);
         setShowCreateForm(false);
         setFormData({ name: "", systemPrompt: "", fallbackText: "", isActive: false });
         fetchBots();
       } else {
-        alert(json.error || "Failed to update bot");
+        toast({
+          title: "Error",
+          description: json.error || "Failed to update bot",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      alert("Failed to update bot");
+      toast({
+        title: "Error",
+        description: "Failed to update bot",
+        variant: "destructive",
+      });
     }
   };
 
@@ -177,7 +234,11 @@ export default function BotManagementPage() {
     try {
       const token = SessionManager.getToken();
       if (!token) {
-        alert("Authentication required");
+        toast({
+          title: "Authentication Required",
+          description: "Please login to continue",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -191,47 +252,34 @@ export default function BotManagementPage() {
       });
       const json = await res.json();
       if (json.success) {
-        alert(json.message || `Bot ${isActive ? "activated" : "deactivated"}`);
+        toast({
+          title: "Success",
+          description: json.message || `Bot ${isActive ? "activated" : "deactivated"}`,
+        });
         fetchBots();
       } else {
-        alert(json.error || "Failed to toggle bot status");
+        toast({
+          title: "Error",
+          description: json.error || "Failed to toggle bot status",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      alert("Failed to toggle bot status");
-    }
-  };
-
-  const fetchWhatsAppSessions = async () => {
-    try {
-      setLoadingSessions(true);
-      const token = SessionManager.getToken();
-      if (!token) {
-        alert("Authentication required");
-        return;
-      }
-
-      const res = await fetch("/api/customer/whatsapp/sessions", {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+      toast({
+        title: "Error",
+        description: "Failed to toggle bot status",
+        variant: "destructive",
       });
-      const json = await res.json();
-      if (json.success) {
-        setWhatsappSessions(json.data || []);
-      } else {
-        alert(json.error || "Failed to fetch WhatsApp sessions");
-      }
-    } catch (error) {
-      alert("Failed to fetch WhatsApp sessions");
-    } finally {
-      setLoadingSessions(false);
     }
   };
 
   const handleBindSession = async () => {
     if (!selectedBotForBinding || !selectedSessionId) {
-      alert("Please select a WhatsApp session");
+      toast({
+        title: "Selection Required",
+        description: "Please select a WhatsApp session",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -239,7 +287,11 @@ export default function BotManagementPage() {
       setBinding(true);
       const token = SessionManager.getToken();
       if (!token) {
-        alert("Authentication required");
+        toast({
+          title: "Authentication Required",
+          description: "Please login to continue",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -253,15 +305,26 @@ export default function BotManagementPage() {
       });
       const json = await res.json();
       if (json.success) {
-        alert("Session bound successfully");
+        toast({
+          title: "Success",
+          description: "Session bound successfully",
+        });
         setBindDialogOpen(false);
         setSelectedSessionId("");
         fetchBots();
       } else {
-        alert(json.error || "Failed to bind session");
+        toast({
+          title: "Error",
+          description: json.error || "Failed to bind session",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      alert("Failed to bind session");
+      toast({
+        title: "Error",
+        description: "Failed to bind session",
+        variant: "destructive",
+      });
     } finally {
       setBinding(false);
     }
@@ -269,13 +332,20 @@ export default function BotManagementPage() {
 
   const openBindDialog = (bot: Bot) => {
     setSelectedBotForBinding(bot);
+    
+    // Find currently bound session (if any)
+    const activeBound = bot.aiBotSessionBindings.find((b) => b.isActive);
+    if (activeBound) {
+      setSelectedSessionId(activeBound.sessionId);
+      setCurrentBoundSessionId(activeBound.sessionId);
+    } else {
+      setSelectedSessionId("");
+      setCurrentBoundSessionId("");
+    }
+    
     setBindDialogOpen(true);
     fetchWhatsAppSessions();
   };
-
-  if (loading) {
-    return <div className="flex items-center justify-center h-96">Loading...</div>;
-  }
 
   return (
     <SubscriptionGuard featureName="AI Configuration" showRefreshButton={true}>
@@ -440,9 +510,50 @@ export default function BotManagementPage() {
                 </div>
                 <div>
                   <Label>Bound Sessions</Label>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {bot.aiBotSessionBindings.filter((b) => b.isActive).length} active session(s)
-                  </p>
+                  {bot.aiBotSessionBindings.filter((b) => b.isActive).length === 0 ? (
+                    <p className="text-sm text-muted-foreground mt-1">
+                      No sessions bound
+                    </p>
+                  ) : (
+                    <div className="mt-2 space-y-2">
+                      {bot.aiBotSessionBindings.filter((b) => b.isActive).map((binding) => {
+                        // Try to find session details from whatsappSessions if available
+                        const sessionDetails = whatsappSessions.find((s) => s.id === binding.sessionId);
+                        
+                        // Show loading skeleton if sessions are being loaded and no details found yet
+                        if (loadingSessions && !sessionDetails) {
+                          return (
+                            <div key={binding.id} className="flex items-center gap-2">
+                              <div className="h-6 w-48 bg-muted animate-pulse rounded"></div>
+                            </div>
+                          );
+                        }
+                        
+                        return (
+                          <div key={binding.id} className="flex items-center gap-2 text-sm">
+                            <Badge variant="outline" className="flex items-center gap-1">
+                              <Smartphone className="h-3 w-3" />
+                              {sessionDetails ? (
+                                <span>
+                                  {sessionDetails.sessionName || sessionDetails.sessionId}
+                                  {sessionDetails.jid && (
+                                    <span className="text-muted-foreground ml-1">
+                                      ({sessionDetails.jid.split('@')[0]})
+                                    </span>
+                                  )}
+                                </span>
+                              ) : (
+                                <span className="text-muted-foreground">
+                                  Session {binding.sessionId.slice(0, 8)}...
+                                  <span className="text-xs ml-1">(details unavailable)</span>
+                                </span>
+                              )}
+                            </Badge>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
                 <div className="flex gap-2">
                   <Button 
@@ -488,6 +599,15 @@ export default function BotManagementPage() {
           </DialogHeader>
 
           <div className="space-y-4 py-4">
+            {currentBoundSessionId && selectedSessionId && selectedSessionId !== currentBoundSessionId && (
+              <Alert variant="destructive">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertDescription>
+                  Changing session will unbind the current session. The bot will stop responding to the previous WhatsApp number. Continue?
+                </AlertDescription>
+              </Alert>
+            )}
+            
             {loadingSessions ? (
               <div className="flex items-center justify-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
