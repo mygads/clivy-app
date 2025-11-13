@@ -116,6 +116,47 @@ export async function PATCH(request: NextRequest) {
   }
 }
 
+export async function PUT(request: NextRequest) {
+  try {
+    const user = await getCustomerAuth(request);
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    const body = await request.json();
+    const { title, kind, content, isActive } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: "Document ID is required" }, { status: 400 });
+    }
+
+    const existingDoc = await prisma.aIDocument.findFirst({
+      where: { id, userId: user.id },
+    });
+
+    if (!existingDoc) {
+      return NextResponse.json({ error: "Document not found" }, { status: 404 });
+    }
+
+    const document = await prisma.aIDocument.update({
+      where: { id },
+      data: {
+        ...(title !== undefined && { title }),
+        ...(kind !== undefined && { kind }),
+        ...(content !== undefined && { content }),
+        ...(isActive !== undefined && { isActive }),
+      },
+    });
+
+    return NextResponse.json({ success: true, data: document });
+  } catch (error) {
+    console.error("Failed to update AI document:", error);
+    return NextResponse.json({ error: "Failed to update document" }, { status: 500 });
+  }
+}
+
 export async function DELETE(request: NextRequest) {
   try {
     const user = await getCustomerAuth(request);

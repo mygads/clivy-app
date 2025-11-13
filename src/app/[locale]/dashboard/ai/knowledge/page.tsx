@@ -8,9 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FileText, Plus, Trash2 } from "lucide-react";
+import { FileText, Plus, Trash2, Pencil } from "lucide-react";
 import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
 import { SessionManager } from "@/lib/storage";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Document {
   id: string;
@@ -24,7 +25,9 @@ interface Document {
 export default function KnowledgeBasePage() {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -37,7 +40,11 @@ export default function KnowledgeBasePage() {
     try {
       const token = SessionManager.getToken();
       if (!token) {
-        alert("Authentication required");
+        toast({
+          title: "Authentication Required",
+          description: "Please login to continue",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -52,31 +59,57 @@ export default function KnowledgeBasePage() {
         setDocuments(json.data);
       }
     } catch (error) {
-      alert("Failed to fetch documents");
+      toast({
+        title: "Error",
+        description: "Failed to fetch documents",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [toast]);
 
   useEffect(() => {
     fetchDocuments();
   }, [fetchDocuments]);
 
+  const handleEdit = (doc: Document) => {
+    setEditingId(doc.id);
+    setFormData({
+      title: doc.title,
+      kind: doc.kind,
+      content: doc.content,
+      isActive: doc.isActive,
+    });
+    setShowForm(true);
+  };
+
   const handleCreate = async () => {
     if (!formData.title || !formData.content) {
-      alert("Please fill in title and content");
+      toast({
+        title: "Validation Error",
+        description: "Please fill in title and content",
+        variant: "destructive",
+      });
       return;
     }
 
     try {
       const token = SessionManager.getToken();
       if (!token) {
-        alert("Authentication required");
+        toast({
+          title: "Authentication Required",
+          description: "Please login to continue",
+          variant: "destructive",
+        });
         return;
       }
 
-      const res = await fetch("/api/customer/ai/docs", {
-        method: "POST",
+      const url = editingId ? `/api/customer/ai/docs?id=${editingId}` : "/api/customer/ai/docs";
+      const method = editingId ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -85,25 +118,39 @@ export default function KnowledgeBasePage() {
       });
       const json = await res.json();
       if (json.success) {
-        alert("Document created successfully");
-        setShowCreateForm(false);
+        toast({
+          title: "Success",
+          description: editingId ? "Document updated successfully" : "Document created successfully",
+        });
+        setShowForm(false);
+        setEditingId(null);
         setFormData({ title: "", kind: "faq", content: "", isActive: true });
         fetchDocuments();
       } else {
-        alert(json.error || "Failed to create document");
+        toast({
+          title: "Error",
+          description: json.error || "Failed to save document",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      alert("Failed to create document");
+      toast({
+        title: "Error",
+        description: "Failed to save document",
+        variant: "destructive",
+      });
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this document?")) return;
-
     try {
       const token = SessionManager.getToken();
       if (!token) {
-        alert("Authentication required");
+        toast({
+          title: "Authentication Required",
+          description: "Please login to continue",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -116,13 +163,24 @@ export default function KnowledgeBasePage() {
       });
       const json = await res.json();
       if (json.success) {
-        alert("Document deleted successfully");
+        toast({
+          title: "Success",
+          description: "Document deleted successfully",
+        });
         fetchDocuments();
       } else {
-        alert(json.error || "Failed to delete document");
+        toast({
+          title: "Error",
+          description: json.error || "Failed to delete document",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      alert("Failed to delete document");
+      toast({
+        title: "Error",
+        description: "Failed to delete document",
+        variant: "destructive",
+      });
     }
   };
 
@@ -147,17 +205,19 @@ export default function KnowledgeBasePage() {
             <FileText className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="text-[10px] sm:text-xs">{documents.length} docs</span>
           </Badge>
-          <Button onClick={() => setShowCreateForm(!showCreateForm)} size="sm" className="flex-1 sm:flex-initial">
+          <Button onClick={() => setShowForm(!showForm)} size="sm" className="flex-1 sm:flex-initial">
             <Plus className="mr-2 h-4 w-4" />
             Add Document
           </Button>
         </div>
       </div>
 
-      {showCreateForm && (
+      {showForm && (
         <Card>
           <CardHeader className="p-3 sm:p-4 md:p-6">
-            <CardTitle className="text-sm sm:text-base md:text-lg">Add New Document</CardTitle>
+            <CardTitle className="text-sm sm:text-base md:text-lg">
+              {editingId ? "Edit Document" : "Add New Document"}
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4 md:p-6 pt-0">
             <div>
@@ -200,8 +260,18 @@ export default function KnowledgeBasePage() {
             </div>
 
             <div className="flex gap-2">
-              <Button onClick={handleCreate} size="sm">Add Document</Button>
-              <Button variant="outline" onClick={() => setShowCreateForm(false)} size="sm">
+              <Button onClick={handleCreate} size="sm">
+                {editingId ? "Update" : "Add"} Document
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  setShowForm(false);
+                  setEditingId(null);
+                  setFormData({ title: "", kind: "faq", content: "", isActive: true });
+                }} 
+                size="sm"
+              >
                 Cancel
               </Button>
             </div>
@@ -218,7 +288,7 @@ export default function KnowledgeBasePage() {
               <p className="text-muted-foreground mb-4">
                 Add your first document to build the knowledge base
               </p>
-              <Button onClick={() => setShowCreateForm(true)}>
+              <Button onClick={() => setShowForm(true)}>
                 <Plus className="mr-2 h-4 w-4" />
                 Add Document
               </Button>
@@ -235,13 +305,22 @@ export default function KnowledgeBasePage() {
                       {doc.kind.toUpperCase()} • {new Date(doc.createdAt).toLocaleDateString()}
                     </CardDescription>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleDelete(doc.id)}
-                  >
-                    <Trash2 className="h-4 w-4 text-destructive" />
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleEdit(doc)}
+                    >
+                      <Pencil className="h-4 w-4 text-blue-500" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDelete(doc.id)}
+                    >
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>

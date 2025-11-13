@@ -9,9 +9,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Bot, Plus, Settings, Link as LinkIcon, Smartphone, CheckCircle } from "lucide-react";
+import { Bot, Plus, Settings, Link as LinkIcon, Smartphone, CheckCircle, AlertTriangle } from "lucide-react";
 import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
 import { SessionManager } from "@/lib/storage";
+import { useToast } from "@/components/ui/use-toast";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface Bot {
   id: string;
@@ -43,6 +45,7 @@ export default function BotManagementPage() {
   const [loading, setLoading] = useState(true);
   const [editingBot, setEditingBot] = useState<Bot | null>(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const { toast } = useToast();
   
   // Bind session dialog state
   const [bindDialogOpen, setBindDialogOpen] = useState(false);
@@ -50,6 +53,7 @@ export default function BotManagementPage() {
   const [whatsappSessions, setWhatsappSessions] = useState<WhatsAppSession[]>([]);
   const [loadingSessions, setLoadingSessions] = useState(false);
   const [selectedSessionId, setSelectedSessionId] = useState<string>("");
+  const [currentBoundSessionId, setCurrentBoundSessionId] = useState<string>("");
   const [binding, setBinding] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -63,7 +67,11 @@ export default function BotManagementPage() {
     try {
       const token = SessionManager.getToken();
       if (!token) {
-        alert("Authentication required");
+        toast({
+          title: "Authentication Required",
+          description: "Please login to continue",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -76,13 +84,23 @@ export default function BotManagementPage() {
       const json = await res.json();
       if (json.success) {
         setBots(json.data);
+      } else {
+        toast({
+          title: "Error",
+          description: json.error || "Failed to fetch bots",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      alert("Failed to fetch bots");
+      toast({
+        title: "Error",
+        description: "Failed to fetch bots",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [toast]);
 
   useEffect(() => {
     fetchBots();

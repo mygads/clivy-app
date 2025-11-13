@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Bot, FileText, BarChart3, MessageSquare } from "lucide-react";
 import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
+import { SessionManager } from "@/lib/storage";
 
 export default function AIOverviewPage() {
   const router = useRouter();
@@ -15,13 +16,74 @@ export default function AIOverviewPage() {
     documents: 0,
     messagesThisMonth: 0,
   });
+  const [loading, setLoading] = useState(true);
+
+  const fetchStats = useCallback(async () => {
+    try {
+      const token = SessionManager.getToken();
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
+      // Fetch all data in parallel
+      const [botsRes, docsRes, usageRes] = await Promise.all([
+        fetch("/api/customer/ai/bot", {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }),
+        fetch("/api/customer/ai/docs", {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }),
+        fetch("/api/customer/ai/usage", {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }),
+      ]);
+
+      const botsData = await botsRes.json();
+      const docsData = await docsRes.json();
+      const usageData = await usageRes.json();
+
+      // Calculate stats
+      const totalBots = botsData.success ? botsData.data.length : 0;
+      const activeBots = botsData.success 
+        ? botsData.data.filter((bot: any) => bot.isActive).length 
+        : 0;
+      const documents = docsData.success ? docsData.data.length : 0;
+      
+      // Get messages from last 30 days
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      const messagesThisMonth = usageData.success && usageData.data.logs
+        ? usageData.data.logs.filter((log: any) => 
+            new Date(log.createdAt) >= thirtyDaysAgo
+          ).length
+        : 0;
+
+      setStats({
+        totalBots,
+        activeBots,
+        documents,
+        messagesThisMonth,
+      });
+    } catch (error) {
+      console.error("Failed to fetch AI stats:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    // TODO: Fetch stats from APIs
-    // GET /api/customer/ai/bot -> count
-    // GET /api/customer/ai/docs -> count
-    // GET /api/customer/ai/usage -> this month's count
-  }, []);
+    fetchStats();
+  }, [fetchStats]);
 
   return (
     <SubscriptionGuard featureName="AI Configuration" showRefreshButton={true}>
@@ -41,10 +103,16 @@ export default function AIOverviewPage() {
               <Bot className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.totalBots}</div>
-              <p className="text-xs text-muted-foreground">
-                {stats.activeBots} active
-              </p>
+              {loading ? (
+                <div className="h-8 bg-muted animate-pulse rounded"></div>
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.totalBots}</div>
+                  <p className="text-xs text-muted-foreground">
+                    {stats.activeBots} active
+                  </p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -54,10 +122,16 @@ export default function AIOverviewPage() {
               <FileText className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.documents}</div>
-              <p className="text-xs text-muted-foreground">
-                Documents uploaded
-              </p>
+              {loading ? (
+                <div className="h-8 bg-muted animate-pulse rounded"></div>
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.documents}</div>
+                  <p className="text-xs text-muted-foreground">
+                    Documents uploaded
+                  </p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -67,10 +141,16 @@ export default function AIOverviewPage() {
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.messagesThisMonth}</div>
-              <p className="text-xs text-muted-foreground">
-                AI responses sent
-              </p>
+              {loading ? (
+                <div className="h-8 bg-muted animate-pulse rounded"></div>
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.messagesThisMonth}</div>
+                  <p className="text-xs text-muted-foreground">
+                    AI responses sent
+                  </p>
+                </>
+              )}
             </CardContent>
           </Card>
 

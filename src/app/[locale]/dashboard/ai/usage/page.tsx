@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { BarChart3, MessageSquare, Zap, Clock } from "lucide-react";
 import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
 import { SessionManager } from "@/lib/storage";
+import { useToast } from "@/components/ui/use-toast";
 
 interface UsageStats {
   totalRequests: number;
@@ -19,12 +20,17 @@ interface UsageStats {
 export default function UsagePage() {
   const [stats, setStats] = useState<UsageStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   const fetchUsage = useCallback(async () => {
     try {
       const token = SessionManager.getToken();
       if (!token) {
-        alert("Authentication required");
+        toast({
+          title: "Authentication Required",
+          description: "Please login to view usage data",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -37,13 +43,23 @@ export default function UsagePage() {
       const json = await res.json();
       if (json.success) {
         setStats(json.data.statistics);
+      } else {
+        toast({
+          title: "Failed to Load",
+          description: json.error || "Could not fetch usage data",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      alert("Failed to fetch usage data");
+      toast({
+        title: "Error",
+        description: "Failed to fetch usage data",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [toast]);
 
   useEffect(() => {
     fetchUsage();

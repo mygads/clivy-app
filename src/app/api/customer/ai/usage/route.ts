@@ -39,21 +39,39 @@ export async function GET(request: NextRequest) {
         inputTokens: true,
         outputTokens: true,
         totalTokens: true,
+        latencyMs: true,
       },
       _count: {
         id: true,
       },
     });
 
+    const errorCount = await prisma.aIUsageLog.count({
+      where: { ...where, status: { not: "ok" } },
+    });
+
+    const totalRequests = stats._count.id || 0;
+    const successCount = totalRequests - errorCount;
+    const successRate = totalRequests > 0 
+      ? ((successCount / totalRequests) * 100).toFixed(1)
+      : "0.0";
+
+    const avgLatency = totalRequests > 0
+      ? Math.round((stats._sum.latencyMs || 0) / totalRequests)
+      : 0;
+
     return NextResponse.json({
       success: true,
       data: {
         logs,
-        stats: {
-          totalRequests: stats._count.id,
+        statistics: {
+          totalRequests,
           totalInputTokens: stats._sum.inputTokens || 0,
           totalOutputTokens: stats._sum.outputTokens || 0,
           totalTokens: stats._sum.totalTokens || 0,
+          averageLatencyMs: avgLatency,
+          errorCount,
+          successRate,
         },
       },
     });
