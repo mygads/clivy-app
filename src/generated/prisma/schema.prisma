@@ -459,6 +459,7 @@ model WhatsAppAIBot {
 
   user                 User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   aiBotSessionBindings AIBotSessionBinding[]
+  botKnowledgeBindings BotKnowledgeBinding[]
 
   @@index([userId])
   @@index([isActive])
@@ -475,7 +476,8 @@ model AIDocument {
   createdAt   DateTime @default(now()) @db.Timestamptz(6)
   updatedAt   DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                 User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  botKnowledgeBindings BotKnowledgeBinding[]
 
   @@index([userId])
   @@index([kind, isActive])
@@ -514,5 +516,22 @@ model AIBotSessionBinding {
 
   @@index([userId])
   @@index([botId])
+  @@index([isActive])
+}
+
+model BotKnowledgeBinding {
+  id         String   @id @default(cuid())
+  botId      String
+  documentId String
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt  DateTime @updatedAt
+
+  bot      WhatsAppAIBot @relation(fields: [botId], references: [id], onDelete: Cascade)
+  document AIDocument    @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@unique([botId, documentId])
+  @@index([botId])
+  @@index([documentId])
   @@index([isActive])
 }

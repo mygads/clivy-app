@@ -479,6 +479,15 @@ exports.Prisma.AIBotSessionBindingScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BotKnowledgeBindingScalarFieldEnum = {
+  id: 'id',
+  botId: 'botId',
+  documentId: 'documentId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -527,7 +536,8 @@ exports.Prisma.ModelName = {
   WhatsAppAIBot: 'WhatsAppAIBot',
   AIDocument: 'AIDocument',
   AIUsageLog: 'AIUsageLog',
-  AIBotSessionBinding: 'AIBotSessionBinding'
+  AIBotSessionBinding: 'AIBotSessionBinding',
+  BotKnowledgeBinding: 'BotKnowledgeBinding'
 };
 
 /**

@@ -118,6 +118,11 @@ export type AIUsageLog = $Result.DefaultSelection<Prisma.$AIUsageLogPayload>
  * 
  */
 export type AIBotSessionBinding = $Result.DefaultSelection<Prisma.$AIBotSessionBindingPayload>
+/**
+ * Model BotKnowledgeBinding
+ * 
+ */
+export type BotKnowledgeBinding = $Result.DefaultSelection<Prisma.$BotKnowledgeBindingPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -446,6 +451,16 @@ export class PrismaClient<
     * ```
     */
   get aIBotSessionBinding(): Prisma.AIBotSessionBindingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.botKnowledgeBinding`: Exposes CRUD operations for the **BotKnowledgeBinding** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BotKnowledgeBindings
+    * const botKnowledgeBindings = await prisma.botKnowledgeBinding.findMany()
+    * ```
+    */
+  get botKnowledgeBinding(): Prisma.BotKnowledgeBindingDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -907,7 +922,8 @@ export namespace Prisma {
     WhatsAppAIBot: 'WhatsAppAIBot',
     AIDocument: 'AIDocument',
     AIUsageLog: 'AIUsageLog',
-    AIBotSessionBinding: 'AIBotSessionBinding'
+    AIBotSessionBinding: 'AIBotSessionBinding',
+    BotKnowledgeBinding: 'BotKnowledgeBinding'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -926,7 +942,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "whatsAppSession" | "transaction" | "transactionWhatsappService" | "payment" | "whatsappApiPackage" | "servicesWhatsappCustomers" | "userSession" | "voucher" | "voucherUsage" | "paymentMethod" | "bankDetail" | "whatsAppCampaign" | "whatsAppBulkCampaign" | "whatsAppBulkCampaignItem" | "whatsAppContact" | "whatsAppMessageStats" | "whatsAppAIBot" | "aIDocument" | "aIUsageLog" | "aIBotSessionBinding"
+      modelProps: "user" | "whatsAppSession" | "transaction" | "transactionWhatsappService" | "payment" | "whatsappApiPackage" | "servicesWhatsappCustomers" | "userSession" | "voucher" | "voucherUsage" | "paymentMethod" | "bankDetail" | "whatsAppCampaign" | "whatsAppBulkCampaign" | "whatsAppBulkCampaignItem" | "whatsAppContact" | "whatsAppMessageStats" | "whatsAppAIBot" | "aIDocument" | "aIUsageLog" | "aIBotSessionBinding" | "botKnowledgeBinding"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2484,6 +2500,80 @@ export namespace Prisma {
           }
         }
       }
+      BotKnowledgeBinding: {
+        payload: Prisma.$BotKnowledgeBindingPayload<ExtArgs>
+        fields: Prisma.BotKnowledgeBindingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BotKnowledgeBindingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BotKnowledgeBindingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload>
+          }
+          findFirst: {
+            args: Prisma.BotKnowledgeBindingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BotKnowledgeBindingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload>
+          }
+          findMany: {
+            args: Prisma.BotKnowledgeBindingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload>[]
+          }
+          create: {
+            args: Prisma.BotKnowledgeBindingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload>
+          }
+          createMany: {
+            args: Prisma.BotKnowledgeBindingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BotKnowledgeBindingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload>[]
+          }
+          delete: {
+            args: Prisma.BotKnowledgeBindingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload>
+          }
+          update: {
+            args: Prisma.BotKnowledgeBindingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload>
+          }
+          deleteMany: {
+            args: Prisma.BotKnowledgeBindingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BotKnowledgeBindingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BotKnowledgeBindingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload>[]
+          }
+          upsert: {
+            args: Prisma.BotKnowledgeBindingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotKnowledgeBindingPayload>
+          }
+          aggregate: {
+            args: Prisma.BotKnowledgeBindingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBotKnowledgeBinding>
+          }
+          groupBy: {
+            args: Prisma.BotKnowledgeBindingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BotKnowledgeBindingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BotKnowledgeBindingCountArgs<ExtArgs>
+            result: $Utils.Optional<BotKnowledgeBindingCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2601,6 +2691,7 @@ export namespace Prisma {
     aIDocument?: AIDocumentOmit
     aIUsageLog?: AIUsageLogOmit
     aIBotSessionBinding?: AIBotSessionBindingOmit
+    botKnowledgeBinding?: BotKnowledgeBindingOmit
   }
 
   /* Types for Logging */
@@ -3065,10 +3156,12 @@ export namespace Prisma {
 
   export type WhatsAppAIBotCountOutputType = {
     aiBotSessionBindings: number
+    botKnowledgeBindings: number
   }
 
   export type WhatsAppAIBotCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     aiBotSessionBindings?: boolean | WhatsAppAIBotCountOutputTypeCountAiBotSessionBindingsArgs
+    botKnowledgeBindings?: boolean | WhatsAppAIBotCountOutputTypeCountBotKnowledgeBindingsArgs
   }
 
   // Custom InputTypes
@@ -3087,6 +3180,44 @@ export namespace Prisma {
    */
   export type WhatsAppAIBotCountOutputTypeCountAiBotSessionBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AIBotSessionBindingWhereInput
+  }
+
+  /**
+   * WhatsAppAIBotCountOutputType without action
+   */
+  export type WhatsAppAIBotCountOutputTypeCountBotKnowledgeBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BotKnowledgeBindingWhereInput
+  }
+
+
+  /**
+   * Count Type AIDocumentCountOutputType
+   */
+
+  export type AIDocumentCountOutputType = {
+    botKnowledgeBindings: number
+  }
+
+  export type AIDocumentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    botKnowledgeBindings?: boolean | AIDocumentCountOutputTypeCountBotKnowledgeBindingsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AIDocumentCountOutputType without action
+   */
+  export type AIDocumentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIDocumentCountOutputType
+     */
+    select?: AIDocumentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AIDocumentCountOutputType without action
+   */
+  export type AIDocumentCountOutputTypeCountBotKnowledgeBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BotKnowledgeBindingWhereInput
   }
 
 
@@ -24922,6 +25053,7 @@ export namespace Prisma {
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     aiBotSessionBindings?: boolean | WhatsAppAIBot$aiBotSessionBindingsArgs<ExtArgs>
+    botKnowledgeBindings?: boolean | WhatsAppAIBot$botKnowledgeBindingsArgs<ExtArgs>
     _count?: boolean | WhatsAppAIBotCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["whatsAppAIBot"]>
 
@@ -24964,6 +25096,7 @@ export namespace Prisma {
   export type WhatsAppAIBotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     aiBotSessionBindings?: boolean | WhatsAppAIBot$aiBotSessionBindingsArgs<ExtArgs>
+    botKnowledgeBindings?: boolean | WhatsAppAIBot$botKnowledgeBindingsArgs<ExtArgs>
     _count?: boolean | WhatsAppAIBotCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type WhatsAppAIBotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24978,6 +25111,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       aiBotSessionBindings: Prisma.$AIBotSessionBindingPayload<ExtArgs>[]
+      botKnowledgeBindings: Prisma.$BotKnowledgeBindingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -25384,6 +25518,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     aiBotSessionBindings<T extends WhatsAppAIBot$aiBotSessionBindingsArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppAIBot$aiBotSessionBindingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIBotSessionBindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    botKnowledgeBindings<T extends WhatsAppAIBot$botKnowledgeBindingsArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppAIBot$botKnowledgeBindingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25841,6 +25976,30 @@ export namespace Prisma {
   }
 
   /**
+   * WhatsAppAIBot.botKnowledgeBindings
+   */
+  export type WhatsAppAIBot$botKnowledgeBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    where?: BotKnowledgeBindingWhereInput
+    orderBy?: BotKnowledgeBindingOrderByWithRelationInput | BotKnowledgeBindingOrderByWithRelationInput[]
+    cursor?: BotKnowledgeBindingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BotKnowledgeBindingScalarFieldEnum | BotKnowledgeBindingScalarFieldEnum[]
+  }
+
+  /**
    * WhatsAppAIBot without action
    */
   export type WhatsAppAIBotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26056,6 +26215,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    botKnowledgeBindings?: boolean | AIDocument$botKnowledgeBindingsArgs<ExtArgs>
+    _count?: boolean | AIDocumentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aIDocument"]>
 
   export type AIDocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -26099,6 +26260,8 @@ export namespace Prisma {
   export type AIDocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "kind" | "content" | "embeddingId" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["aIDocument"]>
   export type AIDocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    botKnowledgeBindings?: boolean | AIDocument$botKnowledgeBindingsArgs<ExtArgs>
+    _count?: boolean | AIDocumentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AIDocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -26111,6 +26274,7 @@ export namespace Prisma {
     name: "AIDocument"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      botKnowledgeBindings: Prisma.$BotKnowledgeBindingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -26517,6 +26681,7 @@ export namespace Prisma {
   export interface Prisma__AIDocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    botKnowledgeBindings<T extends AIDocument$botKnowledgeBindingsArgs<ExtArgs> = {}>(args?: Subset<T, AIDocument$botKnowledgeBindingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -26948,6 +27113,30 @@ export namespace Prisma {
      * Limit how many AIDocuments to delete.
      */
     limit?: number
+  }
+
+  /**
+   * AIDocument.botKnowledgeBindings
+   */
+  export type AIDocument$botKnowledgeBindingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    where?: BotKnowledgeBindingWhereInput
+    orderBy?: BotKnowledgeBindingOrderByWithRelationInput | BotKnowledgeBindingOrderByWithRelationInput[]
+    cursor?: BotKnowledgeBindingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BotKnowledgeBindingScalarFieldEnum | BotKnowledgeBindingScalarFieldEnum[]
   }
 
   /**
@@ -29239,6 +29428,1085 @@ export namespace Prisma {
 
 
   /**
+   * Model BotKnowledgeBinding
+   */
+
+  export type AggregateBotKnowledgeBinding = {
+    _count: BotKnowledgeBindingCountAggregateOutputType | null
+    _min: BotKnowledgeBindingMinAggregateOutputType | null
+    _max: BotKnowledgeBindingMaxAggregateOutputType | null
+  }
+
+  export type BotKnowledgeBindingMinAggregateOutputType = {
+    id: string | null
+    botId: string | null
+    documentId: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BotKnowledgeBindingMaxAggregateOutputType = {
+    id: string | null
+    botId: string | null
+    documentId: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BotKnowledgeBindingCountAggregateOutputType = {
+    id: number
+    botId: number
+    documentId: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BotKnowledgeBindingMinAggregateInputType = {
+    id?: true
+    botId?: true
+    documentId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BotKnowledgeBindingMaxAggregateInputType = {
+    id?: true
+    botId?: true
+    documentId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BotKnowledgeBindingCountAggregateInputType = {
+    id?: true
+    botId?: true
+    documentId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BotKnowledgeBindingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BotKnowledgeBinding to aggregate.
+     */
+    where?: BotKnowledgeBindingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotKnowledgeBindings to fetch.
+     */
+    orderBy?: BotKnowledgeBindingOrderByWithRelationInput | BotKnowledgeBindingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BotKnowledgeBindingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotKnowledgeBindings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotKnowledgeBindings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BotKnowledgeBindings
+    **/
+    _count?: true | BotKnowledgeBindingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BotKnowledgeBindingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BotKnowledgeBindingMaxAggregateInputType
+  }
+
+  export type GetBotKnowledgeBindingAggregateType<T extends BotKnowledgeBindingAggregateArgs> = {
+        [P in keyof T & keyof AggregateBotKnowledgeBinding]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBotKnowledgeBinding[P]>
+      : GetScalarType<T[P], AggregateBotKnowledgeBinding[P]>
+  }
+
+
+
+
+  export type BotKnowledgeBindingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BotKnowledgeBindingWhereInput
+    orderBy?: BotKnowledgeBindingOrderByWithAggregationInput | BotKnowledgeBindingOrderByWithAggregationInput[]
+    by: BotKnowledgeBindingScalarFieldEnum[] | BotKnowledgeBindingScalarFieldEnum
+    having?: BotKnowledgeBindingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BotKnowledgeBindingCountAggregateInputType | true
+    _min?: BotKnowledgeBindingMinAggregateInputType
+    _max?: BotKnowledgeBindingMaxAggregateInputType
+  }
+
+  export type BotKnowledgeBindingGroupByOutputType = {
+    id: string
+    botId: string
+    documentId: string
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: BotKnowledgeBindingCountAggregateOutputType | null
+    _min: BotKnowledgeBindingMinAggregateOutputType | null
+    _max: BotKnowledgeBindingMaxAggregateOutputType | null
+  }
+
+  type GetBotKnowledgeBindingGroupByPayload<T extends BotKnowledgeBindingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BotKnowledgeBindingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BotKnowledgeBindingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BotKnowledgeBindingGroupByOutputType[P]>
+            : GetScalarType<T[P], BotKnowledgeBindingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BotKnowledgeBindingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    botId?: boolean
+    documentId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    document?: boolean | AIDocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["botKnowledgeBinding"]>
+
+  export type BotKnowledgeBindingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    botId?: boolean
+    documentId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    document?: boolean | AIDocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["botKnowledgeBinding"]>
+
+  export type BotKnowledgeBindingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    botId?: boolean
+    documentId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    document?: boolean | AIDocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["botKnowledgeBinding"]>
+
+  export type BotKnowledgeBindingSelectScalar = {
+    id?: boolean
+    botId?: boolean
+    documentId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BotKnowledgeBindingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "botId" | "documentId" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["botKnowledgeBinding"]>
+  export type BotKnowledgeBindingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    document?: boolean | AIDocumentDefaultArgs<ExtArgs>
+  }
+  export type BotKnowledgeBindingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    document?: boolean | AIDocumentDefaultArgs<ExtArgs>
+  }
+  export type BotKnowledgeBindingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bot?: boolean | WhatsAppAIBotDefaultArgs<ExtArgs>
+    document?: boolean | AIDocumentDefaultArgs<ExtArgs>
+  }
+
+  export type $BotKnowledgeBindingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BotKnowledgeBinding"
+    objects: {
+      bot: Prisma.$WhatsAppAIBotPayload<ExtArgs>
+      document: Prisma.$AIDocumentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      botId: string
+      documentId: string
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["botKnowledgeBinding"]>
+    composites: {}
+  }
+
+  type BotKnowledgeBindingGetPayload<S extends boolean | null | undefined | BotKnowledgeBindingDefaultArgs> = $Result.GetResult<Prisma.$BotKnowledgeBindingPayload, S>
+
+  type BotKnowledgeBindingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BotKnowledgeBindingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BotKnowledgeBindingCountAggregateInputType | true
+    }
+
+  export interface BotKnowledgeBindingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BotKnowledgeBinding'], meta: { name: 'BotKnowledgeBinding' } }
+    /**
+     * Find zero or one BotKnowledgeBinding that matches the filter.
+     * @param {BotKnowledgeBindingFindUniqueArgs} args - Arguments to find a BotKnowledgeBinding
+     * @example
+     * // Get one BotKnowledgeBinding
+     * const botKnowledgeBinding = await prisma.botKnowledgeBinding.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BotKnowledgeBindingFindUniqueArgs>(args: SelectSubset<T, BotKnowledgeBindingFindUniqueArgs<ExtArgs>>): Prisma__BotKnowledgeBindingClient<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BotKnowledgeBinding that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BotKnowledgeBindingFindUniqueOrThrowArgs} args - Arguments to find a BotKnowledgeBinding
+     * @example
+     * // Get one BotKnowledgeBinding
+     * const botKnowledgeBinding = await prisma.botKnowledgeBinding.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BotKnowledgeBindingFindUniqueOrThrowArgs>(args: SelectSubset<T, BotKnowledgeBindingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BotKnowledgeBindingClient<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BotKnowledgeBinding that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotKnowledgeBindingFindFirstArgs} args - Arguments to find a BotKnowledgeBinding
+     * @example
+     * // Get one BotKnowledgeBinding
+     * const botKnowledgeBinding = await prisma.botKnowledgeBinding.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BotKnowledgeBindingFindFirstArgs>(args?: SelectSubset<T, BotKnowledgeBindingFindFirstArgs<ExtArgs>>): Prisma__BotKnowledgeBindingClient<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BotKnowledgeBinding that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotKnowledgeBindingFindFirstOrThrowArgs} args - Arguments to find a BotKnowledgeBinding
+     * @example
+     * // Get one BotKnowledgeBinding
+     * const botKnowledgeBinding = await prisma.botKnowledgeBinding.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BotKnowledgeBindingFindFirstOrThrowArgs>(args?: SelectSubset<T, BotKnowledgeBindingFindFirstOrThrowArgs<ExtArgs>>): Prisma__BotKnowledgeBindingClient<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BotKnowledgeBindings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotKnowledgeBindingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BotKnowledgeBindings
+     * const botKnowledgeBindings = await prisma.botKnowledgeBinding.findMany()
+     * 
+     * // Get first 10 BotKnowledgeBindings
+     * const botKnowledgeBindings = await prisma.botKnowledgeBinding.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const botKnowledgeBindingWithIdOnly = await prisma.botKnowledgeBinding.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BotKnowledgeBindingFindManyArgs>(args?: SelectSubset<T, BotKnowledgeBindingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BotKnowledgeBinding.
+     * @param {BotKnowledgeBindingCreateArgs} args - Arguments to create a BotKnowledgeBinding.
+     * @example
+     * // Create one BotKnowledgeBinding
+     * const BotKnowledgeBinding = await prisma.botKnowledgeBinding.create({
+     *   data: {
+     *     // ... data to create a BotKnowledgeBinding
+     *   }
+     * })
+     * 
+     */
+    create<T extends BotKnowledgeBindingCreateArgs>(args: SelectSubset<T, BotKnowledgeBindingCreateArgs<ExtArgs>>): Prisma__BotKnowledgeBindingClient<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BotKnowledgeBindings.
+     * @param {BotKnowledgeBindingCreateManyArgs} args - Arguments to create many BotKnowledgeBindings.
+     * @example
+     * // Create many BotKnowledgeBindings
+     * const botKnowledgeBinding = await prisma.botKnowledgeBinding.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BotKnowledgeBindingCreateManyArgs>(args?: SelectSubset<T, BotKnowledgeBindingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BotKnowledgeBindings and returns the data saved in the database.
+     * @param {BotKnowledgeBindingCreateManyAndReturnArgs} args - Arguments to create many BotKnowledgeBindings.
+     * @example
+     * // Create many BotKnowledgeBindings
+     * const botKnowledgeBinding = await prisma.botKnowledgeBinding.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BotKnowledgeBindings and only return the `id`
+     * const botKnowledgeBindingWithIdOnly = await prisma.botKnowledgeBinding.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BotKnowledgeBindingCreateManyAndReturnArgs>(args?: SelectSubset<T, BotKnowledgeBindingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BotKnowledgeBinding.
+     * @param {BotKnowledgeBindingDeleteArgs} args - Arguments to delete one BotKnowledgeBinding.
+     * @example
+     * // Delete one BotKnowledgeBinding
+     * const BotKnowledgeBinding = await prisma.botKnowledgeBinding.delete({
+     *   where: {
+     *     // ... filter to delete one BotKnowledgeBinding
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BotKnowledgeBindingDeleteArgs>(args: SelectSubset<T, BotKnowledgeBindingDeleteArgs<ExtArgs>>): Prisma__BotKnowledgeBindingClient<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BotKnowledgeBinding.
+     * @param {BotKnowledgeBindingUpdateArgs} args - Arguments to update one BotKnowledgeBinding.
+     * @example
+     * // Update one BotKnowledgeBinding
+     * const botKnowledgeBinding = await prisma.botKnowledgeBinding.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BotKnowledgeBindingUpdateArgs>(args: SelectSubset<T, BotKnowledgeBindingUpdateArgs<ExtArgs>>): Prisma__BotKnowledgeBindingClient<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BotKnowledgeBindings.
+     * @param {BotKnowledgeBindingDeleteManyArgs} args - Arguments to filter BotKnowledgeBindings to delete.
+     * @example
+     * // Delete a few BotKnowledgeBindings
+     * const { count } = await prisma.botKnowledgeBinding.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BotKnowledgeBindingDeleteManyArgs>(args?: SelectSubset<T, BotKnowledgeBindingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BotKnowledgeBindings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotKnowledgeBindingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BotKnowledgeBindings
+     * const botKnowledgeBinding = await prisma.botKnowledgeBinding.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BotKnowledgeBindingUpdateManyArgs>(args: SelectSubset<T, BotKnowledgeBindingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BotKnowledgeBindings and returns the data updated in the database.
+     * @param {BotKnowledgeBindingUpdateManyAndReturnArgs} args - Arguments to update many BotKnowledgeBindings.
+     * @example
+     * // Update many BotKnowledgeBindings
+     * const botKnowledgeBinding = await prisma.botKnowledgeBinding.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BotKnowledgeBindings and only return the `id`
+     * const botKnowledgeBindingWithIdOnly = await prisma.botKnowledgeBinding.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BotKnowledgeBindingUpdateManyAndReturnArgs>(args: SelectSubset<T, BotKnowledgeBindingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BotKnowledgeBinding.
+     * @param {BotKnowledgeBindingUpsertArgs} args - Arguments to update or create a BotKnowledgeBinding.
+     * @example
+     * // Update or create a BotKnowledgeBinding
+     * const botKnowledgeBinding = await prisma.botKnowledgeBinding.upsert({
+     *   create: {
+     *     // ... data to create a BotKnowledgeBinding
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BotKnowledgeBinding we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BotKnowledgeBindingUpsertArgs>(args: SelectSubset<T, BotKnowledgeBindingUpsertArgs<ExtArgs>>): Prisma__BotKnowledgeBindingClient<$Result.GetResult<Prisma.$BotKnowledgeBindingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BotKnowledgeBindings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotKnowledgeBindingCountArgs} args - Arguments to filter BotKnowledgeBindings to count.
+     * @example
+     * // Count the number of BotKnowledgeBindings
+     * const count = await prisma.botKnowledgeBinding.count({
+     *   where: {
+     *     // ... the filter for the BotKnowledgeBindings we want to count
+     *   }
+     * })
+    **/
+    count<T extends BotKnowledgeBindingCountArgs>(
+      args?: Subset<T, BotKnowledgeBindingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BotKnowledgeBindingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BotKnowledgeBinding.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotKnowledgeBindingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BotKnowledgeBindingAggregateArgs>(args: Subset<T, BotKnowledgeBindingAggregateArgs>): Prisma.PrismaPromise<GetBotKnowledgeBindingAggregateType<T>>
+
+    /**
+     * Group by BotKnowledgeBinding.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotKnowledgeBindingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BotKnowledgeBindingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BotKnowledgeBindingGroupByArgs['orderBy'] }
+        : { orderBy?: BotKnowledgeBindingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BotKnowledgeBindingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBotKnowledgeBindingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BotKnowledgeBinding model
+   */
+  readonly fields: BotKnowledgeBindingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BotKnowledgeBinding.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BotKnowledgeBindingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    bot<T extends WhatsAppAIBotDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppAIBotDefaultArgs<ExtArgs>>): Prisma__WhatsAppAIBotClient<$Result.GetResult<Prisma.$WhatsAppAIBotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    document<T extends AIDocumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AIDocumentDefaultArgs<ExtArgs>>): Prisma__AIDocumentClient<$Result.GetResult<Prisma.$AIDocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BotKnowledgeBinding model
+   */
+  interface BotKnowledgeBindingFieldRefs {
+    readonly id: FieldRef<"BotKnowledgeBinding", 'String'>
+    readonly botId: FieldRef<"BotKnowledgeBinding", 'String'>
+    readonly documentId: FieldRef<"BotKnowledgeBinding", 'String'>
+    readonly isActive: FieldRef<"BotKnowledgeBinding", 'Boolean'>
+    readonly createdAt: FieldRef<"BotKnowledgeBinding", 'DateTime'>
+    readonly updatedAt: FieldRef<"BotKnowledgeBinding", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BotKnowledgeBinding findUnique
+   */
+  export type BotKnowledgeBindingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    /**
+     * Filter, which BotKnowledgeBinding to fetch.
+     */
+    where: BotKnowledgeBindingWhereUniqueInput
+  }
+
+  /**
+   * BotKnowledgeBinding findUniqueOrThrow
+   */
+  export type BotKnowledgeBindingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    /**
+     * Filter, which BotKnowledgeBinding to fetch.
+     */
+    where: BotKnowledgeBindingWhereUniqueInput
+  }
+
+  /**
+   * BotKnowledgeBinding findFirst
+   */
+  export type BotKnowledgeBindingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    /**
+     * Filter, which BotKnowledgeBinding to fetch.
+     */
+    where?: BotKnowledgeBindingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotKnowledgeBindings to fetch.
+     */
+    orderBy?: BotKnowledgeBindingOrderByWithRelationInput | BotKnowledgeBindingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BotKnowledgeBindings.
+     */
+    cursor?: BotKnowledgeBindingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotKnowledgeBindings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotKnowledgeBindings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BotKnowledgeBindings.
+     */
+    distinct?: BotKnowledgeBindingScalarFieldEnum | BotKnowledgeBindingScalarFieldEnum[]
+  }
+
+  /**
+   * BotKnowledgeBinding findFirstOrThrow
+   */
+  export type BotKnowledgeBindingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    /**
+     * Filter, which BotKnowledgeBinding to fetch.
+     */
+    where?: BotKnowledgeBindingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotKnowledgeBindings to fetch.
+     */
+    orderBy?: BotKnowledgeBindingOrderByWithRelationInput | BotKnowledgeBindingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BotKnowledgeBindings.
+     */
+    cursor?: BotKnowledgeBindingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotKnowledgeBindings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotKnowledgeBindings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BotKnowledgeBindings.
+     */
+    distinct?: BotKnowledgeBindingScalarFieldEnum | BotKnowledgeBindingScalarFieldEnum[]
+  }
+
+  /**
+   * BotKnowledgeBinding findMany
+   */
+  export type BotKnowledgeBindingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    /**
+     * Filter, which BotKnowledgeBindings to fetch.
+     */
+    where?: BotKnowledgeBindingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotKnowledgeBindings to fetch.
+     */
+    orderBy?: BotKnowledgeBindingOrderByWithRelationInput | BotKnowledgeBindingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BotKnowledgeBindings.
+     */
+    cursor?: BotKnowledgeBindingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotKnowledgeBindings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotKnowledgeBindings.
+     */
+    skip?: number
+    distinct?: BotKnowledgeBindingScalarFieldEnum | BotKnowledgeBindingScalarFieldEnum[]
+  }
+
+  /**
+   * BotKnowledgeBinding create
+   */
+  export type BotKnowledgeBindingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BotKnowledgeBinding.
+     */
+    data: XOR<BotKnowledgeBindingCreateInput, BotKnowledgeBindingUncheckedCreateInput>
+  }
+
+  /**
+   * BotKnowledgeBinding createMany
+   */
+  export type BotKnowledgeBindingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BotKnowledgeBindings.
+     */
+    data: BotKnowledgeBindingCreateManyInput | BotKnowledgeBindingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BotKnowledgeBinding createManyAndReturn
+   */
+  export type BotKnowledgeBindingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * The data used to create many BotKnowledgeBindings.
+     */
+    data: BotKnowledgeBindingCreateManyInput | BotKnowledgeBindingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BotKnowledgeBinding update
+   */
+  export type BotKnowledgeBindingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BotKnowledgeBinding.
+     */
+    data: XOR<BotKnowledgeBindingUpdateInput, BotKnowledgeBindingUncheckedUpdateInput>
+    /**
+     * Choose, which BotKnowledgeBinding to update.
+     */
+    where: BotKnowledgeBindingWhereUniqueInput
+  }
+
+  /**
+   * BotKnowledgeBinding updateMany
+   */
+  export type BotKnowledgeBindingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BotKnowledgeBindings.
+     */
+    data: XOR<BotKnowledgeBindingUpdateManyMutationInput, BotKnowledgeBindingUncheckedUpdateManyInput>
+    /**
+     * Filter which BotKnowledgeBindings to update
+     */
+    where?: BotKnowledgeBindingWhereInput
+    /**
+     * Limit how many BotKnowledgeBindings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BotKnowledgeBinding updateManyAndReturn
+   */
+  export type BotKnowledgeBindingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * The data used to update BotKnowledgeBindings.
+     */
+    data: XOR<BotKnowledgeBindingUpdateManyMutationInput, BotKnowledgeBindingUncheckedUpdateManyInput>
+    /**
+     * Filter which BotKnowledgeBindings to update
+     */
+    where?: BotKnowledgeBindingWhereInput
+    /**
+     * Limit how many BotKnowledgeBindings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BotKnowledgeBinding upsert
+   */
+  export type BotKnowledgeBindingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BotKnowledgeBinding to update in case it exists.
+     */
+    where: BotKnowledgeBindingWhereUniqueInput
+    /**
+     * In case the BotKnowledgeBinding found by the `where` argument doesn't exist, create a new BotKnowledgeBinding with this data.
+     */
+    create: XOR<BotKnowledgeBindingCreateInput, BotKnowledgeBindingUncheckedCreateInput>
+    /**
+     * In case the BotKnowledgeBinding was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BotKnowledgeBindingUpdateInput, BotKnowledgeBindingUncheckedUpdateInput>
+  }
+
+  /**
+   * BotKnowledgeBinding delete
+   */
+  export type BotKnowledgeBindingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+    /**
+     * Filter which BotKnowledgeBinding to delete.
+     */
+    where: BotKnowledgeBindingWhereUniqueInput
+  }
+
+  /**
+   * BotKnowledgeBinding deleteMany
+   */
+  export type BotKnowledgeBindingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BotKnowledgeBindings to delete
+     */
+    where?: BotKnowledgeBindingWhereInput
+    /**
+     * Limit how many BotKnowledgeBindings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BotKnowledgeBinding without action
+   */
+  export type BotKnowledgeBindingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotKnowledgeBinding
+     */
+    select?: BotKnowledgeBindingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotKnowledgeBinding
+     */
+    omit?: BotKnowledgeBindingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotKnowledgeBindingInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -29671,6 +30939,18 @@ export namespace Prisma {
   };
 
   export type AIBotSessionBindingScalarFieldEnum = (typeof AIBotSessionBindingScalarFieldEnum)[keyof typeof AIBotSessionBindingScalarFieldEnum]
+
+
+  export const BotKnowledgeBindingScalarFieldEnum: {
+    id: 'id',
+    botId: 'botId',
+    documentId: 'documentId',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BotKnowledgeBindingScalarFieldEnum = (typeof BotKnowledgeBindingScalarFieldEnum)[keyof typeof BotKnowledgeBindingScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -31766,6 +33046,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"WhatsAppAIBot"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     aiBotSessionBindings?: AIBotSessionBindingListRelationFilter
+    botKnowledgeBindings?: BotKnowledgeBindingListRelationFilter
   }
 
   export type WhatsAppAIBotOrderByWithRelationInput = {
@@ -31779,6 +33060,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     aiBotSessionBindings?: AIBotSessionBindingOrderByRelationAggregateInput
+    botKnowledgeBindings?: BotKnowledgeBindingOrderByRelationAggregateInput
   }
 
   export type WhatsAppAIBotWhereUniqueInput = Prisma.AtLeast<{
@@ -31795,6 +33077,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"WhatsAppAIBot"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     aiBotSessionBindings?: AIBotSessionBindingListRelationFilter
+    botKnowledgeBindings?: BotKnowledgeBindingListRelationFilter
   }, "id">
 
   export type WhatsAppAIBotOrderByWithAggregationInput = {
@@ -31839,6 +33122,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AIDocument"> | Date | string
     updatedAt?: DateTimeFilter<"AIDocument"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    botKnowledgeBindings?: BotKnowledgeBindingListRelationFilter
   }
 
   export type AIDocumentOrderByWithRelationInput = {
@@ -31852,6 +33136,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    botKnowledgeBindings?: BotKnowledgeBindingOrderByRelationAggregateInput
   }
 
   export type AIDocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -31868,6 +33153,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AIDocument"> | Date | string
     updatedAt?: DateTimeFilter<"AIDocument"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    botKnowledgeBindings?: BotKnowledgeBindingListRelationFilter
   }, "id">
 
   export type AIDocumentOrderByWithAggregationInput = {
@@ -32051,6 +33337,70 @@ export namespace Prisma {
     isActive?: BoolWithAggregatesFilter<"AIBotSessionBinding"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"AIBotSessionBinding"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AIBotSessionBinding"> | Date | string
+  }
+
+  export type BotKnowledgeBindingWhereInput = {
+    AND?: BotKnowledgeBindingWhereInput | BotKnowledgeBindingWhereInput[]
+    OR?: BotKnowledgeBindingWhereInput[]
+    NOT?: BotKnowledgeBindingWhereInput | BotKnowledgeBindingWhereInput[]
+    id?: StringFilter<"BotKnowledgeBinding"> | string
+    botId?: StringFilter<"BotKnowledgeBinding"> | string
+    documentId?: StringFilter<"BotKnowledgeBinding"> | string
+    isActive?: BoolFilter<"BotKnowledgeBinding"> | boolean
+    createdAt?: DateTimeFilter<"BotKnowledgeBinding"> | Date | string
+    updatedAt?: DateTimeFilter<"BotKnowledgeBinding"> | Date | string
+    bot?: XOR<WhatsAppAIBotScalarRelationFilter, WhatsAppAIBotWhereInput>
+    document?: XOR<AIDocumentScalarRelationFilter, AIDocumentWhereInput>
+  }
+
+  export type BotKnowledgeBindingOrderByWithRelationInput = {
+    id?: SortOrder
+    botId?: SortOrder
+    documentId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    bot?: WhatsAppAIBotOrderByWithRelationInput
+    document?: AIDocumentOrderByWithRelationInput
+  }
+
+  export type BotKnowledgeBindingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    botId_documentId?: BotKnowledgeBindingBotIdDocumentIdCompoundUniqueInput
+    AND?: BotKnowledgeBindingWhereInput | BotKnowledgeBindingWhereInput[]
+    OR?: BotKnowledgeBindingWhereInput[]
+    NOT?: BotKnowledgeBindingWhereInput | BotKnowledgeBindingWhereInput[]
+    botId?: StringFilter<"BotKnowledgeBinding"> | string
+    documentId?: StringFilter<"BotKnowledgeBinding"> | string
+    isActive?: BoolFilter<"BotKnowledgeBinding"> | boolean
+    createdAt?: DateTimeFilter<"BotKnowledgeBinding"> | Date | string
+    updatedAt?: DateTimeFilter<"BotKnowledgeBinding"> | Date | string
+    bot?: XOR<WhatsAppAIBotScalarRelationFilter, WhatsAppAIBotWhereInput>
+    document?: XOR<AIDocumentScalarRelationFilter, AIDocumentWhereInput>
+  }, "id" | "botId_documentId">
+
+  export type BotKnowledgeBindingOrderByWithAggregationInput = {
+    id?: SortOrder
+    botId?: SortOrder
+    documentId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BotKnowledgeBindingCountOrderByAggregateInput
+    _max?: BotKnowledgeBindingMaxOrderByAggregateInput
+    _min?: BotKnowledgeBindingMinOrderByAggregateInput
+  }
+
+  export type BotKnowledgeBindingScalarWhereWithAggregatesInput = {
+    AND?: BotKnowledgeBindingScalarWhereWithAggregatesInput | BotKnowledgeBindingScalarWhereWithAggregatesInput[]
+    OR?: BotKnowledgeBindingScalarWhereWithAggregatesInput[]
+    NOT?: BotKnowledgeBindingScalarWhereWithAggregatesInput | BotKnowledgeBindingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BotKnowledgeBinding"> | string
+    botId?: StringWithAggregatesFilter<"BotKnowledgeBinding"> | string
+    documentId?: StringWithAggregatesFilter<"BotKnowledgeBinding"> | string
+    isActive?: BoolWithAggregatesFilter<"BotKnowledgeBinding"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"BotKnowledgeBinding"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BotKnowledgeBinding"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -34327,6 +35677,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutWhatsAppAIBotsInput
     aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutBotInput
+    botKnowledgeBindings?: BotKnowledgeBindingCreateNestedManyWithoutBotInput
   }
 
   export type WhatsAppAIBotUncheckedCreateInput = {
@@ -34339,6 +35690,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutBotInput
+    botKnowledgeBindings?: BotKnowledgeBindingUncheckedCreateNestedManyWithoutBotInput
   }
 
   export type WhatsAppAIBotUpdateInput = {
@@ -34351,6 +35703,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWhatsAppAIBotsNestedInput
     aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutBotNestedInput
+    botKnowledgeBindings?: BotKnowledgeBindingUpdateManyWithoutBotNestedInput
   }
 
   export type WhatsAppAIBotUncheckedUpdateInput = {
@@ -34363,6 +35716,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutBotNestedInput
+    botKnowledgeBindings?: BotKnowledgeBindingUncheckedUpdateManyWithoutBotNestedInput
   }
 
   export type WhatsAppAIBotCreateManyInput = {
@@ -34407,6 +35761,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAiDocumentsInput
+    botKnowledgeBindings?: BotKnowledgeBindingCreateNestedManyWithoutDocumentInput
   }
 
   export type AIDocumentUncheckedCreateInput = {
@@ -34419,6 +35774,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    botKnowledgeBindings?: BotKnowledgeBindingUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type AIDocumentUpdateInput = {
@@ -34431,6 +35787,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAiDocumentsNestedInput
+    botKnowledgeBindings?: BotKnowledgeBindingUpdateManyWithoutDocumentNestedInput
   }
 
   export type AIDocumentUncheckedUpdateInput = {
@@ -34443,6 +35800,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    botKnowledgeBindings?: BotKnowledgeBindingUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type AIDocumentCreateManyInput = {
@@ -34632,6 +35990,67 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     botId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotKnowledgeBindingCreateInput = {
+    id?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bot: WhatsAppAIBotCreateNestedOneWithoutBotKnowledgeBindingsInput
+    document: AIDocumentCreateNestedOneWithoutBotKnowledgeBindingsInput
+  }
+
+  export type BotKnowledgeBindingUncheckedCreateInput = {
+    id?: string
+    botId: string
+    documentId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BotKnowledgeBindingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bot?: WhatsAppAIBotUpdateOneRequiredWithoutBotKnowledgeBindingsNestedInput
+    document?: AIDocumentUpdateOneRequiredWithoutBotKnowledgeBindingsNestedInput
+  }
+
+  export type BotKnowledgeBindingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    botId?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotKnowledgeBindingCreateManyInput = {
+    id?: string
+    botId: string
+    documentId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BotKnowledgeBindingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotKnowledgeBindingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    botId?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36338,6 +37757,16 @@ export namespace Prisma {
     templateMessagesFailed?: SortOrder
   }
 
+  export type BotKnowledgeBindingListRelationFilter = {
+    every?: BotKnowledgeBindingWhereInput
+    some?: BotKnowledgeBindingWhereInput
+    none?: BotKnowledgeBindingWhereInput
+  }
+
+  export type BotKnowledgeBindingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type WhatsAppAIBotCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -36490,6 +37919,43 @@ export namespace Prisma {
     userId?: SortOrder
     botId?: SortOrder
     sessionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AIDocumentScalarRelationFilter = {
+    is?: AIDocumentWhereInput
+    isNot?: AIDocumentWhereInput
+  }
+
+  export type BotKnowledgeBindingBotIdDocumentIdCompoundUniqueInput = {
+    botId: string
+    documentId: string
+  }
+
+  export type BotKnowledgeBindingCountOrderByAggregateInput = {
+    id?: SortOrder
+    botId?: SortOrder
+    documentId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BotKnowledgeBindingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    botId?: SortOrder
+    documentId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BotKnowledgeBindingMinOrderByAggregateInput = {
+    id?: SortOrder
+    botId?: SortOrder
+    documentId?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -37902,11 +39368,25 @@ export namespace Prisma {
     connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
   }
 
+  export type BotKnowledgeBindingCreateNestedManyWithoutBotInput = {
+    create?: XOR<BotKnowledgeBindingCreateWithoutBotInput, BotKnowledgeBindingUncheckedCreateWithoutBotInput> | BotKnowledgeBindingCreateWithoutBotInput[] | BotKnowledgeBindingUncheckedCreateWithoutBotInput[]
+    connectOrCreate?: BotKnowledgeBindingCreateOrConnectWithoutBotInput | BotKnowledgeBindingCreateOrConnectWithoutBotInput[]
+    createMany?: BotKnowledgeBindingCreateManyBotInputEnvelope
+    connect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+  }
+
   export type AIBotSessionBindingUncheckedCreateNestedManyWithoutBotInput = {
     create?: XOR<AIBotSessionBindingCreateWithoutBotInput, AIBotSessionBindingUncheckedCreateWithoutBotInput> | AIBotSessionBindingCreateWithoutBotInput[] | AIBotSessionBindingUncheckedCreateWithoutBotInput[]
     connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutBotInput | AIBotSessionBindingCreateOrConnectWithoutBotInput[]
     createMany?: AIBotSessionBindingCreateManyBotInputEnvelope
     connect?: AIBotSessionBindingWhereUniqueInput | AIBotSessionBindingWhereUniqueInput[]
+  }
+
+  export type BotKnowledgeBindingUncheckedCreateNestedManyWithoutBotInput = {
+    create?: XOR<BotKnowledgeBindingCreateWithoutBotInput, BotKnowledgeBindingUncheckedCreateWithoutBotInput> | BotKnowledgeBindingCreateWithoutBotInput[] | BotKnowledgeBindingUncheckedCreateWithoutBotInput[]
+    connectOrCreate?: BotKnowledgeBindingCreateOrConnectWithoutBotInput | BotKnowledgeBindingCreateOrConnectWithoutBotInput[]
+    createMany?: BotKnowledgeBindingCreateManyBotInputEnvelope
+    connect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutWhatsAppAIBotsNestedInput = {
@@ -37931,6 +39411,20 @@ export namespace Prisma {
     deleteMany?: AIBotSessionBindingScalarWhereInput | AIBotSessionBindingScalarWhereInput[]
   }
 
+  export type BotKnowledgeBindingUpdateManyWithoutBotNestedInput = {
+    create?: XOR<BotKnowledgeBindingCreateWithoutBotInput, BotKnowledgeBindingUncheckedCreateWithoutBotInput> | BotKnowledgeBindingCreateWithoutBotInput[] | BotKnowledgeBindingUncheckedCreateWithoutBotInput[]
+    connectOrCreate?: BotKnowledgeBindingCreateOrConnectWithoutBotInput | BotKnowledgeBindingCreateOrConnectWithoutBotInput[]
+    upsert?: BotKnowledgeBindingUpsertWithWhereUniqueWithoutBotInput | BotKnowledgeBindingUpsertWithWhereUniqueWithoutBotInput[]
+    createMany?: BotKnowledgeBindingCreateManyBotInputEnvelope
+    set?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    disconnect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    delete?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    connect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    update?: BotKnowledgeBindingUpdateWithWhereUniqueWithoutBotInput | BotKnowledgeBindingUpdateWithWhereUniqueWithoutBotInput[]
+    updateMany?: BotKnowledgeBindingUpdateManyWithWhereWithoutBotInput | BotKnowledgeBindingUpdateManyWithWhereWithoutBotInput[]
+    deleteMany?: BotKnowledgeBindingScalarWhereInput | BotKnowledgeBindingScalarWhereInput[]
+  }
+
   export type AIBotSessionBindingUncheckedUpdateManyWithoutBotNestedInput = {
     create?: XOR<AIBotSessionBindingCreateWithoutBotInput, AIBotSessionBindingUncheckedCreateWithoutBotInput> | AIBotSessionBindingCreateWithoutBotInput[] | AIBotSessionBindingUncheckedCreateWithoutBotInput[]
     connectOrCreate?: AIBotSessionBindingCreateOrConnectWithoutBotInput | AIBotSessionBindingCreateOrConnectWithoutBotInput[]
@@ -37945,10 +39439,38 @@ export namespace Prisma {
     deleteMany?: AIBotSessionBindingScalarWhereInput | AIBotSessionBindingScalarWhereInput[]
   }
 
+  export type BotKnowledgeBindingUncheckedUpdateManyWithoutBotNestedInput = {
+    create?: XOR<BotKnowledgeBindingCreateWithoutBotInput, BotKnowledgeBindingUncheckedCreateWithoutBotInput> | BotKnowledgeBindingCreateWithoutBotInput[] | BotKnowledgeBindingUncheckedCreateWithoutBotInput[]
+    connectOrCreate?: BotKnowledgeBindingCreateOrConnectWithoutBotInput | BotKnowledgeBindingCreateOrConnectWithoutBotInput[]
+    upsert?: BotKnowledgeBindingUpsertWithWhereUniqueWithoutBotInput | BotKnowledgeBindingUpsertWithWhereUniqueWithoutBotInput[]
+    createMany?: BotKnowledgeBindingCreateManyBotInputEnvelope
+    set?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    disconnect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    delete?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    connect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    update?: BotKnowledgeBindingUpdateWithWhereUniqueWithoutBotInput | BotKnowledgeBindingUpdateWithWhereUniqueWithoutBotInput[]
+    updateMany?: BotKnowledgeBindingUpdateManyWithWhereWithoutBotInput | BotKnowledgeBindingUpdateManyWithWhereWithoutBotInput[]
+    deleteMany?: BotKnowledgeBindingScalarWhereInput | BotKnowledgeBindingScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutAiDocumentsInput = {
     create?: XOR<UserCreateWithoutAiDocumentsInput, UserUncheckedCreateWithoutAiDocumentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAiDocumentsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type BotKnowledgeBindingCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<BotKnowledgeBindingCreateWithoutDocumentInput, BotKnowledgeBindingUncheckedCreateWithoutDocumentInput> | BotKnowledgeBindingCreateWithoutDocumentInput[] | BotKnowledgeBindingUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: BotKnowledgeBindingCreateOrConnectWithoutDocumentInput | BotKnowledgeBindingCreateOrConnectWithoutDocumentInput[]
+    createMany?: BotKnowledgeBindingCreateManyDocumentInputEnvelope
+    connect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+  }
+
+  export type BotKnowledgeBindingUncheckedCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<BotKnowledgeBindingCreateWithoutDocumentInput, BotKnowledgeBindingUncheckedCreateWithoutDocumentInput> | BotKnowledgeBindingCreateWithoutDocumentInput[] | BotKnowledgeBindingUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: BotKnowledgeBindingCreateOrConnectWithoutDocumentInput | BotKnowledgeBindingCreateOrConnectWithoutDocumentInput[]
+    createMany?: BotKnowledgeBindingCreateManyDocumentInputEnvelope
+    connect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutAiDocumentsNestedInput = {
@@ -37957,6 +39479,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAiDocumentsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiDocumentsInput, UserUpdateWithoutAiDocumentsInput>, UserUncheckedUpdateWithoutAiDocumentsInput>
+  }
+
+  export type BotKnowledgeBindingUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<BotKnowledgeBindingCreateWithoutDocumentInput, BotKnowledgeBindingUncheckedCreateWithoutDocumentInput> | BotKnowledgeBindingCreateWithoutDocumentInput[] | BotKnowledgeBindingUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: BotKnowledgeBindingCreateOrConnectWithoutDocumentInput | BotKnowledgeBindingCreateOrConnectWithoutDocumentInput[]
+    upsert?: BotKnowledgeBindingUpsertWithWhereUniqueWithoutDocumentInput | BotKnowledgeBindingUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: BotKnowledgeBindingCreateManyDocumentInputEnvelope
+    set?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    disconnect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    delete?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    connect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    update?: BotKnowledgeBindingUpdateWithWhereUniqueWithoutDocumentInput | BotKnowledgeBindingUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: BotKnowledgeBindingUpdateManyWithWhereWithoutDocumentInput | BotKnowledgeBindingUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: BotKnowledgeBindingScalarWhereInput | BotKnowledgeBindingScalarWhereInput[]
+  }
+
+  export type BotKnowledgeBindingUncheckedUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<BotKnowledgeBindingCreateWithoutDocumentInput, BotKnowledgeBindingUncheckedCreateWithoutDocumentInput> | BotKnowledgeBindingCreateWithoutDocumentInput[] | BotKnowledgeBindingUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: BotKnowledgeBindingCreateOrConnectWithoutDocumentInput | BotKnowledgeBindingCreateOrConnectWithoutDocumentInput[]
+    upsert?: BotKnowledgeBindingUpsertWithWhereUniqueWithoutDocumentInput | BotKnowledgeBindingUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: BotKnowledgeBindingCreateManyDocumentInputEnvelope
+    set?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    disconnect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    delete?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    connect?: BotKnowledgeBindingWhereUniqueInput | BotKnowledgeBindingWhereUniqueInput[]
+    update?: BotKnowledgeBindingUpdateWithWhereUniqueWithoutDocumentInput | BotKnowledgeBindingUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: BotKnowledgeBindingUpdateManyWithWhereWithoutDocumentInput | BotKnowledgeBindingUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: BotKnowledgeBindingScalarWhereInput | BotKnowledgeBindingScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAiUsageLogsInput = {
@@ -38013,6 +39563,34 @@ export namespace Prisma {
     upsert?: WhatsAppSessionUpsertWithoutAiBotSessionBindingsInput
     connect?: WhatsAppSessionWhereUniqueInput
     update?: XOR<XOR<WhatsAppSessionUpdateToOneWithWhereWithoutAiBotSessionBindingsInput, WhatsAppSessionUpdateWithoutAiBotSessionBindingsInput>, WhatsAppSessionUncheckedUpdateWithoutAiBotSessionBindingsInput>
+  }
+
+  export type WhatsAppAIBotCreateNestedOneWithoutBotKnowledgeBindingsInput = {
+    create?: XOR<WhatsAppAIBotCreateWithoutBotKnowledgeBindingsInput, WhatsAppAIBotUncheckedCreateWithoutBotKnowledgeBindingsInput>
+    connectOrCreate?: WhatsAppAIBotCreateOrConnectWithoutBotKnowledgeBindingsInput
+    connect?: WhatsAppAIBotWhereUniqueInput
+  }
+
+  export type AIDocumentCreateNestedOneWithoutBotKnowledgeBindingsInput = {
+    create?: XOR<AIDocumentCreateWithoutBotKnowledgeBindingsInput, AIDocumentUncheckedCreateWithoutBotKnowledgeBindingsInput>
+    connectOrCreate?: AIDocumentCreateOrConnectWithoutBotKnowledgeBindingsInput
+    connect?: AIDocumentWhereUniqueInput
+  }
+
+  export type WhatsAppAIBotUpdateOneRequiredWithoutBotKnowledgeBindingsNestedInput = {
+    create?: XOR<WhatsAppAIBotCreateWithoutBotKnowledgeBindingsInput, WhatsAppAIBotUncheckedCreateWithoutBotKnowledgeBindingsInput>
+    connectOrCreate?: WhatsAppAIBotCreateOrConnectWithoutBotKnowledgeBindingsInput
+    upsert?: WhatsAppAIBotUpsertWithoutBotKnowledgeBindingsInput
+    connect?: WhatsAppAIBotWhereUniqueInput
+    update?: XOR<XOR<WhatsAppAIBotUpdateToOneWithWhereWithoutBotKnowledgeBindingsInput, WhatsAppAIBotUpdateWithoutBotKnowledgeBindingsInput>, WhatsAppAIBotUncheckedUpdateWithoutBotKnowledgeBindingsInput>
+  }
+
+  export type AIDocumentUpdateOneRequiredWithoutBotKnowledgeBindingsNestedInput = {
+    create?: XOR<AIDocumentCreateWithoutBotKnowledgeBindingsInput, AIDocumentUncheckedCreateWithoutBotKnowledgeBindingsInput>
+    connectOrCreate?: AIDocumentCreateOrConnectWithoutBotKnowledgeBindingsInput
+    upsert?: AIDocumentUpsertWithoutBotKnowledgeBindingsInput
+    connect?: AIDocumentWhereUniqueInput
+    update?: XOR<XOR<AIDocumentUpdateToOneWithWhereWithoutBotKnowledgeBindingsInput, AIDocumentUpdateWithoutBotKnowledgeBindingsInput>, AIDocumentUncheckedUpdateWithoutBotKnowledgeBindingsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -38799,6 +40377,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutBotInput
+    botKnowledgeBindings?: BotKnowledgeBindingCreateNestedManyWithoutBotInput
   }
 
   export type WhatsAppAIBotUncheckedCreateWithoutUserInput = {
@@ -38810,6 +40389,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutBotInput
+    botKnowledgeBindings?: BotKnowledgeBindingUncheckedCreateNestedManyWithoutBotInput
   }
 
   export type WhatsAppAIBotCreateOrConnectWithoutUserInput = {
@@ -38831,6 +40411,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    botKnowledgeBindings?: BotKnowledgeBindingCreateNestedManyWithoutDocumentInput
   }
 
   export type AIDocumentUncheckedCreateWithoutUserInput = {
@@ -38842,6 +40423,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    botKnowledgeBindings?: BotKnowledgeBindingUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type AIDocumentCreateOrConnectWithoutUserInput = {
@@ -42927,6 +44509,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BotKnowledgeBindingCreateWithoutBotInput = {
+    id?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    document: AIDocumentCreateNestedOneWithoutBotKnowledgeBindingsInput
+  }
+
+  export type BotKnowledgeBindingUncheckedCreateWithoutBotInput = {
+    id?: string
+    documentId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BotKnowledgeBindingCreateOrConnectWithoutBotInput = {
+    where: BotKnowledgeBindingWhereUniqueInput
+    create: XOR<BotKnowledgeBindingCreateWithoutBotInput, BotKnowledgeBindingUncheckedCreateWithoutBotInput>
+  }
+
+  export type BotKnowledgeBindingCreateManyBotInputEnvelope = {
+    data: BotKnowledgeBindingCreateManyBotInput | BotKnowledgeBindingCreateManyBotInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutWhatsAppAIBotsInput = {
     update: XOR<UserUpdateWithoutWhatsAppAIBotsInput, UserUncheckedUpdateWithoutWhatsAppAIBotsInput>
     create: XOR<UserCreateWithoutWhatsAppAIBotsInput, UserUncheckedCreateWithoutWhatsAppAIBotsInput>
@@ -43036,6 +44644,34 @@ export namespace Prisma {
     data: XOR<AIBotSessionBindingUpdateManyMutationInput, AIBotSessionBindingUncheckedUpdateManyWithoutBotInput>
   }
 
+  export type BotKnowledgeBindingUpsertWithWhereUniqueWithoutBotInput = {
+    where: BotKnowledgeBindingWhereUniqueInput
+    update: XOR<BotKnowledgeBindingUpdateWithoutBotInput, BotKnowledgeBindingUncheckedUpdateWithoutBotInput>
+    create: XOR<BotKnowledgeBindingCreateWithoutBotInput, BotKnowledgeBindingUncheckedCreateWithoutBotInput>
+  }
+
+  export type BotKnowledgeBindingUpdateWithWhereUniqueWithoutBotInput = {
+    where: BotKnowledgeBindingWhereUniqueInput
+    data: XOR<BotKnowledgeBindingUpdateWithoutBotInput, BotKnowledgeBindingUncheckedUpdateWithoutBotInput>
+  }
+
+  export type BotKnowledgeBindingUpdateManyWithWhereWithoutBotInput = {
+    where: BotKnowledgeBindingScalarWhereInput
+    data: XOR<BotKnowledgeBindingUpdateManyMutationInput, BotKnowledgeBindingUncheckedUpdateManyWithoutBotInput>
+  }
+
+  export type BotKnowledgeBindingScalarWhereInput = {
+    AND?: BotKnowledgeBindingScalarWhereInput | BotKnowledgeBindingScalarWhereInput[]
+    OR?: BotKnowledgeBindingScalarWhereInput[]
+    NOT?: BotKnowledgeBindingScalarWhereInput | BotKnowledgeBindingScalarWhereInput[]
+    id?: StringFilter<"BotKnowledgeBinding"> | string
+    botId?: StringFilter<"BotKnowledgeBinding"> | string
+    documentId?: StringFilter<"BotKnowledgeBinding"> | string
+    isActive?: BoolFilter<"BotKnowledgeBinding"> | boolean
+    createdAt?: DateTimeFilter<"BotKnowledgeBinding"> | Date | string
+    updatedAt?: DateTimeFilter<"BotKnowledgeBinding"> | Date | string
+  }
+
   export type UserCreateWithoutAiDocumentsInput = {
     id?: string
     name?: string | null
@@ -43121,6 +44757,32 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutAiDocumentsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAiDocumentsInput, UserUncheckedCreateWithoutAiDocumentsInput>
+  }
+
+  export type BotKnowledgeBindingCreateWithoutDocumentInput = {
+    id?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bot: WhatsAppAIBotCreateNestedOneWithoutBotKnowledgeBindingsInput
+  }
+
+  export type BotKnowledgeBindingUncheckedCreateWithoutDocumentInput = {
+    id?: string
+    botId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BotKnowledgeBindingCreateOrConnectWithoutDocumentInput = {
+    where: BotKnowledgeBindingWhereUniqueInput
+    create: XOR<BotKnowledgeBindingCreateWithoutDocumentInput, BotKnowledgeBindingUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type BotKnowledgeBindingCreateManyDocumentInputEnvelope = {
+    data: BotKnowledgeBindingCreateManyDocumentInput | BotKnowledgeBindingCreateManyDocumentInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutAiDocumentsInput = {
@@ -43214,6 +44876,22 @@ export namespace Prisma {
     whatsAppAIBots?: WhatsAppAIBotUncheckedUpdateManyWithoutUserNestedInput
     aiUsageLogs?: AIUsageLogUncheckedUpdateManyWithoutUserNestedInput
     aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type BotKnowledgeBindingUpsertWithWhereUniqueWithoutDocumentInput = {
+    where: BotKnowledgeBindingWhereUniqueInput
+    update: XOR<BotKnowledgeBindingUpdateWithoutDocumentInput, BotKnowledgeBindingUncheckedUpdateWithoutDocumentInput>
+    create: XOR<BotKnowledgeBindingCreateWithoutDocumentInput, BotKnowledgeBindingUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type BotKnowledgeBindingUpdateWithWhereUniqueWithoutDocumentInput = {
+    where: BotKnowledgeBindingWhereUniqueInput
+    data: XOR<BotKnowledgeBindingUpdateWithoutDocumentInput, BotKnowledgeBindingUncheckedUpdateWithoutDocumentInput>
+  }
+
+  export type BotKnowledgeBindingUpdateManyWithWhereWithoutDocumentInput = {
+    where: BotKnowledgeBindingScalarWhereInput
+    data: XOR<BotKnowledgeBindingUpdateManyMutationInput, BotKnowledgeBindingUncheckedUpdateManyWithoutDocumentInput>
   }
 
   export type UserCreateWithoutAiUsageLogsInput = {
@@ -43405,6 +45083,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutWhatsAppAIBotsInput
+    botKnowledgeBindings?: BotKnowledgeBindingCreateNestedManyWithoutBotInput
   }
 
   export type WhatsAppAIBotUncheckedCreateWithoutAiBotSessionBindingsInput = {
@@ -43416,6 +45095,7 @@ export namespace Prisma {
     fallbackText?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    botKnowledgeBindings?: BotKnowledgeBindingUncheckedCreateNestedManyWithoutBotInput
   }
 
   export type WhatsAppAIBotCreateOrConnectWithoutAiBotSessionBindingsInput = {
@@ -43601,6 +45281,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWhatsAppAIBotsNestedInput
+    botKnowledgeBindings?: BotKnowledgeBindingUpdateManyWithoutBotNestedInput
   }
 
   export type WhatsAppAIBotUncheckedUpdateWithoutAiBotSessionBindingsInput = {
@@ -43612,6 +45293,7 @@ export namespace Prisma {
     fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    botKnowledgeBindings?: BotKnowledgeBindingUncheckedUpdateManyWithoutBotNestedInput
   }
 
   export type UserUpsertWithoutAiBotSessionBindingsInput = {
@@ -43782,6 +45464,134 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutSessionNestedInput
+  }
+
+  export type WhatsAppAIBotCreateWithoutBotKnowledgeBindingsInput = {
+    id?: string
+    name?: string
+    isActive?: boolean
+    systemPrompt?: string | null
+    fallbackText?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutWhatsAppAIBotsInput
+    aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutBotInput
+  }
+
+  export type WhatsAppAIBotUncheckedCreateWithoutBotKnowledgeBindingsInput = {
+    id?: string
+    userId: string
+    name?: string
+    isActive?: boolean
+    systemPrompt?: string | null
+    fallbackText?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutBotInput
+  }
+
+  export type WhatsAppAIBotCreateOrConnectWithoutBotKnowledgeBindingsInput = {
+    where: WhatsAppAIBotWhereUniqueInput
+    create: XOR<WhatsAppAIBotCreateWithoutBotKnowledgeBindingsInput, WhatsAppAIBotUncheckedCreateWithoutBotKnowledgeBindingsInput>
+  }
+
+  export type AIDocumentCreateWithoutBotKnowledgeBindingsInput = {
+    id?: string
+    title: string
+    kind?: string
+    content: string
+    embeddingId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAiDocumentsInput
+  }
+
+  export type AIDocumentUncheckedCreateWithoutBotKnowledgeBindingsInput = {
+    id?: string
+    userId: string
+    title: string
+    kind?: string
+    content: string
+    embeddingId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIDocumentCreateOrConnectWithoutBotKnowledgeBindingsInput = {
+    where: AIDocumentWhereUniqueInput
+    create: XOR<AIDocumentCreateWithoutBotKnowledgeBindingsInput, AIDocumentUncheckedCreateWithoutBotKnowledgeBindingsInput>
+  }
+
+  export type WhatsAppAIBotUpsertWithoutBotKnowledgeBindingsInput = {
+    update: XOR<WhatsAppAIBotUpdateWithoutBotKnowledgeBindingsInput, WhatsAppAIBotUncheckedUpdateWithoutBotKnowledgeBindingsInput>
+    create: XOR<WhatsAppAIBotCreateWithoutBotKnowledgeBindingsInput, WhatsAppAIBotUncheckedCreateWithoutBotKnowledgeBindingsInput>
+    where?: WhatsAppAIBotWhereInput
+  }
+
+  export type WhatsAppAIBotUpdateToOneWithWhereWithoutBotKnowledgeBindingsInput = {
+    where?: WhatsAppAIBotWhereInput
+    data: XOR<WhatsAppAIBotUpdateWithoutBotKnowledgeBindingsInput, WhatsAppAIBotUncheckedUpdateWithoutBotKnowledgeBindingsInput>
+  }
+
+  export type WhatsAppAIBotUpdateWithoutBotKnowledgeBindingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWhatsAppAIBotsNestedInput
+    aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutBotNestedInput
+  }
+
+  export type WhatsAppAIBotUncheckedUpdateWithoutBotKnowledgeBindingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    systemPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    fallbackText?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutBotNestedInput
+  }
+
+  export type AIDocumentUpsertWithoutBotKnowledgeBindingsInput = {
+    update: XOR<AIDocumentUpdateWithoutBotKnowledgeBindingsInput, AIDocumentUncheckedUpdateWithoutBotKnowledgeBindingsInput>
+    create: XOR<AIDocumentCreateWithoutBotKnowledgeBindingsInput, AIDocumentUncheckedCreateWithoutBotKnowledgeBindingsInput>
+    where?: AIDocumentWhereInput
+  }
+
+  export type AIDocumentUpdateToOneWithWhereWithoutBotKnowledgeBindingsInput = {
+    where?: AIDocumentWhereInput
+    data: XOR<AIDocumentUpdateWithoutBotKnowledgeBindingsInput, AIDocumentUncheckedUpdateWithoutBotKnowledgeBindingsInput>
+  }
+
+  export type AIDocumentUpdateWithoutBotKnowledgeBindingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    embeddingId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiDocumentsNestedInput
+  }
+
+  export type AIDocumentUncheckedUpdateWithoutBotKnowledgeBindingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    embeddingId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ServicesWhatsappCustomersCreateManyCustomerInput = {
@@ -44501,6 +46311,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutBotNestedInput
+    botKnowledgeBindings?: BotKnowledgeBindingUpdateManyWithoutBotNestedInput
   }
 
   export type WhatsAppAIBotUncheckedUpdateWithoutUserInput = {
@@ -44512,6 +46323,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutBotNestedInput
+    botKnowledgeBindings?: BotKnowledgeBindingUncheckedUpdateManyWithoutBotNestedInput
   }
 
   export type WhatsAppAIBotUncheckedUpdateManyWithoutUserInput = {
@@ -44533,6 +46345,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    botKnowledgeBindings?: BotKnowledgeBindingUpdateManyWithoutDocumentNestedInput
   }
 
   export type AIDocumentUncheckedUpdateWithoutUserInput = {
@@ -44544,6 +46357,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    botKnowledgeBindings?: BotKnowledgeBindingUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type AIDocumentUncheckedUpdateManyWithoutUserInput = {
@@ -45241,6 +47055,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type BotKnowledgeBindingCreateManyBotInput = {
+    id?: string
+    documentId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AIBotSessionBindingUpdateWithoutBotInput = {
     id?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -45263,6 +47085,62 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     sessionId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotKnowledgeBindingUpdateWithoutBotInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    document?: AIDocumentUpdateOneRequiredWithoutBotKnowledgeBindingsNestedInput
+  }
+
+  export type BotKnowledgeBindingUncheckedUpdateWithoutBotInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotKnowledgeBindingUncheckedUpdateManyWithoutBotInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotKnowledgeBindingCreateManyDocumentInput = {
+    id?: string
+    botId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BotKnowledgeBindingUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bot?: WhatsAppAIBotUpdateOneRequiredWithoutBotKnowledgeBindingsNestedInput
+  }
+
+  export type BotKnowledgeBindingUncheckedUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    botId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotKnowledgeBindingUncheckedUpdateManyWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    botId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -10,9 +10,33 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
     const kind = searchParams.get("kind");
     const isActive = searchParams.get("isActive");
 
+    // If ID is provided, fetch single document
+    if (id) {
+      const document = await prisma.aIDocument.findFirst({
+        where: { id, userId: user.id },
+        select: {
+          id: true,
+          title: true,
+          kind: true,
+          content: true,
+          isActive: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      });
+
+      if (!document) {
+        return NextResponse.json({ error: "Document not found" }, { status: 404 });
+      }
+
+      return NextResponse.json({ success: true, data: document });
+    }
+
+    // Otherwise, fetch all documents with filters
     const where: any = { userId: user.id };
     if (kind) where.kind = kind;
     if (isActive !== null) where.isActive = isActive === "true";

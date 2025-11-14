@@ -9,12 +9,43 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    // If ID is provided, fetch single bot
+    if (id) {
+      const bot = await prisma.whatsAppAIBot.findFirst({
+        where: { id, userId: user.id },
+        include: {
+          aiBotSessionBindings: {
+            where: { isActive: true },
+            select: { id: true, sessionId: true, isActive: true },
+          },
+          botKnowledgeBindings: {
+            where: { isActive: true },
+            select: { id: true, documentId: true, isActive: true },
+          },
+        },
+      });
+
+      if (!bot) {
+        return NextResponse.json({ error: "Bot not found" }, { status: 404 });
+      }
+
+      return NextResponse.json({ success: true, data: bot });
+    }
+
+    // Otherwise, fetch all bots
     const bots = await prisma.whatsAppAIBot.findMany({
       where: { userId: user.id },
       include: {
         aiBotSessionBindings: {
           where: { isActive: true },
           select: { id: true, sessionId: true, isActive: true },
+        },
+        botKnowledgeBindings: {
+          where: { isActive: true },
+          select: { id: true, documentId: true, isActive: true },
         },
       },
       orderBy: { createdAt: "desc" },

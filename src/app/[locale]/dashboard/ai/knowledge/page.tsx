@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FileText, Plus, Trash2, Pencil } from "lucide-react";
+import { FileText, Plus, Trash2, Eye, Calendar } from "lucide-react";
 import SubscriptionGuard from "@/components/whatsapp/subscription-guard";
 import { SessionManager } from "@/lib/storage";
 import { useToast } from "@/components/ui/use-toast";
@@ -25,9 +26,9 @@ interface Document {
 export default function KnowledgeBasePage() {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [showCreateForm, setShowCreateForm] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -73,17 +74,6 @@ export default function KnowledgeBasePage() {
     fetchDocuments();
   }, [fetchDocuments]);
 
-  const handleEdit = (doc: Document) => {
-    setEditingId(doc.id);
-    setFormData({
-      title: doc.title,
-      kind: doc.kind,
-      content: doc.content,
-      isActive: doc.isActive,
-    });
-    setShowForm(true);
-  };
-
   const handleCreate = async () => {
     if (!formData.title || !formData.content) {
       toast({
@@ -105,11 +95,8 @@ export default function KnowledgeBasePage() {
         return;
       }
 
-      const url = editingId ? `/api/customer/ai/docs?id=${editingId}` : "/api/customer/ai/docs";
-      const method = editingId ? "PUT" : "POST";
-
-      const res = await fetch(url, {
-        method,
+      const res = await fetch("/api/customer/ai/docs", {
+        method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -120,10 +107,9 @@ export default function KnowledgeBasePage() {
       if (json.success) {
         toast({
           title: "Success",
-          description: editingId ? "Document updated successfully" : "Document created successfully",
+          description: "Document created successfully",
         });
-        setShowForm(false);
-        setEditingId(null);
+        setShowCreateForm(false);
         setFormData({ title: "", kind: "faq", content: "", isActive: true });
         fetchDocuments();
       } else {
@@ -201,18 +187,19 @@ export default function KnowledgeBasePage() {
             <FileText className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="text-[10px] sm:text-xs">{documents.length} docs</span>
           </Badge>
-          <Button onClick={() => setShowForm(!showForm)} size="sm" className="flex-1 sm:flex-initial">
+          <Button onClick={() => setShowCreateForm(!showCreateForm)} size="sm" className="flex-1 sm:flex-initial">
             <Plus className="mr-2 h-4 w-4" />
             Add Document
           </Button>
         </div>
       </div>
 
-      {showForm && (
+      {/* Create Form */}
+      {showCreateForm && (
         <Card>
           <CardHeader className="p-3 sm:p-4 md:p-6">
             <CardTitle className="text-sm sm:text-base md:text-lg">
-              {editingId ? "Edit Document" : "Add New Document"}
+              Add New Document
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4 md:p-6 pt-0">
@@ -257,13 +244,12 @@ export default function KnowledgeBasePage() {
 
             <div className="flex gap-2">
               <Button onClick={handleCreate} size="sm">
-                {editingId ? "Update" : "Add"} Document
+                Create Document
               </Button>
               <Button 
                 variant="outline" 
                 onClick={() => {
-                  setShowForm(false);
-                  setEditingId(null);
+                  setShowCreateForm(false);
                   setFormData({ title: "", kind: "faq", content: "", isActive: true });
                 }} 
                 size="sm"
@@ -275,16 +261,17 @@ export default function KnowledgeBasePage() {
         </Card>
       )}
 
-      <div className="grid gap-4">
+      {/* Documents Grid - Card Layout */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {documents.length === 0 ? (
-          <Card>
+          <Card className="md:col-span-2 lg:col-span-3">
             <CardContent className="py-12 text-center">
               <FileText className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
               <h3 className="text-lg font-semibold mb-2">No documents yet</h3>
               <p className="text-muted-foreground mb-4">
                 Add your first document to build the knowledge base
               </p>
-              <Button onClick={() => setShowForm(true)}>
+              <Button onClick={() => setShowCreateForm(true)}>
                 <Plus className="mr-2 h-4 w-4" />
                 Add Document
               </Button>
@@ -292,37 +279,45 @@ export default function KnowledgeBasePage() {
           </Card>
         ) : (
           documents.map((doc) => (
-            <Card key={doc.id}>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle>{doc.title}</CardTitle>
-                    <CardDescription>
-                      {doc.kind.toUpperCase()} • {new Date(doc.createdAt).toLocaleDateString()}
-                    </CardDescription>
+            <Card 
+              key={doc.id} 
+              className="hover:shadow-lg transition-shadow cursor-pointer"
+              onClick={() => router.push(`/dashboard/ai/knowledge/${doc.id}`)}
+            >
+              <CardHeader className="pb-3">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <CardTitle className="text-base truncate">{doc.title}</CardTitle>
                   </div>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleEdit(doc)}
-                    >
-                      <Pencil className="h-4 w-4 text-blue-500" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleDelete(doc.id)}
-                    >
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
-                  </div>
+                  <Badge 
+                    variant="secondary" 
+                    className="text-xs shrink-0"
+                  >
+                    {doc.kind.toUpperCase()}
+                  </Badge>
                 </div>
               </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                  {doc.content.length > 300 ? `${doc.content.substring(0, 300)}...` : doc.content}
+              <CardContent className="space-y-3">
+                <p className="text-sm text-muted-foreground line-clamp-3">
+                  {doc.content}
                 </p>
+                <div className="flex items-center justify-between pt-2 border-t">
+                  <div className="flex items-center text-xs text-muted-foreground">
+                    <Calendar className="h-3 w-3 mr-1" />
+                    {new Date(doc.createdAt).toLocaleDateString()}
+                  </div>
+                  <Button 
+                    size="sm" 
+                    variant="ghost"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/dashboard/ai/knowledge/${doc.id}`);
+                    }}
+                  >
+                    <Eye className="h-4 w-4 mr-1" />
+                    View
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))
