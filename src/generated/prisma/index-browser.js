@@ -179,7 +179,9 @@ exports.Prisma.WhatsAppSessionScalarFieldEnum = {
   s3RetentionDays: 's3RetentionDays',
   s3SecretKey: 's3SecretKey',
   token: 'token',
-  webhook: 'webhook'
+  webhook: 'webhook',
+  autoReadMessages: 'autoReadMessages',
+  typingIndicator: 'typingIndicator'
 };
 
 exports.Prisma.TransactionScalarFieldEnum = {

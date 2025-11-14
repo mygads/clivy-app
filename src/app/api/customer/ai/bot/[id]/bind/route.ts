@@ -94,10 +94,20 @@ export async function POST(
       });
     }
 
+    // Auto-enable autoReadMessages and typingIndicator when binding bot to session
+    await prisma.whatsAppSession.update({
+      where: { id: sessionId },
+      data: {
+        autoReadMessages: true,
+        typingIndicator: true,
+        webhook: webhookUrl, // Also update webhook in database
+      },
+    });
+
     return NextResponse.json({
       success: true,
       data: binding,
-      message: "Bot bound to session successfully",
+      message: "Bot bound to session successfully. Auto-read and typing indicator enabled.",
     });
   } catch (error) {
     console.error("Failed to bind bot to session:", error);

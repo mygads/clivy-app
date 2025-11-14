@@ -81,6 +81,8 @@ model WhatsAppSession {
   s3SecretKey     String?
   token           String   @unique
   webhook         String?
+  autoReadMessages Boolean @default(false)
+  typingIndicator Boolean  @default(false)
   user            User?    @relation(fields: [userId], references: [id], map: "WhatsAppSession_user_fkey")
   whatsAppMessageStats WhatsAppMessageStats[] @relation("SessionMessageStats")
   aiBotSessionBindings AIBotSessionBinding[]

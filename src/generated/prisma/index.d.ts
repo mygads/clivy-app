@@ -4956,6 +4956,8 @@ export namespace Prisma {
     s3SecretKey: string | null
     token: string | null
     webhook: string | null
+    autoReadMessages: boolean | null
+    typingIndicator: boolean | null
   }
 
   export type WhatsAppSessionMaxAggregateOutputType = {
@@ -4988,6 +4990,8 @@ export namespace Prisma {
     s3SecretKey: string | null
     token: string | null
     webhook: string | null
+    autoReadMessages: boolean | null
+    typingIndicator: boolean | null
   }
 
   export type WhatsAppSessionCountAggregateOutputType = {
@@ -5020,6 +5024,8 @@ export namespace Prisma {
     s3SecretKey: number
     token: number
     webhook: number
+    autoReadMessages: number
+    typingIndicator: number
     _all: number
   }
 
@@ -5064,6 +5070,8 @@ export namespace Prisma {
     s3SecretKey?: true
     token?: true
     webhook?: true
+    autoReadMessages?: true
+    typingIndicator?: true
   }
 
   export type WhatsAppSessionMaxAggregateInputType = {
@@ -5096,6 +5104,8 @@ export namespace Prisma {
     s3SecretKey?: true
     token?: true
     webhook?: true
+    autoReadMessages?: true
+    typingIndicator?: true
   }
 
   export type WhatsAppSessionCountAggregateInputType = {
@@ -5128,6 +5138,8 @@ export namespace Prisma {
     s3SecretKey?: true
     token?: true
     webhook?: true
+    autoReadMessages?: true
+    typingIndicator?: true
     _all?: true
   }
 
@@ -5247,6 +5259,8 @@ export namespace Prisma {
     s3SecretKey: string | null
     token: string
     webhook: string | null
+    autoReadMessages: boolean
+    typingIndicator: boolean
     _count: WhatsAppSessionCountAggregateOutputType | null
     _avg: WhatsAppSessionAvgAggregateOutputType | null
     _sum: WhatsAppSessionSumAggregateOutputType | null
@@ -5298,6 +5312,8 @@ export namespace Prisma {
     s3SecretKey?: boolean
     token?: boolean
     webhook?: boolean
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     user?: boolean | WhatsAppSession$userArgs<ExtArgs>
     whatsAppMessageStats?: boolean | WhatsAppSession$whatsAppMessageStatsArgs<ExtArgs>
     aiBotSessionBindings?: boolean | WhatsAppSession$aiBotSessionBindingsArgs<ExtArgs>
@@ -5334,6 +5350,8 @@ export namespace Prisma {
     s3SecretKey?: boolean
     token?: boolean
     webhook?: boolean
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     user?: boolean | WhatsAppSession$userArgs<ExtArgs>
   }, ExtArgs["result"]["whatsAppSession"]>
 
@@ -5367,6 +5385,8 @@ export namespace Prisma {
     s3SecretKey?: boolean
     token?: boolean
     webhook?: boolean
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     user?: boolean | WhatsAppSession$userArgs<ExtArgs>
   }, ExtArgs["result"]["whatsAppSession"]>
 
@@ -5400,9 +5420,11 @@ export namespace Prisma {
     s3SecretKey?: boolean
     token?: boolean
     webhook?: boolean
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
   }
 
-  export type WhatsAppSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "userId" | "status" | "createdAt" | "updatedAt" | "message" | "sessionName" | "connected" | "events" | "expiration" | "isSystemSession" | "jid" | "loggedIn" | "proxyEnabled" | "proxyUrl" | "qrcode" | "s3AccessKey" | "s3Bucket" | "s3Enabled" | "s3Endpoint" | "s3MediaDelivery" | "s3PathStyle" | "s3PublicUrl" | "s3Region" | "s3RetentionDays" | "s3SecretKey" | "token" | "webhook", ExtArgs["result"]["whatsAppSession"]>
+  export type WhatsAppSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "userId" | "status" | "createdAt" | "updatedAt" | "message" | "sessionName" | "connected" | "events" | "expiration" | "isSystemSession" | "jid" | "loggedIn" | "proxyEnabled" | "proxyUrl" | "qrcode" | "s3AccessKey" | "s3Bucket" | "s3Enabled" | "s3Endpoint" | "s3MediaDelivery" | "s3PathStyle" | "s3PublicUrl" | "s3Region" | "s3RetentionDays" | "s3SecretKey" | "token" | "webhook" | "autoReadMessages" | "typingIndicator", ExtArgs["result"]["whatsAppSession"]>
   export type WhatsAppSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | WhatsAppSession$userArgs<ExtArgs>
     whatsAppMessageStats?: boolean | WhatsAppSession$whatsAppMessageStatsArgs<ExtArgs>
@@ -5453,6 +5475,8 @@ export namespace Prisma {
       s3SecretKey: string | null
       token: string
       webhook: string | null
+      autoReadMessages: boolean
+      typingIndicator: boolean
     }, ExtArgs["result"]["whatsAppSession"]>
     composites: {}
   }
@@ -5908,6 +5932,8 @@ export namespace Prisma {
     readonly s3SecretKey: FieldRef<"WhatsAppSession", 'String'>
     readonly token: FieldRef<"WhatsAppSession", 'String'>
     readonly webhook: FieldRef<"WhatsAppSession", 'String'>
+    readonly autoReadMessages: FieldRef<"WhatsAppSession", 'Boolean'>
+    readonly typingIndicator: FieldRef<"WhatsAppSession", 'Boolean'>
   }
     
 
@@ -30581,7 +30607,9 @@ export namespace Prisma {
     s3RetentionDays: 's3RetentionDays',
     s3SecretKey: 's3SecretKey',
     token: 'token',
-    webhook: 'webhook'
+    webhook: 'webhook',
+    autoReadMessages: 'autoReadMessages',
+    typingIndicator: 'typingIndicator'
   };
 
   export type WhatsAppSessionScalarFieldEnum = (typeof WhatsAppSessionScalarFieldEnum)[keyof typeof WhatsAppSessionScalarFieldEnum]
@@ -31336,6 +31364,8 @@ export namespace Prisma {
     s3SecretKey?: StringNullableFilter<"WhatsAppSession"> | string | null
     token?: StringFilter<"WhatsAppSession"> | string
     webhook?: StringNullableFilter<"WhatsAppSession"> | string | null
+    autoReadMessages?: BoolFilter<"WhatsAppSession"> | boolean
+    typingIndicator?: BoolFilter<"WhatsAppSession"> | boolean
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     whatsAppMessageStats?: WhatsAppMessageStatsListRelationFilter
     aiBotSessionBindings?: AIBotSessionBindingListRelationFilter
@@ -31371,6 +31401,8 @@ export namespace Prisma {
     s3SecretKey?: SortOrderInput | SortOrder
     token?: SortOrder
     webhook?: SortOrderInput | SortOrder
+    autoReadMessages?: SortOrder
+    typingIndicator?: SortOrder
     user?: UserOrderByWithRelationInput
     whatsAppMessageStats?: WhatsAppMessageStatsOrderByRelationAggregateInput
     aiBotSessionBindings?: AIBotSessionBindingOrderByRelationAggregateInput
@@ -31409,6 +31441,8 @@ export namespace Prisma {
     s3RetentionDays?: IntFilter<"WhatsAppSession"> | number
     s3SecretKey?: StringNullableFilter<"WhatsAppSession"> | string | null
     webhook?: StringNullableFilter<"WhatsAppSession"> | string | null
+    autoReadMessages?: BoolFilter<"WhatsAppSession"> | boolean
+    typingIndicator?: BoolFilter<"WhatsAppSession"> | boolean
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     whatsAppMessageStats?: WhatsAppMessageStatsListRelationFilter
     aiBotSessionBindings?: AIBotSessionBindingListRelationFilter
@@ -31444,6 +31478,8 @@ export namespace Prisma {
     s3SecretKey?: SortOrderInput | SortOrder
     token?: SortOrder
     webhook?: SortOrderInput | SortOrder
+    autoReadMessages?: SortOrder
+    typingIndicator?: SortOrder
     _count?: WhatsAppSessionCountOrderByAggregateInput
     _avg?: WhatsAppSessionAvgOrderByAggregateInput
     _max?: WhatsAppSessionMaxOrderByAggregateInput
@@ -31484,6 +31520,8 @@ export namespace Prisma {
     s3SecretKey?: StringNullableWithAggregatesFilter<"WhatsAppSession"> | string | null
     token?: StringWithAggregatesFilter<"WhatsAppSession"> | string
     webhook?: StringNullableWithAggregatesFilter<"WhatsAppSession"> | string | null
+    autoReadMessages?: BoolWithAggregatesFilter<"WhatsAppSession"> | boolean
+    typingIndicator?: BoolWithAggregatesFilter<"WhatsAppSession"> | boolean
   }
 
   export type TransactionWhereInput = {
@@ -33687,6 +33725,8 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     user?: UserCreateNestedOneWithoutWhatsAppSessionsInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutSessionInput
     aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutSessionInput
@@ -33722,6 +33762,8 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutSessionInput
     aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutSessionInput
   }
@@ -33755,6 +33797,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutWhatsAppSessionsNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutSessionNestedInput
     aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutSessionNestedInput
@@ -33790,6 +33834,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutSessionNestedInput
     aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutSessionNestedInput
   }
@@ -33824,6 +33870,8 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
   }
 
   export type WhatsAppSessionUpdateManyMutationInput = {
@@ -33855,6 +33903,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type WhatsAppSessionUncheckedUpdateManyInput = {
@@ -33887,6 +33937,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TransactionCreateInput = {
@@ -36439,6 +36491,8 @@ export namespace Prisma {
     s3SecretKey?: SortOrder
     token?: SortOrder
     webhook?: SortOrder
+    autoReadMessages?: SortOrder
+    typingIndicator?: SortOrder
   }
 
   export type WhatsAppSessionAvgOrderByAggregateInput = {
@@ -36476,6 +36530,8 @@ export namespace Prisma {
     s3SecretKey?: SortOrder
     token?: SortOrder
     webhook?: SortOrder
+    autoReadMessages?: SortOrder
+    typingIndicator?: SortOrder
   }
 
   export type WhatsAppSessionMinOrderByAggregateInput = {
@@ -36508,6 +36564,8 @@ export namespace Prisma {
     s3SecretKey?: SortOrder
     token?: SortOrder
     webhook?: SortOrder
+    autoReadMessages?: SortOrder
+    typingIndicator?: SortOrder
   }
 
   export type WhatsAppSessionSumOrderByAggregateInput = {
@@ -40253,6 +40311,8 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutSessionInput
     aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutSessionInput
   }
@@ -40286,6 +40346,8 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutSessionInput
     aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutSessionInput
   }
@@ -40790,6 +40852,8 @@ export namespace Prisma {
     s3SecretKey?: StringNullableFilter<"WhatsAppSession"> | string | null
     token?: StringFilter<"WhatsAppSession"> | string
     webhook?: StringNullableFilter<"WhatsAppSession"> | string | null
+    autoReadMessages?: BoolFilter<"WhatsAppSession"> | boolean
+    typingIndicator?: BoolFilter<"WhatsAppSession"> | boolean
   }
 
   export type WhatsAppMessageStatsUpsertWithWhereUniqueWithoutUserInput = {
@@ -44182,6 +44246,8 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     user?: UserCreateNestedOneWithoutWhatsAppSessionsInput
     aiBotSessionBindings?: AIBotSessionBindingCreateNestedManyWithoutSessionInput
   }
@@ -44216,6 +44282,8 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     aiBotSessionBindings?: AIBotSessionBindingUncheckedCreateNestedManyWithoutSessionInput
   }
 
@@ -44357,6 +44425,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutWhatsAppSessionsNestedInput
     aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutSessionNestedInput
   }
@@ -44391,6 +44461,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
     aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutSessionNestedInput
   }
 
@@ -45219,6 +45291,8 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     user?: UserCreateNestedOneWithoutWhatsAppSessionsInput
     whatsAppMessageStats?: WhatsAppMessageStatsCreateNestedManyWithoutSessionInput
   }
@@ -45253,6 +45327,8 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedCreateNestedManyWithoutSessionInput
   }
 
@@ -45429,6 +45505,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutWhatsAppSessionsNestedInput
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutSessionNestedInput
   }
@@ -45463,6 +45541,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutSessionNestedInput
   }
 
@@ -45726,6 +45806,8 @@ export namespace Prisma {
     s3SecretKey?: string | null
     token: string
     webhook?: string | null
+    autoReadMessages?: boolean
+    typingIndicator?: boolean
   }
 
   export type WhatsAppMessageStatsCreateManyUserInput = {
@@ -46147,6 +46229,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
     whatsAppMessageStats?: WhatsAppMessageStatsUpdateManyWithoutSessionNestedInput
     aiBotSessionBindings?: AIBotSessionBindingUpdateManyWithoutSessionNestedInput
   }
@@ -46180,6 +46264,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
     whatsAppMessageStats?: WhatsAppMessageStatsUncheckedUpdateManyWithoutSessionNestedInput
     aiBotSessionBindings?: AIBotSessionBindingUncheckedUpdateManyWithoutSessionNestedInput
   }
@@ -46213,6 +46299,8 @@ export namespace Prisma {
     s3SecretKey?: NullableStringFieldUpdateOperationsInput | string | null
     token?: StringFieldUpdateOperationsInput | string
     webhook?: NullableStringFieldUpdateOperationsInput | string | null
+    autoReadMessages?: BoolFieldUpdateOperationsInput | boolean
+    typingIndicator?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type WhatsAppMessageStatsUpdateWithoutUserInput = {

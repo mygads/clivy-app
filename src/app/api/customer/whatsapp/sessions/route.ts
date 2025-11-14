@@ -360,6 +360,8 @@ export async function GET(request: Request) {
           message: true,
           webhook: true,
           events: true,
+          autoReadMessages: true,
+          typingIndicator: true,
           createdAt: true,
           updatedAt: true,
           isSystemSession: true,
@@ -374,14 +376,42 @@ export async function GET(request: Request) {
           s3PublicUrl: true,
           s3MediaDelivery: true,
           s3RetentionDays: true,
+          aiBotSessionBindings: {
+            where: { isActive: true },
+            select: {
+              id: true,
+              botId: true,
+              isActive: true,
+              bot: {
+                select: {
+                  id: true,
+                  name: true,
+                  isActive: true,
+                }
+              }
+            }
+          }
         },
       }),
       prisma.whatsAppSession.count({ where: whereClause }),
     ]);
 
+    // Transform sessions to include hasActiveBot flag
+    const transformedSessions = sessions.map(session => ({
+      ...session,
+      hasActiveBot: session.aiBotSessionBindings && session.aiBotSessionBindings.length > 0,
+      aiBotInfo: session.aiBotSessionBindings?.[0] ? {
+        botId: session.aiBotSessionBindings[0].botId,
+        botName: session.aiBotSessionBindings[0].bot.name,
+        botActive: session.aiBotSessionBindings[0].bot.isActive,
+      } : null,
+      // Remove the bindings array from response
+      aiBotSessionBindings: undefined,
+    }));
+
     return withCORS(NextResponse.json({
       success: true,
-      data: sessions,
+      data: transformedSessions,
       pagination: {
         total,
         limit,
@@ -590,6 +620,8 @@ export async function POST(request: Request) {
         message: true,
         webhook: true,
         events: true,
+        autoReadMessages: true,
+        typingIndicator: true,
         createdAt: true,
         updatedAt: true,
         isSystemSession: true,

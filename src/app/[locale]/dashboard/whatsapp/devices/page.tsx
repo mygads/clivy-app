@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Switch } from '@/components/ui/switch';
 import {
   Table,
   TableBody,
@@ -113,6 +114,14 @@ interface WhatsAppSession {
   userId?: string;
   isSystemSession?: boolean;
   proxyEnabled?: boolean;
+  autoReadMessages?: boolean;
+  typingIndicator?: boolean;
+  hasActiveBot?: boolean;
+  aiBotInfo?: {
+    botId: string;
+    botName: string;
+    botActive: boolean;
+  } | null;
   proxyUrl?: string;
   s3Enabled?: boolean;
   s3Endpoint?: string;
@@ -280,6 +289,10 @@ export default function WhatsAppDevicesPage() {
   const [isQuotaExceeded, setIsQuotaExceeded] = useState(false); // Track if current sessions exceed max quota
   const [sessionsToDelete, setSessionsToDelete] = useState(0); // Number of sessions need to be deleted
   const [isSavingAdvanced, setIsSavingAdvanced] = useState(false);
+  
+  // Toggle states for session settings
+  const [togglingAutoRead, setTogglingAutoRead] = useState<{[key: string]: boolean}>({});
+  const [togglingTyping, setTogglingTyping] = useState<{[key: string]: boolean}>({});
   const [isDeletingProxy, setIsDeletingProxy] = useState(false);
   const [isDeletingWebhook, setIsDeletingWebhook] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -480,6 +493,120 @@ export default function WhatsAppDevicesPage() {
       setIsLoading(false);
     }
   }, [toast, setHasSubscription]);
+
+  // Toggle Auto-Read Messages
+  const handleToggleAutoRead = async (sessionId: string, currentValue: boolean) => {
+    if (!hasSubscription) {
+      toast({
+        title: 'Subscription Required',
+        description: 'Active WhatsApp subscription required to manage sessions',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    const newValue = !currentValue;
+
+    try {
+      setTogglingAutoRead(prev => ({ ...prev, [sessionId]: true }));
+      const token = SessionManager.getToken();
+
+      const response = await fetch('/api/customer/whatsapp/session', {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sessionId: sessionId,
+          autoReadMessages: newValue,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update auto-read setting');
+      }
+
+      toast({
+        title: 'Success',
+        description: `Auto-read messages ${newValue ? 'enabled' : 'disabled'}`,
+      });
+
+      // Update local state
+      setSessions(prev => prev.map(s => 
+        s.sessionId === sessionId 
+          ? { ...s, autoReadMessages: newValue }
+          : s
+      ));
+    } catch (error) {
+      console.error('Error toggling auto-read:', error);
+      toast({
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to update auto-read setting',
+        variant: 'destructive',
+      });
+    } finally {
+      setTogglingAutoRead(prev => ({ ...prev, [sessionId]: false }));
+    }
+  };
+
+  // Toggle Typing Indicator
+  const handleToggleTyping = async (sessionId: string, currentValue: boolean) => {
+    if (!hasSubscription) {
+      toast({
+        title: 'Subscription Required',
+        description: 'Active WhatsApp subscription required to manage sessions',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    const newValue = !currentValue;
+
+    try {
+      setTogglingTyping(prev => ({ ...prev, [sessionId]: true }));
+      const token = SessionManager.getToken();
+
+      const response = await fetch('/api/customer/whatsapp/session', {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sessionId: sessionId,
+          typingIndicator: newValue,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update typing indicator setting');
+      }
+
+      toast({
+        title: 'Success',
+        description: `Typing indicator ${newValue ? 'enabled' : 'disabled'}`,
+      });
+
+      // Update local state
+      setSessions(prev => prev.map(s => 
+        s.sessionId === sessionId 
+          ? { ...s, typingIndicator: newValue }
+          : s
+      ));
+    } catch (error) {
+      console.error('Error toggling typing indicator:', error);
+      toast({
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to update typing indicator setting',
+        variant: 'destructive',
+      });
+    } finally {
+      setTogglingTyping(prev => ({ ...prev, [sessionId]: false }));
+    }
+  };
 
   // Create new session
   const handleCreateSession = async () => {
@@ -2146,6 +2273,8 @@ export default function WhatsAppDevicesPage() {
                     <TableHead className="text-xs">Logged In</TableHead>
                     <TableHead className="text-xs">Webhook URL</TableHead>
                     <TableHead className="text-xs">Token</TableHead>
+                    <TableHead className="text-xs">Auto Read</TableHead>
+                    <TableHead className="text-xs">Typing</TableHead>
                     <TableHead className="text-right text-xs">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -2256,6 +2385,62 @@ export default function WhatsAppDevicesPage() {
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center">
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div className="flex items-center gap-2">
+                                  <Switch
+                                    checked={session.autoReadMessages || false}
+                                    onCheckedChange={() => handleToggleAutoRead(session.sessionId, session.autoReadMessages || false)}
+                                    disabled={session.hasActiveBot || togglingAutoRead[session.sessionId] || !hasSubscription || isQuotaExceeded}
+                                    className="h-5 w-9"
+                                  />
+                                  {togglingAutoRead[session.sessionId] && (
+                                    <RefreshCw className="h-3 w-3 animate-spin text-muted-foreground" />
+                                  )}
+                                </div>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                {session.hasActiveBot ? (
+                                  <p>Managed by AI Bot: {session.aiBotInfo?.botName || 'Unknown'} (always enabled)</p>
+                                ) : (
+                                  <p>{session.autoReadMessages ? 'Auto-read enabled' : 'Auto-read disabled'}</p>
+                                )}
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center">
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div className="flex items-center gap-2">
+                                  <Switch
+                                    checked={session.typingIndicator || false}
+                                    onCheckedChange={() => handleToggleTyping(session.sessionId, session.typingIndicator || false)}
+                                    disabled={session.hasActiveBot || togglingTyping[session.sessionId] || !hasSubscription || isQuotaExceeded}
+                                    className="h-5 w-9"
+                                  />
+                                  {togglingTyping[session.sessionId] && (
+                                    <RefreshCw className="h-3 w-3 animate-spin text-muted-foreground" />
+                                  )}
+                                </div>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                {session.hasActiveBot ? (
+                                  <p>Managed by AI Bot: {session.aiBotInfo?.botName || 'Unknown'} (always enabled)</p>
+                                ) : (
+                                  <p>{session.typingIndicator ? 'Typing indicator enabled' : 'Typing indicator disabled'}</p>
+                                )}
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-1">
@@ -2524,6 +2709,56 @@ export default function WhatsAppDevicesPage() {
                           <Lock className="h-3 w-3 mr-1" />
                           Show Token
                         </Button>
+
+                        {/* Auto Read Toggle */}
+                        <div className="flex items-center justify-between pt-1">
+                          <div className="flex items-center gap-2 flex-1">
+                            <div className="flex flex-col gap-0.5 flex-1">
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs font-medium">Auto Read Messages</span>
+                                {togglingAutoRead[session.sessionId] && (
+                                  <RefreshCw className="h-3 w-3 animate-spin text-muted-foreground" />
+                                )}
+                              </div>
+                              {session.hasActiveBot && (
+                                <span className="text-[10px] text-muted-foreground">
+                                  Managed by: {session.aiBotInfo?.botName || 'AI Bot'}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <Switch
+                            checked={session.autoReadMessages || false}
+                            onCheckedChange={() => handleToggleAutoRead(session.sessionId, session.autoReadMessages || false)}
+                            disabled={session.hasActiveBot || togglingAutoRead[session.sessionId] || !hasSubscription || isQuotaExceeded}
+                            className="h-5 w-9"
+                          />
+                        </div>
+
+                        {/* Typing Indicator Toggle */}
+                        <div className="flex items-center justify-between pt-1">
+                          <div className="flex items-center gap-2 flex-1">
+                            <div className="flex flex-col gap-0.5 flex-1">
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs font-medium">Typing Indicator</span>
+                                {togglingTyping[session.sessionId] && (
+                                  <RefreshCw className="h-3 w-3 animate-spin text-muted-foreground" />
+                                )}
+                              </div>
+                              {session.hasActiveBot && (
+                                <span className="text-[10px] text-muted-foreground">
+                                  Managed by: {session.aiBotInfo?.botName || 'AI Bot'}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <Switch
+                            checked={session.typingIndicator || false}
+                            onCheckedChange={() => handleToggleTyping(session.sessionId, session.typingIndicator || false)}
+                            disabled={session.hasActiveBot || togglingTyping[session.sessionId] || !hasSubscription || isQuotaExceeded}
+                            className="h-5 w-9"
+                          />
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
